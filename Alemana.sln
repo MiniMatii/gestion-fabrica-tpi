@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37301.10 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.Dominio", "Alemana.Dominio\Alemana.Dominio.csproj", "{F159AC56-C1C0-481F-88D3-C364233A3FA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.Infraestructura", "Alemana.Infraestructura\Alemana.Infraestructura.csproj", "{995D35AB-2692-4739-8D07-F99D7DADB521}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.Data", "Alemana.Data\Alemana.Data.csproj", "{174AA524-FFE4-4A2C-8D4B-D12B8A0BB766}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.DTOs", "Alemana.DTOs\Alemana.DTOs.csproj", "{C699DC9C-7EF4-4884-AD03-F0B2561E31D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.Aplicaciones.Servicios", "Alemana.Aplicaciones.Servicios\Alemana.Aplicaciones.Servicios.csproj", "{62A91E25-B3FD-4396-9E4E-D3364AB3563E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerWeb", "SwaggerWeb\SwaggerWeb.csproj", "{53D31EA0-1500-4121-8109-2035A5034780}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F159AC56-C1C0-481F-88D3-C364233A3FA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F159AC56-C1C0-481F-88D3-C364233A3FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F159AC56-C1C0-481F-88D3-C364233A3FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F159AC56-C1C0-481F-88D3-C364233A3FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{995D35AB-2692-4739-8D07-F99D7DADB521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{995D35AB-2692-4739-8D07-F99D7DADB521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{995D35AB-2692-4739-8D07-F99D7DADB521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{995D35AB-2692-4739-8D07-F99D7DADB521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{174AA524-FFE4-4A2C-8D4B-D12B8A0BB766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{174AA524-FFE4-4A2C-8D4B-D12B8A0BB766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{174AA524-FFE4-4A2C-8D4B-D12B8A0BB766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{174AA524-FFE4-4A2C-8D4B-D12B8A0BB766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C699DC9C-7EF4-4884-AD03-F0B2561E31D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C699DC9C-7EF4-4884-AD03-F0B2561E31D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C699DC9C-7EF4-4884-AD03-F0B2561E31D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C699DC9C-7EF4-4884-AD03-F0B2561E31D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62A91E25-B3FD-4396-9E4E-D3364AB3563E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62A91E25-B3FD-4396-9E4E-D3364AB3563E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62A91E25-B3FD-4396-9E4E-D3364AB3563E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62A91E25-B3FD-4396-9E4E-D3364AB3563E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53D31EA0-1500-4121-8109-2035A5034780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53D31EA0-1500-4121-8109-2035A5034780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53D31EA0-1500-4121-8109-2035A5034780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53D31EA0-1500-4121-8109-2035A5034780}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D891A30-9DED-4242-B872-281328F410DE}
+	EndGlobalSection
+EndGlobal
