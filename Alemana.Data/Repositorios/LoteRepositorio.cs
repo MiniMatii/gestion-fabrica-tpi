@@ -19,16 +19,16 @@ namespace Alemana.Data.Repositorios
         }
 
 
-        public async Task<bool> AgregarLote(Lote iLote) 
+        public async Task<Lote> AgregarLote(Lote iLote) 
         {
             if (iLote == null)
             {
-                return false;
+                return null;
             }
 
             await _DbA.Lotes.AddAsync(iLote);
             await _DbA.SaveChangesAsync();
-            return true;
+            return iLote;
         }
 
 

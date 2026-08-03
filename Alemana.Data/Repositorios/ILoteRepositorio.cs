@@ -9,7 +9,7 @@ namespace Alemana.Data.Repositorios
 {
     public interface ILoteRepositorio
     {
-        Task<bool> AgregarLote(Lote unLote);
+        Task<Lote> AgregarLote(Lote unLote);
         Task<bool> BajaLote(int id);
 
     }

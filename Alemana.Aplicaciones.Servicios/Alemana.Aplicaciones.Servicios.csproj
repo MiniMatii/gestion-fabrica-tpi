@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Alemana.Data\Alemana.Data.csproj" />
+    <ProjectReference Include="..\Alemana.DTOs\Alemana.DTOs.csproj" />
+  </ItemGroup>
+
 </Project>
