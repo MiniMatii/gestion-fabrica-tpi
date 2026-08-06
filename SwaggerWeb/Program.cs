@@ -18,7 +18,11 @@ builder.Services.AddDbContext<DbAlemanaContext>(options =>
 builder.Services.AddScoped<ILoteRepositorio, LoteRepositorio>();
 builder.Services.AddScoped<ILoteServicio, LoteServicio>();
 
+builder.Services.AddScoped<ICapacidadesRepositorio,CapacidadesRepositorio>();
+builder.Services.AddScoped<ICapacidadServicio, CapacidadServicio>();
 
+builder.Services.AddScoped<IOperarioRepositorio, OperarioRepositorio>();
+builder.Services.AddScoped<IOperarioServicios, OperariosServicio>();
 
 
 
@@ -28,7 +32,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 
-
+app.MapOperariosEndpoint();
 app.MapLoteEndpoint();
+app.MapCapacidadesEndpoint();
 
 app.Run();

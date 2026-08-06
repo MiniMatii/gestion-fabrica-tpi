@@ -4,17 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Alemana.DTOs;
 
-namespace Alemana.Data.Repositorios
+
+namespace Alemana.Aplicaciones.Servicios
 {
-    public interface ICapacidadesRepositorio
+    public interface ICapacidadServicio
     {
 
-        Task<Capacidad> AltaCapacidad(Capacidad unaCapa);
+        Task<CapacidadDTO> AltaCapacidad(CapacidadDTO unaCapa);
         Task<bool> BorrarCapacidad(int idCap);
-
-        
-
-
     }
 }

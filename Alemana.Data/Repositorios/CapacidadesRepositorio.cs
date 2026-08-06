@@ -18,17 +18,31 @@ namespace Alemana.Data.Repositorios
         }
 
 
-        public async Task<bool> AltaCapacidad(Capacidad unaCapa)
+        public async Task<Capacidad> AltaCapacidad(Capacidad unaCapa)
         {
             if (unaCapa == null)
             {
-                return false;
+                return null;
             }
 
             await _DbA.Capacidads.AddAsync(unaCapa);
             await _DbA.SaveChangesAsync();
-            return true;
-
+            return unaCapa;
         }
+
+        public async Task<bool> BorrarCapacidad(int idCap)
+        {
+            var capacidad = await _DbA.Capacidads.FindAsync(idCap);
+            if (capacidad == null)
+            {
+                return false;
+            }
+
+            _DbA.Capacidads.Remove(capacidad);
+            await _DbA.SaveChangesAsync();
+            return true;
+        }
+
+
     }
 }
