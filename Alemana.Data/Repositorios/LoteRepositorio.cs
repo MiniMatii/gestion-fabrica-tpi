@@ -32,22 +32,38 @@ namespace Alemana.Data.Repositorios
         }
 
 
-        public async Task<bool> BajaLote(int idLote) 
+        public async Task<Lote> BajaLote(int idLote) 
         {
            var loteE = await _DbA.Lotes.FindAsync(idLote);
 
             if (loteE == null) 
             {
-                return false;
+                return null;
             }
 
             loteE.EstadoLote = 0;
 
             await _DbA.SaveChangesAsync();
 
-            return true;
+            return loteE;
         }
 
+
+        public async Task<bool> EliminarLote(int id) 
+        {
+            var loteEliminado = await _DbA.Lotes.FirstOrDefaultAsync(l => l.IdLote == id);
+
+            if (loteEliminado != null) 
+            {
+
+                _DbA.Lotes.Remove(loteEliminado);
+                await _DbA.SaveChangesAsync();
+
+                return true;
+            }
+            return false;
+
+        }
 
     }
 }

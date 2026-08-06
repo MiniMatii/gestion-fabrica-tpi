@@ -41,10 +41,34 @@ namespace Alemana.Aplicaciones.Servicios
             return unLoteDTO;
         }
 
-        //public async Task<bool> BajaLote(int codLote) 
-        //{
-        //    return await true;
-        //}
+        public async Task<LoteDTO> BajaLote(int codLote) 
+        {
+            var loteE = await loteRepositorio.BajaLote(codLote);
 
+            if (loteE == null) 
+            {
+                return null;
+            }
+
+            var loteEDTO = new LoteDTO() ;
+            loteEDTO.IdLote = loteE.IdLote;
+            loteEDTO.IdProveedor = loteE.IdProveedor;
+            loteEDTO.IdMateriaP = loteE.IdMateriaP;
+            loteEDTO.EstadoLote = loteE.EstadoLote;
+
+            return loteEDTO;
+        }
+
+        public async Task<bool> EliminarLote(int codLote) 
+        {
+            var result = await loteRepositorio.EliminarLote(codLote);
+
+            if (result) 
+            {
+                return result;
+            }
+
+            return result;
+        }
     }
 }
