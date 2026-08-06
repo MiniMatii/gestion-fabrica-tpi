@@ -9,10 +9,12 @@ namespace Alemana.Data.Repositorios
 {
     public interface IOperarioRepositorio
     {
-        Task<bool> AltaOperario(Operario unOpe);
+        Task<Operario> AltaOperario(Operario unOpe);
         Task<bool> BajaOperario(int id);
-        Task<bool> AsignarCapacidad(int idOpe, int idCap);
+        Task<List<int>> AsignarCapacidad(int idOpe, List<int> idCap);
+        Task<Operario> ModificarOperario(int idOpe);
+        //Task<Operario> CambiarCapacidades(int idOperario);
 
-
+        Task GuardarCambios();
     }
 }

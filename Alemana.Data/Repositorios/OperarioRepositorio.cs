@@ -1,4 +1,5 @@
 ﻿using Alemana.Dominio.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,16 @@ namespace Alemana.Data.Repositorios
             this._DbA = DbA;
         }
 
-        public async Task<bool> AltaOperario(Operario iOp)
+        public async Task<Operario> AltaOperario(Operario unOperario)
         {
-            if (iOp == null)
+            if (unOperario == null)
             {
-                return false;
+                return null;
             }
 
-            await _DbA.Operarios.AddAsync(iOp);
+            await _DbA.Operarios.AddAsync(unOperario);
             await _DbA.SaveChangesAsync();
-            return true;
+            return unOperario;
         }
 
         public async Task<bool> BajaOperario(int idOpe)
@@ -44,30 +45,48 @@ namespace Alemana.Data.Repositorios
             return true;
         }
 
-        public async Task<bool> AsignarCapacidad(int idOperario, int idCapacidad) 
+        public async Task<List<int>> AsignarCapacidad(int idOperario, List<int> idCapacidad) 
         {
             var opE = await _DbA.Operarios.FindAsync(idOperario);
-            var capE = await _DbA.Capacidads.FindAsync(idCapacidad);
+            var capE = await _DbA.Capacidads.Where(c => idCapacidad.Contains(c.IdCap)).ToListAsync();
 
-            if (capE == null) 
+            if (capE == null || opE == null) 
             {
-                return false;
+                return null;
             }
 
-            if (opE == null) 
+            foreach (var cap in capE)
             {
-                return false;
+                if (!opE.IdCaps.Contains(cap) && (!cap.IdOperarios.Contains(opE)))
+                {
+                    opE.IdCaps.Add(cap);
+                    cap.IdOperarios.Add(opE);
+                }
             }
-
-            opE.IdCaps.Add(capE);
-            capE.IdOperarios.Add(opE);
-
+            
             await _DbA.SaveChangesAsync();
 
-            return true;
+            return capE.Select(c => c.IdCap).ToList();
+        }
+
+        public async Task<Operario> ModificarOperario(int idOp)
+        {
+            var opE = await _DbA.Operarios.FindAsync(idOp);
+            if (opE == null)
+            {
+                return null;
+            }
+
+
+            return opE;
+
         }
 
 
+        public async Task GuardarCambios() 
+        {
+            await _DbA.SaveChangesAsync();
+        }
 
     }
 }
