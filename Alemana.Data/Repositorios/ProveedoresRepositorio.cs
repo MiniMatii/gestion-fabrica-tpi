@@ -1,4 +1,5 @@
 ﻿using Alemana.Dominio.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,22 +18,33 @@ namespace Alemana.Data.Repositorios
         }
 
 
-        public async Task<bool> AgregarProveedor(Proveedore prov) 
+        public async Task<Proveedore> AgregarProveedor(Proveedore prov)
         {
             if (prov == null)
             {
-                return false;
+                return null;
             }
 
             await _DbA.Proveedores.AddAsync(prov);
             await _DbA.SaveChangesAsync();
 
-            return true;
+            return prov;
         }
 
+        public async Task<List<Proveedore>> ObtenerTodos()
+        {
+            return await _DbA.Set<Proveedore>().ToListAsync();
+        }
 
+        public async Task<Proveedore> ObtenerPorId(int id)
+        {
+            return await _DbA.Set<Proveedore>().FindAsync(id);
+        }
 
-
-
-    }
+        public async Task ModificarProveedor(Proveedore proveedor)
+        {
+            _DbA.Set<Proveedore>().Update(proveedor);
+            await _DbA.SaveChangesAsync();
+        }
+    } 
 }

@@ -9,10 +9,10 @@ namespace Alemana.Data.Repositorios
 {
     public interface IProveedoresRepositorio
     {
-        Task<bool> AgregarProveedor(Proveedore unProveedor);
-        //Task<bool> BajaProveedor(int id);
-
-
+        Task<Proveedore> AgregarProveedor(Proveedore unProveedor);
+        Task<List<Proveedore>> ObtenerTodos();
+        Task<Proveedore> ObtenerPorId(int id);
+        Task ModificarProveedor(Proveedore proveedor);
 
     }
 }
