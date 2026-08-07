@@ -21,6 +21,11 @@ builder.Services.AddScoped<ILoteServicio, LoteServicio>();
 builder.Services.AddScoped<IProveedoresRepositorio, ProveedoresRepositorio>();
 builder.Services.AddScoped<IProveedorServicio, ProveedorServicio>();
 
+builder.Services.AddScoped<ICapacidadesRepositorio,CapacidadesRepositorio>();
+builder.Services.AddScoped<ICapacidadServicio, CapacidadServicio>();
+
+builder.Services.AddScoped<IOperarioRepositorio, OperarioRepositorio>();
+builder.Services.AddScoped<IOperarioServicios, OperariosServicio>();
 
 builder.Services.AddScoped<IMateriapRepositorio, MateriapRepositorio>();
 builder.Services.AddScoped<IMateriapServicio, MateriapServicio>();
@@ -31,9 +36,10 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 
-
+app.MapOperariosEndpoint();
 app.MapLoteEndpoint();
 app.MapProveedorEndpoint();
 app.MapMateriapEndpoint();
+app.MapCapacidadesEndpoint();
 
 app.Run();
