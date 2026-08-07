@@ -25,6 +25,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Alta Lote")
+            .WithTags("Lotes")
             .Produces<LoteDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -44,6 +45,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Modificar Estado Lote")
+            .WithTags("Lotes")
             .Produces<LoteDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -64,6 +66,7 @@ namespace SwaggerWeb
                 return Results.NoContent();
             })
             .WithName("Borrar Lote")
+            .WithTags("Lotes")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();

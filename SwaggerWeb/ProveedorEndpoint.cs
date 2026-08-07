@@ -22,6 +22,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Alta Proveedor")
+            .WithTags("Proveedores")
             .Produces<ProveedorDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -38,6 +39,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Obtener Proveedores")
+            .WithTags("Proveedores")
             .Produces<List<ProveedorDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
 
@@ -59,6 +61,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Obtener Proveedor Por Id")
+            .WithTags("Proveedores")
             .Produces<ProveedorDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
@@ -84,6 +87,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Modificar Proveedor")
+            .WithTags("Proveedores")
             .Produces<ProveedorDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
