@@ -93,6 +93,27 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
+
+            app.MapDelete("/operario/{idOperario}/capacidad/{idCapacidad}", async (int idOperario, int idCapacidad, IOperarioServicios operarioServicios) =>
+            {
+                try
+                {
+                    OperariosDTO operarioDto = await operarioServicios.EliminarCapacidadOperario(idOperario, idCapacidad);
+                    if (operarioDto == null)
+                    {
+                        return Results.NotFound();
+                    }
+                    return Results.Ok(operarioDto);
+                }
+                catch (ArgumentException ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            }).WithName("Eliminar Capacidad de Operario")
+            .Produces<OperariosDTO>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .Produces(StatusCodes.Status400BadRequest)
+            .WithOpenApi();
         }
 
 

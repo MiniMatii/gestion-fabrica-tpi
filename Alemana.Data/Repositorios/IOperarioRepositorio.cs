@@ -23,5 +23,6 @@ namespace Alemana.Data.Repositorios
         Task<Operario> ObtenerOperarioPorId(int idOperario);
         Task GuardarCambios();
         Task<bool> EliminarOperario(int idOperario);
+        Task<Operario> EliminarCapacidadOperario(int idOperario, int idCapacidad);
     }
 }

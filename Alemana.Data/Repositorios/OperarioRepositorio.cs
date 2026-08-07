@@ -78,6 +78,18 @@ namespace Alemana.Data.Repositorios
 
             return capE.Select(c => c.IdCap).ToList();
         }
+        public async Task<Operario> EliminarCapacidadOperario(int idOperario, int idCapacidad) 
+        {
+            var opE = await _DbA.Operarios.Include(o => o.IdCaps).FirstOrDefaultAsync(o => o.IdOperario == idOperario);
+            var capE = await _DbA.Capacidads.FindAsync(idCapacidad);
+            if(capE == null || opE == null) 
+            {
+                return null;
+            }
+            opE.IdCaps.Remove(capE);
+            await _DbA.SaveChangesAsync();
+            return opE;
+        }
 
         public async Task<Operario> ModificarOperario(Operario unOperario)
         {

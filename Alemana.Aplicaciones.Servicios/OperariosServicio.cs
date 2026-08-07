@@ -152,6 +152,27 @@ namespace Alemana.Aplicaciones.Servicios
             return await operarioRepositorio.EliminarOperario(idOperario);
         }
 
-
+        public async Task<OperariosDTO> EliminarCapacidadOperario(int idOperario, int idCapacidad)
+        {
+            var opE = await operarioRepositorio.ObtenerOperarioPorId(idOperario);
+            if (opE == null)
+            {
+                return null;
+            }
+            var opActualizado = await operarioRepositorio.EliminarCapacidadOperario(idOperario, idCapacidad);
+            return new OperariosDTO
+            {
+                IdOperario = opActualizado.IdOperario,
+                Nombre = opActualizado.Nombre,
+                Apellido = opActualizado.Apellido,
+                Disponibilidad = opActualizado.Disponibilidad,
+                IdCaps = opActualizado.IdCaps.Select(c => new CapacidadDTO
+                {
+                    IdCap = c.IdCap,
+                    NomCapacidad = c.NomCapacidad,
+                    DescCapacidad = c.DescCapacidad
+                }).ToList()
+            };
+        }
     }
 }
