@@ -12,8 +12,11 @@ namespace Alemana.Aplicaciones.Servicios
     {
         Task<OperariosDTO> AltaOperario(OperariosDTO unOperario);
         Task<bool> BajaOperario(int idOperario);
-        Task<OperariosDTO> ModificarOperario(int idOperario);
+        Task<bool> ModificarOperario(OperariosDTO unOperario);
         Task<OperariosDTO> AsignarCapacidad(int idOperario, List<int> caps);
-        
+        Task<IEnumerable<OperariosDTO>> ObtenerTodos();
+        Task<List<CapacidadDTO>> EncontrarCapacidades(List<int> idCapacidades);
+        Task<bool> EliminarOperario(int idOperario);
+
     }
 }

@@ -41,24 +41,58 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapPut("/operario/{idOperario}", async (int idOperario, IOperarioServicios operarioServicios) => 
+            app.MapPut("/operario/{idOperario}", async (OperariosDTO dto, IOperarioServicios operarioServicios) => 
             {
-                try 
-                { 
-                    OperariosDTO operarioDto = await operarioServicios.ModificarOperario(idOperario);
-                    return Results.Ok(operarioDto);
-                } 
-                catch (ArgumentException ex) 
+                try
+                {
+                    var rta = await operarioServicios.ModificarOperario(dto);
+
+                    if (!rta)
+                    {
+                        return Results.NotFound();
+                    }
+
+                    return Results.NoContent();
+                }
+                catch (ArgumentException ex)
                 {
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Modificar Operario")
-            .Produces<OperariosDTO>(StatusCodes.Status202Accepted)
+            .Produces<OperariosDTO>(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
 
+            app.MapGet("/operarios/", async (IOperarioServicios operarioServicios)  =>
+            {
+                var resultado = await operarioServicios.ObtenerTodos();
+                return Results.Ok(resultado);
+            }).WithName("Obtener Todos los Operarios")
+            .Produces<IEnumerable<OperariosDTO>>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .WithOpenApi();
 
+
+            app.MapDelete("/operario/{idOperario}", async (int idOperario, IOperarioServicios operarioServicios) =>
+            {
+                try
+                {
+                    var rta = await operarioServicios.EliminarOperario(idOperario);
+                    if (!rta)
+                    {
+                        return Results.NotFound();
+                    }
+                    return Results.NoContent();
+                }
+                catch (ArgumentException ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            }).WithName("Eliminar Operario")
+            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithOpenApi();
         }
 
 

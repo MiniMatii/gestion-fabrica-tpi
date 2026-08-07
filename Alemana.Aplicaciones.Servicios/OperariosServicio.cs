@@ -4,6 +4,8 @@ using Alemana.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,54 +22,76 @@ namespace Alemana.Aplicaciones.Servicios
         }
 
 
-        public async Task<OperariosDTO> AltaOperario(OperariosDTO unOperario) 
+        public async Task<OperariosDTO> AltaOperario(OperariosDTO unOperario)
         {
+
+
             var operario = new Operario();
             operario.Nombre = unOperario.Nombre;
             operario.Apellido = unOperario.Apellido;
             operario.Disponibilidad = unOperario.Disponibilidad;
-            
-            await operarioRepositorio.AltaOperario(operario);
 
-            unOperario.IdOperario = operario.IdOperario;
+            var idsResultantes = new List<int>();
+            idsResultantes = unOperario.IdCaps.Select(dto => dto.IdCap).ToList();
+
+            operario.IdCaps = await operarioRepositorio.EncontrarCapacidades(idsResultantes);
+
+
+            await operarioRepositorio.AltaOperario(operario);
+            // PENDIENTE PODER DAR DE ALTA Y AGREGAR CAPACIDADES AL OPERARIO EN LA MISMA TRANSACCION
+            //unOperario.IdOperario = operario.IdOperario; 
+            //var caps = await AsignarCapacidad(operario.IdOperario, unOperario.IdCaps);
 
             return unOperario;
 
 
 
         }
-        public async Task<bool> BajaOperario(int idOperario) 
+        public async Task<bool> BajaOperario(int idOperario)
         {
             return await operarioRepositorio.BajaOperario(idOperario);
 
 
         }
-        public async Task<OperariosDTO> ModificarOperario(int idOperario)
+        public async Task<bool> ModificarOperario(OperariosDTO unOperario)
         {
-            var opE = await operarioRepositorio.ModificarOperario(idOperario);
+            var opEncontrado = await operarioRepositorio.ObtenerOperarioPorId(unOperario.IdOperario);
 
-            if (opE == null)
+            if (opEncontrado == null)
             {
-                return null;
+                return false;
             }
 
-            return new OperariosDTO
+            var ope = new Operario
             {
-                IdOperario = opE.IdOperario,
-                Nombre = opE.Nombre,
-                Apellido = opE.Apellido,
-                Disponibilidad = opE.Disponibilidad,
-                IdCaps = opE.IdCaps.Select(c => new CapacidadDTO
+                IdOperario = unOperario.IdOperario,
+                Nombre = unOperario.Nombre,
+                Apellido = unOperario.Apellido,
+                Disponibilidad = unOperario.Disponibilidad,
+                IdCaps = await operarioRepositorio.EncontrarCapacidades(opEncontrado.IdCaps.Select(c => c.IdCap).ToList())
+            };
+            await operarioRepositorio.ModificarOperario(ope);
+
+            return true;
+        }
+        public async Task<List<CapacidadDTO>> EncontrarCapacidades(List<int> idCaps)
+        {
+            var resultado = await operarioRepositorio.EncontrarCapacidades(idCaps);
+
+            var resultadoDTO = resultado
+                .Select(c => new CapacidadDTO
                 {
                     IdCap = c.IdCap,
                     DescCapacidad = c.DescCapacidad,
                     NomCapacidad = c.NomCapacidad
-                }).ToList()
-            };
+                })
+                .ToList();
+
+            return resultadoDTO;
         }
-        public async Task<OperariosDTO> AsignarCapacidad(int idOperario, List<int> caps) 
+        public async Task<OperariosDTO> AsignarCapacidad(int idOperario, List<int> caps)
         {
-            var opE = await operarioRepositorio.ModificarOperario(idOperario);
+            var opE = await operarioRepositorio.ObtenerOperarioPorId(idOperario);
 
             if (opE == null)
             {
@@ -85,11 +109,47 @@ namespace Alemana.Aplicaciones.Servicios
                 IdCaps = opE.IdCaps.Select(c => new CapacidadDTO
                 {
                     IdCap = c.IdCap,
-                    DescCapacidad = c.DescCapacidad,
-                    NomCapacidad = c.NomCapacidad
+                    NomCapacidad = c.NomCapacidad,
+                    DescCapacidad = c.DescCapacidad
                 }).ToList()
             };
 
+        }
+        public async Task<IEnumerable<OperariosDTO>> ObtenerTodos()
+        {
+            var operarios = await operarioRepositorio.ObtenerTodos();
+
+            var lista = new List<OperariosDTO>();
+
+            foreach (var op in operarios)
+            {
+                var caps = await operarioRepositorio.ObtenerCapacidadesAsignadas(op.IdOperario);
+
+                lista.Add(new OperariosDTO
+                {
+                    IdOperario = op.IdOperario,
+                    Nombre = op.Nombre,
+                    Apellido = op.Apellido,
+                    Disponibilidad = op.Disponibilidad,
+                    IdCaps = caps.Select(c => new CapacidadDTO
+                    {
+                        IdCap = c.IdCap,
+                        NomCapacidad = c.NomCapacidad,
+                        DescCapacidad = c.DescCapacidad
+                    }).ToList()
+                });
+            }
+
+            return lista;
+        }
+        public async Task<bool> EliminarOperario(int idOperario) 
+        {
+            var opEncontrado = await operarioRepositorio.ObtenerOperarioPorId(idOperario);
+            if (opEncontrado == null)
+            {
+                return false;
+            }
+            return await operarioRepositorio.EliminarOperario(idOperario);
         }
 
 
