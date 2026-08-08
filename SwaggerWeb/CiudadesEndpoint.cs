@@ -30,32 +30,6 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapPut("/ciudad/{codPostal}/sucursales",async (int codPostal, List<int> idSucursales, ICiudadServicio ciudadServicio) =>
-            {
-                try
-                {
-                    var ciudad = await ciudadServicio.AgregarSucursal(
-                        codPostal,
-                        idSucursales
-                    );
-
-                    if (ciudad is null)
-                    {
-                        return Results.NotFound();
-                    }
-
-                    return Results.Ok(ciudad);
-                }
-                catch (Exception ex)
-                {
-                    return Results.BadRequest(ex.Message);
-                }
-            }).WithName("Agregar Sucursales")
-        .Produces<CiudadesDTO>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status400BadRequest)
-        .Produces(StatusCodes.Status404NotFound)
-        .WithOpenApi();
-
 
         }
     }

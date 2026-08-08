@@ -22,37 +22,11 @@ namespace Alemana.Aplicaciones.Servicios
             var nCiudad = new Ciudade();
             nCiudad.NombreCiudad = nuevaCiudad.NombreCiudad;
             nCiudad.CodPostal = nuevaCiudad.CodPostal;
-            //las sucursales se cargan ni bien se da de alta una ciudad? En der minimo 1 sucursal
 
             await ciudadRepositorio.AltaCiudad(nCiudad);
             return nuevaCiudad;
         }
 
-        public async Task<CiudadesDTO> AgregarSucursal(int idC, List<int> idS)
-        {
-            var ciudad = await ciudadRepositorio.GetCiudad(idC);
-
-            if(ciudad is null)
-            {
-                return null;
-            }
-
-            var lasSuc = await ciudadRepositorio.AgregarSucursal(idC, idS);
-
-            return new CiudadesDTO
-            {
-                NombreCiudad = ciudad.NombreCiudad,
-                CodPostal= ciudad.CodPostal,
-                Sucursales = lasSuc.Select(s => new SucursalesDTO
-                {
-                    IdSucursal = s.IdSucursal,
-                    NombreSuc = s.NombreSuc,
-                    CodPostal = s.CodPostal
-
-                }).ToList()
-
-            };
-        }
 
     }
 }

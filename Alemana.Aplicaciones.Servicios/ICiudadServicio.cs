@@ -11,6 +11,6 @@ namespace Alemana.Aplicaciones.Servicios
     public interface ICiudadServicio
     {
         Task<CiudadesDTO> AltaCiudad(CiudadesDTO nuevaCiudad);
-        Task<CiudadesDTO> AgregarSucursal(int idCiudad, List<int> idSucursal); //creería que devuelve el objeto ciudadesdto
+        //Task<CiudadesDTO> AgregarSucursal(int idCiudad, List<int> idSucursal); //creería que devuelve el objeto ciudadesdto
     }
 }

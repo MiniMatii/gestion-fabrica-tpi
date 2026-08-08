@@ -15,13 +15,13 @@ namespace Alemana.Aplicaciones.Servicios
             _recetaRepositorio = recetaRepositorio; 
         }
 
-        public async Task<RecetaProductoDTO?> AltaReceta(RecetaProductoDTO dto)
-        {
-            var producto = await _productoRepositorio  //tendría que poner un repo de producto(?
-                .GetProducto(dto.Producto.IdProducto);  //tengo que definir el getProducto en el repo de producto
+        //public async Task<RecetaProductoDTO?> AltaReceta(RecetaProductoDTO dto)
+        //{
+        //    var producto = await _productoRepositorio  //tendría que poner un repo de producto(?
+        //        .GetProducto(dto.Producto.IdProducto);  //tengo que definir el getProducto en el repo de producto
 
-            //me mareé con la coleccíón de MateriapRecetum, no sé qué debería entrar desde el endpoint. Solo el dto de receta?
-            }
-        }
+        //    //me mareé con la coleccíón de MateriapRecetum, no sé qué debería entrar desde el endpoint. Solo el dto de receta?
+        //    }
+        //}
     }
 }

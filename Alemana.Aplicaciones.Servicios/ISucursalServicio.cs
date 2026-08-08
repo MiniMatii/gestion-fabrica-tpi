@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Alemana.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Alemana.DTOs;
 
 namespace Alemana.Aplicaciones.Servicios
 {
-    public interface IRecetaProductoServicio
+    public interface ISucursalServicio
     {
-        //Task<RecetaProductoDTO> AltaReceta(RecetaProductoDTO nuevaRdto);
+
+        Task<SucursalesDTO> AgregarUnaSucursal(SucursalesDTO dto);
+
     }
 }

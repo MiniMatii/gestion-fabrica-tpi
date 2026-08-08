@@ -27,7 +27,8 @@ builder.Services.AddScoped<IOperarioServicios, OperariosServicio>();
 builder.Services.AddScoped<ICiudadServicio, CiudadServicio>();
 builder.Services.AddScoped<ICiudadesRespositorio, CiudadesRepositorio>();
 
-
+builder.Services.AddScoped<ISucursalServicio, SucursalServicio>();
+builder.Services.AddScoped<ISucursalRepositorio, SucursalRepositorio>();
 
 var app = builder.Build();
 
@@ -39,5 +40,6 @@ app.MapOperariosEndpoint();
 app.MapLoteEndpoint();
 app.MapCapacidadesEndpoint();
 app.MapCiudadesEndpoint();
+app.MapSucursalesEndpoint();
 
 app.Run();
