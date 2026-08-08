@@ -24,6 +24,9 @@ builder.Services.AddScoped<ICapacidadServicio, CapacidadServicio>();
 builder.Services.AddScoped<IOperarioRepositorio, OperarioRepositorio>();
 builder.Services.AddScoped<IOperarioServicios, OperariosServicio>();
 
+builder.Services.AddScoped<ICiudadServicio, CiudadServicio>();
+builder.Services.AddScoped<ICiudadesRespositorio, CiudadesRepositorio>();
+
 
 
 var app = builder.Build();
@@ -35,5 +38,6 @@ app.UseSwaggerUI();
 app.MapOperariosEndpoint();
 app.MapLoteEndpoint();
 app.MapCapacidadesEndpoint();
+app.MapCiudadesEndpoint();
 
 app.Run();
