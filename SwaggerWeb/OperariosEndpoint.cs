@@ -21,6 +21,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Alta Operario")
+            .WithTags("Operario")
             .Produces<OperariosDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -37,6 +38,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Asignar Capacidad")
+            .WithTags("Operario")
             .Produces<OperariosDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -59,6 +61,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Modificar Operario")
+            .WithTags("Operario")
             .Produces<OperariosDTO>(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -69,6 +72,7 @@ namespace SwaggerWeb
                 var resultado = await operarioServicios.ObtenerTodos();
                 return Results.Ok(resultado);
             }).WithName("Obtener Todos los Operarios")
+            .WithTags("Operario")
             .Produces<IEnumerable<OperariosDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -90,6 +94,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Eliminar Operario")
+            .WithTags("Operario")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
@@ -110,6 +115,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Eliminar Capacidad de Operario")
+            .WithTags("Operario")
             .Produces<OperariosDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)

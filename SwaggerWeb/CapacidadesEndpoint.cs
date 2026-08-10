@@ -21,6 +21,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Alta Capacidad")
+            .WithTags("Capacidades")
             .Produces<CapacidadDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -38,6 +39,7 @@ namespace SwaggerWeb
                 }
             }
             ).WithName("Borrar Capacidad")
+            .WithTags("Capacidades")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
