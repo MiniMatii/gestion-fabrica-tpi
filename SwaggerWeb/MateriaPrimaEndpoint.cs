@@ -20,7 +20,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Alta Materia Prima")
-            .WithTags("Materias Primas")
+            .WithTags("Materia Prima")
             .Produces<MateriaPrimaDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -37,7 +37,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Obtener Materias Primas")
-            .WithTags("Materias Primas")
+            .WithTags("Materia Prima")
             .Produces<List<MateriaPrimaDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
 
@@ -60,7 +60,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Obtener Materia Prima Por Id")
-            .WithTags("Materias Primas")
+            .WithTags("Materia Prima")
             .Produces<MateriaPrimaDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
@@ -86,7 +86,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Modificar Materia Prima")
-            .WithTags("Materias Primas")
+            .WithTags("Materia Prima")
             .Produces<MateriaPrimaDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
