@@ -13,13 +13,16 @@ public partial class Empleado
 
     public string Dni { get; set; } = null!;
 
-    public int IdSucursal { get; set; }
+    //public int IdSucursal { get; set; }
 
     public int? IdJefe { get; set; }
+    public sbyte Disponibilidad { get; set; }
+
+    public string? Motivo { get; set; }
 
     public virtual Empleado? IdJefeNavigation { get; set; }
 
-    public virtual Sucursale IdSucursalNavigation { get; set; } = null!;
+    //public virtual Sucursale IdSucursalNavigation { get; set; } = null!;
 
     public virtual ICollection<Empleado> InverseIdJefeNavigation { get; set; } = new List<Empleado>();
 
