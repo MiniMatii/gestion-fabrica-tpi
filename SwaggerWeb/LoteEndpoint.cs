@@ -51,9 +51,6 @@ namespace SwaggerWeb
             .WithOpenApi();
 
 
-
-
-
             app.MapDelete("/lotes/{id}", async (int codLote, ILoteServicio loteServicio) =>
             {
                 var eliminado = await loteServicio.EliminarLote(codLote);
