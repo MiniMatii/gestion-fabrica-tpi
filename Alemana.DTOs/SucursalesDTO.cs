@@ -15,9 +15,7 @@ namespace Alemana.DTOs
 
             public int CodPostal { get; set; }
 
-           // public virtual CiudadesDTO CodPostalNavigation { get; set; } = null!;
-
-            //public virtual ICollection<Empleado> Empleados { get; set; } = new List<Empleado>();
+            public virtual ICollection<EmpleadoDTO> Empleados { get; set; } = new List<EmpleadoDTO>();
         }
     
 }

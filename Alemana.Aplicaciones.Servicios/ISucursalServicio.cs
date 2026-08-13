@@ -12,5 +12,11 @@ namespace Alemana.Aplicaciones.Servicios
 
         Task<SucursalesDTO> AgregarUnaSucursal(SucursalesDTO dto);
 
+        Task<bool> ModificarSucursal(SucursalesDTO dto);
+
+        Task<IEnumerable<SucursalesDTO>> ObtenerTodos();
+
+        Task<SucursalesDTO> AgregarEmpleados(int idS,  List<int> idE);
+
     }
 }

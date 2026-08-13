@@ -18,58 +18,61 @@ namespace Alemana.Data.Repositorios
             _DbA = dbA;
         }
 
-            public async Task<Recetaproducto> AltaReceta(Recetaproducto nuevaR)
-            {
-            if (nuevaR is null)
-            {
-                return null;
-            }  
-               await _DbA.Recetaproductos.AddAsync(nuevaR);
-
-                await _DbA.SaveChangesAsync();
-
-                return nuevaR;
-            }
-
-            public async Task<Recetaproducto> ModificarReceta(Recetaproducto recetaM)
-            { 
-            if (recetaM is null)
+        public async Task AltaReceta(Recetaproducto nuevaR) //sino task<Recetaproducto>
+        {
+           /* if (nuevaR is null)
             {
                 return null;
-            }
-
-            var recetaExistente = await _DbA.Recetaproductos
-                .FindAsync(recetaM.IdReceta);
-
-            if (recetaExistente is null)
-            {
-                return null;
-            }
-
-            recetaExistente.Descripcion = recetaM.Descripcion;
+            }*/
+            await _DbA.Recetaproductos.AddAsync(nuevaR);
 
             await _DbA.SaveChangesAsync();
 
-            return recetaExistente;
+           // return nuevaR;
+        }
+
+        public async Task<Recetaproducto> ModificarReceta(Recetaproducto recetaM) //atributos simples
+        {
+            var recetaExistente = await _DbA.Recetaproductos.FindAsync(recetaM.IdReceta);
+
+            if (recetaExistente != null)
+            {
+                recetaExistente.Descripcion = recetaM.Descripcion;
+
+                await _DbA.SaveChangesAsync();
             }
 
+            return recetaExistente;
+        }
+
         public async Task<bool> EliminarReceta(int idR)
-            {
-                var receta = await _DbA.Recetaproductos.FindAsync(idR);
+        {
+            var receta = await _DbA.Recetaproductos.FindAsync(idR);
 
             if (receta == null)
             {
                 return false;
             }
 
-                _DbA.Recetaproductos.Remove(receta);
+            _DbA.Recetaproductos.Remove(receta);
 
-                await _DbA.SaveChangesAsync();
+            await _DbA.SaveChangesAsync();
 
-                return true;
-            }
+            return true;
+        }
+       
+        public async Task<Recetaproducto?> GetRecetaproducto(int idReceta)
+        {
+            var rExistente = await _DbA.Recetaproductos.FindAsync(idReceta);
+            return rExistente;
+        }
+
+        public async Task AgregarMateriaPrima(Recetaproducto recetaM) //<Recetaproducto>
+        {
+            _DbA.Update(recetaM);
+            await _DbA.SaveChangesAsync();
+        }
+
+
     }
-
-
-   
 }

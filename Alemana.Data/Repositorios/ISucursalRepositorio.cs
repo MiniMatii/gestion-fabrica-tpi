@@ -10,6 +10,13 @@ namespace Alemana.Data.Repositorios
     public interface ISucursalRepositorio
     {
 
-        Task<Sucursale> AgregarUnaSucursal(Sucursale dto);
+        Task<Sucursale> AgregarUnaSucursal(Sucursale sucursal);
+        Task<bool> ModificarSucursal(Sucursale sucursal);
+
+        Task <IEnumerable<Sucursale>> ObtenerTodos();
+
+        Task<Sucursale> AgregarEmpleados(int idS, List<int> idE);
+
+        //listar los empleados de una sucursal?
     }
 }

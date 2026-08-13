@@ -34,6 +34,48 @@ namespace Alemana.Aplicaciones.Servicios
             return dto;
         }
 
+        public async Task<bool> ModificarSucursal(SucursalesDTO dto)
+        {
+            if (dto is null)
+            {
+                throw new ArgumentNullException(nameof(dto));
+            }
+            var S = new Sucursale {NombreSuc = dto.NombreSuc,CodPostal = dto.CodPostal};
+            return await sucursalRepositorio.ModificarSucursal(S);
+        }
 
+        public async Task<IEnumerable<SucursalesDTO>> ObtenerTodos()
+        {
+            var sucursales= await sucursalRepositorio.ObtenerTodos();
+            return sucursales.Select(s => new SucursalesDTO
+            {   
+                IdSucursal= s.IdSucursal,
+                NombreSuc= s.NombreSuc,
+                CodPostal= s.CodPostal
+            }).ToList();
+        }
+    
+        public async Task<SucursalesDTO> AgregarEmpleados(int idS, List<int> idE)
+        {
+            //si vuelve null del repo es pq no lo encontró
+            var sucuActualizada = await sucursalRepositorio.AgregarEmpleados(idS, idE);
+            if (sucuActualizada is not null)
+            {
+            
+                return new SucursalesDTO
+                {
+                    IdSucursal = sucuActualizada.IdSucursal,
+                    NombreSuc = sucuActualizada.NombreSuc,
+                    CodPostal = sucuActualizada.CodPostal,
+                    Empleados = sucuActualizada.Empleados.Select(e => new EmpleadoDTO 
+                    { IdEmpleado = e.IdEmpleado, 
+                      Nombre= e.Nombre,
+                      Apellido = e.Apellido   //no le paso todos los datos de empleado
+                    }).ToList()
+                };
+
+            }
+            return null;
+        }
     }
 }

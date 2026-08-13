@@ -29,7 +29,7 @@ namespace Alemana.Data.Repositorios
             return nuevaciudad;
         }
 
-        public async Task<List<Sucursale>> AgregarSucursal(int idCiudad, List<int> idSucursal)
+       /* public async Task<List<Sucursale>> AgregarSucursal(int idCiudad, List<int> idSucursal)
         {
             var laCiudad = await _DbA.Ciudades.FindAsync(idCiudad);
             var sucursales = await _DbA.Sucursales.Where(s => idSucursal.Contains(s.IdSucursal)).ToListAsync();
@@ -50,10 +50,10 @@ namespace Alemana.Data.Repositorios
 
             return sucursales;
             //return sucursales.Select(s => s.IdSucursal).ToList(); no entendí por qué acá no pasamos la lista de sucursales directamente
-        }
+        }*/
 
 
-        public async Task<Ciudade> GetCiudad(int idC)
+        public async Task<Ciudade> BuscarCiudad(int idC)
         {
             var laC = await _DbA.Ciudades.FindAsync(idC);
 
@@ -65,5 +65,9 @@ namespace Alemana.Data.Repositorios
 
         }
 
+        public async Task<List<Ciudade>> BuscarTodas()
+        {
+            return _DbA.Ciudades.ToList();
+        }
     }
 }

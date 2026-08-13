@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace Alemana.Data.Repositorios
 {
-    public interface ICiudadesRespositorio
+    public interface IProductoRepositorio
     {
-        Task<Ciudade> AltaCiudad(Ciudade unaCiudad);
-        Task<Ciudade> BuscarCiudad(int idC);
-
-        Task<List<Ciudade>> BuscarTodas();
-      
+        Task<Producto?> GetProducto(int idP);
     }
 }

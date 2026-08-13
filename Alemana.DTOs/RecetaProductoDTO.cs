@@ -14,6 +14,6 @@ namespace Alemana.DTOs
 
         public virtual ICollection<MateriapRecetaDTO> MateriapReceta { get; set; } = new List<MateriapRecetaDTO>(); //tengo dudas sobre esto
          
-        public virtual ProductoDTO? Producto { get; set; }
+       
     }
 }

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Alemana.DTOs
 {
-    public class MateriapRecetaDTO
+    public class MateriapDTO
     {
         public int IdMateriaP { get; set; }
-        public decimal CantidadNecesaria { get; set; }
 
-        
+        public string Nombre { get; set; } = null!;
+
+        public string Unidad { get; set; } = null!;
     }
 }

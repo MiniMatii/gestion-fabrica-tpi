@@ -1,6 +1,7 @@
 ﻿using Alemana.DTOs;
 using Alemana.Aplicaciones.Servicios;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Components;
 
 namespace SwaggerWeb
 {
@@ -8,7 +9,7 @@ namespace SwaggerWeb
     {
         public static void MapCiudadesEndpoint(this WebApplication app)
         {
-            app.MapPost("/ciudad", async (
+            app.MapPost("/ciudades", async (
                 CiudadesDTO dto,
                 ICiudadServicio ciudadServicio) =>
             {
@@ -17,7 +18,7 @@ namespace SwaggerWeb
                     var ciudad = await ciudadServicio.AltaCiudad(dto);
 
                     return Results.Created(
-                        $"/ciudad/{ciudad.CodPostal}",
+                        $"/ciudades/{ciudad.CodPostal}",
                         ciudad
                     );
                 }
@@ -30,7 +31,35 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
+            app.MapGet("/ciudades/{id}", async (int id, ICiudadServicio ciudadServicio) =>
+            {
+                try
+                {
+                    var laC = await ciudadServicio.BuscarCiudad(id);
+                    if(laC is not null)
+                    {
+                        return Results.Ok(laC);
+                    }
+                    return Results.NotFound();
+                }
+                catch(ArgumentException ex) 
+                {
+                    return Results.BadRequest(new {error= ex.Message});
+                }
+            }).WithName("Buscar Ciudad")
+            .Produces<CiudadesDTO>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .Produces(StatusCodes.Status400BadRequest)
+            .WithOpenApi();
 
+            app.MapGet("/ciudades", async (ICiudadServicio ciudadServicio) =>
+            {
+                var lasc = await ciudadServicio.BuscarTodas();
+                return Results.Ok(lasc);
+            }
+            ).WithName("Buscar todas las ciudades")
+            .Produces<List<CiudadesDTO>>(StatusCodes.Status200OK)
+            .WithOpenApi();
         }
     }
 }

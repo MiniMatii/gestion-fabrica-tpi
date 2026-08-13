@@ -9,10 +9,13 @@ namespace Alemana.Data.Repositorios
 {
     public interface IRecetaProductoRepositorio
     {
-        Task<Recetaproducto> AltaReceta(Recetaproducto nuevaR);
+        Task AltaReceta(Recetaproducto nuevaR); //creo que no debería devolver nada
         Task<Recetaproducto> ModificarReceta(Recetaproducto recetaM);
         Task<bool> EliminarReceta(int idRecta);
-        
-        //Task<> AgregarMateriaPrima();
+
+    
+        Task<Recetaproducto?> GetRecetaproducto(int idReceta);
+
+        Task AgregarMateriaPrima(Recetaproducto recetaM); //<Recetaproducto>
     }
 }

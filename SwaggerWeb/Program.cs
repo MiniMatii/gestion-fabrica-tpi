@@ -30,6 +30,9 @@ builder.Services.AddScoped<ICiudadesRespositorio, CiudadesRepositorio>();
 builder.Services.AddScoped<ISucursalServicio, SucursalServicio>();
 builder.Services.AddScoped<ISucursalRepositorio, SucursalRepositorio>();
 
+builder.Services.AddScoped<IRecetaProductoServicio, RecetaProductoServicio>();
+builder.Services.AddScoped<IRecetaProductoRepositorio, RecetaProductoRepositorio>();
+
 var app = builder.Build();
 
 app.UseSwagger(); 
@@ -41,5 +44,6 @@ app.MapLoteEndpoint();
 app.MapCapacidadesEndpoint();
 app.MapCiudadesEndpoint();
 app.MapSucursalesEndpoint();
+app.MapRecetaProductoEndpoint();
 
 app.Run();
