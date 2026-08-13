@@ -31,7 +31,8 @@ namespace Alemana.Aplicaciones.Servicios
                 Motivo = null
             };
 
-            await empRepositorio.AgregarEmpleado(nEmpleado);
+            await empRepositorio.AltaEmpleado(nEmpleado);
+
             unEmpDTO.IdEmpleado = nEmpleado.IdEmpleado;
             unEmpDTO.Disponibilidad = 1;
 
@@ -83,33 +84,44 @@ namespace Alemana.Aplicaciones.Servicios
                 throw new ArgumentException("El empleado que intenta modificar no existe.");
             }
 
-            empExistente.Nombre = unEmpDTO.Nombre;
-            empExistente.Apellido = unEmpDTO.Apellido;
-            empExistente.Dni = unEmpDTO.Dni;
-            empExistente.IdSucursal = unEmpDTO.IdSucursal;
-            empExistente.IdJefe = unEmpDTO.IdJefe;    
-
-            await empRepositorio.ModificarEmpleado(empExistente);
-
-            return unEmpDTO;
-        }
-
-        public async Task<EmpleadoDTO> BajaEmpleado(EmpleadoDTO unEmpDTO)
-        {
-            var empExistente = await empRepositorio.ObtenerPorId(unEmpDTO.IdEmpleado);
-
-            if (empExistente == null)
+            if (!string.IsNullOrWhiteSpace(unEmpDTO.Nombre) && unEmpDTO.Nombre != "string")
             {
-                throw new ArgumentException("El empleado que intenta dar de baja no existe.");
+                empExistente.Nombre = unEmpDTO.Nombre;
             }
 
-            empExistente.Disponibilidad = 0;
-            empExistente.Motivo = unEmpDTO.Motivo;
+            if (!string.IsNullOrWhiteSpace(unEmpDTO.Apellido) && unEmpDTO.Apellido != "string")
+            {
+                empExistente.Apellido = unEmpDTO.Apellido;
+            }
+
+            if (!string.IsNullOrWhiteSpace(unEmpDTO.Dni) && unEmpDTO.Dni != "string")
+            {
+                empExistente.Dni = unEmpDTO.Dni;
+            }
+
+            if (unEmpDTO.IdSucursal > 0)
+            {
+                empExistente.IdSucursal = unEmpDTO.IdSucursal;
+            }
+
+            if (unEmpDTO.IdJefe != 0)
+            {
+                empExistente.IdJefe = unEmpDTO.IdJefe;
+            }
 
             await empRepositorio.ModificarEmpleado(empExistente);
 
-            unEmpDTO.Disponibilidad = 0;
             return unEmpDTO;
         }
+
+        public async Task<bool> BajaEmpleado(EmpleadoDTO unEmpDTO)
+        {
+            if (string.IsNullOrWhiteSpace(unEmpDTO.Motivo) || unEmpDTO.Motivo == "string")
+            {
+                throw new ArgumentException("El motivo de la baja es obligatorio.");
+            }
+
+            return await empRepositorio.BajaEmpleado(unEmpDTO.IdEmpleado, unEmpDTO.Motivo);
+        }
     }
-}
+    }

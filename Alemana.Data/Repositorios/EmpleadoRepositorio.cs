@@ -16,10 +16,16 @@ namespace Alemana.Data.Repositorios
             this._DbA = DbA;
         }
 
-        public async Task AgregarEmpleado(Empleado empleado)
+        public async Task<Empleado> AltaEmpleado(Empleado empleado)
         {
+            if (empleado == null)
+            {
+                return null;
+            }
+
             await _DbA.Set<Empleado>().AddAsync(empleado);
             await _DbA.SaveChangesAsync();
+            return empleado;
         }
 
         public async Task<List<Empleado>> ObtenerTodos()
@@ -29,13 +35,35 @@ namespace Alemana.Data.Repositorios
 
         public async Task<Empleado> ObtenerPorId(int id)
         {
-            return await _DbA.Set<Empleado>().FindAsync(id);
+            var empE = await _DbA.Set<Empleado>().FindAsync(id);
+            if (empE == null)
+            {
+                return null;
+            }
+            return empE;
         }
 
-        public async Task ModificarEmpleado(Empleado empleado)
+        public async Task<Empleado> ModificarEmpleado(Empleado empleado)
         {
             _DbA.Set<Empleado>().Update(empleado);
             await _DbA.SaveChangesAsync();
+            return empleado;
+        }
+        public async Task<bool> BajaEmpleado(int idEmpleado, string motivo)
+        {
+            var empE = await _DbA.Set<Empleado>().FindAsync(idEmpleado);
+
+            if (empE == null)
+            {
+                return false;
+            }
+
+            empE.Disponibilidad = 0;
+            empE.Motivo = motivo;
+
+            await _DbA.SaveChangesAsync();
+
+            return true;
         }
     }
 }

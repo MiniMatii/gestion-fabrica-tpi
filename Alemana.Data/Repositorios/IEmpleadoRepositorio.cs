@@ -6,9 +6,10 @@ namespace Alemana.Data.Repositorios
 {
     public interface IEmpleadoRepositorio
     {
-        Task AgregarEmpleado(Empleado empleado);
+        Task<Empleado> AltaEmpleado(Empleado empleado);
         Task<List<Empleado>> ObtenerTodos();
         Task<Empleado> ObtenerPorId(int id);
-        Task ModificarEmpleado(Empleado empleado);
+        Task<Empleado> ModificarEmpleado(Empleado empleado);
+        Task<bool> BajaEmpleado(int idEmpleado, string motivo);
     }
 }

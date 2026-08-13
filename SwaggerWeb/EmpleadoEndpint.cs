@@ -58,17 +58,13 @@ namespace SwaggerWeb
 
             app.MapPut("/empleado/baja/{id}", async (int id, EmpleadoDTO dto, IEmpleadoServicio empleadoServicio) =>
             {
-                try
-                {
-                    if (id != dto.IdEmpleado) return Results.BadRequest(new { error = "El ID no coincide." });
+                if (id != dto.IdEmpleado) return Results.BadRequest(new { error = "El ID no coincide." });
 
-                    EmpleadoDTO empBaja = await empleadoServicio.BajaEmpleado(dto);
-                    return Results.Ok(empBaja);
-                }
-                catch (ArgumentException ex)
-                {
-                    return Results.NotFound(new { error = ex.Message });
-                }
+                bool dadoDeBaja = await empleadoServicio.BajaEmpleado(dto);
+
+                if (!dadoDeBaja) return Results.NotFound(new { error = "Empleado no encontrado." });
+
+                return Results.Ok(new { mensaje = "Empleado dado de baja exitosamente." });
             }).WithName("Dar de Baja Empleado").WithTags("Empleados").WithOpenApi();
         }
     }

@@ -10,6 +10,6 @@ namespace Alemana.Aplicaciones.Servicios
         Task<List<EmpleadoDTO>> ObtenerTodos();
         Task<EmpleadoDTO> ObtenerPorId(int id);
         Task<EmpleadoDTO> ModificarEmpleado(EmpleadoDTO unEmpDTO);
-        Task<EmpleadoDTO> BajaEmpleado(EmpleadoDTO unEmpDTO);
+        Task<bool> BajaEmpleado(EmpleadoDTO unEmpDTO);
     }
 }
