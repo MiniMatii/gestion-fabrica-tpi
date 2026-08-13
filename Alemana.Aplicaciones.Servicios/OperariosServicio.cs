@@ -38,9 +38,7 @@ namespace Alemana.Aplicaciones.Servicios
 
 
             await operarioRepositorio.AltaOperario(operario);
-            // PENDIENTE PODER DAR DE ALTA Y AGREGAR CAPACIDADES AL OPERARIO EN LA MISMA TRANSACCION
-            //unOperario.IdOperario = operario.IdOperario; 
-            //var caps = await AsignarCapacidad(operario.IdOperario, unOperario.IdCaps);
+
 
             return unOperario;
 
@@ -123,6 +121,7 @@ namespace Alemana.Aplicaciones.Servicios
 
             foreach (var op in operarios)
             {
+                //Obs traerlo todo desde el repo
                 var caps = await operarioRepositorio.ObtenerCapacidadesAsignadas(op.IdOperario);
 
                 lista.Add(new OperariosDTO

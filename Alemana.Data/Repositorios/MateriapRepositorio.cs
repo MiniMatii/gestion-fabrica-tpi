@@ -34,6 +34,7 @@ namespace Alemana.Data.Repositorios
         {
             return await _DbA.Set<Materiap>().FindAsync(id);
         }
+
         public async Task ModificarMateriaPrima(Materiap materiaPrima)
         {
             _DbA.Set<Materiap>().Update(materiaPrima);
