@@ -30,6 +30,9 @@ builder.Services.AddScoped<IOperarioServicios, OperariosServicio>();
 builder.Services.AddScoped<IMateriapRepositorio, MateriapRepositorio>();
 builder.Services.AddScoped<IMateriapServicio, MateriapServicio>();
 
+builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
+builder.Services.AddScoped<IProductoServicio, ProductoServicio>();
+
 var app = builder.Build();
 
 app.UseSwagger(); 
@@ -41,5 +44,5 @@ app.MapLoteEndpoint();
 app.MapProveedorEndpoint();
 app.MapMateriapEndpoint();
 app.MapCapacidadesEndpoint();
-
+app.MapProductoEndpoint();
 app.Run();
