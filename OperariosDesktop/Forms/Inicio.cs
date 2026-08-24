@@ -15,7 +15,13 @@ namespace OperariosDesktop.Forms
     {
         public Inicio()
         {
+    
             InitializeComponent();
+        }
+
+        private void Inicio_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
