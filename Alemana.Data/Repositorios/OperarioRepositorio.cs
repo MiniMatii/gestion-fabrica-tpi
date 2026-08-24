@@ -71,6 +71,7 @@ namespace Alemana.Data.Repositorios
                 {
                     opE.IdCaps.Add(cap);
                     cap.IdOperarios.Add(opE);
+                    
                 }
             }
             

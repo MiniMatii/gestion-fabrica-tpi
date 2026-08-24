@@ -30,7 +30,10 @@ namespace Alemana.Data.Repositorios
 
         public async Task<List<Empleado>> ObtenerTodos()
         {
-            return await _DbA.Set<Empleado>().Where(e => e.Disponibilidad == 1).ToListAsync();
+
+
+            return await _DbA.Empleados.Where(e => e.Disponibilidad == true).ToListAsync();
+            //return await _DbA.Set<Empleado>().Where(e => e.Disponibilidad == 1).ToListAsync();
         }
 
         public async Task<Empleado> ObtenerPorId(int id)
@@ -58,7 +61,7 @@ namespace Alemana.Data.Repositorios
                 return false;
             }
 
-            empE.Disponibilidad = 0;
+            empE.Disponibilidad = !(empE.Disponibilidad);
             empE.Motivo = motivo;
 
             await _DbA.SaveChangesAsync();

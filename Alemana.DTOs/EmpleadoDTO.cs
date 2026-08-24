@@ -16,11 +16,11 @@ namespace Alemana.DTOs
 
         public string Dni { get; set; } = null!;
 
-        //public int IdSucursal { get; set; }
+        public int IdSucursal { get; set; }
 
         public int? IdJefe { get; set; }
 
-        public sbyte Disponibilidad { get; set; }
+        public bool Disponibilidad { get; set; }
 
         public string? Motivo { get; set; }
     }

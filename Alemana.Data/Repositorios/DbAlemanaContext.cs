@@ -173,7 +173,7 @@ public partial class DbAlemanaContext : DbContext
 
             entity.HasIndex(e => e.IdJefe, "idJefe");
 
-            //entity.HasIndex(e => e.IdSucursal, "idSucursal");
+            entity.HasIndex(e => e.IdSucursal, "idSucursal");
 
             entity.Property(e => e.IdEmpleado).HasColumnName("idEmpleado");
             entity.Property(e => e.Apellido)
@@ -183,7 +183,7 @@ public partial class DbAlemanaContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("dni");
             entity.Property(e => e.IdJefe).HasColumnName("idJefe");
-            //entity.Property(e => e.IdSucursal).HasColumnName("idSucursal");
+            entity.Property(e => e.IdSucursal).HasColumnName("idSucursal");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(100)
                 .HasColumnName("nombre");
@@ -192,10 +192,10 @@ public partial class DbAlemanaContext : DbContext
                 .HasForeignKey(d => d.IdJefe)
                 .HasConstraintName("empleados_ibfk_2");
 
-            //entity.HasOne(d => d.IdSucursalNavigation).WithMany(p => p.Empleados)
-            //    .HasForeignKey(d => d.IdSucursal)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("empleados_ibfk_1");
+            entity.HasOne(d => d.IdSucursalNavigation).WithMany(p => p.Empleados)
+               .HasForeignKey(d => d.IdSucursal)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("empleados_ibfk_1");
         });
 
         modelBuilder.Entity<Lote>(entity =>

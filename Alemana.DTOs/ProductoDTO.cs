@@ -20,6 +20,7 @@ namespace Alemana.DTOs
         public int IdReceta { get; set; }
 
         public int StockActual { get; set; }
+        //faltan las colecciones que no sé si van 
 
     }
 }

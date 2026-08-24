@@ -56,15 +56,15 @@ namespace SwaggerWeb
                 }
             }).WithName("Modificar Empleado").WithTags("Empleados").WithOpenApi();
 
-            app.MapPut("/empleado/baja/{id}", async (int id, EmpleadoDTO dto, IEmpleadoServicio empleadoServicio) =>
+            app.MapPut("/empleado/baja/{id}", async (EmpleadoDTO dto, IEmpleadoServicio empleadoServicio) =>
             {
-                if (id != dto.IdEmpleado) return Results.BadRequest(new { error = "El ID no coincide." });
+                //if (id != dto.IdEmpleado) return Results.BadRequest(new { error = "El ID no coincide." });
 
                 bool dadoDeBaja = await empleadoServicio.BajaEmpleado(dto);
 
                 if (!dadoDeBaja) return Results.NotFound(new { error = "Empleado no encontrado." });
-
-                return Results.Ok(new { mensaje = "Empleado dado de baja exitosamente." });
+                // { (dto.Disponibilidad != true ? "Baja" : "Alta") }
+                return Results.Ok(new { mensaje = $"Empleado actualizado exitosamente." });
             }).WithName("Dar de Baja Empleado").WithTags("Empleados").WithOpenApi();
         }
     }
