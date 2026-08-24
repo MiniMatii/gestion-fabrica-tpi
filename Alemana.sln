@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.Aplicaciones.Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerWeb", "SwaggerWeb\SwaggerWeb.csproj", "{53D31EA0-1500-4121-8109-2035A5034780}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OperariosDesktop", "OperariosDesktop\OperariosDesktop.csproj", "{C6CBCA36-7EAC-4E54-AA59-BB903C2CDD94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuDesk", "MenuDesk\MenuDesk.csproj", "{68E36CA4-08EA-47DA-9325-4ADFF212A78E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{53D31EA0-1500-4121-8109-2035A5034780}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53D31EA0-1500-4121-8109-2035A5034780}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53D31EA0-1500-4121-8109-2035A5034780}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6CBCA36-7EAC-4E54-AA59-BB903C2CDD94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6CBCA36-7EAC-4E54-AA59-BB903C2CDD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6CBCA36-7EAC-4E54-AA59-BB903C2CDD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6CBCA36-7EAC-4E54-AA59-BB903C2CDD94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68E36CA4-08EA-47DA-9325-4ADFF212A78E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E36CA4-08EA-47DA-9325-4ADFF212A78E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E36CA4-08EA-47DA-9325-4ADFF212A78E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E36CA4-08EA-47DA-9325-4ADFF212A78E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
