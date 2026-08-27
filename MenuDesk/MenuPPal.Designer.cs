@@ -28,137 +28,97 @@
         /// </summary>
         private void InitializeComponent()
         {
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            ktPanel1 = new KimTools.WinForms.KtPanel();
-            botonSolicitudes = new KimTools.WinForms.KtButton();
-            ktPanel2 = new KimTools.WinForms.KtPanel();
-            ktPictureBox1 = new KimTools.WinForms.KtPictureBox();
-            ktButton1 = new KimTools.WinForms.KtButton();
-            ktPanel1.SuspendLayout();
-            ktPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ktPictureBox1).BeginInit();
+            panel1 = new Panel();
+            button1 = new Button();
+            botonSolicitudes = new Button();
+            panel2 = new Panel();
+            pictureBox1 = new PictureBox();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // ktPanel1
+            // panel1
             // 
-            ktPanel1.Background = new KimTools.WinForms.KtBrushSolid(KimTools.WinForms.KtColor.BASE_2);
-            ktPanel1.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
-            ktPanel1.BorderRadius = 24F;
-            ktPanel1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            ktPanel1.BorderWidth = 1.5F;
-            ktPanel1.Controls.Add(ktButton1);
-            ktPanel1.Controls.Add(botonSolicitudes);
-            ktPanel1.Controls.Add(ktPanel2);
-            ktPanel1.Dock = DockStyle.Left;
-            ktPanel1.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel1.Location = new Point(0, 0);
-            ktPanel1.Name = "ktPanel1";
-            ktPanel1.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel1.Size = new Size(360, 450);
-            ktPanel1.TabIndex = 0;
+            panel1.BackColor = Color.FromArgb(45, 45, 48);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(botonSolicitudes);
+            panel1.Controls.Add(panel2);
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(360, 450);
+            panel1.TabIndex = 0;
             // 
             // botonSolicitudes
             // 
-            botonSolicitudes.BackColor = Color.Transparent;
-            botonSolicitudes.Background = (KimTools.WinForms.KtBrushSolid)KimTools.WinForms.KtBrush.Solid;
-            botonSolicitudes.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            botonSolicitudes.BorderMargin = new Padding(0);
-            botonSolicitudes.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            botonSolicitudes.BorderWidth = 2F;
-            botonSolicitudes.Cursor = Cursors.Default;
             botonSolicitudes.Dock = DockStyle.Top;
+            botonSolicitudes.FlatStyle = FlatStyle.Flat;
             botonSolicitudes.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            botonSolicitudes.ForeColor = Color.FromArgb(255, 255, 255);
-            botonSolicitudes.Foreground = KimTools.WinForms.KtColor.Empty;
-            botonSolicitudes.Icon = "";
-            botonSolicitudes.IconColor = KimTools.WinForms.KtColor.Empty;
-            botonSolicitudes.IconSize = 16;
-            botonSolicitudes.IconStroke = 2.5D;
+            botonSolicitudes.ForeColor = Color.White;
             botonSolicitudes.Location = new Point(0, 141);
             botonSolicitudes.Name = "botonSolicitudes";
-            botonSolicitudes.Padding = new Padding(8, 0, 8, 0);
-            botonSolicitudes.Pattern.Style = KimTools.WinForms.KtPatternStyle.Default;
             botonSolicitudes.Size = new Size(360, 60);
             botonSolicitudes.TabIndex = 1;
             botonSolicitudes.Text = "Solicitudes";
-            botonSolicitudes.UseVisualStyleBackColor = false;
+            botonSolicitudes.UseVisualStyleBackColor = true;
+            botonSolicitudes.Click += botonSolicitudes_Click;
             // 
-            // ktPanel2
+            // button1
             // 
-            ktPanel2.Background = new KimTools.WinForms.KtBrushSolid(KimTools.WinForms.KtColor.BASE_2);
-            ktPanel2.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
-            ktPanel2.BorderRadius = 24F;
-            ktPanel2.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            ktPanel2.BorderWidth = 1.5F;
-            ktPanel2.Controls.Add(ktPictureBox1);
-            ktPanel2.Dock = DockStyle.Top;
-            ktPanel2.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel2.Location = new Point(0, 0);
-            ktPanel2.Name = "ktPanel2";
-            ktPanel2.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel2.Size = new Size(360, 141);
-            ktPanel2.TabIndex = 0;
+            button1.Dock = DockStyle.Top;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(0, 201);
+            button1.Name = "button1";
+            button1.Size = new Size(360, 60);
+            button1.TabIndex = 2;
+            button1.Text = "OperariosPage";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
-            // ktPictureBox1
+            // panel2
             // 
-            ktPictureBox1.BackColor = Color.Transparent;
-            ktPictureBox1.Image = Properties.Resources.AlemanaLogo_SF;
-            ktPictureBox1.ImageBrush = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            ktPictureBox1.Location = new Point(0, 0);
-            ktPictureBox1.Name = "ktPictureBox1";
-            ktPictureBox1.Size = new Size(360, 142);
-            ktPictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            ktPictureBox1.TabIndex = 0;
-            ktPictureBox1.TabStop = false;
+            panel2.Controls.Add(pictureBox1);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(360, 141);
+            panel2.TabIndex = 0;
             // 
-            // ktButton1
+            // pictureBox1
             // 
-            ktButton1.BackColor = Color.Transparent;
-            ktButton1.Background = (KimTools.WinForms.KtBrushSolid)KimTools.WinForms.KtBrush.Solid;
-            ktButton1.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            ktButton1.BorderMargin = new Padding(0);
-            ktButton1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            ktButton1.BorderWidth = 2F;
-            ktButton1.Cursor = Cursors.Default;
-            ktButton1.Dock = DockStyle.Top;
-            ktButton1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ktButton1.ForeColor = Color.FromArgb(255, 255, 255);
-            ktButton1.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktButton1.Icon = "";
-            ktButton1.IconColor = KimTools.WinForms.KtColor.Empty;
-            ktButton1.IconSize = 16;
-            ktButton1.IconStroke = 2.5D;
-            ktButton1.Location = new Point(0, 201);
-            ktButton1.Name = "ktButton1";
-            ktButton1.Padding = new Padding(8, 0, 8, 0);
-            ktButton1.Pattern.Style = KimTools.WinForms.KtPatternStyle.Default;
-            ktButton1.Size = new Size(360, 60);
-            ktButton1.TabIndex = 2;
-            ktButton1.Text = "Solicitudes";
-            ktButton1.UseVisualStyleBackColor = false;
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = Properties.Resources.AlemanaLogo_SF;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // MenuPPal
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(ktPanel1);
-            ForeColor = Color.FromArgb(255, 255, 255);
+            Controls.Add(panel1);
             Name = "MenuPPal";
-            Text = "Form1";
+            Text = "Menú Principal";
             Load += Form1_Load;
-            ktPanel1.ResumeLayout(false);
-            ktPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)ktPictureBox1).EndInit();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
+
         }
 
         #endregion
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private KimTools.WinForms.KtPanel ktPanel1;
-        private KimTools.WinForms.KtPanel ktPanel2;
-        private KimTools.WinForms.KtPictureBox ktPictureBox1;
-        private KimTools.WinForms.KtButton botonSolicitudes;
-        private KimTools.WinForms.KtButton ktButton1;
+
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button botonSolicitudes;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
