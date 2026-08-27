@@ -42,12 +42,14 @@ namespace MenuDesk
             voidPanel.Visible = !(voidPanel.Visible);
             navLotes.Visible = !(navLotes.Visible);
             panelLotes.Visible = !(panelLotes.Visible);
+
         }
 
         private async void altaLote_Click(object sender, EventArgs e)
         {
-            await CargarDatosEnGrillaAsync();
+            
             ktPages1.SelectedTab = tabPage1;
+            await CargarDatosEnGrillaAsync();
         }
 
         private void ktLabel2_Click(object sender, EventArgs e)
@@ -59,18 +61,15 @@ namespace MenuDesk
         {
             try
             {
-                // El endpoint específico de tu backend (se concatena con tu BaseAddress)
-                string endpoint = "api/lotes";
+                string endpoint = "proveedores";
 
-                // Llamas a tu método genérico. La <T> se reemplaza por <SolicitudDto>
-                var listaDatos = await _apiClient.ObtenerListaAsync<LoteDTO>(endpoint);
+                var listaDatos = await _apiClient.ObtenerListaAsync<ProveedorDTO>(endpoint);
 
                 if (listaDatos != null)
                 {
-                    // Enlazas directamente la lista al KtTable
+
                     ktTablaLotes.DataSource = listaDatos;
 
-                    // Formateas los encabezados (opcional)
                     ktTablaLotes.Columns["IdProveedor"].Visible = false;
                     ktTablaLotes.Columns["razonSocial"].HeaderText = "RazonSocial";
                     ktTablaLotes.Columns["Cuit"].HeaderText = "CUIT";

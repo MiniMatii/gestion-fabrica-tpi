@@ -53,14 +53,14 @@
             altaLoteSubPage = new KimTools.WinForms.KtPanel();
             ktPanel20 = new KimTools.WinForms.KtPanel();
             ktPanel21 = new KimTools.WinForms.KtPanel();
-            ktTextBox5 = new KimTools.WinForms.KtTextBox();
+            cantidadMateriaPrima = new KimTools.WinForms.KtTextBox();
             ktPanel22 = new KimTools.WinForms.KtPanel();
             ktPanel23 = new KimTools.WinForms.KtPanel();
             ktLabel5 = new KimTools.WinForms.KtLabel();
             ktDivider5 = new KimTools.WinForms.KtDivider();
             ktPanel16 = new KimTools.WinForms.KtPanel();
             ktPanel17 = new KimTools.WinForms.KtPanel();
-            ktTextBox4 = new KimTools.WinForms.KtTextBox();
+            materiaPrima = new KimTools.WinForms.KtTextBox();
             ktPanel18 = new KimTools.WinForms.KtPanel();
             ktPanel19 = new KimTools.WinForms.KtPanel();
             ktLabel4 = new KimTools.WinForms.KtLabel();
@@ -68,21 +68,25 @@
             ktPanel12 = new KimTools.WinForms.KtPanel();
             ktPanel13 = new KimTools.WinForms.KtPanel();
             ktTablaLotes = new KimTools.WinForms.KtTable();
+            IdProveedor = new DataGridViewTextBoxColumn();
+            razonSocial = new DataGridViewTextBoxColumn();
+            cuit = new DataGridViewTextBoxColumn();
+            nombre = new DataGridViewTextBoxColumn();
             ktPanel14 = new KimTools.WinForms.KtPanel();
             ktPanel15 = new KimTools.WinForms.KtPanel();
             ktLabel3 = new KimTools.WinForms.KtLabel();
             ktDivider3 = new KimTools.WinForms.KtDivider();
             ktPanel6 = new KimTools.WinForms.KtPanel();
             ktPanel7 = new KimTools.WinForms.KtPanel();
-            ktTextBox2 = new KimTools.WinForms.KtTextBox();
+            fechaVencimiento = new KimTools.WinForms.KtTextBox();
             ktPanel8 = new KimTools.WinForms.KtPanel();
             ktPanel9 = new KimTools.WinForms.KtPanel();
             ktLabel2 = new KimTools.WinForms.KtLabel();
             ktDivider2 = new KimTools.WinForms.KtDivider();
             ContenedorPanel = new KimTools.WinForms.KtPanel();
             ktPanel5 = new KimTools.WinForms.KtPanel();
-            ktPanel24 = new KimTools.WinForms.KtPanel();
-            ktDate1 = new KimTools.WinForms.KtDate();
+            fechaIng = new KimTools.WinForms.KtPanel();
+            fechaIngreso = new KimTools.WinForms.KtDate();
             ktPanel10 = new KimTools.WinForms.KtPanel();
             ktPanel11 = new KimTools.WinForms.KtPanel();
             ktLabel1 = new KimTools.WinForms.KtLabel();
@@ -116,7 +120,7 @@
             ktPanel9.SuspendLayout();
             ContenedorPanel.SuspendLayout();
             ktPanel5.SuspendLayout();
-            ktPanel24.SuspendLayout();
+            fechaIng.SuspendLayout();
             ktPanel10.SuspendLayout();
             ktPanel11.SuspendLayout();
             SuspendLayout();
@@ -273,6 +277,7 @@
             LotesPage.Text = "LOTES";
             LotesPage.UseVisualStyleBackColor = false;
             LotesPage.CheckedChanged += LotesPage_CheckedChanged;
+            LotesPage.Click += altaLote_Click;
             // 
             // OperariosPage
             // 
@@ -675,7 +680,6 @@
             tabPage1.Size = new Size(796, 907);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
-            tabPage1.Click += altaLote_Click;
             // 
             // altaLoteSubPage
             // 
@@ -735,7 +739,7 @@
             ktPanel21.BorderRadius = 80F;
             ktPanel21.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             ktPanel21.BorderWidth = 1.5F;
-            ktPanel21.Controls.Add(ktTextBox5);
+            ktPanel21.Controls.Add(cantidadMateriaPrima);
             ktPanel21.Dock = DockStyle.Fill;
             ktPanel21.Foreground = KimTools.WinForms.KtColor.Empty;
             ktPanel21.Location = new Point(0, 55);
@@ -744,44 +748,44 @@
             ktPanel21.Size = new Size(750, 85);
             ktPanel21.TabIndex = 1;
             // 
-            // ktTextBox5
+            // cantidadMateriaPrima
             // 
-            ktTextBox5.AcceptsReturn = false;
-            ktTextBox5.AcceptsTab = false;
-            ktTextBox5.AnimationSpeed = 200;
-            ktTextBox5.AutoCompleteMode = AutoCompleteMode.None;
-            ktTextBox5.AutoCompleteSource = AutoCompleteSource.None;
-            ktTextBox5.AutoSizeHeight = true;
-            ktTextBox5.AutoValidate = AutoValidate.EnableAllowFocusChange;
-            ktTextBox5.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
-            ktTextBox5.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
-            ktTextBox5.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
-            ktTextBox5.BorderRadius = 80;
-            ktTextBox5.BorderThickness = 0;
-            ktTextBox5.Content = KimTools.WinForms.KtColor.CONTENT;
-            ktTextBox5.CustomIconLeft = null;
-            ktTextBox5.CustomIconRight = null;
-            ktTextBox5.DefaultFont = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ktTextBox5.Dock = DockStyle.Fill;
-            ktTextBox5.ForeColor = Color.Empty;
-            ktTextBox5.HideSelection = true;
-            ktTextBox5.Location = new Point(0, 0);
-            ktTextBox5.MaxLength = 32767;
-            ktTextBox5.MinimumSize = new Size(1, 1);
-            ktTextBox5.Modified = false;
-            ktTextBox5.Name = "ktTextBox5";
-            ktTextBox5.Password = false;
-            ktTextBox5.PasswordChar = '\0';
-            ktTextBox5.ScrollBars = ScrollBars.None;
-            ktTextBox5.SelectedText = "";
-            ktTextBox5.SelectionLength = 0;
-            ktTextBox5.SelectionStart = 0;
-            ktTextBox5.ShortcutsEnabled = true;
-            ktTextBox5.Size = new Size(750, 85);
-            ktTextBox5.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
-            ktTextBox5.TabIndex = 4;
-            ktTextBox5.TextMarginBottom = 0;
-            ktTextBox5.TextPlaceholder = "INGRESE AQUI ....";
+            cantidadMateriaPrima.AcceptsReturn = false;
+            cantidadMateriaPrima.AcceptsTab = false;
+            cantidadMateriaPrima.AnimationSpeed = 200;
+            cantidadMateriaPrima.AutoCompleteMode = AutoCompleteMode.None;
+            cantidadMateriaPrima.AutoCompleteSource = AutoCompleteSource.None;
+            cantidadMateriaPrima.AutoSizeHeight = true;
+            cantidadMateriaPrima.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            cantidadMateriaPrima.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            cantidadMateriaPrima.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
+            cantidadMateriaPrima.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
+            cantidadMateriaPrima.BorderRadius = 80;
+            cantidadMateriaPrima.BorderThickness = 0;
+            cantidadMateriaPrima.Content = KimTools.WinForms.KtColor.CONTENT;
+            cantidadMateriaPrima.CustomIconLeft = null;
+            cantidadMateriaPrima.CustomIconRight = null;
+            cantidadMateriaPrima.DefaultFont = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cantidadMateriaPrima.Dock = DockStyle.Fill;
+            cantidadMateriaPrima.ForeColor = Color.Empty;
+            cantidadMateriaPrima.HideSelection = true;
+            cantidadMateriaPrima.Location = new Point(0, 0);
+            cantidadMateriaPrima.MaxLength = 32767;
+            cantidadMateriaPrima.MinimumSize = new Size(1, 1);
+            cantidadMateriaPrima.Modified = false;
+            cantidadMateriaPrima.Name = "cantidadMateriaPrima";
+            cantidadMateriaPrima.Password = false;
+            cantidadMateriaPrima.PasswordChar = '\0';
+            cantidadMateriaPrima.ScrollBars = ScrollBars.None;
+            cantidadMateriaPrima.SelectedText = "";
+            cantidadMateriaPrima.SelectionLength = 0;
+            cantidadMateriaPrima.SelectionStart = 0;
+            cantidadMateriaPrima.ShortcutsEnabled = true;
+            cantidadMateriaPrima.Size = new Size(750, 85);
+            cantidadMateriaPrima.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            cantidadMateriaPrima.TabIndex = 4;
+            cantidadMateriaPrima.TextMarginBottom = 0;
+            cantidadMateriaPrima.TextPlaceholder = "INGRESE AQUI ....";
             // 
             // ktPanel22
             // 
@@ -875,7 +879,7 @@
             ktPanel17.BorderRadius = 80F;
             ktPanel17.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             ktPanel17.BorderWidth = 1.5F;
-            ktPanel17.Controls.Add(ktTextBox4);
+            ktPanel17.Controls.Add(materiaPrima);
             ktPanel17.Dock = DockStyle.Fill;
             ktPanel17.Foreground = KimTools.WinForms.KtColor.Empty;
             ktPanel17.Location = new Point(0, 55);
@@ -884,44 +888,44 @@
             ktPanel17.Size = new Size(750, 85);
             ktPanel17.TabIndex = 1;
             // 
-            // ktTextBox4
+            // materiaPrima
             // 
-            ktTextBox4.AcceptsReturn = false;
-            ktTextBox4.AcceptsTab = false;
-            ktTextBox4.AnimationSpeed = 200;
-            ktTextBox4.AutoCompleteMode = AutoCompleteMode.None;
-            ktTextBox4.AutoCompleteSource = AutoCompleteSource.None;
-            ktTextBox4.AutoSizeHeight = true;
-            ktTextBox4.AutoValidate = AutoValidate.EnableAllowFocusChange;
-            ktTextBox4.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
-            ktTextBox4.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
-            ktTextBox4.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
-            ktTextBox4.BorderRadius = 80;
-            ktTextBox4.BorderThickness = 0;
-            ktTextBox4.Content = KimTools.WinForms.KtColor.CONTENT;
-            ktTextBox4.CustomIconLeft = null;
-            ktTextBox4.CustomIconRight = null;
-            ktTextBox4.DefaultFont = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ktTextBox4.Dock = DockStyle.Fill;
-            ktTextBox4.ForeColor = Color.Empty;
-            ktTextBox4.HideSelection = true;
-            ktTextBox4.Location = new Point(0, 0);
-            ktTextBox4.MaxLength = 32767;
-            ktTextBox4.MinimumSize = new Size(1, 1);
-            ktTextBox4.Modified = false;
-            ktTextBox4.Name = "ktTextBox4";
-            ktTextBox4.Password = false;
-            ktTextBox4.PasswordChar = '\0';
-            ktTextBox4.ScrollBars = ScrollBars.None;
-            ktTextBox4.SelectedText = "";
-            ktTextBox4.SelectionLength = 0;
-            ktTextBox4.SelectionStart = 0;
-            ktTextBox4.ShortcutsEnabled = true;
-            ktTextBox4.Size = new Size(750, 85);
-            ktTextBox4.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
-            ktTextBox4.TabIndex = 4;
-            ktTextBox4.TextMarginBottom = 0;
-            ktTextBox4.TextPlaceholder = "INGRESE AQUI ....";
+            materiaPrima.AcceptsReturn = false;
+            materiaPrima.AcceptsTab = false;
+            materiaPrima.AnimationSpeed = 200;
+            materiaPrima.AutoCompleteMode = AutoCompleteMode.None;
+            materiaPrima.AutoCompleteSource = AutoCompleteSource.None;
+            materiaPrima.AutoSizeHeight = true;
+            materiaPrima.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            materiaPrima.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            materiaPrima.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
+            materiaPrima.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
+            materiaPrima.BorderRadius = 80;
+            materiaPrima.BorderThickness = 0;
+            materiaPrima.Content = KimTools.WinForms.KtColor.CONTENT;
+            materiaPrima.CustomIconLeft = null;
+            materiaPrima.CustomIconRight = null;
+            materiaPrima.DefaultFont = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            materiaPrima.Dock = DockStyle.Fill;
+            materiaPrima.ForeColor = Color.Empty;
+            materiaPrima.HideSelection = true;
+            materiaPrima.Location = new Point(0, 0);
+            materiaPrima.MaxLength = 32767;
+            materiaPrima.MinimumSize = new Size(1, 1);
+            materiaPrima.Modified = false;
+            materiaPrima.Name = "materiaPrima";
+            materiaPrima.Password = false;
+            materiaPrima.PasswordChar = '\0';
+            materiaPrima.ScrollBars = ScrollBars.None;
+            materiaPrima.SelectedText = "";
+            materiaPrima.SelectionLength = 0;
+            materiaPrima.SelectionStart = 0;
+            materiaPrima.ShortcutsEnabled = true;
+            materiaPrima.Size = new Size(750, 85);
+            materiaPrima.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            materiaPrima.TabIndex = 4;
+            materiaPrima.TextMarginBottom = 0;
+            materiaPrima.TextPlaceholder = "INGRESE AQUI ....";
             // 
             // ktPanel18
             // 
@@ -1033,6 +1037,7 @@
             ktTablaLotes.CellBorderStyle = DataGridViewCellBorderStyle.None;
             ktTablaLotes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             ktTablaLotes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ktTablaLotes.Columns.AddRange(new DataGridViewColumn[] { IdProveedor, razonSocial, cuit, nombre });
             ktTablaLotes.Dock = DockStyle.Fill;
             ktTablaLotes.EnableHeadersVisualStyles = false;
             ktTablaLotes.Location = new Point(0, 0);
@@ -1056,6 +1061,39 @@
             ktTablaLotes.Style.ScrollBar.Background = KimTools.WinForms.KtColor.Empty;
             ktTablaLotes.Style.ScrollBar.Foreground = KimTools.WinForms.KtColor.Empty;
             ktTablaLotes.TabIndex = 0;
+            // 
+            // IdProveedor
+            // 
+            IdProveedor.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            IdProveedor.DataPropertyName = "IdProveedor";
+            IdProveedor.HeaderText = "id";
+            IdProveedor.Name = "IdProveedor";
+            IdProveedor.ReadOnly = true;
+            IdProveedor.Visible = false;
+            // 
+            // razonSocial
+            // 
+            razonSocial.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            razonSocial.DataPropertyName = "razonSocial";
+            razonSocial.HeaderText = "Razon Social";
+            razonSocial.Name = "razonSocial";
+            razonSocial.ReadOnly = true;
+            // 
+            // cuit
+            // 
+            cuit.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            cuit.DataPropertyName = "cuit";
+            cuit.HeaderText = "CUIT";
+            cuit.Name = "cuit";
+            cuit.ReadOnly = true;
+            // 
+            // nombre
+            // 
+            nombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            nombre.DataPropertyName = "nombre";
+            nombre.HeaderText = "Nombre";
+            nombre.Name = "nombre";
+            nombre.ReadOnly = true;
             // 
             // ktPanel14
             // 
@@ -1149,7 +1187,7 @@
             ktPanel7.BorderRadius = 90F;
             ktPanel7.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             ktPanel7.BorderWidth = 1.5F;
-            ktPanel7.Controls.Add(ktTextBox2);
+            ktPanel7.Controls.Add(fechaVencimiento);
             ktPanel7.Dock = DockStyle.Fill;
             ktPanel7.Foreground = KimTools.WinForms.KtColor.Empty;
             ktPanel7.Location = new Point(0, 55);
@@ -1158,44 +1196,44 @@
             ktPanel7.Size = new Size(750, 85);
             ktPanel7.TabIndex = 1;
             // 
-            // ktTextBox2
+            // fechaVencimiento
             // 
-            ktTextBox2.AcceptsReturn = false;
-            ktTextBox2.AcceptsTab = false;
-            ktTextBox2.AnimationSpeed = 200;
-            ktTextBox2.AutoCompleteMode = AutoCompleteMode.None;
-            ktTextBox2.AutoCompleteSource = AutoCompleteSource.None;
-            ktTextBox2.AutoSizeHeight = true;
-            ktTextBox2.AutoValidate = AutoValidate.EnableAllowFocusChange;
-            ktTextBox2.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
-            ktTextBox2.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
-            ktTextBox2.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
-            ktTextBox2.BorderRadius = 80;
-            ktTextBox2.BorderThickness = 0;
-            ktTextBox2.Content = KimTools.WinForms.KtColor.CONTENT;
-            ktTextBox2.CustomIconLeft = null;
-            ktTextBox2.CustomIconRight = null;
-            ktTextBox2.DefaultFont = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ktTextBox2.Dock = DockStyle.Fill;
-            ktTextBox2.ForeColor = Color.Empty;
-            ktTextBox2.HideSelection = true;
-            ktTextBox2.Location = new Point(0, 0);
-            ktTextBox2.MaxLength = 32767;
-            ktTextBox2.MinimumSize = new Size(1, 1);
-            ktTextBox2.Modified = false;
-            ktTextBox2.Name = "ktTextBox2";
-            ktTextBox2.Password = false;
-            ktTextBox2.PasswordChar = '\0';
-            ktTextBox2.ScrollBars = ScrollBars.None;
-            ktTextBox2.SelectedText = "";
-            ktTextBox2.SelectionLength = 0;
-            ktTextBox2.SelectionStart = 0;
-            ktTextBox2.ShortcutsEnabled = true;
-            ktTextBox2.Size = new Size(750, 85);
-            ktTextBox2.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
-            ktTextBox2.TabIndex = 4;
-            ktTextBox2.TextMarginBottom = 0;
-            ktTextBox2.TextPlaceholder = "INGRESE AQUI ....";
+            fechaVencimiento.AcceptsReturn = false;
+            fechaVencimiento.AcceptsTab = false;
+            fechaVencimiento.AnimationSpeed = 200;
+            fechaVencimiento.AutoCompleteMode = AutoCompleteMode.None;
+            fechaVencimiento.AutoCompleteSource = AutoCompleteSource.None;
+            fechaVencimiento.AutoSizeHeight = true;
+            fechaVencimiento.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            fechaVencimiento.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            fechaVencimiento.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
+            fechaVencimiento.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
+            fechaVencimiento.BorderRadius = 80;
+            fechaVencimiento.BorderThickness = 0;
+            fechaVencimiento.Content = KimTools.WinForms.KtColor.CONTENT;
+            fechaVencimiento.CustomIconLeft = null;
+            fechaVencimiento.CustomIconRight = null;
+            fechaVencimiento.DefaultFont = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            fechaVencimiento.Dock = DockStyle.Fill;
+            fechaVencimiento.ForeColor = Color.Empty;
+            fechaVencimiento.HideSelection = true;
+            fechaVencimiento.Location = new Point(0, 0);
+            fechaVencimiento.MaxLength = 32767;
+            fechaVencimiento.MinimumSize = new Size(1, 1);
+            fechaVencimiento.Modified = false;
+            fechaVencimiento.Name = "fechaVencimiento";
+            fechaVencimiento.Password = false;
+            fechaVencimiento.PasswordChar = '\0';
+            fechaVencimiento.ScrollBars = ScrollBars.None;
+            fechaVencimiento.SelectedText = "";
+            fechaVencimiento.SelectionLength = 0;
+            fechaVencimiento.SelectionStart = 0;
+            fechaVencimiento.ShortcutsEnabled = true;
+            fechaVencimiento.Size = new Size(750, 85);
+            fechaVencimiento.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            fechaVencimiento.TabIndex = 4;
+            fechaVencimiento.TextMarginBottom = 0;
+            fechaVencimiento.TextPlaceholder = "INGRESE AQUI ....";
             // 
             // ktPanel8
             // 
@@ -1289,7 +1327,7 @@
             ktPanel5.BorderRadius = 45F;
             ktPanel5.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             ktPanel5.BorderWidth = 1.5F;
-            ktPanel5.Controls.Add(ktPanel24);
+            ktPanel5.Controls.Add(fechaIng);
             ktPanel5.Dock = DockStyle.Fill;
             ktPanel5.Foreground = KimTools.WinForms.KtColor.Empty;
             ktPanel5.Location = new Point(0, 55);
@@ -1298,44 +1336,44 @@
             ktPanel5.Size = new Size(750, 85);
             ktPanel5.TabIndex = 1;
             // 
-            // ktPanel24
+            // fechaIng
             // 
-            ktPanel24.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
-            ktPanel24.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
-            ktPanel24.BorderRadius = 45F;
-            ktPanel24.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            ktPanel24.BorderWidth = 2.5F;
-            ktPanel24.Controls.Add(ktDate1);
-            ktPanel24.Dock = DockStyle.Fill;
-            ktPanel24.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel24.Location = new Point(0, 0);
-            ktPanel24.Name = "ktPanel24";
-            ktPanel24.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel24.Size = new Size(750, 85);
-            ktPanel24.TabIndex = 0;
+            fechaIng.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            fechaIng.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            fechaIng.BorderRadius = 45F;
+            fechaIng.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            fechaIng.BorderWidth = 2.5F;
+            fechaIng.Controls.Add(fechaIngreso);
+            fechaIng.Dock = DockStyle.Fill;
+            fechaIng.Foreground = KimTools.WinForms.KtColor.Empty;
+            fechaIng.Location = new Point(0, 0);
+            fechaIng.Name = "fechaIng";
+            fechaIng.PatternColor = KimTools.WinForms.KtColor.Empty;
+            fechaIng.Size = new Size(750, 85);
+            fechaIng.TabIndex = 0;
             // 
-            // ktDate1
+            // fechaIngreso
             // 
-            ktDate1.Anchor = AnchorStyles.None;
-            ktDate1.BackColor = Color.Transparent;
-            ktDate1.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            ktDate1.Border = KimTools.WinForms.KtColor.Empty;
-            ktDate1.BorderWidth = 1.5F;
-            ktDate1.DisplayWeekNumbers = true;
-            ktDate1.DPHeight = 0;
-            ktDate1.DropDownAlign = LeftRightAlignment.Right;
-            ktDate1.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
-            ktDate1.Format = DateTimePickerFormat.Short;
-            ktDate1.IconAlign = HorizontalAlignment.Center;
-            ktDate1.IconColor = KimTools.WinForms.KtColor.Empty;
-            ktDate1.Location = new Point(259, 21);
-            ktDate1.MinimumSize = new Size(0, 40);
-            ktDate1.Name = "ktDate1";
-            ktDate1.Size = new Size(286, 43);
-            ktDate1.TabIndex = 0;
-            ktDate1.TextAlign = HorizontalAlignment.Center;
-            ktDate1.TextColor = KimTools.WinForms.KtColor.Empty;
-            ktDate1.TextMargin = 8;
+            fechaIngreso.Anchor = AnchorStyles.None;
+            fechaIngreso.BackColor = Color.Transparent;
+            fechaIngreso.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            fechaIngreso.Border = KimTools.WinForms.KtColor.Empty;
+            fechaIngreso.BorderWidth = 1.5F;
+            fechaIngreso.DisplayWeekNumbers = true;
+            fechaIngreso.DPHeight = 0;
+            fechaIngreso.DropDownAlign = LeftRightAlignment.Right;
+            fechaIngreso.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            fechaIngreso.Format = DateTimePickerFormat.Short;
+            fechaIngreso.IconAlign = HorizontalAlignment.Center;
+            fechaIngreso.IconColor = KimTools.WinForms.KtColor.Empty;
+            fechaIngreso.Location = new Point(259, 21);
+            fechaIngreso.MinimumSize = new Size(0, 40);
+            fechaIngreso.Name = "fechaIngreso";
+            fechaIngreso.Size = new Size(286, 43);
+            fechaIngreso.TabIndex = 0;
+            fechaIngreso.TextAlign = HorizontalAlignment.Center;
+            fechaIngreso.TextColor = KimTools.WinForms.KtColor.Empty;
+            fechaIngreso.TextMargin = 8;
             // 
             // ktPanel10
             // 
@@ -1392,10 +1430,10 @@
             // 
             ktPages1.Set_Background(tabPage2, new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
             tabPage2.BackColor = Color.FromArgb(173, 151, 98);
-            tabPage2.Location = new Point(4, 4);
+            tabPage2.Location = new Point(0, 0);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(796, 907);
+            tabPage2.Size = new Size(804, 941);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "tabPage2";
             // 
@@ -1467,7 +1505,7 @@
             ktPanel9.ResumeLayout(false);
             ContenedorPanel.ResumeLayout(false);
             ktPanel5.ResumeLayout(false);
-            ktPanel24.ResumeLayout(false);
+            fechaIng.ResumeLayout(false);
             ktPanel10.ResumeLayout(false);
             ktPanel11.ResumeLayout(false);
             ResumeLayout(false);
@@ -1503,14 +1541,14 @@
         private KimTools.WinForms.KtPanel ktPanel5;
         private KimTools.WinForms.KtPanel ktPanel20;
         private KimTools.WinForms.KtPanel ktPanel21;
-        private KimTools.WinForms.KtTextBox ktTextBox5;
+        private KimTools.WinForms.KtTextBox cantidadMateriaPrima;
         private KimTools.WinForms.KtPanel ktPanel22;
         private KimTools.WinForms.KtPanel ktPanel23;
         private KimTools.WinForms.KtLabel ktLabel5;
         private KimTools.WinForms.KtDivider ktDivider5;
         private KimTools.WinForms.KtPanel ktPanel16;
         private KimTools.WinForms.KtPanel ktPanel17;
-        private KimTools.WinForms.KtTextBox ktTextBox4;
+        private KimTools.WinForms.KtTextBox materiaPrima;
         private KimTools.WinForms.KtPanel ktPanel18;
         private KimTools.WinForms.KtPanel ktPanel19;
         private KimTools.WinForms.KtLabel ktLabel4;
@@ -1523,15 +1561,19 @@
         private KimTools.WinForms.KtDivider ktDivider3;
         private KimTools.WinForms.KtPanel ktPanel6;
         private KimTools.WinForms.KtPanel ktPanel7;
-        private KimTools.WinForms.KtTextBox ktTextBox2;
+        private KimTools.WinForms.KtTextBox fechaVencimiento;
         private KimTools.WinForms.KtPanel ktPanel8;
         private KimTools.WinForms.KtPanel ktPanel9;
         private KimTools.WinForms.KtLabel ktLabel2;
-        private KimTools.WinForms.KtPanel ktPanel24;
-        private KimTools.WinForms.KtDate ktDate1;
+        private KimTools.WinForms.KtPanel fechaIng;
+        private KimTools.WinForms.KtDate fechaIngreso;
         private KimTools.WinForms.KtTable ktTablaLotes;
         private KimTools.WinForms.KtPages ktPages1;
         private TabPage tabPage1;
         private TabPage tabPage2;
+        private DataGridViewTextBoxColumn IdProveedor;
+        private DataGridViewTextBoxColumn razonSocial;
+        private DataGridViewTextBoxColumn cuit;
+        private DataGridViewTextBoxColumn nombre;
     }
 }

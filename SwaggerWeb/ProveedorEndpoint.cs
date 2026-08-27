@@ -9,13 +9,13 @@ namespace SwaggerWeb
         public static void MapProveedorEndpoint(this WebApplication app)
         {
 
-            app.MapPost("/proveedor", async (ProveedorDTO dto, IProveedorServicio proveedorServicio) =>
+            app.MapPost("/proveedores", async (ProveedorDTO dto, IProveedorServicio proveedorServicio) =>
             {
                 try
                 {
                     ProveedorDTO proveedorDto = await proveedorServicio.AgregarProveedor(dto);
 
-                    return Results.Created($"/proveedor/{proveedorDto.IdProveedor}", proveedorDto);
+                    return Results.Created($"/proveedores/{proveedorDto.IdProveedor}", proveedorDto);
                 }
                 catch (ArgumentException ex)
                 {
@@ -27,7 +27,7 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapGet("/proveedor", async (IProveedorServicio proveedorServicio) =>
+            app.MapGet("/proveedores", async (IProveedorServicio proveedorServicio) =>
             {
                 try
                 {
@@ -43,7 +43,7 @@ namespace SwaggerWeb
             .Produces<List<ProveedorDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
 
-            app.MapGet("/proveedor/{id}", async (int id, IProveedorServicio proveedorServicio) =>
+            app.MapGet("/proveedores/{id}", async (int id, IProveedorServicio proveedorServicio) =>
             {
                 try
                 {
@@ -66,7 +66,7 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
-            app.MapPut("/proveedor/{id}", async (int id, ProveedorDTO dto, IProveedorServicio proveedorServicio) =>
+            app.MapPut("/proveedores/{id}", async (int id, ProveedorDTO dto, IProveedorServicio proveedorServicio) =>
             {
                 try
                 {

@@ -12,13 +12,13 @@ namespace SwaggerWeb
 
 
 
-            app.MapPost("/lote", async (LoteDTO dto, ILoteServicio loteServicio) =>
+            app.MapPost("/lotes", async (LoteDTO dto, ILoteServicio loteServicio) =>
             {
                 try
                 {
                     LoteDTO loteDto = await loteServicio.AgregarLote(dto);
 
-                    return Results.Created($"/lote/{loteDto.IdLote}", loteDto);
+                    return Results.Created($"/lotes/{loteDto.IdLote}", loteDto);
                 }
                 catch (ArgumentException ex)
                 {
