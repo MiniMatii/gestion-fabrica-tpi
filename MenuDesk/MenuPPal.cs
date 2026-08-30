@@ -19,7 +19,6 @@ namespace MenuDesk
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //panelLotes.Visible = false;
         }
 
         private void ktButton1_Click(object sender, EventArgs e)
@@ -42,6 +41,7 @@ namespace MenuDesk
             voidPanel.Visible = !(voidPanel.Visible);
             panelLotes.Visible = !(panelLotes.Visible);
             panelLotes.Enabled = !(panelLotes.Enabled);
+            ConfigurarScrollbar();
 
         }
 
@@ -70,7 +70,7 @@ namespace MenuDesk
 
                     ktTablaLotes.DataSource = listaDatos;
 
-                    ktTablaLotes.Columns["IdProveedor"].Visible = false;
+                    ktTablaLotes.Columns["IdProveedor"].DisplayIndex = 3;
                     ktTablaLotes.Columns["razonSocial"].HeaderText = "RazonSocial";
                     ktTablaLotes.Columns["Cuit"].HeaderText = "CUIT";
                     ktTablaLotes.Columns["Nombre"].HeaderText = "Nombre";
@@ -82,12 +82,26 @@ namespace MenuDesk
             }
         }
 
-
-        private async Task ObtenerDatosLotes()
+        private void ConfigurarScrollbar()
         {
-            var fechaIng = fechaIngreso.Value;
-            var fechaVenc = fechaVencimiento;
+
+
+
+            int alturaContenido = altaLoteSubPage.Controls
+                .OfType<Control>()
+                .Sum(c => c.Height);
+            int alturaVisible = altaLoteSubPage.ClientSize.Height;
+
+            ktScrollbar1.Minimum = 0;
+            ktScrollbar1.Maximum = Math.Max(0, alturaContenido - alturaVisible);
+            ktScrollbar1.LargeChange = alturaVisible;
+            ktScrollbar1.SmallChange = 40;
+            ktScrollbar1.Value = 0;
         }
 
+        private void ktScrollbar1_Scroll(object sender, KimTools.WinForms.KtScrollbar.ScrollEventArgs e)
+        {
+            altaLoteSubPage.AutoScrollPosition = new Point(0, e.Value);
+        }
     }
 }
