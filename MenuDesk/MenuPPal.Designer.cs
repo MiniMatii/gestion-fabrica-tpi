@@ -95,6 +95,7 @@
             ktPanel11 = new KimTools.WinForms.KtPanel();
             ktLabel1 = new KimTools.WinForms.KtLabel();
             tabPage2 = new TabPage();
+            ktSelect1 = new KimTools.WinForms.KtSelect();
             ktPanel1.SuspendLayout();
             ktPanel4.SuspendLayout();
             ktPanel2.SuspendLayout();
@@ -741,8 +742,8 @@
             ktPanel21.BorderRadius = 80F;
             ktPanel21.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             ktPanel21.BorderWidth = 1.5F;
+            ktPanel21.Controls.Add(ktSelect1);
             ktPanel21.Controls.Add(cantidadMateriaPrima);
-            ktPanel21.Dock = DockStyle.Fill;
             ktPanel21.Foreground = KimTools.WinForms.KtColor.Empty;
             ktPanel21.Location = new Point(0, 55);
             ktPanel21.Name = "ktPanel21";
@@ -768,7 +769,6 @@
             cantidadMateriaPrima.CustomIconLeft = null;
             cantidadMateriaPrima.CustomIconRight = null;
             cantidadMateriaPrima.DefaultFont = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
-            cantidadMateriaPrima.Dock = DockStyle.Fill;
             cantidadMateriaPrima.ForeColor = Color.Empty;
             cantidadMateriaPrima.HideSelection = true;
             cantidadMateriaPrima.Location = new Point(0, 0);
@@ -783,7 +783,7 @@
             cantidadMateriaPrima.SelectionLength = 0;
             cantidadMateriaPrima.SelectionStart = 0;
             cantidadMateriaPrima.ShortcutsEnabled = true;
-            cantidadMateriaPrima.Size = new Size(750, 85);
+            cantidadMateriaPrima.Size = new Size(351, 85);
             cantidadMateriaPrima.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
             cantidadMateriaPrima.TabIndex = 4;
             cantidadMateriaPrima.TextMarginBottom = 0;
@@ -1479,6 +1479,42 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "tabPage2";
             // 
+            // ktSelect1
+            // 
+            ktSelect1.Bg = KimTools.WinForms.KtColor.PRIMARY;
+            ktSelect1.BorderColor = new KimTools.WinForms.KtColor("$Primary", null, 50);
+            ktSelect1.BorderRadius = 1;
+            ktSelect1.Direction = KimTools.WinForms.KtSelect.Directions.Down;
+            ktSelect1.DisabledBackColor = KimTools.WinForms.KtColor.Gray;
+            ktSelect1.DisabledBorderColor = new KimTools.WinForms.KtColor("@Gray", null, 50);
+            ktSelect1.DisabledColor = KimTools.WinForms.KtColor.Gray;
+            ktSelect1.DisabledForeColor = new KimTools.WinForms.KtColor(Color.White, null, null);
+            ktSelect1.DisabledIndicatorColor = new KimTools.WinForms.KtColor(Color.WhiteSmoke, null, null);
+            ktSelect1.DrawMode = DrawMode.OwnerDrawFixed;
+            ktSelect1.DropdownBorderThickness = KimTools.WinForms.KtSelect.BorderThickness.Thick;
+            ktSelect1.DropDownStyle = ComboBoxStyle.DropDownList;
+            ktSelect1.DropDownTextAlign = KimTools.WinForms.KtSelect.TextAlign.Left;
+            ktSelect1.FillDropDown = true;
+            ktSelect1.FillIndicator = false;
+            ktSelect1.FlatStyle = FlatStyle.Flat;
+            ktSelect1.IndicatorAlignment = KimTools.WinForms.KtSelect.Indicator.Right;
+            ktSelect1.IndicatorColor = new KimTools.WinForms.KtColor("$PrimaryContent", null, null);
+            ktSelect1.IndicatorLocation = KimTools.WinForms.KtSelect.Indicator.Right;
+            ktSelect1.ItemBackColor = KimTools.WinForms.KtColor.BASE_2;
+            ktSelect1.ItemBorderColor = new KimTools.WinForms.KtColor("$Base_2", null, 50);
+            ktSelect1.ItemForeColor = KimTools.WinForms.KtColor.CONTENT;
+            ktSelect1.ItemHeight = 15;
+            ktSelect1.ItemHighLightColor = KimTools.WinForms.KtColor.PRIMARY;
+            ktSelect1.ItemHighLightForeColor = new KimTools.WinForms.KtColor("$PrimaryContent", null, null);
+            ktSelect1.ItemTopMargin = 1;
+            ktSelect1.Location = new Point(507, 33);
+            ktSelect1.Name = "ktSelect1";
+            ktSelect1.Size = new Size(151, 21);
+            ktSelect1.TabIndex = 0;
+            ktSelect1.TextAlignment = KimTools.WinForms.KtSelect.TextAlign.Left;
+            ktSelect1.TextColor = new KimTools.WinForms.KtColor("$PrimaryContent", null, null);
+            ktSelect1.TextLeftMargin = 5;
+            // 
             // MenuPPal
             // 
             AutoScaleDimensions = new SizeF(12F, 28F);
@@ -1594,5 +1630,6 @@
         private DataGridViewTextBoxColumn cuit;
         private DataGridViewTextBoxColumn nombre;
         private KimTools.WinForms.KtTextBox fechaVencimiento;
+        private KimTools.WinForms.KtSelect ktSelect1;
     }
 }

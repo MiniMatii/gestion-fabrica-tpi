@@ -87,6 +87,7 @@ namespace MenuDesk
         {
             var fechaIng = fechaIngreso.Value;
             var fechaVenc = fechaVencimiento;
+            var cantidad = cantidadLote.Value;
         }
 
     }
