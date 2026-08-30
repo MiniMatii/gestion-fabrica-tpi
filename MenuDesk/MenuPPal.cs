@@ -40,14 +40,14 @@ namespace MenuDesk
         private void LotesPage_CheckedChanged(object sender, EventArgs e)
         {
             voidPanel.Visible = !(voidPanel.Visible);
-            navLotes.Visible = !(navLotes.Visible);
             panelLotes.Visible = !(panelLotes.Visible);
+            panelLotes.Enabled = !(panelLotes.Enabled);
 
         }
 
         private async void altaLote_Click(object sender, EventArgs e)
         {
-            
+
             ktPages1.SelectedTab = tabPage1;
             await CargarDatosEnGrillaAsync();
         }
@@ -80,6 +80,13 @@ namespace MenuDesk
             {
                 MessageBox.Show(ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+
+        private async Task ObtenerDatosLotes()
+        {
+            var fechaIng = fechaIngreso.Value;
+            var fechaVenc = fechaVencimiento;
         }
 
     }
