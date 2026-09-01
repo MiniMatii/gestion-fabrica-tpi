@@ -19,6 +19,7 @@ namespace MenuDesk
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            SelectUnidad.Items.AddRange(new string[] { "Kilogramos (kg)", "Gramos (g)", "Litros (L)", "Mililitros (ml)" });
         }
 
         private void ktButton1_Click(object sender, EventArgs e)
@@ -87,16 +88,16 @@ namespace MenuDesk
 
 
 
-            int alturaContenido = altaLoteSubPage.Controls
-                .OfType<Control>()
-                .Sum(c => c.Height);
-            int alturaVisible = altaLoteSubPage.ClientSize.Height;
+            //int alturaContenido = altaLoteSubPage.Controls
+            //    .OfType<Control>()
+            //    .Sum(c => c.Height);
+            //int alturaVisible = altaLoteSubPage.ClientSize.Height;
 
-            ktScrollbar1.Minimum = 0;
-            ktScrollbar1.Maximum = Math.Max(0, alturaContenido - alturaVisible);
-            ktScrollbar1.LargeChange = alturaVisible;
-            ktScrollbar1.SmallChange = 40;
-            ktScrollbar1.Value = 0;
+            //ktScrollbar1.Minimum = 0;
+            //ktScrollbar1.Maximum = Math.Max(0, alturaContenido - alturaVisible);
+            //ktScrollbar1.LargeChange = alturaVisible;
+            //ktScrollbar1.SmallChange = 40;
+            //ktScrollbar1.Value = 0;
         }
 
         private void ktScrollbar1_Scroll(object sender, KimTools.WinForms.KtScrollbar.ScrollEventArgs e)
