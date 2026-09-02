@@ -1594,7 +1594,7 @@
             fechaIngreso.Location = new Point(257, 9);
             fechaIngreso.MinimumSize = new Size(0, 40);
             fechaIngreso.Name = "fechaIngreso";
-            fechaIngreso.Size = new Size(286, 52);
+            fechaIngreso.Size = new Size(286, 43);
             fechaIngreso.TabIndex = 0;
             fechaIngreso.TextAlign = HorizontalAlignment.Center;
             fechaIngreso.TextColor = KimTools.WinForms.KtColor.Empty;
@@ -1664,7 +1664,7 @@
             // 
             // MenuPPal
             // 
-            AutoScaleDimensions = new SizeF(12F, 28F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
             ClientSize = new Size(1165, 1055);
