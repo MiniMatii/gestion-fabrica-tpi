@@ -11,8 +11,6 @@ namespace Alemana.Data.Repositorios
     {
         Task<Lote> AgregarLote(Lote unLote);
         Task<Lote> BajaLote(int id);
-        Task<bool> EliminarLote(int id);
-        Task<List<Lote>> ObtenerTodos();
-        Task<Lote> ObtenerPorId(int id);
+        Task<bool> EliminarLote(int id); 
     }
 }

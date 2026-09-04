@@ -62,32 +62,6 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapGet("/producto", async (IProductoServicio productoServicio) =>
-            {
-                var productos = await productoServicio.ObtenerTodos();
-                return Results.Ok(productos);
-            }).WithName("Obtener Productos")
-              .WithTags("Producto")
-              .WithOpenApi();
-
-            app.MapGet("/producto/{id}", async (int id, IProductoServicio productoServicio) =>
-            {
-                var producto = await productoServicio.ObtenerPorId(id);
-                if (producto == null) return Results.NotFound(new { mensaje = "Producto no encontrado" });
-
-                return Results.Ok(producto);
-            }).WithName("Obtener Producto Por Id")
-              .WithTags("Producto")
-              .WithOpenApi();
-
-            app.MapGet("/producto/disponibles", async (IProductoServicio productoServicio) =>
-            {
-                var productos = await productoServicio.ObtenerDisponibles();
-                return Results.Ok(productos);
-            }).WithName("Obtener Productos Disponibles")
-              .WithTags("Producto")
-              .WithOpenApi();
-
             app.MapPut("/producto/", async (ProductoDTO dto, IProductoServicio productoServicio) =>
             {
                 try

@@ -52,53 +52,6 @@ namespace Alemana.Aplicaciones.Servicios
             return prodDTO;
         }
 
-        public async Task<List<ProductoDTO>> ObtenerTodos()
-        {
-            var productos = await _productoRepositorio.ObtenerTodos();
-
-            return productos.Select(p => new ProductoDTO
-            {
-                IdProducto = p.IdProducto,
-                Nombre = p.Nombre,
-                Camara = p.Camara,
-                Disponible = p.Disponible,
-                IdReceta = p.IdReceta,
-                StockActual = p.StockActual
-            }).ToList();
-        }
-
-        public async Task<List<ProductoDTO>> ObtenerDisponibles()
-        {
-            var productos = await _productoRepositorio.ObtenerDisponibles();
-
-            return productos.Select(p => new ProductoDTO
-            {
-                IdProducto = p.IdProducto,
-                Nombre = p.Nombre,
-                Camara = p.Camara,
-                Disponible = p.Disponible,
-                IdReceta = p.IdReceta,
-                StockActual = p.StockActual
-            }).ToList();
-        }
-
-        public async Task<ProductoDTO> ObtenerPorId(int id)
-        {
-            var prod = await _productoRepositorio.ObtenerProductoPorId(id);
-
-            if (prod == null) return null;
-
-            return new ProductoDTO
-            {
-                IdProducto = prod.IdProducto,
-                Nombre = prod.Nombre,
-                Camara = prod.Camara,
-                Disponible = prod.Disponible,
-                IdReceta = prod.IdReceta,
-                StockActual = prod.StockActual
-            };
-        }
-
         public async Task<bool> EliminarProducto(int id) 
         {
             return await _productoRepositorio.EliminarProducto(id);

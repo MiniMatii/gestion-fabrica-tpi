@@ -1,5 +1,4 @@
 ﻿using Alemana.Dominio.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,22 +43,6 @@ namespace Alemana.Data.Repositorios
             return true;
         }
 
-        public async Task<List<Capacidad>> ObtenerTodos()
-        {
-            return await _DbA.Set<Capacidad>().ToListAsync();
-        }
-
-        public async Task<Capacidad> ObtenerPorId(int id)
-        {
-            var capacidad = await _DbA.Set<Capacidad>().FindAsync(id);
-
-            if (capacidad == null)
-            {
-                return null;
-            }
-
-            return capacidad;
-        }
 
     }
 }

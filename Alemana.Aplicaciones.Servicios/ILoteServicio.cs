@@ -14,7 +14,5 @@ namespace Alemana.Aplicaciones.Servicios
         Task<LoteDTO> AgregarLote(LoteDTO unLoteDTO);
         Task<LoteDTO> BajaLote(int id);
         Task<bool> EliminarLote(int id);
-        Task<List<LoteDTO>> ObtenerTodos();
-        Task<LoteDTO> ObtenerPorId(int id);
     }
 }

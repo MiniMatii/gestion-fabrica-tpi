@@ -141,30 +141,6 @@ namespace Alemana.Aplicaciones.Servicios
 
             return lista;
         }
-
-        public async Task<OperariosDTO> ObtenerPorId(int idOperario)
-        {
-            var op = await operarioRepositorio.ObtenerOperarioPorId(idOperario);
-
-            if (op == null) return null;
-
-            var caps = await operarioRepositorio.ObtenerCapacidadesAsignadas(idOperario);
-
-            return new OperariosDTO
-            {
-                IdOperario = op.IdOperario,
-                Nombre = op.Nombre,
-                Apellido = op.Apellido,
-                Disponibilidad = op.Disponibilidad,
-                IdCaps = caps.Select(c => new CapacidadDTO
-                {
-                    IdCap = c.IdCap,
-                    NomCapacidad = c.NomCapacidad,
-                    DescCapacidad = c.DescCapacidad
-                }).ToList()
-            };
-        }
-
         public async Task<bool> EliminarOperario(int idOperario) 
         {
             var opEncontrado = await operarioRepositorio.ObtenerOperarioPorId(idOperario);
