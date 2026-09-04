@@ -15,6 +15,7 @@ namespace Alemana.Aplicaciones.Servicios
         Task<bool> ModificarSucursal(SucursalesDTO dto);
 
         Task<IEnumerable<SucursalesDTO>> ObtenerTodos();
+        Task<SucursalesDTO> ObtenerPorId(int id);
 
         Task<SucursalesDTO> AgregarEmpleados(int idS,  List<int> idE);
 

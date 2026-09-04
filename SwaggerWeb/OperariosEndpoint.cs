@@ -77,6 +77,17 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
+            app.MapGet("/operario/{idOperario}", async (int idOperario, IOperarioServicios operarioServicios) =>
+            {
+                var operario = await operarioServicios.ObtenerPorId(idOperario);
+                if (operario == null) return Results.NotFound(new { mensaje = "Operario no encontrado" });
+
+                return Results.Ok(operario);
+            }).WithName("Obtener Operario Por Id")
+            .WithTags("Operarios")
+            .Produces<OperariosDTO>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithOpenApi();
 
             app.MapDelete("/operario/{idOperario}", async (int idOperario, IOperarioServicios operarioServicios) =>
             {

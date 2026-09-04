@@ -49,6 +49,24 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
+            app.MapGet("/Recetas", async (IRecetaProductoServicio recetaService) =>
+            {
+                var recetas = await recetaService.ObtenerTodos();
+                return Results.Ok(recetas);
+            }).WithName("Obtener Recetas")
+              .WithTags("Recetas")
+              .WithOpenApi();
+
+            app.MapGet("/Recetas/{id}", async (int id, IRecetaProductoServicio recetaService) =>
+            {
+                var receta = await recetaService.ObtenerPorId(id);
+                if (receta == null) return Results.NotFound(new { mensaje = "Receta no encontrada" });
+
+                return Results.Ok(receta);
+            }).WithName("Obtener Receta Por Id")
+              .WithTags("Recetas")
+              .WithOpenApi();
+
             app.MapDelete("/Recetas/{id}", async (int id, IRecetaProductoServicio recetaService) =>
             {
                 if (await recetaService.EliminarReceta(id))

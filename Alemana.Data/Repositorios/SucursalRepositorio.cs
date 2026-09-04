@@ -50,6 +50,15 @@ namespace Alemana.Data.Repositorios
             return false;
         }
 
+        public async Task<Sucursale> ObtenerPorId(int id)
+        {
+            var sucursal = await _DbA.Sucursales.FindAsync(id);
+            if (sucursal == null)
+            {
+                return null;
+            }
+            return sucursal;
+        }
         public async Task<IEnumerable<Sucursale>> ObtenerTodos()
         {
             return await _DbA.Sucursales.ToListAsync();

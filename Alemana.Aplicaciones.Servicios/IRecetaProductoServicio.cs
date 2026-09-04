@@ -15,7 +15,9 @@ namespace Alemana.Aplicaciones.Servicios
         Task<bool> EliminarReceta(int idRecta);
 
         Task<bool> AgregarMateriaPrima(int idR, List<MateriapRecetaDTO> masmps);
+        Task<List<RecetaProductoDTO>> ObtenerTodos();
+        Task<RecetaProductoDTO> ObtenerPorId(int id);
 
-        
+
     }
 }

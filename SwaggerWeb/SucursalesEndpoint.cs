@@ -55,6 +55,18 @@ namespace SwaggerWeb
             .Produces<List<SucursalesDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
 
+            app.MapGet("/sucursales/{id}", async (int id, ISucursalServicio sucursalServicio) =>
+            {
+                var sucursal = await sucursalServicio.ObtenerPorId(id);
+                if (sucursal == null) return Results.NotFound(new { mensaje = "Sucursal no encontrada" });
+
+                return Results.Ok(sucursal);
+            }).WithName("Obtener Sucursal Por Id")
+            .WithTags("Sucursales")
+            .Produces<SucursalesDTO>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithOpenApi();
+
             app.MapPost("/sucursales/{id}", async(int id, List<int> idEs, ISucursalServicio sucursalServicio) =>
             {
                 try

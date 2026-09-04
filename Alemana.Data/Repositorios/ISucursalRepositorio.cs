@@ -14,7 +14,7 @@ namespace Alemana.Data.Repositorios
         Task<bool> ModificarSucursal(Sucursale sucursal);
 
         Task <IEnumerable<Sucursale>> ObtenerTodos();
-
+        Task<Sucursale> ObtenerPorId(int id);
         Task<Sucursale> AgregarEmpleados(int idS, List<int> idE);
 
         //listar los empleados de una sucursal?

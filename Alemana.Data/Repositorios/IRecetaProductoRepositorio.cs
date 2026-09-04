@@ -17,5 +17,6 @@ namespace Alemana.Data.Repositorios
         Task<Recetaproducto?> GetRecetaproducto(int idReceta);
 
         Task AgregarMateriaPrima(Recetaproducto recetaM); //<Recetaproducto>
+        Task<List<Recetaproducto>> ObtenerTodos();
     }
 }

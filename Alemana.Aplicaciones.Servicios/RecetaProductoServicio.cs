@@ -58,6 +58,40 @@ namespace Alemana.Aplicaciones.Servicios
 
         }
 
+
+        public async Task<List<RecetaProductoDTO>> ObtenerTodos()
+        {
+            var recetas = await _recetaRepositorio.ObtenerTodos();
+
+            return recetas.Select(r => new RecetaProductoDTO
+            {
+                IdReceta = r.IdReceta,
+                Descripcion = r.Descripcion,
+                MateriapReceta = r.MateriapReceta?.Select(mp => new MateriapRecetaDTO
+                {
+                    IdMateriaP = mp.IdMateriaP,
+                    CantidadNecesaria = mp.CantidadNecesaria
+                }).ToList() ?? new List<MateriapRecetaDTO>()
+            }).ToList();
+        }
+
+        public async Task<RecetaProductoDTO> ObtenerPorId(int id)
+        {
+            var r = await _recetaRepositorio.GetRecetaproducto(id);
+
+            if (r == null) return null;
+
+            return new RecetaProductoDTO
+            {
+                IdReceta = r.IdReceta,
+                Descripcion = r.Descripcion,
+                MateriapReceta = r.MateriapReceta?.Select(mp => new MateriapRecetaDTO
+                {
+                    IdMateriaP = mp.IdMateriaP,
+                    CantidadNecesaria = mp.CantidadNecesaria
+                }).ToList() ?? new List<MateriapRecetaDTO>()
+            };
+        }
         public async Task<bool> AgregarMateriaPrima(int idR, List<MateriapRecetaDTO> masmps) //no sé si es lo más óptimo que entre esto o directamente el dto de receta
         {
             var laR = await _recetaRepositorio.GetRecetaproducto(idR);

@@ -67,12 +67,18 @@ namespace Alemana.Data.Repositorios
             return rExistente;
         }
 
-        public async Task AgregarMateriaPrima(Recetaproducto recetaM) //<Recetaproducto>
+        public async Task AgregarMateriaPrima(Recetaproducto recetaM)
         {
             _DbA.Update(recetaM);
             await _DbA.SaveChangesAsync();
         }
 
+        public async Task<List<Recetaproducto>> ObtenerTodos()
+        {
+            return await _DbA.Recetaproductos
+                .Include(r => r.MateriapReceta)
+                .ToListAsync();
+        }
 
     }
 }
