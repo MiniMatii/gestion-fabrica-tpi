@@ -50,6 +50,7 @@
             ktPanel2 = new KimTools.WinForms.KtPanel();
             ktPictureBox1 = new KimTools.WinForms.KtPictureBox();
             ktPanel3 = new KimTools.WinForms.KtPanel();
+            ktPanel25 = new KimTools.WinForms.KtPanel();
             ktButton1 = new KimTools.WinForms.KtButton();
             ktButton2 = new KimTools.WinForms.KtButton();
             ktButton3 = new KimTools.WinForms.KtButton();
@@ -501,6 +502,7 @@
             ktPanel3.BorderRadius = 24F;
             ktPanel3.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             ktPanel3.BorderWidth = 1.5F;
+            ktPanel3.Controls.Add(ktPanel25);
             ktPanel3.Controls.Add(ktButton1);
             ktPanel3.Controls.Add(ktButton2);
             ktPanel3.Controls.Add(ktButton3);
@@ -512,6 +514,20 @@
             ktPanel3.PatternColor = KimTools.WinForms.KtColor.Empty;
             ktPanel3.Size = new Size(1154, 43);
             ktPanel3.TabIndex = 0;
+            // 
+            // ktPanel25
+            // 
+            ktPanel25.Background = new KimTools.WinForms.KtBrushSolid(KimTools.WinForms.KtColor.BASE_2);
+            ktPanel25.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            ktPanel25.BorderRadius = 24F;
+            ktPanel25.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel25.BorderWidth = 1.5F;
+            ktPanel25.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel25.Location = new Point(0, 0);
+            ktPanel25.Name = "ktPanel25";
+            ktPanel25.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel25.Size = new Size(250, 125);
+            ktPanel25.TabIndex = 12;
             // 
             // ktButton1
             // 
@@ -825,7 +841,7 @@
             ktDivider6.Dock = DockStyle.Top;
             ktDivider6.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
             ktDivider6.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
-            ktDivider6.Location = new Point(20, 898);
+            ktDivider6.Location = new Point(20, 886);
             ktDivider6.Margin = new Padding(0);
             ktDivider6.Name = "ktDivider6";
             ktDivider6.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
@@ -844,7 +860,7 @@
             ktPanel20.Controls.Add(ktPanel22);
             ktPanel20.Dock = DockStyle.Top;
             ktPanel20.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel20.Location = new Point(20, 754);
+            ktPanel20.Location = new Point(20, 742);
             ktPanel20.Margin = new Padding(4);
             ktPanel20.Name = "ktPanel20";
             ktPanel20.PatternColor = KimTools.WinForms.KtColor.Empty;
@@ -1084,7 +1100,7 @@
             ktDivider5.Dock = DockStyle.Top;
             ktDivider5.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
             ktDivider5.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
-            ktDivider5.Location = new Point(20, 731);
+            ktDivider5.Location = new Point(20, 722);
             ktDivider5.Margin = new Padding(0);
             ktDivider5.Name = "ktDivider5";
             ktDivider5.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
@@ -1102,7 +1118,7 @@
             ktPanel16.Controls.Add(ktPanel18);
             ktPanel16.Dock = DockStyle.Top;
             ktPanel16.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel16.Location = new Point(20, 595);
+            ktPanel16.Location = new Point(20, 586);
             ktPanel16.Margin = new Padding(4);
             ktPanel16.Name = "ktPanel16";
             ktPanel16.PatternColor = KimTools.WinForms.KtColor.Empty;
@@ -1226,7 +1242,7 @@
             ktDivider4.Dock = DockStyle.Top;
             ktDivider4.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
             ktDivider4.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
-            ktDivider4.Location = new Point(20, 572);
+            ktDivider4.Location = new Point(20, 566);
             ktDivider4.Margin = new Padding(0);
             ktDivider4.Name = "ktDivider4";
             ktDivider4.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
@@ -1244,7 +1260,7 @@
             ktPanel12.Controls.Add(ktPanel14);
             ktPanel12.Dock = DockStyle.Top;
             ktPanel12.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel12.Location = new Point(20, 317);
+            ktPanel12.Location = new Point(20, 311);
             ktPanel12.Margin = new Padding(4);
             ktPanel12.Name = "ktPanel12";
             ktPanel12.PatternColor = KimTools.WinForms.KtColor.Empty;
@@ -1286,7 +1302,7 @@
             ktTablaProveedoresLotes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold);
             dataGridViewCellStyle2.ForeColor = Color.White;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(0, 78, 65);
             dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(0, 78, 65);
@@ -1297,7 +1313,7 @@
             ktTablaProveedoresLotes.Columns.AddRange(new DataGridViewColumn[] { IdProveedor, razonSocial, cuit, nombre });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold);
             dataGridViewCellStyle3.ForeColor = Color.FromArgb(230, 230, 230);
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(173, 151, 98);
             dataGridViewCellStyle3.SelectionForeColor = Color.White;
@@ -1313,7 +1329,7 @@
             ktTablaProveedoresLotes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold);
             dataGridViewCellStyle4.ForeColor = Color.FromArgb(173, 151, 98);
             dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(173, 151, 98);
             dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(173, 151, 98);
@@ -1434,7 +1450,7 @@
             ktDivider3.Dock = DockStyle.Top;
             ktDivider3.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
             ktDivider3.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
-            ktDivider3.Location = new Point(20, 294);
+            ktDivider3.Location = new Point(20, 291);
             ktDivider3.Margin = new Padding(0);
             ktDivider3.Name = "ktDivider3";
             ktDivider3.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
@@ -1452,7 +1468,7 @@
             ktPanel6.Controls.Add(ktPanel8);
             ktPanel6.Dock = DockStyle.Top;
             ktPanel6.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel6.Location = new Point(20, 158);
+            ktPanel6.Location = new Point(20, 155);
             ktPanel6.Margin = new Padding(4);
             ktPanel6.Name = "ktPanel6";
             ktPanel6.PatternColor = KimTools.WinForms.KtColor.Empty;
