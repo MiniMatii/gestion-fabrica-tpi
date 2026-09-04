@@ -15,5 +15,7 @@ namespace Alemana.Data.Repositorios
         Task<bool> EliminarProducto(int id);
         Task<bool> ActualizarProducto(Producto unProducto);
         Task<Producto> ObtenerProductoPorId(int id);
+        Task<List<Producto>> ObtenerTodos();
+        Task<List<Producto>> ObtenerDisponibles();
     }
 }
