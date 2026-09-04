@@ -19,12 +19,12 @@ namespace Alemana.Aplicaciones.Servicios
             loteRepositorio = loteRepo;
         }
 
-        public async Task<LoteDTO> AgregarLote(LoteDTO unLoteDTO) 
+        public async Task<LoteDTO> AgregarLote(LoteDTO unLoteDTO)
         {
             var fechaIngreso = DateTime.Now;
             Lote nLote = new Lote
             {
-                
+
                 FechaIngreso = fechaIngreso,
                 FechaVencimiento = unLoteDTO.FechaVencimiento,
                 CantidadLote = unLoteDTO.CantidadLote,
@@ -41,16 +41,16 @@ namespace Alemana.Aplicaciones.Servicios
             return unLoteDTO;
         }
 
-        public async Task<LoteDTO> BajaLote(int codLote) 
+        public async Task<LoteDTO> BajaLote(int codLote)
         {
             var loteE = await loteRepositorio.BajaLote(codLote);
 
-            if (loteE == null) 
+            if (loteE == null)
             {
                 return null;
             }
 
-            var loteEDTO = new LoteDTO() ;
+            var loteEDTO = new LoteDTO();
             loteEDTO.IdLote = loteE.IdLote;
             loteEDTO.IdProveedor = loteE.IdProveedor;
             loteEDTO.IdMateriaP = loteE.IdMateriaP;
@@ -59,16 +59,34 @@ namespace Alemana.Aplicaciones.Servicios
             return loteEDTO;
         }
 
-        public async Task<bool> EliminarLote(int codLote) 
+        public async Task<bool> EliminarLote(int codLote)
         {
             var result = await loteRepositorio.EliminarLote(codLote);
 
-            if (result) 
+            if (result)
             {
                 return result;
             }
 
             return result;
+        }
+
+
+        public async Task<List<LoteDTO>> ObtenerTodos()
+        {
+            var lotes = await loteRepositorio.ObtenerTodos();
+
+            // Transformamos la lista de entidades a una lista de DTOs
+            return lotes.Select(l => new LoteDTO
+            {
+                IdLote = l.IdLote,
+                FechaIngreso = l.FechaIngreso,
+                FechaVencimiento = l.FechaVencimiento,
+                CantidadLote = l.CantidadLote,
+                IdProveedor = l.IdProveedor,
+                IdMateriaP = l.IdMateriaP,
+                EstadoLote = l.EstadoLote
+            }).ToList();
         }
     }
 }

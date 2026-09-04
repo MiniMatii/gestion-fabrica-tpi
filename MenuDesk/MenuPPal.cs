@@ -46,16 +46,30 @@ namespace MenuDesk
 
         }
 
-        private async void altaLote_Click(object sender, EventArgs e)
+        private async void abrirMenuLote_Click(object sender, EventArgs e)
         {
 
-            ktPages1.SelectedTab = tabPage1;
+            await GenerarMateriasPrimas();
             await CargarDatosEnGrillaAsync();
+            await CargarDatosLotesAsync();
         }
 
-        private void ktLabel2_Click(object sender, EventArgs e)
-        {
 
+
+        private async void sNavModLote(object sender, EventArgs e)
+        {
+            navBar.SelectedTab = modificarLotesPage;
+
+        }
+
+        private async void sNavAltaLote(object sender, EventArgs e)
+        {
+            navBar.SelectedTab = altaLotesPage;
+        }
+
+        private async void sNavEliminarLote(object sender, EventArgs e)
+        {
+            navBar.SelectedTab = eliminarLotesPage;
         }
 
         private async Task CargarDatosEnGrillaAsync()
@@ -69,12 +83,11 @@ namespace MenuDesk
                 if (listaDatos != null)
                 {
 
-                    ktTablaLotes.DataSource = listaDatos;
-
-                    ktTablaLotes.Columns["IdProveedor"].DisplayIndex = 3;
-                    ktTablaLotes.Columns["razonSocial"].HeaderText = "RazonSocial";
-                    ktTablaLotes.Columns["Cuit"].HeaderText = "CUIT";
-                    ktTablaLotes.Columns["Nombre"].HeaderText = "Nombre";
+                    ktTablaProveedoresLotes.DataSource = listaDatos;
+                    ktTablaProveedoresLotes.Columns["IdProveedor"].HeaderText = "IdProveedor";
+                    ktTablaProveedoresLotes.Columns["razonSocial"].HeaderText = "RazonSocial";
+                    ktTablaProveedoresLotes.Columns["Cuit"].HeaderText = "CUIT";
+                    ktTablaProveedoresLotes.Columns["Nombre"].HeaderText = "Nombre";
                 }
             }
             catch (Exception ex)
@@ -82,6 +95,54 @@ namespace MenuDesk
                 MessageBox.Show(ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private async Task CargarDatosLotesAsync()
+        {
+            try
+            {
+                string endpoint = "lotes";
+
+                var listaDatos = await _apiClient.ObtenerListaAsync<LoteDTO>(endpoint);
+
+                if (listaDatos != null)
+                {
+
+                    ktTablaLotes.DataSource = listaDatos;
+
+                    ktTablaLotes.Columns["IdLote"].HeaderText = "IdLote";
+                    ktTablaLotes.Columns["IdProv"].HeaderText = "IdProveedor";
+                    ktTablaLotes.Columns["IdMateriaP"].HeaderText = "IdMateriaP";
+                    ktTablaLotes.Columns["EstadoLote"].HeaderText = "EstadoLote";
+                    ktTablaLotes.Columns["FechaDeIngreso"].HeaderText = "FechaIngreso";
+                    ktTablaLotes.Columns["FechaDeVencimiento"].HeaderText = "FechaVencimiento";
+                    ktTablaLotes.Columns["CantidadLote"].HeaderText = "CantidadLote";
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private async Task GenerarMateriasPrimas() 
+        {
+            string endpoint = "materiap";
+
+            var listadoMP = await _apiClient.ObtenerListaAsync<MateriaPrimaDTO>(endpoint);
+
+            if (listadoMP != null) 
+            {
+                SelectMP.DisplayMember = "Nombre";
+                SelectMP.ValueMember = "IdMateriaP";
+                SelectMP.DataSource = listadoMP;
+                
+
+            }
+        }
+
+
 
         private void ConfigurarScrollbar()
         {
@@ -104,5 +165,35 @@ namespace MenuDesk
         {
             altaLoteSubPage.AutoScrollPosition = new Point(0, e.Value);
         }
+
+        private async void buttonGuardarLote_Click(object sender, EventArgs e)
+        {
+            try { 
+                var nuevoLote = new LoteDTO();
+                nuevoLote.FechaIngreso = fechaIngreso.Value;
+                nuevoLote.FechaVencimiento = DateTime.Parse(fechaVencimiento.Text);
+
+                if (ktTablaLotes.CurrentRow != null) 
+                {
+                    nuevoLote.IdProveedor = Convert.ToInt32(ktTablaLotes.CurrentRow.Cells["IdProveedor"].Value);
+                }
+
+                nuevoLote.IdMateriaP = Convert.ToInt32(SelectMP.SelectedValue); ;
+                nuevoLote.CantidadLote = int.Parse(cantidadMateriaPrima.Text);
+                nuevoLote.EstadoLote = 1;
+            
+
+                await _apiClient.PostAsync("lotes",nuevoLote);
+
+                MessageBox.Show("Lote guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al conectar con el servidor: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+
     }
 }

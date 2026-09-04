@@ -49,6 +49,11 @@ namespace Alemana.Data.Repositorios
         }
 
 
+        public async Task<List<Lote>> ObtenerTodos() 
+        {
+            return await _DbA.Lotes.ToListAsync();
+        }
+
         public async Task<bool> EliminarLote(int id) 
         {
             var loteEliminado = await _DbA.Lotes.FirstOrDefaultAsync(l => l.IdLote == id);

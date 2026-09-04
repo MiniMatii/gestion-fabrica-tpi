@@ -67,6 +67,27 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
+
+
+            app.MapGet("/lotes", async (ILoteServicio loteServicio) =>
+            {
+                try
+                {
+                    var lotes = await loteServicio.ObtenerTodos();
+                    return Results.Ok(lotes);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            }).WithName("Obtener Lotes")
+            .WithTags("Lotes")
+            .Produces<List<LoteDTO>>(StatusCodes.Status200OK)
+            .WithOpenApi();
+
+
         }
+
+
     }
 }
