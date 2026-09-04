@@ -26,6 +26,24 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
+            app.MapGet("/capacidad", async (ICapacidadServicio capacidadServicio) =>
+            {
+                var capacidades = await capacidadServicio.ObtenerTodos();
+                return Results.Ok(capacidades);
+            }).WithName("Obtener Capacidades")
+              .WithTags("Capacidades")
+              .WithOpenApi();
+
+            app.MapGet("/capacidad/{id}", async (int id, ICapacidadServicio capacidadServicio) =>
+            {
+                var capacidad = await capacidadServicio.ObtenerPorId(id);
+                if (capacidad == null) return Results.NotFound(new { mensaje = "Capacidad no encontrada" });
+
+                return Results.Ok(capacidad);
+            }).WithName("Obtener Capacidad Por Id")
+              .WithTags("Capacidades")
+              .WithOpenApi();
+
             app.MapDelete("/capacidad/{id}", async (int id, ICapacidadServicio capacidadServicio) =>
             {
                 try

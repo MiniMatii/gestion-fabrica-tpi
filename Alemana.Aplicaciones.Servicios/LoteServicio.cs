@@ -59,6 +59,40 @@ namespace Alemana.Aplicaciones.Servicios
             return loteEDTO;
         }
 
+        public async Task<List<LoteDTO>> ObtenerTodos()
+        {
+            var lotes = await loteRepositorio.ObtenerTodos();
+
+            return lotes.Select(l => new LoteDTO
+            {
+                IdLote = l.IdLote,
+                FechaIngreso = l.FechaIngreso,
+                FechaVencimiento = l.FechaVencimiento,
+                CantidadLote = l.CantidadLote,
+                IdProveedor = l.IdProveedor,
+                IdMateriaP = l.IdMateriaP,
+                EstadoLote = l.EstadoLote
+            }).ToList();
+        }
+
+        public async Task<LoteDTO> ObtenerPorId(int id)
+        {
+            var lote = await loteRepositorio.ObtenerPorId(id);
+
+            if (lote == null) return null;
+
+            return new LoteDTO
+            {
+                IdLote = lote.IdLote,
+                FechaIngreso = lote.FechaIngreso,
+                FechaVencimiento = lote.FechaVencimiento,
+                CantidadLote = lote.CantidadLote,
+                IdProveedor = lote.IdProveedor,
+                IdMateriaP = lote.IdMateriaP,
+                EstadoLote = lote.EstadoLote
+            };
+        }
+
         public async Task<bool> EliminarLote(int codLote) 
         {
             var result = await loteRepositorio.EliminarLote(codLote);
