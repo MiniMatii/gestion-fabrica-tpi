@@ -50,6 +50,23 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
+            app.MapGet("/lote", async (ILoteServicio loteServicio) =>
+            {
+                var lotes = await loteServicio.ObtenerTodos();
+                return Results.Ok(lotes);
+            }).WithName("Obtener Lotes")
+              .WithTags("Lotes")
+              .WithOpenApi();
+
+            app.MapGet("/lote/{id}", async (int id, ILoteServicio loteServicio) =>
+            {
+                var lote = await loteServicio.ObtenerPorId(id);
+                if (lote == null) return Results.NotFound(new { mensaje = "Lote no encontrado" });
+
+                return Results.Ok(lote);
+            }).WithName("Obtener Lote Por Id")
+              .WithTags("Lotes")
+              .WithOpenApi();
 
             app.MapDelete("/lotes/{id}", async (int codLote, ILoteServicio loteServicio) =>
             {
