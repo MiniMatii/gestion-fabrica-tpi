@@ -1814,6 +1814,7 @@
             guardarCambiosLote.TabIndex = 1;
             guardarCambiosLote.Text = "Guardar Cambios";
             guardarCambiosLote.UseVisualStyleBackColor = false;
+            guardarCambiosLote.Click += guardarCambiosLote_Click;
             // 
             // ktDivider8
             // 
@@ -2212,6 +2213,7 @@
             ktTablaLotes.Style.ScrollBar.Background = KimTools.WinForms.KtColor.Empty;
             ktTablaLotes.Style.ScrollBar.Foreground = KimTools.WinForms.KtColor.Empty;
             ktTablaLotes.TabIndex = 0;
+            ktTablaLotes.SelectionChanged += ktTablaLotes_SelectionChanged;
             // 
             // IdLote
             // 

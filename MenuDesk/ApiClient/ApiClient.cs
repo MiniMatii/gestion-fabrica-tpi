@@ -36,5 +36,19 @@ namespace MenuDesk.Services
                 throw new Exception($"Error al enviar datos a '{endpoint}': {ex.Message}");
             }
         }
+
+        public async Task<bool> PatchAsync<T>(string endpoint, T objetoDto) 
+        {
+            try 
+            {
+                var response = await _client.PatchAsJsonAsync(endpoint, objetoDto);
+                return response.IsSuccessStatusCode;
+            } 
+            catch (Exception ex) 
+            {
+                throw new Exception($"Error al actualiar algunos campos en '{endpoint}': {ex.Message}");
+            }
+        }
+
     }
 }

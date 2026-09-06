@@ -36,8 +36,6 @@ namespace MenuDesk
             this.Close();
         }
 
-        
-
 
     }
 }

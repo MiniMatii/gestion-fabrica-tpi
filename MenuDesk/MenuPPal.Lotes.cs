@@ -165,6 +165,40 @@ namespace MenuDesk
         //    altaLoteSubPage.AutoScrollPosition = new Point(0, e.Value);
         //}
 
+        private void ktTablaLotes_SelectionChanged(object sender, EventArgs e)
+        {
+            valorCantCambio.Text = ktTablaLotes.CurrentRow.Cells["CantidadLote"].Value.ToString();
+            valorFechaVCambiada.Text = ktTablaLotes.CurrentRow.Cells["FechaDeVencimiento"].Value.ToString();
+              
+        }
+
+        private async void guardarCambiosLote_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var modLote = ktTablaLotes.CurrentRow;
+                if (modLote != null)
+                {
+                    if (valorCantCambio != null)
+                    {
+                        modLote.Cells["CantidadLote"].Value = valorCantCambio.Text;
+                    }
+
+                    if (valorFechaVCambiada != null) 
+                    {
+                        modLote.Cells["FechaDeVencimiento"].Value = valorFechaVCambiada.Text;
+                    }
+                }
+
+                await _apiClient.PatchAsync("lotes", modLote);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al ejecutar el guardado de las modificaciones en lotes: {ex.Message}", "Error de Guardado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
 
 
     }
