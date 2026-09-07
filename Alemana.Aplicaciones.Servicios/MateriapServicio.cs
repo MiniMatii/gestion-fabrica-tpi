@@ -35,7 +35,6 @@ namespace Alemana.Aplicaciones.Servicios
         {
             var materiasPrimas = await materiapRepositorio.ObtenerTodos();
 
-            // Transformamos la lista de entidades a una lista de DTOs
             return materiasPrimas.Select(m => new MateriaPrimaDTO
             {
                 IdMateriaP = m.IdMateriaP,

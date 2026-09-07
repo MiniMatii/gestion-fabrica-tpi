@@ -40,5 +40,31 @@ namespace Alemana.Aplicaciones.Servicios
             return await capacidadesRepositorio.BorrarCapacidad(idCap);
         }
 
+        public async Task<List<CapacidadDTO>> ObtenerTodos()
+        {
+            var capacidades = await capacidadesRepositorio.ObtenerTodos();
+
+            return capacidades.Select(c => new CapacidadDTO
+            {
+                IdCap = c.IdCap,
+                NomCapacidad = c.NomCapacidad,
+                DescCapacidad = c.DescCapacidad
+            }).ToList();
+        }
+
+        public async Task<CapacidadDTO?> ObtenerPorId(int id)
+        {
+            var capacidad = await capacidadesRepositorio.ObtenerPorId(id);
+
+            if (capacidad == null) return null;
+
+            return new CapacidadDTO
+            {
+                IdCap = capacidad.IdCap,
+                NomCapacidad = capacidad.NomCapacidad,
+                DescCapacidad = capacidad.DescCapacidad
+            };
+        }
+
     }
 }

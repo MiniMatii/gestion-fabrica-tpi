@@ -1,9 +1,11 @@
 ﻿using Alemana.Dominio.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Alemana.Dominio.Models;
 
 namespace Alemana.Data.Repositorios
 {
@@ -70,7 +72,7 @@ namespace Alemana.Data.Repositorios
                 return false;
             }
             if (!string.IsNullOrWhiteSpace(unProducto.Nombre) && unProducto.Nombre != "string") 
-            {
+        {
                 prE.Nombre = unProducto.Nombre;
             }
             prE.Camara = unProducto.Camara;
@@ -85,10 +87,19 @@ namespace Alemana.Data.Repositorios
         {
             var prE = await _DbA.Productos.FindAsync(id);
             if (prE == null)
-            {
+        {
                 return null;
             }
             return prE;
+        }
+        public async Task<List<Producto>> ObtenerTodos()
+        {
+            return await _DbA.Productos.ToListAsync();
+        }
+
+        public async Task<List<Producto>> ObtenerDisponibles()
+        {
+            return await _DbA.Productos.Where(p => p.Disponible == true).ToListAsync();
         }
 
     }

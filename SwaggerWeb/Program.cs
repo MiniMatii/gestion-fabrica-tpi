@@ -29,12 +29,19 @@ builder.Services.AddScoped<IOperarioServicios, OperariosServicio>();
 
 builder.Services.AddScoped<IMateriapRepositorio, MateriapRepositorio>();
 builder.Services.AddScoped<IMateriapServicio, MateriapServicio>();
+builder.Services.AddScoped<ICiudadServicio, CiudadServicio>();
+builder.Services.AddScoped<ICiudadesRespositorio, CiudadesRepositorio>();
 
 builder.Services.AddScoped<IEmpleadoRepositorio, EmpleadoRepositorio>();
 builder.Services.AddScoped<IEmpleadoServicio, EmpleadoServicio>();
 
+builder.Services.AddScoped<ISucursalServicio, SucursalServicio>();
+builder.Services.AddScoped<ISucursalRepositorio, SucursalRepositorio>();
 builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
 builder.Services.AddScoped<IProductoServicio, ProductoServicio>();
+
+builder.Services.AddScoped<IRecetaProductoServicio, RecetaProductoServicio>();
+builder.Services.AddScoped<IRecetaProductoRepositorio, RecetaProductoRepositorio>();
 
 var app = builder.Build();
 
@@ -49,4 +56,8 @@ app.MapMateriapEndpoint();
 app.MapCapacidadesEndpoint();
 app.MapEmpleadoEndpoint();
 app.MapProductoEndpoint();
+app.MapCiudadesEndpoint();
+app.MapSucursalesEndpoint();
+app.MapRecetaProductoEndpoint();
+
 app.Run();

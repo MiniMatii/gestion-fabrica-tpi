@@ -12,8 +12,9 @@ namespace Alemana.Data.Repositorios
 
         Task<Capacidad> AltaCapacidad(Capacidad unaCapa);
         Task<bool> BorrarCapacidad(int idCap);
+        Task<List<Capacidad>> ObtenerTodos();
+        Task<Capacidad> ObtenerPorId(int id);
 
-        
 
 
     }

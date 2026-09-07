@@ -51,7 +51,7 @@ public partial class DbAlemanaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;database=alemanadb;uid=root;pwd=110105", ServerVersion.Parse("8.0.32-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;database=alemanadb;uid=root;pwd=mysql4780", ServerVersion.Parse("8.0.32-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -173,7 +173,7 @@ public partial class DbAlemanaContext : DbContext
 
             entity.HasIndex(e => e.IdJefe, "idJefe");
 
-            //entity.HasIndex(e => e.IdSucursal, "idSucursal");
+            entity.HasIndex(e => e.IdSucursal, "idSucursal");
 
             entity.Property(e => e.IdEmpleado).HasColumnName("idEmpleado");
             entity.Property(e => e.Apellido)
@@ -183,7 +183,7 @@ public partial class DbAlemanaContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("dni");
             entity.Property(e => e.IdJefe).HasColumnName("idJefe");
-            //entity.Property(e => e.IdSucursal).HasColumnName("idSucursal");
+            entity.Property(e => e.IdSucursal).HasColumnName("idSucursal");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(100)
                 .HasColumnName("nombre");
@@ -192,10 +192,10 @@ public partial class DbAlemanaContext : DbContext
                 .HasForeignKey(d => d.IdJefe)
                 .HasConstraintName("empleados_ibfk_2");
 
-            //entity.HasOne(d => d.IdSucursalNavigation).WithMany(p => p.Empleados)
-            //    .HasForeignKey(d => d.IdSucursal)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("empleados_ibfk_1");
+            entity.HasOne(d => d.IdSucursalNavigation).WithMany(p => p.Empleados)
+               .HasForeignKey(d => d.IdSucursal)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("empleados_ibfk_1");
         });
 
         modelBuilder.Entity<Lote>(entity =>
