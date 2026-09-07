@@ -43,7 +43,7 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapPut("/operario/{idOperario}", async (OperariosDTO dto, IOperarioServicios operarioServicios) => 
+            app.MapPatch("/operario", async (OperariosDTO dto, IOperarioServicios operarioServicios) => 
             {
                 try
                 {

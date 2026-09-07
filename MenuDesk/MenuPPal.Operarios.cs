@@ -30,7 +30,7 @@ namespace MenuDesk
 
         private void EditarOperario_Click(object sender, EventArgs e)
         {
-            navBarOperarios.SelectedTab = modificarLotesPage;
+            navBarOperarios.SelectedTab = modificarOperarioPage;
         }
 
         private void EliminarOperario_Click(object sender, EventArgs e)
@@ -88,11 +88,41 @@ namespace MenuDesk
             } 
         }
 
+        private async void GuardarCambiosOp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string endpoint = "operario";
+
+                var modOperario = ktTablaOperarios.CurrentRow;
+
+                if (modOperario != null)
+                {
+                    var ope = new OperariosDTO();
+
+                    ope.IdOperario = Convert.ToInt32(modOperario.Cells["IdOperario"].Value);
+                    ope.Apellido = valorApelldioC.Text;
+                    ope.Nombre = valorNombreC.Text;
+                    ope.Disponibilidad = Convert.ToSByte(valorEstadoC.Text);
+
+                    await _apiClient.PatchAsync(endpoint, ope);
+
+                    MessageBox.Show("Cambios de guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Error al ejecutar el guardado de las modificaciones en operarios: {ex.Message}", "Error de Guardado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
 
         private async void actCambiosOperario_Click(object sender, EventArgs e)
         {
             await CargarOperariosEnGrilla();
         }
+
         private async Task CargarCapacidadesEnGrilla() 
         {
             try
@@ -124,10 +154,18 @@ namespace MenuDesk
             if (listado != null)
             {
                 ktTablaOperarios.DataSource = listado;
+                ktTablaModOp.DataSource = listado;
+
                 ktTablaOperarios.Columns["IdOperario"].HeaderText = "IdOp";
                 ktTablaOperarios.Columns["NombreOp"].HeaderText = "Nombre";
                 ktTablaOperarios.Columns["ApellidoOp"].HeaderText = "Apellido";
                 ktTablaOperarios.Columns["Disponibilidad"].HeaderText = "Estado";
+
+                ktTablaModOp.Columns["IdOpM"].HeaderText = "IdOp";
+                ktTablaModOp.Columns["NombreM"].HeaderText = "Nombre";
+                ktTablaModOp.Columns["ApellidoM"].HeaderText = "Apellido";
+                ktTablaModOp.Columns["EstadoM"].HeaderText = "Estado";
+
             }
         }
     }
