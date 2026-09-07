@@ -115,8 +115,10 @@ namespace MenuDesk
             {
                 SelectMP.DisplayMember = "Nombre";
                 SelectMP.ValueMember = "IdMateriaP";
+
                 SelectUnidad.DisplayMember = "Unidad";
                 SelectUnidad.ValueMember = "Unidad";
+                
                 SelectUnidad.DataSource = listadoMP;
                 SelectMP.DataSource = listadoMP;
 
@@ -137,7 +139,7 @@ namespace MenuDesk
                     nuevoLote.IdProveedor = Convert.ToInt32(ktTablaProveedoresLotes.CurrentRow.Cells["IdProveedor"].Value);
                 }
 
-                nuevoLote.IdMateriaP = Convert.ToInt32(SelectMP.SelectedValue); ;
+                nuevoLote.IdMateriaP = Convert.ToInt32(SelectMP.SelectedValue); 
                 nuevoLote.CantidadLote = int.Parse(cantidadMateriaPrima.Text);
                 nuevoLote.EstadoLote = 1;
 
@@ -241,7 +243,6 @@ namespace MenuDesk
                 MessageBox.Show($"Error al eliminar el lote: {ex.Message}", "Error de Eliminación", MessageBoxButtons.OK);
             }
         }
-
 
         private async void actCambiosLote_Click(object sender, EventArgs e)
         {

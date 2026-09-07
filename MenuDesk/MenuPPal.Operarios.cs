@@ -25,7 +25,7 @@ namespace MenuDesk
 
         private void AltaOperario_Click(object sender, EventArgs e)
         {
-            navBarOperarios.SelectedTab = altaLotesPage;
+            navBarOperarios.SelectedTab = altaOperarioPage;
         }
 
         private void EditarOperario_Click(object sender, EventArgs e)
