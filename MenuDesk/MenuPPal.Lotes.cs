@@ -78,6 +78,8 @@ namespace MenuDesk
                 {
 
                     ktTablaLotes.DataSource = listaDatos;
+                    ktTablaLotesEliminar.DataSource = listaDatos;
+
 
                     ktTablaLotes.Columns["IdLote"].HeaderText = "IdLote";
                     ktTablaLotes.Columns["IdProv"].HeaderText = "IdProveedor";
@@ -87,6 +89,13 @@ namespace MenuDesk
                     ktTablaLotes.Columns["FechaDeVencimiento"].HeaderText = "FechaVencimiento";
                     ktTablaLotes.Columns["CantidadLote"].HeaderText = "CantidadLote";
 
+                    ktTablaLotes.Columns["IdLote"].HeaderText = "IdLoteE";
+                    ktTablaLotes.Columns["IdProv"].HeaderText = "IdProveedorE";
+                    ktTablaLotes.Columns["IdMateriaP"].HeaderText = "IdMateriaPE";
+                    ktTablaLotes.Columns["EstadoLote"].HeaderText = "EstadoLoteE";
+                    ktTablaLotes.Columns["FechaDeIngreso"].HeaderText = "FechaIngresoE";
+                    ktTablaLotes.Columns["FechaDeVencimiento"].HeaderText = "FechaVencimientoE";
+                    ktTablaLotes.Columns["CantidadLote"].HeaderText = "CantidadLoteE";
                 }
             }
             catch (Exception ex)
@@ -179,18 +188,26 @@ namespace MenuDesk
                 var modLote = ktTablaLotes.CurrentRow;
                 if (modLote != null)
                 {
+                    var loteDto = new LoteDTO();
+
                     if (valorCantCambio != null)
                     {
-                        modLote.Cells["CantidadLote"].Value = valorCantCambio.Text;
+                        loteDto.CantidadLote = Convert.ToDecimal(valorCantCambio.Text);
                     }
 
                     if (valorFechaVCambiada != null) 
                     {
-                        modLote.Cells["FechaDeVencimiento"].Value = valorFechaVCambiada.Text;
+                        loteDto.FechaVencimiento = DateTime.Parse(valorFechaVCambiada.Text);
                     }
-                }
+                    loteDto.IdLote = Convert.ToInt32(modLote.Cells["IdLote"].Value);
+                    loteDto.IdMateriaP = Convert.ToInt32(modLote.Cells["IdMateriaP"].Value);
+                    loteDto.IdProveedor = Convert.ToInt32(modLote.Cells["IdProv"].Value);
+                    loteDto.EstadoLote = Convert.ToSByte(modLote.Cells["estadoLote"].Value);
+                    loteDto.FechaIngreso = Convert.ToDateTime(modLote.Cells["FechaDeIngreso"].Value);
+                    await _apiClient.PatchAsync("lotes", loteDto);
 
-                await _apiClient.PatchAsync("lotes", modLote);
+                    MessageBox.Show("Cambios de guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
             }
             catch (Exception ex)
@@ -200,6 +217,34 @@ namespace MenuDesk
 
         }
 
+        private void deshabilitarLote_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private async void eliminarLote_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int idEliminar = Convert.ToInt32(ktTablaLotesEliminar.CurrentRow.Cells["IdLoteE"].Value);
+                bool eliminado = await _apiClient.DeleteAsync($"lotes/{idEliminar}");
+                
+                if (eliminado)
+                    MessageBox.Show("Lote eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("No se pudo eliminar el lote.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Error al eliminar el lote: {ex.Message}", "Error de Eliminación", MessageBoxButtons.OK);
+            }
+        }
+
+
+        private async void actCambiosLote_Click(object sender, EventArgs e)
+        {
+            await CargarDatosLotesAsync();
+        }
     }
 }

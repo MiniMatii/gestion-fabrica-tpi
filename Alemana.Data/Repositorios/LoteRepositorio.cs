@@ -31,7 +31,6 @@ namespace Alemana.Data.Repositorios
             return iLote;
         }
 
-
         public async Task<Lote> BajaLote(int idLote) 
         {
            var loteE = await _DbA.Lotes.FindAsync(idLote);
@@ -47,7 +46,6 @@ namespace Alemana.Data.Repositorios
 
             return loteE;
         }
-
 
         public async Task<List<Lote>> ObtenerTodos() 
         {
@@ -70,5 +68,16 @@ namespace Alemana.Data.Repositorios
 
         }
 
+        public async Task<Lote> ObtenerLotePorId(int id) 
+        {
+            return await _DbA.Lotes.FindAsync(id);
+        }
+
+        public async Task<bool> GuardarCambiosLote()
+        {
+            int response =  await _DbA.SaveChangesAsync();
+
+            return response > 0;
+        }
     }
 }

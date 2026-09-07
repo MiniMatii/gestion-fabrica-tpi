@@ -50,5 +50,27 @@ namespace MenuDesk.Services
             }
         }
 
+        public async Task<bool> DeleteAsync(string endpoint) 
+        {
+            try 
+            {
+                 var response = await _client.DeleteAsync(endpoint);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string contenido = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Status: {response.StatusCode}\nContenido: {contenido}");
+                }
+
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Excepción: {ex.Message}\nInner: {ex.InnerException?.Message}");
+                return false;
+            }
+        }
+
     }
 }

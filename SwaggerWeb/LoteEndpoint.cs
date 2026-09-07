@@ -29,7 +29,27 @@ namespace SwaggerWeb
             .Produces<LoteDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
-            
+
+
+
+            app.MapPatch($"/lotes", async (LoteDTO dto, ILoteServicio loteServicio) => 
+            {
+                try 
+                {
+                    bool response = await loteServicio.ModificarLote(dto);
+                    return Results.Ok(response);
+                } 
+                catch(ArgumentException ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+
+
+            }).WithName("Modificar Lote")
+            .WithTags("Lotes")
+            .Produces<LoteDTO>(StatusCodes.Status201Created)
+            .Produces(StatusCodes.Status400BadRequest)
+            .WithOpenApi(); 
 
             app.MapPut($"/lotes", async (int codLote, ILoteServicio loteServicio) => 
             {
@@ -51,7 +71,7 @@ namespace SwaggerWeb
             .WithOpenApi();
 
 
-            app.MapDelete("/lotes/{id}", async (int codLote, ILoteServicio loteServicio) =>
+            app.MapDelete("/lotes/{codLote}", async (int codLote, ILoteServicio loteServicio) =>
             {
                 var eliminado = await loteServicio.EliminarLote(codLote);
 

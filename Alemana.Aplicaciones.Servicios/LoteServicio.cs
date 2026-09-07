@@ -71,7 +71,6 @@ namespace Alemana.Aplicaciones.Servicios
             return result;
         }
 
-
         public async Task<List<LoteDTO>> ObtenerTodos()
         {
             var lotes = await loteRepositorio.ObtenerTodos();
@@ -87,6 +86,21 @@ namespace Alemana.Aplicaciones.Servicios
                 IdMateriaP = l.IdMateriaP,
                 EstadoLote = l.EstadoLote
             }).ToList();
+        }
+
+        public async Task<bool> ModificarLote(LoteDTO unLoteDto) 
+        {
+            var loteE = await loteRepositorio.ObtenerLotePorId(unLoteDto.IdLote);
+
+            if (loteE != null) 
+            {
+                loteE.FechaVencimiento = unLoteDto.FechaVencimiento;
+                loteE.CantidadLote = unLoteDto.CantidadLote;
+
+                return await loteRepositorio.GuardarCambiosLote();
+            }
+
+            return false;
         }
     }
 }
