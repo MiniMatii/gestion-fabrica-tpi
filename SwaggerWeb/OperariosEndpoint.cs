@@ -67,7 +67,7 @@ namespace SwaggerWeb
             .WithOpenApi();
 
 
-            app.MapGet("/operarios/", async (IOperarioServicios operarioServicios)  =>
+            app.MapGet("/operario/", async (IOperarioServicios operarioServicios)  =>
             {
                 var resultado = await operarioServicios.ObtenerTodos();
                 return Results.Ok(resultado);

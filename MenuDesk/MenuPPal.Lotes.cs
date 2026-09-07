@@ -12,7 +12,8 @@ namespace MenuDesk
     {
         private void LotesPage_CheckedChanged(object sender, EventArgs e)
         {
-            voidPanel.Visible = !(voidPanel.Visible);
+            //voidPanel.Visible = !(voidPanel.Visible);
+            panelOperarios.Visible = false;
             panelLotes.Visible = !(panelLotes.Visible);
             panelLotes.Enabled = !(panelLotes.Enabled);
             //ConfigurarScrollbar();
@@ -27,20 +28,20 @@ namespace MenuDesk
             await CargarDatosLotesAsync();
         }
 
-        private async void sNavModLote(object sender, EventArgs e)
+        private void sNavModLote(object sender, EventArgs e)
         {
-            navBar.SelectedTab = modificarLotesPage;
+            navBarLotes.SelectedTab = modificarLotesPage;
 
         }
 
-        private async void sNavAltaLote(object sender, EventArgs e)
+        private void sNavAltaLote(object sender, EventArgs e)
         {
-            navBar.SelectedTab = altaLotesPage;
+            navBarLotes.SelectedTab = altaLotesPage;
         }
 
-        private async void sNavEliminarLote(object sender, EventArgs e)
+        private void sNavEliminarLote(object sender, EventArgs e)
         {
-            navBar.SelectedTab = eliminarLotesPage;
+            navBarLotes.SelectedTab = eliminarLotesPage;
         }
 
         private async Task CargarDatosEnGrillaAsync()
@@ -108,7 +109,7 @@ namespace MenuDesk
         {
             string endpoint = "materiap";
 
-            var listadoMP = await _apiClient.ObtenerListaAsync<MateriaPrimaDTO>(endpoint);
+            var listadoMP = await _apiClient.ObtenerListaAsync<MateriapDTO>(endpoint);
 
             if (listadoMP != null)
             {

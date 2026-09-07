@@ -4,9 +4,9 @@ namespace Alemana.Aplicaciones.Servicios
 {
     public interface IMateriapServicio
     {
-        Task<MateriaPrimaDTO> AgregarMateriaPrima(MateriaPrimaDTO dto);
-        Task<List<MateriaPrimaDTO>> ObtenerTodos();
-        Task<MateriaPrimaDTO> ObtenerPorId(int id);
-        Task<MateriaPrimaDTO> ModificarMateriaPrima(MateriaPrimaDTO dto);
+        Task<MateriapDTO> AgregarMateriaPrima(MateriapDTO dto);
+        Task<List<MateriapDTO>> ObtenerTodos();
+        Task<MateriapDTO> ObtenerPorId(int id);
+        Task<MateriapDTO> ModificarMateriaPrima(MateriapDTO dto);
     }
 }

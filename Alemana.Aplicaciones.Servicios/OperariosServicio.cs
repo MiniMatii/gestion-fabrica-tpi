@@ -150,7 +150,6 @@ namespace Alemana.Aplicaciones.Servicios
             }
             return await operarioRepositorio.EliminarOperario(idOperario);
         }
-
         public async Task<OperariosDTO> EliminarCapacidadOperario(int idOperario, int idCapacidad)
         {
             var opE = await operarioRepositorio.ObtenerOperarioPorId(idOperario);
@@ -166,6 +165,28 @@ namespace Alemana.Aplicaciones.Servicios
                 Apellido = opActualizado.Apellido,
                 Disponibilidad = opActualizado.Disponibilidad,
                 IdCaps = opActualizado.IdCaps.Select(c => new CapacidadDTO
+                {
+                    IdCap = c.IdCap,
+                    NomCapacidad = c.NomCapacidad,
+                    DescCapacidad = c.DescCapacidad
+                }).ToList()
+            };
+        }
+        public async Task<OperariosDTO> ObtenerPorId(int idOperario)
+        {
+            var op = await operarioRepositorio.ObtenerOperarioPorId(idOperario);
+
+            if (op == null) return null;
+
+            var caps = await operarioRepositorio.ObtenerCapacidadesAsignadas(idOperario);
+
+            return new OperariosDTO
+            {
+                IdOperario = op.IdOperario,
+                Nombre = op.Nombre,
+                Apellido = op.Apellido,
+                Disponibilidad = op.Disponibilidad,
+                IdCaps = caps.Select(c => new CapacidadDTO
                 {
                     IdCap = c.IdCap,
                     NomCapacidad = c.NomCapacidad,

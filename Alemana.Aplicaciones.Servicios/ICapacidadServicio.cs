@@ -14,5 +14,6 @@ namespace Alemana.Aplicaciones.Servicios
 
         Task<CapacidadDTO> AltaCapacidad(CapacidadDTO unaCapa);
         Task<bool> BorrarCapacidad(int idCap);
+        Task<List<CapacidadDTO>> ObtenerTodos();
     }
 }

@@ -16,7 +16,7 @@ namespace Alemana.Aplicaciones.Servicios
             materiapRepositorio = materiapRepo;
         }
 
-        public async Task<MateriaPrimaDTO> AgregarMateriaPrima(MateriaPrimaDTO unaMatpDTO)
+        public async Task<MateriapDTO> AgregarMateriaPrima(MateriapDTO unaMatpDTO)
         {
             Materiap nMateriap = new Materiap
             {
@@ -31,12 +31,12 @@ namespace Alemana.Aplicaciones.Servicios
             return unaMatpDTO;
         }
 
-        public async Task<List<MateriaPrimaDTO>> ObtenerTodos()
+        public async Task<List<MateriapDTO>> ObtenerTodos()
         {
             var materiasPrimas = await materiapRepositorio.ObtenerTodos();
 
             // Transformamos la lista de entidades a una lista de DTOs
-            return materiasPrimas.Select(m => new MateriaPrimaDTO
+            return materiasPrimas.Select(m => new MateriapDTO
             {
                 IdMateriaP = m.IdMateriaP,
                 Nombre = m.Nombre,
@@ -44,13 +44,13 @@ namespace Alemana.Aplicaciones.Servicios
             }).ToList();
         }
 
-        public async Task<MateriaPrimaDTO> ObtenerPorId(int id)
+        public async Task<MateriapDTO> ObtenerPorId(int id)
         {
             var materiaPrima = await materiapRepositorio.ObtenerPorId(id);
 
             if (materiaPrima == null) return null;
 
-            return new MateriaPrimaDTO
+            return new MateriapDTO
             {
                 IdMateriaP = materiaPrima.IdMateriaP,
                 Nombre = materiaPrima.Nombre,
@@ -58,7 +58,7 @@ namespace Alemana.Aplicaciones.Servicios
             };
         }
 
-        public async Task<MateriaPrimaDTO> ModificarMateriaPrima(MateriaPrimaDTO unaMatpDTO)
+        public async Task<MateriapDTO> ModificarMateriaPrima(MateriapDTO unaMatpDTO)
         {
             var matExistente = await materiapRepositorio.ObtenerPorId(unaMatpDTO.IdMateriaP);
 

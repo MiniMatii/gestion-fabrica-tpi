@@ -20,7 +20,8 @@ namespace SwaggerWeb
                 {
                     return Results.BadRequest(new { error = ex.Message });
                 }
-            }).WithName("Alta Capacidad")
+            })
+            .WithName("Alta Capacidad")
             .WithTags("Capacidades")
             .Produces<CapacidadDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
@@ -38,13 +39,28 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }
-            ).WithName("Borrar Capacidad")
+            )
+            .WithName("Borrar Capacidad")
             .WithTags("Capacidades")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            
+            app.MapGet("/capacidad", async (ICapacidadServicio capacidadServicio) =>
+            {
+                try
+                {
+                    var capacidades = await capacidadServicio.ObtenerTodos();
+                    return Results.Ok(capacidades);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+                }).WithName("Obtener Capacidades")
+            .WithTags("Capacidades")
+            .Produces<List<MateriapDTO>>(StatusCodes.Status200OK)
+            .WithOpenApi();
 
         }
     }

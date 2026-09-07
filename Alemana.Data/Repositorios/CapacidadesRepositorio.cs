@@ -1,4 +1,5 @@
 ﻿using Alemana.Dominio.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,6 +42,11 @@ namespace Alemana.Data.Repositorios
             _DbA.Capacidads.Remove(capacidad);
             await _DbA.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<Capacidad>> ObtentenerCapacidades() 
+        {
+            return await _DbA.Capacidads.ToListAsync();
         }
 
 

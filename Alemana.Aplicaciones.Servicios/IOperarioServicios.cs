@@ -18,7 +18,7 @@ namespace Alemana.Aplicaciones.Servicios
         Task<List<CapacidadDTO>> EncontrarCapacidades(List<int> idCapacidades);
         Task<bool> EliminarOperario(int idOperario);
         Task<OperariosDTO> EliminarCapacidadOperario(int idOperario, int idCapacidad);
-
+        Task<OperariosDTO> ObtenerPorId(int idOperario);
 
     }
 }

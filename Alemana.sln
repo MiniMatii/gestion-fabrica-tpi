@@ -5,8 +5,6 @@ VisualStudioVersion = 17.14.37301.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.Dominio", "Alemana.Dominio\Alemana.Dominio.csproj", "{F159AC56-C1C0-481F-88D3-C364233A3FA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.Infraestructura", "Alemana.Infraestructura\Alemana.Infraestructura.csproj", "{995D35AB-2692-4739-8D07-F99D7DADB521}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.Data", "Alemana.Data\Alemana.Data.csproj", "{174AA524-FFE4-4A2C-8D4B-D12B8A0BB766}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alemana.DTOs", "Alemana.DTOs\Alemana.DTOs.csproj", "{C699DC9C-7EF4-4884-AD03-F0B2561E31D0}"
@@ -27,10 +25,6 @@ Global
 		{F159AC56-C1C0-481F-88D3-C364233A3FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F159AC56-C1C0-481F-88D3-C364233A3FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F159AC56-C1C0-481F-88D3-C364233A3FA1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{995D35AB-2692-4739-8D07-F99D7DADB521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{995D35AB-2692-4739-8D07-F99D7DADB521}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{995D35AB-2692-4739-8D07-F99D7DADB521}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{995D35AB-2692-4739-8D07-F99D7DADB521}.Release|Any CPU.Build.0 = Release|Any CPU
 		{174AA524-FFE4-4A2C-8D4B-D12B8A0BB766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{174AA524-FFE4-4A2C-8D4B-D12B8A0BB766}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{174AA524-FFE4-4A2C-8D4B-D12B8A0BB766}.Release|Any CPU.ActiveCfg = Release|Any CPU

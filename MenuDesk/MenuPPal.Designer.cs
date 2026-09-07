@@ -28,6 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation2 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle19 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle20 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle21 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle22 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle23 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle24 = new DataGridViewCellStyle();
             KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation1 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPPal));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
@@ -42,7 +55,7 @@
             DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            ktPanel1 = new KimTools.WinForms.KtPanel();
+            hudLateral = new KimTools.WinForms.KtPanel();
             ktPanel4 = new KimTools.WinForms.KtPanel();
             ProductosPage = new KimTools.WinForms.KtRadioButton();
             LotesPage = new KimTools.WinForms.KtRadioButton();
@@ -52,14 +65,13 @@
             ktDivider1 = new KimTools.WinForms.KtDivider();
             ktPanel2 = new KimTools.WinForms.KtPanel();
             ktPictureBox1 = new KimTools.WinForms.KtPictureBox();
-            ktPanel3 = new KimTools.WinForms.KtPanel();
+            hudSuperiorCierre = new KimTools.WinForms.KtPanel();
             ktButton1 = new KimTools.WinForms.KtButton();
             ktButton2 = new KimTools.WinForms.KtButton();
             ktButton3 = new KimTools.WinForms.KtButton();
             ktFormTools1 = new KimTools.WinForms.KtFormTools();
-            voidPanel = new KimTools.WinForms.KtPanel();
             panelLotes = new KimTools.WinForms.KtPanel();
-            navBar = new KimTools.WinForms.KtPages();
+            navBarLotes = new KimTools.WinForms.KtPages();
             altaLotesPage = new TabPage();
             altaLoteSubPage = new KimTools.WinForms.KtPanel();
             ktDivider6 = new KimTools.WinForms.KtDivider();
@@ -160,13 +172,73 @@
             eliminarLotesNavButton = new KimTools.WinForms.KtButton();
             modLotesNavButton = new KimTools.WinForms.KtButton();
             altaLotesNavButton = new KimTools.WinForms.KtButton();
-            ktPanel1.SuspendLayout();
+            panelOperarios = new KimTools.WinForms.KtPanel();
+            navBarOperarios = new KimTools.WinForms.KtPages();
+            altaOperarioPage = new TabPage();
+            altaOperariosSubPage = new KimTools.WinForms.KtPanel();
+            ktPanel49 = new KimTools.WinForms.KtPanel();
+            ktPanel50 = new KimTools.WinForms.KtPanel();
+            buttonGuardarOperario = new KimTools.WinForms.KtButton();
+            ktDivider13 = new KimTools.WinForms.KtDivider();
+            ktPanel1 = new KimTools.WinForms.KtPanel();
+            ktTablaCapacidades = new KimTools.WinForms.KtTable();
+            IdCap = new DataGridViewTextBoxColumn();
+            NomCapacidad = new DataGridViewTextBoxColumn();
+            DescCapacidad = new DataGridViewTextBoxColumn();
+            ktDivider12 = new KimTools.WinForms.KtDivider();
+            panelApellidoOp = new KimTools.WinForms.KtPanel();
+            ktPanel46 = new KimTools.WinForms.KtPanel();
+            apellidoOpText = new KimTools.WinForms.KtTextBox();
+            ktPanel47 = new KimTools.WinForms.KtPanel();
+            ktPanel48 = new KimTools.WinForms.KtPanel();
+            ktLabel10 = new KimTools.WinForms.KtLabel();
+            ktDivider10 = new KimTools.WinForms.KtDivider();
+            panelNombreOp = new KimTools.WinForms.KtPanel();
+            ktPanel3 = new KimTools.WinForms.KtPanel();
+            nombreOpText = new KimTools.WinForms.KtTextBox();
+            ktPanel42 = new KimTools.WinForms.KtPanel();
+            ktPanel45 = new KimTools.WinForms.KtPanel();
+            ktLabel46 = new KimTools.WinForms.KtLabel();
+            modificarOperarioPage = new TabPage();
+            modificarOperarioSubPage = new KimTools.WinForms.KtPanel();
+            ktPanel56 = new KimTools.WinForms.KtPanel();
+            ktPanel57 = new KimTools.WinForms.KtPanel();
+            ktPanel58 = new KimTools.WinForms.KtPanel();
+            buttonActualizarCambios = new KimTools.WinForms.KtButton();
+            buttonGuardarCambiosOp = new KimTools.WinForms.KtButton();
+            ktPanel55 = new KimTools.WinForms.KtPanel();
+            ktDivider19 = new KimTools.WinForms.KtDivider();
+            ktPanel67 = new KimTools.WinForms.KtPanel();
+            ktPanel68 = new KimTools.WinForms.KtPanel();
+            ktTable1 = new KimTools.WinForms.KtTable();
+            ktDivider20 = new KimTools.WinForms.KtDivider();
+            eliminarOperarioPage = new TabPage();
+            ktPanel51 = new KimTools.WinForms.KtPanel();
+            ktPanel52 = new KimTools.WinForms.KtPanel();
+            actualizarTablaEliminar = new KimTools.WinForms.KtButton();
+            ktPanel53 = new KimTools.WinForms.KtPanel();
+            buttonBorrarOperario = new KimTools.WinForms.KtButton();
+            ktDivider14 = new KimTools.WinForms.KtDivider();
+            ktPanel54 = new KimTools.WinForms.KtPanel();
+            ktTablaOperarios = new KimTools.WinForms.KtTable();
+            IdOperario = new DataGridViewTextBoxColumn();
+            NombreOp = new DataGridViewTextBoxColumn();
+            ApellidoOp = new DataGridViewTextBoxColumn();
+            Disponibilidad = new DataGridViewTextBoxColumn();
+            ktDivider15 = new KimTools.WinForms.KtDivider();
+            ktDivider16 = new KimTools.WinForms.KtDivider();
+            tabPage2 = new TabPage();
+            navOperarios = new KimTools.WinForms.KtPanel();
+            EliminarOperario = new KimTools.WinForms.KtButton();
+            EditarOperario = new KimTools.WinForms.KtButton();
+            AltaOperario = new KimTools.WinForms.KtButton();
+            hudLateral.SuspendLayout();
             ktPanel4.SuspendLayout();
             ktPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ktPictureBox1).BeginInit();
-            ktPanel3.SuspendLayout();
+            hudSuperiorCierre.SuspendLayout();
             panelLotes.SuspendLayout();
-            navBar.SuspendLayout();
+            navBarLotes.SuspendLayout();
             altaLotesPage.SuspendLayout();
             altaLoteSubPage.SuspendLayout();
             ktPanel20.SuspendLayout();
@@ -217,30 +289,61 @@
             ktPanel43.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ktTablaLotesEliminar).BeginInit();
             navLotes.SuspendLayout();
+            panelOperarios.SuspendLayout();
+            navBarOperarios.SuspendLayout();
+            altaOperarioPage.SuspendLayout();
+            altaOperariosSubPage.SuspendLayout();
+            ktPanel49.SuspendLayout();
+            ktPanel50.SuspendLayout();
+            ktPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ktTablaCapacidades).BeginInit();
+            panelApellidoOp.SuspendLayout();
+            ktPanel46.SuspendLayout();
+            ktPanel47.SuspendLayout();
+            ktPanel48.SuspendLayout();
+            panelNombreOp.SuspendLayout();
+            ktPanel3.SuspendLayout();
+            ktPanel42.SuspendLayout();
+            ktPanel45.SuspendLayout();
+            modificarOperarioPage.SuspendLayout();
+            modificarOperarioSubPage.SuspendLayout();
+            ktPanel56.SuspendLayout();
+            ktPanel57.SuspendLayout();
+            ktPanel58.SuspendLayout();
+            ktPanel67.SuspendLayout();
+            ktPanel68.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ktTable1).BeginInit();
+            eliminarOperarioPage.SuspendLayout();
+            ktPanel51.SuspendLayout();
+            ktPanel52.SuspendLayout();
+            ktPanel53.SuspendLayout();
+            ktPanel54.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ktTablaOperarios).BeginInit();
+            navOperarios.SuspendLayout();
             SuspendLayout();
             // 
-            // ktPanel1
+            // hudLateral
             // 
-            ktPanel1.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
-            ktPanel1.Border = new KimTools.WinForms.KtBrushGradient(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null), new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null), 180);
-            ktPanel1.BorderEdges.BottomLeft = false;
-            ktPanel1.BorderEdges.BottomRight = false;
-            ktPanel1.BorderEdges.TopLeft = false;
-            ktPanel1.BorderEdges.TopRight = false;
-            ktPanel1.BorderRadius = 24F;
-            ktPanel1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            ktPanel1.BorderWidth = 0F;
-            ktPanel1.Controls.Add(ktPanel4);
-            ktPanel1.Controls.Add(ktDivider1);
-            ktPanel1.Controls.Add(ktPanel2);
-            ktPanel1.Dock = DockStyle.Left;
-            ktPanel1.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel1.Location = new Point(0, 0);
-            ktPanel1.Margin = new Padding(4);
-            ktPanel1.Name = "ktPanel1";
-            ktPanel1.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel1.Size = new Size(340, 1055);
-            ktPanel1.TabIndex = 0;
+            hudLateral.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            hudLateral.Border = new KimTools.WinForms.KtBrushGradient(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null), new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null), 180);
+            hudLateral.BorderEdges.BottomLeft = false;
+            hudLateral.BorderEdges.BottomRight = false;
+            hudLateral.BorderEdges.TopLeft = false;
+            hudLateral.BorderEdges.TopRight = false;
+            hudLateral.BorderRadius = 24F;
+            hudLateral.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            hudLateral.BorderWidth = 0F;
+            hudLateral.Controls.Add(ktPanel4);
+            hudLateral.Controls.Add(ktDivider1);
+            hudLateral.Controls.Add(ktPanel2);
+            hudLateral.Dock = DockStyle.Left;
+            hudLateral.Foreground = KimTools.WinForms.KtColor.Empty;
+            hudLateral.Location = new Point(0, 0);
+            hudLateral.Margin = new Padding(4);
+            hudLateral.Name = "hudLateral";
+            hudLateral.PatternColor = KimTools.WinForms.KtColor.Empty;
+            hudLateral.Size = new Size(340, 1055);
+            hudLateral.TabIndex = 0;
             // 
             // ktPanel4
             // 
@@ -374,6 +477,8 @@
             OperariosPage.TabIndex = 4;
             OperariosPage.Text = "OPERARIOS";
             OperariosPage.UseVisualStyleBackColor = false;
+            OperariosPage.CheckedChanged += OperariosPage_CheckedChanged;
+            OperariosPage.Click += abrirMenuOperarios_Click;
             // 
             // OrdenesProduccionPage
             // 
@@ -495,29 +600,29 @@
             ktPictureBox1.TabIndex = 0;
             ktPictureBox1.TabStop = false;
             // 
-            // ktPanel3
+            // hudSuperiorCierre
             // 
-            Set_Drag(ktPanel3, true);
-            ktPanel3.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
-            ktPanel3.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
-            ktPanel3.BorderEdges.BottomLeft = false;
-            ktPanel3.BorderEdges.BottomRight = false;
-            ktPanel3.BorderEdges.TopLeft = false;
-            ktPanel3.BorderEdges.TopRight = false;
-            ktPanel3.BorderRadius = 24F;
-            ktPanel3.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            ktPanel3.BorderWidth = 1.5F;
-            ktPanel3.Controls.Add(ktButton1);
-            ktPanel3.Controls.Add(ktButton2);
-            ktPanel3.Controls.Add(ktButton3);
-            ktPanel3.Dock = DockStyle.Top;
-            ktPanel3.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel3.Location = new Point(340, 0);
-            ktPanel3.Margin = new Padding(4);
-            ktPanel3.Name = "ktPanel3";
-            ktPanel3.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel3.Size = new Size(1154, 43);
-            ktPanel3.TabIndex = 0;
+            Set_Drag(hudSuperiorCierre, true);
+            hudSuperiorCierre.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            hudSuperiorCierre.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            hudSuperiorCierre.BorderEdges.BottomLeft = false;
+            hudSuperiorCierre.BorderEdges.BottomRight = false;
+            hudSuperiorCierre.BorderEdges.TopLeft = false;
+            hudSuperiorCierre.BorderEdges.TopRight = false;
+            hudSuperiorCierre.BorderRadius = 24F;
+            hudSuperiorCierre.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            hudSuperiorCierre.BorderWidth = 1.5F;
+            hudSuperiorCierre.Controls.Add(ktButton1);
+            hudSuperiorCierre.Controls.Add(ktButton2);
+            hudSuperiorCierre.Controls.Add(ktButton3);
+            hudSuperiorCierre.Dock = DockStyle.Top;
+            hudSuperiorCierre.Foreground = KimTools.WinForms.KtColor.Empty;
+            hudSuperiorCierre.Location = new Point(340, 0);
+            hudSuperiorCierre.Margin = new Padding(4);
+            hudSuperiorCierre.Name = "hudSuperiorCierre";
+            hudSuperiorCierre.PatternColor = KimTools.WinForms.KtColor.Empty;
+            hudSuperiorCierre.Size = new Size(1154, 43);
+            hudSuperiorCierre.TabIndex = 0;
             // 
             // ktButton1
             // 
@@ -655,26 +760,6 @@
             ktFormTools1.TitleBarOptions.TitleBarControl = null;
             ktFormTools1.TitleBarOptions.UseBackColorOnDockingIndicators = false;
             // 
-            // voidPanel
-            // 
-            voidPanel.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
-            voidPanel.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            voidPanel.BorderEdges.BottomLeft = false;
-            voidPanel.BorderEdges.BottomRight = false;
-            voidPanel.BorderEdges.TopLeft = false;
-            voidPanel.BorderEdges.TopRight = false;
-            voidPanel.BorderRadius = 24F;
-            voidPanel.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            voidPanel.BorderWidth = 1.5F;
-            voidPanel.Dock = DockStyle.Fill;
-            voidPanel.Foreground = KimTools.WinForms.KtColor.Empty;
-            voidPanel.Location = new Point(340, 43);
-            voidPanel.Margin = new Padding(4);
-            voidPanel.Name = "voidPanel";
-            voidPanel.PatternColor = KimTools.WinForms.KtColor.Empty;
-            voidPanel.Size = new Size(1154, 1012);
-            voidPanel.TabIndex = 1;
-            // 
             // panelLotes
             // 
             panelLotes.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
@@ -686,7 +771,7 @@
             panelLotes.BorderRadius = 24F;
             panelLotes.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             panelLotes.BorderWidth = 1.5F;
-            panelLotes.Controls.Add(navBar);
+            panelLotes.Controls.Add(navBarLotes);
             panelLotes.Controls.Add(navLotes);
             panelLotes.Dock = DockStyle.Fill;
             panelLotes.Enabled = false;
@@ -700,43 +785,43 @@
             panelLotes.TabIndex = 0;
             panelLotes.Visible = false;
             // 
-            // navBar
+            // navBarLotes
             // 
-            navBar.Alignment = TabAlignment.Bottom;
-            navBar.AllowTransitions = false;
-            navBar.Background = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
-            navBar.Controls.Add(altaLotesPage);
-            navBar.Controls.Add(modificarLotesPage);
-            navBar.Controls.Add(eliminarLotesPage);
-            navBar.Dock = DockStyle.Top;
-            navBar.Location = new Point(0, 50);
-            navBar.Multiline = true;
-            navBar.Name = "navBar";
-            navBar.SelectedIndex = 0;
-            navBar.Size = new Size(1154, 1012);
-            navBar.TabIndex = 1;
-            animation1.AnimateOnlyDifferences = false;
-            animation1.BlindCoeff = (PointF)resources.GetObject("animation1.BlindCoeff");
-            animation1.LeafCoeff = 0F;
-            animation1.MaxTime = 1F;
-            animation1.MinTime = 0F;
-            animation1.MosaicCoeff = (PointF)resources.GetObject("animation1.MosaicCoeff");
-            animation1.MosaicShift = (PointF)resources.GetObject("animation1.MosaicShift");
-            animation1.MosaicSize = 0;
-            animation1.Padding = new Padding(0);
-            animation1.RotateCoeff = 0F;
-            animation1.RotateLimit = 0F;
-            animation1.ScaleCoeff = (PointF)resources.GetObject("animation1.ScaleCoeff");
-            animation1.SlideCoeff = (PointF)resources.GetObject("animation1.SlideCoeff");
-            animation1.TimeCoeff = 0F;
-            animation1.TransparencyCoeff = 0F;
-            navBar.Transition = animation1;
-            navBar.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
-            navBar.SelectedIndexChanged += abrirMenuLote_Click;
+            navBarLotes.Alignment = TabAlignment.Bottom;
+            navBarLotes.AllowTransitions = false;
+            navBarLotes.Background = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            navBarLotes.Controls.Add(altaLotesPage);
+            navBarLotes.Controls.Add(modificarLotesPage);
+            navBarLotes.Controls.Add(eliminarLotesPage);
+            navBarLotes.Dock = DockStyle.Top;
+            navBarLotes.Location = new Point(0, 50);
+            navBarLotes.Multiline = true;
+            navBarLotes.Name = "navBarLotes";
+            navBarLotes.SelectedIndex = 0;
+            navBarLotes.Size = new Size(1154, 1012);
+            navBarLotes.TabIndex = 1;
+            animation2.AnimateOnlyDifferences = false;
+            animation2.BlindCoeff = (PointF)resources.GetObject("animation2.BlindCoeff");
+            animation2.LeafCoeff = 0F;
+            animation2.MaxTime = 1F;
+            animation2.MinTime = 0F;
+            animation2.MosaicCoeff = (PointF)resources.GetObject("animation2.MosaicCoeff");
+            animation2.MosaicShift = (PointF)resources.GetObject("animation2.MosaicShift");
+            animation2.MosaicSize = 0;
+            animation2.Padding = new Padding(0);
+            animation2.RotateCoeff = 0F;
+            animation2.RotateLimit = 0F;
+            animation2.ScaleCoeff = (PointF)resources.GetObject("animation2.ScaleCoeff");
+            animation2.SlideCoeff = (PointF)resources.GetObject("animation2.SlideCoeff");
+            animation2.TimeCoeff = 0F;
+            animation2.TransparencyCoeff = 0F;
+            navBarLotes.Transition = animation2;
+            navBarLotes.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
+            navBarLotes.SelectedIndexChanged += abrirMenuLote_Click;
             // 
             // altaLotesPage
             // 
-            navBar.Set_Background(altaLotesPage, new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            navBarLotes.Set_Background(altaLotesPage, new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
             altaLotesPage.BackColor = Color.FromArgb(173, 151, 98);
             altaLotesPage.Controls.Add(altaLoteSubPage);
             altaLotesPage.Location = new Point(0, 0);
@@ -1256,35 +1341,35 @@
             ktTablaProveedoresLotes.AllowUserToDeleteRows = false;
             ktTablaProveedoresLotes.AllowUserToResizeColumns = false;
             ktTablaProveedoresLotes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle1.ForeColor = Color.FromArgb(255, 255, 255);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            ktTablaProveedoresLotes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle13.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle13.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle13.SelectionForeColor = Color.White;
+            ktTablaProveedoresLotes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             ktTablaProveedoresLotes.BackgroundColor = Color.FromArgb(0, 78, 65);
             ktTablaProveedoresLotes.BorderStyle = BorderStyle.None;
             ktTablaProveedoresLotes.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
             ktTablaProveedoresLotes.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             ktTablaProveedoresLotes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            ktTablaProveedoresLotes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle14.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            dataGridViewCellStyle14.ForeColor = Color.White;
+            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle14.SelectionForeColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
+            ktTablaProveedoresLotes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             ktTablaProveedoresLotes.ColumnHeadersHeight = 40;
             ktTablaProveedoresLotes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ktTablaProveedoresLotes.Columns.AddRange(new DataGridViewColumn[] { IdProveedor, razonSocial, cuit, nombre });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(230, 230, 230);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            ktTablaProveedoresLotes.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle15.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            dataGridViewCellStyle15.ForeColor = Color.FromArgb(230, 230, 230);
+            dataGridViewCellStyle15.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle15.SelectionForeColor = Color.White;
+            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.False;
+            ktTablaProveedoresLotes.DefaultCellStyle = dataGridViewCellStyle15;
             ktTablaProveedoresLotes.Dock = DockStyle.Fill;
             ktTablaProveedoresLotes.EnableHeadersVisualStyles = false;
             ktTablaProveedoresLotes.GridColor = Color.FromArgb(173, 151, 98);
@@ -1293,14 +1378,14 @@
             ktTablaProveedoresLotes.Name = "ktTablaProveedoresLotes";
             ktTablaProveedoresLotes.ReadOnly = true;
             ktTablaProveedoresLotes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            ktTablaProveedoresLotes.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle16.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            dataGridViewCellStyle16.ForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle16.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle16.SelectionForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle16.WrapMode = DataGridViewTriState.True;
+            ktTablaProveedoresLotes.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
             ktTablaProveedoresLotes.RowHeadersVisible = false;
             ktTablaProveedoresLotes.RowHeadersWidth = 20;
             ktTablaProveedoresLotes.RowTemplate.Height = 45;
@@ -1691,7 +1776,7 @@
             // 
             // modificarLotesPage
             // 
-            navBar.Set_Background(modificarLotesPage, new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            navBarLotes.Set_Background(modificarLotesPage, new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
             modificarLotesPage.BackColor = Color.FromArgb(173, 151, 98);
             modificarLotesPage.Controls.Add(modificarLotesSubPage);
             modificarLotesPage.Location = new Point(0, 0);
@@ -2174,35 +2259,35 @@
             ktTablaLotes.AllowUserToDeleteRows = false;
             ktTablaLotes.AllowUserToResizeColumns = false;
             ktTablaLotes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle5.ForeColor = Color.FromArgb(255, 255, 255);
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle5.SelectionForeColor = Color.White;
-            ktTablaLotes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle17.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle17.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle17.SelectionForeColor = Color.White;
+            ktTablaLotes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
             ktTablaLotes.BackgroundColor = Color.FromArgb(0, 78, 65);
             ktTablaLotes.BorderStyle = BorderStyle.None;
             ktTablaLotes.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
             ktTablaLotes.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             ktTablaLotes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle6.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold);
-            dataGridViewCellStyle6.ForeColor = Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            ktTablaLotes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle18.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold);
+            dataGridViewCellStyle18.ForeColor = Color.White;
+            dataGridViewCellStyle18.SelectionBackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle18.SelectionForeColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle18.WrapMode = DataGridViewTriState.True;
+            ktTablaLotes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
             ktTablaLotes.ColumnHeadersHeight = 40;
             ktTablaLotes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ktTablaLotes.Columns.AddRange(new DataGridViewColumn[] { IdLote, IdProv, IdMateriaP, EstadoLote, FechaDeVencimiento, FechaDeIngreso, CantidadLote });
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle7.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = Color.FromArgb(230, 230, 230);
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle7.SelectionForeColor = Color.White;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
-            ktTablaLotes.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle19.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle19.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle19.ForeColor = Color.FromArgb(230, 230, 230);
+            dataGridViewCellStyle19.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle19.SelectionForeColor = Color.White;
+            dataGridViewCellStyle19.WrapMode = DataGridViewTriState.False;
+            ktTablaLotes.DefaultCellStyle = dataGridViewCellStyle19;
             ktTablaLotes.Dock = DockStyle.Fill;
             ktTablaLotes.EnableHeadersVisualStyles = false;
             ktTablaLotes.GridColor = Color.FromArgb(173, 151, 98);
@@ -2211,14 +2296,14 @@
             ktTablaLotes.Name = "ktTablaLotes";
             ktTablaLotes.ReadOnly = true;
             ktTablaLotes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle8.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            ktTablaLotes.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle20.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle20.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle20.ForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle20.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle20.SelectionForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle20.WrapMode = DataGridViewTriState.True;
+            ktTablaLotes.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
             ktTablaLotes.RowHeadersVisible = false;
             ktTablaLotes.RowHeadersWidth = 20;
             ktTablaLotes.RowTemplate.Height = 45;
@@ -2313,13 +2398,13 @@
             // 
             // eliminarLotesPage
             // 
-            navBar.Set_Background(eliminarLotesPage, KimTools.WinForms.KtColor.Empty);
+            navBarLotes.Set_Background(eliminarLotesPage, KimTools.WinForms.KtColor.Empty);
             eliminarLotesPage.BackColor = Color.FromArgb(173, 151, 98);
             eliminarLotesPage.Controls.Add(ktPanel38);
-            eliminarLotesPage.Location = new Point(4, 4);
+            eliminarLotesPage.Location = new Point(0, 0);
             eliminarLotesPage.Name = "eliminarLotesPage";
             eliminarLotesPage.Padding = new Padding(3);
-            eliminarLotesPage.Size = new Size(1146, 978);
+            eliminarLotesPage.Size = new Size(1154, 1012);
             eliminarLotesPage.TabIndex = 2;
             eliminarLotesPage.Text = "tabPage1";
             eliminarLotesPage.Click += sNavEliminarLote;
@@ -2337,7 +2422,7 @@
             ktPanel38.Location = new Point(3, 3);
             ktPanel38.Name = "ktPanel38";
             ktPanel38.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel38.Size = new Size(1140, 972);
+            ktPanel38.Size = new Size(1148, 1006);
             ktPanel38.TabIndex = 0;
             // 
             // ktPanel41
@@ -2354,7 +2439,7 @@
             ktPanel41.Location = new Point(0, 0);
             ktPanel41.Name = "ktPanel41";
             ktPanel41.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel41.Size = new Size(1140, 460);
+            ktPanel41.Size = new Size(1148, 460);
             ktPanel41.TabIndex = 0;
             // 
             // ktPanel44
@@ -2368,7 +2453,7 @@
             ktPanel44.Controls.Add(deshabilitarLote);
             ktPanel44.Dock = DockStyle.Right;
             ktPanel44.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel44.Location = new Point(869, 0);
+            ktPanel44.Location = new Point(877, 0);
             ktPanel44.Name = "ktPanel44";
             ktPanel44.PatternColor = KimTools.WinForms.KtColor.Empty;
             ktPanel44.Size = new Size(271, 460);
@@ -2452,35 +2537,35 @@
             ktTablaLotesEliminar.AllowUserToDeleteRows = false;
             ktTablaLotesEliminar.AllowUserToResizeColumns = false;
             ktTablaLotesEliminar.AllowUserToResizeRows = false;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle9.ForeColor = Color.FromArgb(255, 255, 255);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle9.SelectionForeColor = Color.White;
-            ktTablaLotesEliminar.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle21.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle21.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle21.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle21.SelectionForeColor = Color.White;
+            ktTablaLotesEliminar.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
             ktTablaLotesEliminar.BackgroundColor = Color.FromArgb(0, 78, 65);
             ktTablaLotesEliminar.BorderStyle = BorderStyle.None;
             ktTablaLotesEliminar.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
             ktTablaLotesEliminar.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             ktTablaLotesEliminar.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle10.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle10.ForeColor = Color.White;
-            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle10.SelectionForeColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
-            ktTablaLotesEliminar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle22.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle22.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle22.ForeColor = Color.White;
+            dataGridViewCellStyle22.SelectionBackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle22.SelectionForeColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle22.WrapMode = DataGridViewTriState.True;
+            ktTablaLotesEliminar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
             ktTablaLotesEliminar.ColumnHeadersHeight = 40;
             ktTablaLotesEliminar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ktTablaLotesEliminar.Columns.AddRange(new DataGridViewColumn[] { IdLoteE, IdProveedorE, IdMateriaPE, EstadoLoteE, FechaIngresoE, FechaVencimientoE, CantidadLoteE });
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = Color.FromArgb(0, 78, 65);
-            dataGridViewCellStyle11.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
-            dataGridViewCellStyle11.ForeColor = Color.FromArgb(255, 255, 255);
-            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle11.SelectionForeColor = Color.White;
-            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.False;
-            ktTablaLotesEliminar.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle23.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle23.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle23.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle23.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle23.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle23.SelectionForeColor = Color.White;
+            dataGridViewCellStyle23.WrapMode = DataGridViewTriState.False;
+            ktTablaLotesEliminar.DefaultCellStyle = dataGridViewCellStyle23;
             ktTablaLotesEliminar.Dock = DockStyle.Fill;
             ktTablaLotesEliminar.EnableHeadersVisualStyles = false;
             ktTablaLotesEliminar.GridColor = Color.FromArgb(173, 151, 98);
@@ -2489,14 +2574,14 @@
             ktTablaLotesEliminar.Name = "ktTablaLotesEliminar";
             ktTablaLotesEliminar.ReadOnly = true;
             ktTablaLotesEliminar.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle12.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
-            dataGridViewCellStyle12.ForeColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle12.SelectionBackColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle12.SelectionForeColor = Color.FromArgb(173, 151, 98);
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
-            ktTablaLotesEliminar.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle24.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle24.BackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle24.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle24.ForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle24.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle24.SelectionForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle24.WrapMode = DataGridViewTriState.True;
+            ktTablaLotesEliminar.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
             ktTablaLotesEliminar.RowHeadersVisible = false;
             ktTablaLotesEliminar.RowHeadersWidth = 20;
             ktTablaLotesEliminar.RowTemplate.Height = 45;
@@ -2674,16 +2759,1276 @@
             altaLotesNavButton.UseVisualStyleBackColor = false;
             altaLotesNavButton.Click += sNavAltaLote;
             // 
+            // panelOperarios
+            // 
+            panelOperarios.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            panelOperarios.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            panelOperarios.BorderRadius = 24F;
+            panelOperarios.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            panelOperarios.BorderWidth = 1.5F;
+            panelOperarios.Controls.Add(navBarOperarios);
+            panelOperarios.Controls.Add(navOperarios);
+            panelOperarios.Dock = DockStyle.Fill;
+            panelOperarios.Enabled = false;
+            panelOperarios.Foreground = KimTools.WinForms.KtColor.Empty;
+            panelOperarios.Location = new Point(340, 43);
+            panelOperarios.Name = "panelOperarios";
+            panelOperarios.PatternColor = KimTools.WinForms.KtColor.Empty;
+            panelOperarios.Size = new Size(1154, 1012);
+            panelOperarios.TabIndex = 3;
+            panelOperarios.Visible = false;
+            // 
+            // navBarOperarios
+            // 
+            navBarOperarios.Alignment = TabAlignment.Bottom;
+            navBarOperarios.AllowTransitions = false;
+            navBarOperarios.Background = KimTools.WinForms.KtColor.Empty;
+            navBarOperarios.Controls.Add(altaOperarioPage);
+            navBarOperarios.Controls.Add(modificarOperarioPage);
+            navBarOperarios.Controls.Add(eliminarOperarioPage);
+            navBarOperarios.Controls.Add(tabPage2);
+            navBarOperarios.Dock = DockStyle.Fill;
+            navBarOperarios.Location = new Point(0, 66);
+            navBarOperarios.Multiline = true;
+            navBarOperarios.Name = "navBarOperarios";
+            navBarOperarios.SelectedIndex = 0;
+            navBarOperarios.Size = new Size(1154, 946);
+            navBarOperarios.TabIndex = 0;
+            animation1.AnimateOnlyDifferences = false;
+            animation1.BlindCoeff = (PointF)resources.GetObject("animation1.BlindCoeff");
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = (PointF)resources.GetObject("animation1.MosaicCoeff");
+            animation1.MosaicShift = (PointF)resources.GetObject("animation1.MosaicShift");
+            animation1.MosaicSize = 0;
+            animation1.Padding = new Padding(0);
+            animation1.RotateCoeff = 0F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = (PointF)resources.GetObject("animation1.ScaleCoeff");
+            animation1.SlideCoeff = (PointF)resources.GetObject("animation1.SlideCoeff");
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 0F;
+            navBarOperarios.Transition = animation1;
+            navBarOperarios.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
+            // 
+            // altaOperarioPage
+            // 
+            navBarOperarios.Set_Background(altaOperarioPage, new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            altaOperarioPage.BackColor = Color.FromArgb(173, 151, 98);
+            altaOperarioPage.Controls.Add(altaOperariosSubPage);
+            altaOperarioPage.Location = new Point(0, 0);
+            altaOperarioPage.Name = "altaOperarioPage";
+            altaOperarioPage.Padding = new Padding(3);
+            altaOperarioPage.Size = new Size(1154, 946);
+            altaOperarioPage.TabIndex = 0;
+            altaOperarioPage.Text = "tabPage1";
+            // 
+            // altaOperariosSubPage
+            // 
+            altaOperariosSubPage.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            altaOperariosSubPage.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            altaOperariosSubPage.BorderRadius = 24F;
+            altaOperariosSubPage.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            altaOperariosSubPage.BorderWidth = 1.5F;
+            altaOperariosSubPage.Controls.Add(ktPanel49);
+            altaOperariosSubPage.Controls.Add(ktDivider13);
+            altaOperariosSubPage.Controls.Add(ktPanel1);
+            altaOperariosSubPage.Controls.Add(ktDivider12);
+            altaOperariosSubPage.Controls.Add(panelApellidoOp);
+            altaOperariosSubPage.Controls.Add(ktDivider10);
+            altaOperariosSubPage.Controls.Add(panelNombreOp);
+            altaOperariosSubPage.Dock = DockStyle.Fill;
+            altaOperariosSubPage.Foreground = KimTools.WinForms.KtColor.Empty;
+            altaOperariosSubPage.Location = new Point(3, 3);
+            altaOperariosSubPage.Name = "altaOperariosSubPage";
+            altaOperariosSubPage.PatternColor = KimTools.WinForms.KtColor.Empty;
+            altaOperariosSubPage.Size = new Size(1148, 940);
+            altaOperariosSubPage.TabIndex = 0;
+            // 
+            // ktPanel49
+            // 
+            ktPanel49.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel49.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel49.BorderRadius = 24F;
+            ktPanel49.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel49.BorderWidth = 0F;
+            ktPanel49.Controls.Add(ktPanel50);
+            ktPanel49.Dock = DockStyle.Top;
+            ktPanel49.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel49.Location = new Point(0, 828);
+            ktPanel49.Name = "ktPanel49";
+            ktPanel49.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel49.Size = new Size(1148, 100);
+            ktPanel49.TabIndex = 12;
+            // 
+            // ktPanel50
+            // 
+            ktPanel50.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel50.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel50.BorderRadius = 24F;
+            ktPanel50.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel50.BorderWidth = 1.5F;
+            ktPanel50.Controls.Add(buttonGuardarOperario);
+            ktPanel50.Dock = DockStyle.Right;
+            ktPanel50.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            ktPanel50.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel50.Location = new Point(883, 0);
+            ktPanel50.Name = "ktPanel50";
+            ktPanel50.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel50.Size = new Size(265, 100);
+            ktPanel50.TabIndex = 11;
+            // 
+            // buttonGuardarOperario
+            // 
+            buttonGuardarOperario.BackColor = Color.Transparent;
+            buttonGuardarOperario.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            buttonGuardarOperario.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            buttonGuardarOperario.BorderMargin = new Padding(0);
+            buttonGuardarOperario.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            buttonGuardarOperario.BorderWidth = 4F;
+            buttonGuardarOperario.Cursor = Cursors.Default;
+            buttonGuardarOperario.Dock = DockStyle.Fill;
+            buttonGuardarOperario.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            buttonGuardarOperario.ForeColor = Color.FromArgb(34, 29, 17);
+            buttonGuardarOperario.Foreground = KimTools.WinForms.KtColor.Empty;
+            buttonGuardarOperario.Icon = "";
+            buttonGuardarOperario.IconColor = KimTools.WinForms.KtColor.Empty;
+            buttonGuardarOperario.IconSize = 16;
+            buttonGuardarOperario.IconStroke = 2.5D;
+            buttonGuardarOperario.Location = new Point(0, 0);
+            buttonGuardarOperario.Name = "buttonGuardarOperario";
+            buttonGuardarOperario.Padding = new Padding(8, 0, 8, 0);
+            buttonGuardarOperario.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            buttonGuardarOperario.Size = new Size(265, 100);
+            buttonGuardarOperario.TabIndex = 2;
+            buttonGuardarOperario.Text = "GUARDAR";
+            buttonGuardarOperario.UseVisualStyleBackColor = false;
+            buttonGuardarOperario.Click += buttonGuardarOperario_Click;
+            // 
+            // ktDivider13
+            // 
+            ktDivider13.BackColor = Color.Transparent;
+            ktDivider13.BackgroundImageLayout = ImageLayout.Stretch;
+            ktDivider13.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            ktDivider13.Dock = DockStyle.Top;
+            ktDivider13.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktDivider13.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            ktDivider13.Location = new Point(0, 783);
+            ktDivider13.Margin = new Padding(0);
+            ktDivider13.Name = "ktDivider13";
+            ktDivider13.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            ktDivider13.Size = new Size(1148, 45);
+            ktDivider13.TabIndex = 11;
+            // 
+            // ktPanel1
+            // 
+            ktPanel1.Background = new KimTools.WinForms.KtBrushSolid(KimTools.WinForms.KtColor.BASE_2);
+            ktPanel1.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            ktPanel1.BorderRadius = 24F;
+            ktPanel1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel1.BorderWidth = 1.5F;
+            ktPanel1.Controls.Add(ktTablaCapacidades);
+            ktPanel1.Dock = DockStyle.Top;
+            ktPanel1.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel1.Location = new Point(0, 336);
+            ktPanel1.Name = "ktPanel1";
+            ktPanel1.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel1.Size = new Size(1148, 447);
+            ktPanel1.TabIndex = 9;
+            // 
+            // ktTablaCapacidades
+            // 
+            ktTablaCapacidades.AllowUserToAddRows = false;
+            ktTablaCapacidades.AllowUserToDeleteRows = false;
+            ktTablaCapacidades.AllowUserToResizeColumns = false;
+            ktTablaCapacidades.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            ktTablaCapacidades.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            ktTablaCapacidades.BackgroundColor = Color.FromArgb(0, 78, 65);
+            ktTablaCapacidades.BorderStyle = BorderStyle.None;
+            ktTablaCapacidades.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
+            ktTablaCapacidades.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
+            ktTablaCapacidades.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            ktTablaCapacidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            ktTablaCapacidades.ColumnHeadersHeight = 40;
+            ktTablaCapacidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            ktTablaCapacidades.Columns.AddRange(new DataGridViewColumn[] { IdCap, NomCapacidad, DescCapacidad });
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            ktTablaCapacidades.DefaultCellStyle = dataGridViewCellStyle3;
+            ktTablaCapacidades.Dock = DockStyle.Fill;
+            ktTablaCapacidades.EnableHeadersVisualStyles = false;
+            ktTablaCapacidades.GridColor = Color.FromArgb(173, 151, 98);
+            ktTablaCapacidades.Location = new Point(0, 0);
+            ktTablaCapacidades.MultiSelect = false;
+            ktTablaCapacidades.Name = "ktTablaCapacidades";
+            ktTablaCapacidades.ReadOnly = true;
+            ktTablaCapacidades.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            ktTablaCapacidades.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            ktTablaCapacidades.RowHeadersVisible = false;
+            ktTablaCapacidades.RowHeadersWidth = 20;
+            ktTablaCapacidades.RowTemplate.Height = 45;
+            ktTablaCapacidades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ktTablaCapacidades.Size = new Size(1148, 447);
+            ktTablaCapacidades.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktTablaCapacidades.Style.Border = 0F;
+            ktTablaCapacidades.Style.BorderHeader = 0F;
+            ktTablaCapacidades.Style.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            ktTablaCapacidades.Style.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktTablaCapacidades.Style.Header.Background = KimTools.WinForms.KtColor.Empty;
+            ktTablaCapacidades.Style.Header.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktTablaCapacidades.Style.Row.Background = KimTools.WinForms.KtColor.BASE_2;
+            ktTablaCapacidades.Style.Row.Foreground = KimTools.WinForms.KtColor.CONTENT;
+            ktTablaCapacidades.Style.RowAlt.Background = KimTools.WinForms.KtColor.BASE_1;
+            ktTablaCapacidades.Style.RowAlt.Foreground = KimTools.WinForms.KtColor.CONTENT;
+            ktTablaCapacidades.Style.ScrollBar.Background = KimTools.WinForms.KtColor.Empty;
+            ktTablaCapacidades.Style.ScrollBar.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktTablaCapacidades.TabIndex = 1;
+            // 
+            // IdCap
+            // 
+            IdCap.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            IdCap.DataPropertyName = "IdCap";
+            IdCap.Frozen = true;
+            IdCap.HeaderText = "IdCap";
+            IdCap.Name = "IdCap";
+            IdCap.ReadOnly = true;
+            IdCap.Resizable = DataGridViewTriState.False;
+            IdCap.Width = 78;
+            // 
+            // NomCapacidad
+            // 
+            NomCapacidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            NomCapacidad.DataPropertyName = "DescCapacidad";
+            NomCapacidad.Frozen = true;
+            NomCapacidad.HeaderText = "Capacidad";
+            NomCapacidad.Name = "NomCapacidad";
+            NomCapacidad.ReadOnly = true;
+            NomCapacidad.Resizable = DataGridViewTriState.False;
+            NomCapacidad.Width = 114;
+            // 
+            // DescCapacidad
+            // 
+            DescCapacidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DescCapacidad.DataPropertyName = "NomCapacidad";
+            DescCapacidad.HeaderText = "Descripcion";
+            DescCapacidad.Name = "DescCapacidad";
+            DescCapacidad.ReadOnly = true;
+            DescCapacidad.Resizable = DataGridViewTriState.False;
+            // 
+            // ktDivider12
+            // 
+            ktDivider12.BackColor = Color.Transparent;
+            ktDivider12.BackgroundImageLayout = ImageLayout.Stretch;
+            ktDivider12.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            ktDivider12.Dock = DockStyle.Top;
+            ktDivider12.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktDivider12.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            ktDivider12.Location = new Point(0, 304);
+            ktDivider12.Margin = new Padding(0);
+            ktDivider12.Name = "ktDivider12";
+            ktDivider12.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            ktDivider12.Size = new Size(1148, 32);
+            ktDivider12.TabIndex = 8;
+            // 
+            // panelApellidoOp
+            // 
+            panelApellidoOp.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            panelApellidoOp.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            panelApellidoOp.BorderRadius = 24F;
+            panelApellidoOp.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            panelApellidoOp.BorderWidth = 1.5F;
+            panelApellidoOp.Controls.Add(ktPanel46);
+            panelApellidoOp.Controls.Add(ktPanel47);
+            panelApellidoOp.Dock = DockStyle.Top;
+            panelApellidoOp.Foreground = KimTools.WinForms.KtColor.Empty;
+            panelApellidoOp.Location = new Point(0, 168);
+            panelApellidoOp.Margin = new Padding(4);
+            panelApellidoOp.Name = "panelApellidoOp";
+            panelApellidoOp.PatternColor = KimTools.WinForms.KtColor.Empty;
+            panelApellidoOp.Size = new Size(1148, 136);
+            panelApellidoOp.TabIndex = 7;
+            // 
+            // ktPanel46
+            // 
+            ktPanel46.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            ktPanel46.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            ktPanel46.BorderEdges.TopLeft = false;
+            ktPanel46.BorderRadius = 90F;
+            ktPanel46.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel46.BorderWidth = 1.5F;
+            ktPanel46.Controls.Add(apellidoOpText);
+            ktPanel46.Dock = DockStyle.Fill;
+            ktPanel46.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel46.Location = new Point(0, 55);
+            ktPanel46.Name = "ktPanel46";
+            ktPanel46.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel46.Size = new Size(1148, 81);
+            ktPanel46.TabIndex = 1;
+            // 
+            // apellidoOpText
+            // 
+            apellidoOpText.AcceptsReturn = false;
+            apellidoOpText.AcceptsTab = false;
+            apellidoOpText.AccessibleRole = AccessibleRole.None;
+            apellidoOpText.AnimationSpeed = 200;
+            apellidoOpText.AutoCompleteMode = AutoCompleteMode.None;
+            apellidoOpText.AutoCompleteSource = AutoCompleteSource.None;
+            apellidoOpText.AutoSizeHeight = true;
+            apellidoOpText.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            apellidoOpText.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            apellidoOpText.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
+            apellidoOpText.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
+            apellidoOpText.BorderRadius = 80;
+            apellidoOpText.BorderThickness = 0;
+            apellidoOpText.Content = KimTools.WinForms.KtColor.CONTENT;
+            apellidoOpText.CustomIconLeft = null;
+            apellidoOpText.CustomIconRight = null;
+            apellidoOpText.DefaultFont = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            apellidoOpText.Dock = DockStyle.Fill;
+            apellidoOpText.ForeColor = Color.Empty;
+            apellidoOpText.HideSelection = true;
+            apellidoOpText.Location = new Point(0, 0);
+            apellidoOpText.MaxLength = 32767;
+            apellidoOpText.MinimumSize = new Size(1, 1);
+            apellidoOpText.Modified = false;
+            apellidoOpText.Name = "apellidoOpText";
+            apellidoOpText.Password = false;
+            apellidoOpText.PasswordChar = '\0';
+            apellidoOpText.ScrollBars = ScrollBars.None;
+            apellidoOpText.SelectedText = "";
+            apellidoOpText.SelectionLength = 0;
+            apellidoOpText.SelectionStart = 0;
+            apellidoOpText.ShortcutsEnabled = true;
+            apellidoOpText.Size = new Size(1148, 81);
+            apellidoOpText.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            apellidoOpText.TabIndex = 5;
+            apellidoOpText.TextMarginBottom = 0;
+            apellidoOpText.TextPlaceholder = "Ingrese aqui . . .";
+            // 
+            // ktPanel47
+            // 
+            ktPanel47.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            ktPanel47.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            ktPanel47.BorderRadius = 0F;
+            ktPanel47.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            ktPanel47.BorderWidth = 0F;
+            ktPanel47.Controls.Add(ktPanel48);
+            ktPanel47.Dock = DockStyle.Top;
+            ktPanel47.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktPanel47.Location = new Point(0, 0);
+            ktPanel47.Margin = new Padding(4);
+            ktPanel47.Name = "ktPanel47";
+            ktPanel47.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel47.Size = new Size(1148, 55);
+            ktPanel47.TabIndex = 0;
+            // 
+            // ktPanel48
+            // 
+            ktPanel48.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            ktPanel48.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            ktPanel48.BorderEdges.BottomLeft = false;
+            ktPanel48.BorderEdges.BottomRight = false;
+            ktPanel48.BorderRadius = 24F;
+            ktPanel48.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel48.BorderWidth = 1.5F;
+            ktPanel48.Controls.Add(ktLabel10);
+            ktPanel48.Dock = DockStyle.Left;
+            ktPanel48.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel48.Location = new Point(0, 0);
+            ktPanel48.Margin = new Padding(4);
+            ktPanel48.Name = "ktPanel48";
+            ktPanel48.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel48.Size = new Size(333, 55);
+            ktPanel48.TabIndex = 1;
+            // 
+            // ktLabel10
+            // 
+            ktLabel10.Align = ContentAlignment.MiddleCenter;
+            ktLabel10.Auto = false;
+            ktLabel10.Background = KimTools.WinForms.KtColor.Empty;
+            ktLabel10.Color = KimTools.WinForms.KtColor.CONTENT;
+            ktLabel10.Dock = DockStyle.Fill;
+            ktLabel10.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            ktLabel10.Location = new Point(0, 0);
+            ktLabel10.Margin = new Padding(4, 0, 4, 0);
+            ktLabel10.Name = "ktLabel10";
+            ktLabel10.Size = new Size(333, 55);
+            ktLabel10.TabIndex = 0;
+            ktLabel10.Text = "APELLIDO";
+            // 
+            // ktDivider10
+            // 
+            ktDivider10.BackColor = Color.Transparent;
+            ktDivider10.BackgroundImageLayout = ImageLayout.Stretch;
+            ktDivider10.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            ktDivider10.Dock = DockStyle.Top;
+            ktDivider10.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktDivider10.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            ktDivider10.Location = new Point(0, 136);
+            ktDivider10.Margin = new Padding(0);
+            ktDivider10.Name = "ktDivider10";
+            ktDivider10.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            ktDivider10.Size = new Size(1148, 32);
+            ktDivider10.TabIndex = 6;
+            // 
+            // panelNombreOp
+            // 
+            panelNombreOp.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            panelNombreOp.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            panelNombreOp.BorderRadius = 24F;
+            panelNombreOp.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            panelNombreOp.BorderWidth = 1.5F;
+            panelNombreOp.Controls.Add(ktPanel3);
+            panelNombreOp.Controls.Add(ktPanel42);
+            panelNombreOp.Dock = DockStyle.Top;
+            panelNombreOp.Foreground = KimTools.WinForms.KtColor.Empty;
+            panelNombreOp.Location = new Point(0, 0);
+            panelNombreOp.Margin = new Padding(4);
+            panelNombreOp.Name = "panelNombreOp";
+            panelNombreOp.PatternColor = KimTools.WinForms.KtColor.Empty;
+            panelNombreOp.Size = new Size(1148, 136);
+            panelNombreOp.TabIndex = 3;
+            // 
+            // ktPanel3
+            // 
+            ktPanel3.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            ktPanel3.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            ktPanel3.BorderEdges.TopLeft = false;
+            ktPanel3.BorderRadius = 90F;
+            ktPanel3.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel3.BorderWidth = 1.5F;
+            ktPanel3.Controls.Add(nombreOpText);
+            ktPanel3.Dock = DockStyle.Fill;
+            ktPanel3.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel3.Location = new Point(0, 55);
+            ktPanel3.Name = "ktPanel3";
+            ktPanel3.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel3.Size = new Size(1148, 81);
+            ktPanel3.TabIndex = 1;
+            // 
+            // nombreOpText
+            // 
+            nombreOpText.AcceptsReturn = false;
+            nombreOpText.AcceptsTab = false;
+            nombreOpText.AccessibleRole = AccessibleRole.None;
+            nombreOpText.AnimationSpeed = 200;
+            nombreOpText.AutoCompleteMode = AutoCompleteMode.None;
+            nombreOpText.AutoCompleteSource = AutoCompleteSource.None;
+            nombreOpText.AutoSizeHeight = true;
+            nombreOpText.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            nombreOpText.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            nombreOpText.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
+            nombreOpText.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
+            nombreOpText.BorderRadius = 80;
+            nombreOpText.BorderThickness = 0;
+            nombreOpText.Content = KimTools.WinForms.KtColor.CONTENT;
+            nombreOpText.CustomIconLeft = null;
+            nombreOpText.CustomIconRight = null;
+            nombreOpText.DefaultFont = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            nombreOpText.Dock = DockStyle.Fill;
+            nombreOpText.ForeColor = Color.Empty;
+            nombreOpText.HideSelection = true;
+            nombreOpText.Location = new Point(0, 0);
+            nombreOpText.MaxLength = 32767;
+            nombreOpText.MinimumSize = new Size(1, 1);
+            nombreOpText.Modified = false;
+            nombreOpText.Name = "nombreOpText";
+            nombreOpText.Password = false;
+            nombreOpText.PasswordChar = '\0';
+            nombreOpText.ScrollBars = ScrollBars.None;
+            nombreOpText.SelectedText = "";
+            nombreOpText.SelectionLength = 0;
+            nombreOpText.SelectionStart = 0;
+            nombreOpText.ShortcutsEnabled = true;
+            nombreOpText.Size = new Size(1148, 81);
+            nombreOpText.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            nombreOpText.TabIndex = 5;
+            nombreOpText.TextMarginBottom = 0;
+            nombreOpText.TextPlaceholder = "Ingrese aqui . . .";
+            // 
+            // ktPanel42
+            // 
+            ktPanel42.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            ktPanel42.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            ktPanel42.BorderRadius = 0F;
+            ktPanel42.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            ktPanel42.BorderWidth = 0F;
+            ktPanel42.Controls.Add(ktPanel45);
+            ktPanel42.Dock = DockStyle.Top;
+            ktPanel42.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktPanel42.Location = new Point(0, 0);
+            ktPanel42.Margin = new Padding(4);
+            ktPanel42.Name = "ktPanel42";
+            ktPanel42.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel42.Size = new Size(1148, 55);
+            ktPanel42.TabIndex = 0;
+            // 
+            // ktPanel45
+            // 
+            ktPanel45.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            ktPanel45.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            ktPanel45.BorderEdges.BottomLeft = false;
+            ktPanel45.BorderEdges.BottomRight = false;
+            ktPanel45.BorderRadius = 24F;
+            ktPanel45.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel45.BorderWidth = 1.5F;
+            ktPanel45.Controls.Add(ktLabel46);
+            ktPanel45.Dock = DockStyle.Left;
+            ktPanel45.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel45.Location = new Point(0, 0);
+            ktPanel45.Margin = new Padding(4);
+            ktPanel45.Name = "ktPanel45";
+            ktPanel45.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel45.Size = new Size(333, 55);
+            ktPanel45.TabIndex = 1;
+            // 
+            // ktLabel46
+            // 
+            ktLabel46.Align = ContentAlignment.MiddleCenter;
+            ktLabel46.Auto = false;
+            ktLabel46.Background = KimTools.WinForms.KtColor.Empty;
+            ktLabel46.Color = KimTools.WinForms.KtColor.CONTENT;
+            ktLabel46.Dock = DockStyle.Fill;
+            ktLabel46.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            ktLabel46.Location = new Point(0, 0);
+            ktLabel46.Margin = new Padding(4, 0, 4, 0);
+            ktLabel46.Name = "ktLabel46";
+            ktLabel46.Size = new Size(333, 55);
+            ktLabel46.TabIndex = 0;
+            ktLabel46.Text = "NOMBRE";
+            // 
+            // modificarOperarioPage
+            // 
+            navBarOperarios.Set_Background(modificarOperarioPage, KimTools.WinForms.KtColor.Empty);
+            modificarOperarioPage.BackColor = Color.Transparent;
+            modificarOperarioPage.Controls.Add(modificarOperarioSubPage);
+            modificarOperarioPage.Location = new Point(4, 4);
+            modificarOperarioPage.Name = "modificarOperarioPage";
+            modificarOperarioPage.Padding = new Padding(3);
+            modificarOperarioPage.Size = new Size(1146, 912);
+            modificarOperarioPage.TabIndex = 3;
+            modificarOperarioPage.Text = "tabPage4";
+            // 
+            // modificarOperarioSubPage
+            // 
+            modificarOperarioSubPage.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            modificarOperarioSubPage.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            modificarOperarioSubPage.BorderEdges.BottomLeft = false;
+            modificarOperarioSubPage.BorderEdges.BottomRight = false;
+            modificarOperarioSubPage.BorderEdges.TopLeft = false;
+            modificarOperarioSubPage.BorderEdges.TopRight = false;
+            modificarOperarioSubPage.BorderRadius = 24F;
+            modificarOperarioSubPage.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            modificarOperarioSubPage.BorderWidth = 1.5F;
+            modificarOperarioSubPage.Controls.Add(ktPanel56);
+            modificarOperarioSubPage.Dock = DockStyle.Fill;
+            modificarOperarioSubPage.Foreground = KimTools.WinForms.KtColor.Empty;
+            modificarOperarioSubPage.Location = new Point(3, 3);
+            modificarOperarioSubPage.Name = "modificarOperarioSubPage";
+            modificarOperarioSubPage.PatternColor = KimTools.WinForms.KtColor.Empty;
+            modificarOperarioSubPage.Size = new Size(1140, 906);
+            modificarOperarioSubPage.TabIndex = 1;
+            // 
+            // ktPanel56
+            // 
+            ktPanel56.AutoScroll = true;
+            ktPanel56.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel56.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel56.BorderEdges.BottomLeft = false;
+            ktPanel56.BorderEdges.BottomRight = false;
+            ktPanel56.BorderEdges.TopLeft = false;
+            ktPanel56.BorderEdges.TopRight = false;
+            ktPanel56.BorderRadius = 0F;
+            ktPanel56.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel56.BorderWidth = 0F;
+            ktPanel56.Controls.Add(ktPanel57);
+            ktPanel56.Controls.Add(ktDivider19);
+            ktPanel56.Controls.Add(ktPanel67);
+            ktPanel56.Controls.Add(ktDivider20);
+            ktPanel56.Dock = DockStyle.Fill;
+            ktPanel56.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold);
+            ktPanel56.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel56.Location = new Point(0, 0);
+            ktPanel56.Margin = new Padding(4);
+            ktPanel56.Name = "ktPanel56";
+            ktPanel56.Padding = new Padding(20, 20, 40, 10);
+            ktPanel56.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel56.Size = new Size(1140, 906);
+            ktPanel56.TabIndex = 2;
+            // 
+            // ktPanel57
+            // 
+            ktPanel57.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            ktPanel57.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel57.BorderRadius = 24F;
+            ktPanel57.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel57.BorderWidth = 1.5F;
+            ktPanel57.Controls.Add(ktPanel58);
+            ktPanel57.Controls.Add(ktPanel55);
+            ktPanel57.Dock = DockStyle.Fill;
+            ktPanel57.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel57.Location = new Point(20, 321);
+            ktPanel57.Name = "ktPanel57";
+            ktPanel57.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel57.Size = new Size(1080, 575);
+            ktPanel57.TabIndex = 6;
+            // 
+            // ktPanel58
+            // 
+            ktPanel58.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel58.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel58.BorderRadius = 24F;
+            ktPanel58.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel58.BorderWidth = 1.5F;
+            ktPanel58.Controls.Add(buttonActualizarCambios);
+            ktPanel58.Controls.Add(buttonGuardarCambiosOp);
+            ktPanel58.Dock = DockStyle.Top;
+            ktPanel58.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel58.Location = new Point(0, 141);
+            ktPanel58.Name = "ktPanel58";
+            ktPanel58.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel58.Size = new Size(1080, 56);
+            ktPanel58.TabIndex = 10;
+            // 
+            // buttonActualizarCambios
+            // 
+            buttonActualizarCambios.BackColor = Color.Transparent;
+            buttonActualizarCambios.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            buttonActualizarCambios.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            buttonActualizarCambios.BorderMargin = new Padding(0);
+            buttonActualizarCambios.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            buttonActualizarCambios.BorderWidth = 2.5F;
+            buttonActualizarCambios.Cursor = Cursors.Default;
+            buttonActualizarCambios.Dock = DockStyle.Left;
+            buttonActualizarCambios.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            buttonActualizarCambios.ForeColor = Color.FromArgb(34, 29, 17);
+            buttonActualizarCambios.Foreground = KimTools.WinForms.KtColor.Empty;
+            buttonActualizarCambios.Icon = "";
+            buttonActualizarCambios.IconColor = KimTools.WinForms.KtColor.Empty;
+            buttonActualizarCambios.IconSize = 16;
+            buttonActualizarCambios.IconStroke = 2.5D;
+            buttonActualizarCambios.Location = new Point(213, 0);
+            buttonActualizarCambios.Name = "buttonActualizarCambios";
+            buttonActualizarCambios.Padding = new Padding(8, 0, 8, 0);
+            buttonActualizarCambios.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            buttonActualizarCambios.Size = new Size(213, 56);
+            buttonActualizarCambios.TabIndex = 2;
+            buttonActualizarCambios.Text = "Actualizar";
+            buttonActualizarCambios.UseVisualStyleBackColor = false;
+            // 
+            // buttonGuardarCambiosOp
+            // 
+            buttonGuardarCambiosOp.BackColor = Color.Transparent;
+            buttonGuardarCambiosOp.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            buttonGuardarCambiosOp.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            buttonGuardarCambiosOp.BorderMargin = new Padding(0);
+            buttonGuardarCambiosOp.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            buttonGuardarCambiosOp.BorderWidth = 2.5F;
+            buttonGuardarCambiosOp.Cursor = Cursors.Default;
+            buttonGuardarCambiosOp.Dock = DockStyle.Left;
+            buttonGuardarCambiosOp.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            buttonGuardarCambiosOp.ForeColor = Color.FromArgb(34, 29, 17);
+            buttonGuardarCambiosOp.Foreground = KimTools.WinForms.KtColor.Empty;
+            buttonGuardarCambiosOp.Icon = "";
+            buttonGuardarCambiosOp.IconColor = KimTools.WinForms.KtColor.Empty;
+            buttonGuardarCambiosOp.IconSize = 16;
+            buttonGuardarCambiosOp.IconStroke = 2.5D;
+            buttonGuardarCambiosOp.Location = new Point(0, 0);
+            buttonGuardarCambiosOp.Name = "buttonGuardarCambiosOp";
+            buttonGuardarCambiosOp.Padding = new Padding(8, 0, 8, 0);
+            buttonGuardarCambiosOp.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            buttonGuardarCambiosOp.Size = new Size(213, 56);
+            buttonGuardarCambiosOp.TabIndex = 1;
+            buttonGuardarCambiosOp.Text = "Guardar Cambios";
+            buttonGuardarCambiosOp.UseVisualStyleBackColor = false;
+            // 
+            // ktPanel55
+            // 
+            ktPanel55.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            ktPanel55.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel55.BorderRadius = 24F;
+            ktPanel55.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            ktPanel55.BorderWidth = 1.5F;
+            ktPanel55.Dock = DockStyle.Top;
+            ktPanel55.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel55.Location = new Point(0, 0);
+            ktPanel55.Margin = new Padding(4);
+            ktPanel55.Name = "ktPanel55";
+            ktPanel55.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel55.Size = new Size(1080, 141);
+            ktPanel55.TabIndex = 11;
+            // 
+            // ktDivider19
+            // 
+            ktDivider19.BackColor = Color.Transparent;
+            ktDivider19.BackgroundImageLayout = ImageLayout.Stretch;
+            ktDivider19.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            ktDivider19.Dock = DockStyle.Top;
+            ktDivider19.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktDivider19.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            ktDivider19.Location = new Point(20, 298);
+            ktDivider19.Margin = new Padding(0);
+            ktDivider19.Name = "ktDivider19";
+            ktDivider19.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            ktDivider19.Size = new Size(1080, 23);
+            ktDivider19.TabIndex = 5;
+            // 
+            // ktPanel67
+            // 
+            ktPanel67.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            ktPanel67.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel67.BorderRadius = 24F;
+            ktPanel67.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            ktPanel67.BorderWidth = 1.5F;
+            ktPanel67.Controls.Add(ktPanel68);
+            ktPanel67.Dock = DockStyle.Top;
+            ktPanel67.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel67.Location = new Point(20, 43);
+            ktPanel67.Margin = new Padding(4);
+            ktPanel67.Name = "ktPanel67";
+            ktPanel67.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel67.Size = new Size(1080, 255);
+            ktPanel67.TabIndex = 4;
+            // 
+            // ktPanel68
+            // 
+            ktPanel68.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            ktPanel68.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            ktPanel68.BorderEdges.TopLeft = false;
+            ktPanel68.BorderRadius = 80F;
+            ktPanel68.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel68.BorderWidth = 1.5F;
+            ktPanel68.Controls.Add(ktTable1);
+            ktPanel68.Dock = DockStyle.Fill;
+            ktPanel68.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel68.Location = new Point(0, 0);
+            ktPanel68.Name = "ktPanel68";
+            ktPanel68.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel68.Size = new Size(1080, 255);
+            ktPanel68.TabIndex = 1;
+            // 
+            // ktTable1
+            // 
+            ktTable1.AllowUserToAddRows = false;
+            ktTable1.AllowUserToDeleteRows = false;
+            ktTable1.AllowUserToResizeColumns = false;
+            ktTable1.AllowUserToResizeRows = false;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle5.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            ktTable1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            ktTable1.BackgroundColor = Color.FromArgb(0, 78, 65);
+            ktTable1.BorderStyle = BorderStyle.None;
+            ktTable1.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
+            ktTable1.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
+            ktTable1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            ktTable1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            ktTable1.ColumnHeadersHeight = 40;
+            ktTable1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle7.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle7.ForeColor = Color.FromArgb(230, 230, 230);
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle7.SelectionForeColor = Color.White;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            ktTable1.DefaultCellStyle = dataGridViewCellStyle7;
+            ktTable1.Dock = DockStyle.Fill;
+            ktTable1.EnableHeadersVisualStyles = false;
+            ktTable1.GridColor = Color.FromArgb(173, 151, 98);
+            ktTable1.Location = new Point(0, 0);
+            ktTable1.MultiSelect = false;
+            ktTable1.Name = "ktTable1";
+            ktTable1.ReadOnly = true;
+            ktTable1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle8.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            ktTable1.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            ktTable1.RowHeadersVisible = false;
+            ktTable1.RowHeadersWidth = 20;
+            ktTable1.RowTemplate.Height = 45;
+            ktTable1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ktTable1.Size = new Size(1080, 255);
+            ktTable1.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktTable1.Style.Border = 0F;
+            ktTable1.Style.BorderHeader = 0F;
+            ktTable1.Style.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            ktTable1.Style.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktTable1.Style.Header.Background = KimTools.WinForms.KtColor.Empty;
+            ktTable1.Style.Header.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktTable1.Style.Row.Background = KimTools.WinForms.KtColor.BASE_2;
+            ktTable1.Style.Row.Foreground = KimTools.WinForms.KtColor.CONTENT;
+            ktTable1.Style.RowAlt.Background = KimTools.WinForms.KtColor.BASE_1;
+            ktTable1.Style.RowAlt.Foreground = KimTools.WinForms.KtColor.CONTENT;
+            ktTable1.Style.ScrollBar.Background = KimTools.WinForms.KtColor.Empty;
+            ktTable1.Style.ScrollBar.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktTable1.TabIndex = 0;
+            // 
+            // ktDivider20
+            // 
+            ktDivider20.BackColor = Color.Transparent;
+            ktDivider20.BackgroundImageLayout = ImageLayout.Stretch;
+            ktDivider20.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            ktDivider20.Dock = DockStyle.Top;
+            ktDivider20.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktDivider20.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            ktDivider20.Location = new Point(20, 20);
+            ktDivider20.Margin = new Padding(0);
+            ktDivider20.Name = "ktDivider20";
+            ktDivider20.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            ktDivider20.Size = new Size(1080, 23);
+            ktDivider20.TabIndex = 1;
+            // 
+            // eliminarOperarioPage
+            // 
+            navBarOperarios.Set_Background(eliminarOperarioPage, new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            eliminarOperarioPage.BackColor = Color.FromArgb(173, 151, 98);
+            eliminarOperarioPage.Controls.Add(ktPanel51);
+            eliminarOperarioPage.Location = new Point(0, 0);
+            eliminarOperarioPage.Name = "eliminarOperarioPage";
+            eliminarOperarioPage.Padding = new Padding(3);
+            eliminarOperarioPage.Size = new Size(1154, 946);
+            eliminarOperarioPage.TabIndex = 2;
+            eliminarOperarioPage.Text = "tabPage3";
+            // 
+            // ktPanel51
+            // 
+            ktPanel51.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            ktPanel51.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel51.BorderRadius = 24F;
+            ktPanel51.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel51.BorderWidth = 1.5F;
+            ktPanel51.Controls.Add(ktPanel52);
+            ktPanel51.Controls.Add(ktDivider14);
+            ktPanel51.Controls.Add(ktPanel54);
+            ktPanel51.Controls.Add(ktDivider15);
+            ktPanel51.Controls.Add(ktDivider16);
+            ktPanel51.Dock = DockStyle.Fill;
+            ktPanel51.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel51.Location = new Point(3, 3);
+            ktPanel51.Name = "ktPanel51";
+            ktPanel51.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel51.Size = new Size(1148, 940);
+            ktPanel51.TabIndex = 1;
+            // 
+            // ktPanel52
+            // 
+            ktPanel52.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel52.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel52.BorderRadius = 24F;
+            ktPanel52.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel52.BorderWidth = 0F;
+            ktPanel52.Controls.Add(actualizarTablaEliminar);
+            ktPanel52.Controls.Add(ktPanel53);
+            ktPanel52.Dock = DockStyle.Top;
+            ktPanel52.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel52.Location = new Point(0, 556);
+            ktPanel52.Name = "ktPanel52";
+            ktPanel52.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel52.Size = new Size(1148, 68);
+            ktPanel52.TabIndex = 12;
+            // 
+            // actualizarTablaEliminar
+            // 
+            actualizarTablaEliminar.BackColor = Color.Transparent;
+            actualizarTablaEliminar.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            actualizarTablaEliminar.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            actualizarTablaEliminar.BorderMargin = new Padding(0);
+            actualizarTablaEliminar.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            actualizarTablaEliminar.BorderWidth = 4F;
+            actualizarTablaEliminar.Cursor = Cursors.Default;
+            actualizarTablaEliminar.Dock = DockStyle.Right;
+            actualizarTablaEliminar.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            actualizarTablaEliminar.ForeColor = Color.FromArgb(34, 29, 17);
+            actualizarTablaEliminar.Foreground = KimTools.WinForms.KtColor.Empty;
+            actualizarTablaEliminar.Icon = "";
+            actualizarTablaEliminar.IconColor = KimTools.WinForms.KtColor.Empty;
+            actualizarTablaEliminar.IconSize = 16;
+            actualizarTablaEliminar.IconStroke = 2.5D;
+            actualizarTablaEliminar.Location = new Point(618, 0);
+            actualizarTablaEliminar.Name = "actualizarTablaEliminar";
+            actualizarTablaEliminar.Padding = new Padding(8, 0, 8, 0);
+            actualizarTablaEliminar.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            actualizarTablaEliminar.Size = new Size(265, 68);
+            actualizarTablaEliminar.TabIndex = 12;
+            actualizarTablaEliminar.Text = "ACTUALIZAR";
+            actualizarTablaEliminar.UseVisualStyleBackColor = false;
+            actualizarTablaEliminar.Click += actCambiosOperario_Click;
+            // 
+            // ktPanel53
+            // 
+            ktPanel53.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel53.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            ktPanel53.BorderRadius = 24F;
+            ktPanel53.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel53.BorderWidth = 1.5F;
+            ktPanel53.Controls.Add(buttonBorrarOperario);
+            ktPanel53.Dock = DockStyle.Right;
+            ktPanel53.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            ktPanel53.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel53.Location = new Point(883, 0);
+            ktPanel53.Name = "ktPanel53";
+            ktPanel53.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel53.Size = new Size(265, 68);
+            ktPanel53.TabIndex = 11;
+            // 
+            // buttonBorrarOperario
+            // 
+            buttonBorrarOperario.BackColor = Color.Transparent;
+            buttonBorrarOperario.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            buttonBorrarOperario.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            buttonBorrarOperario.BorderMargin = new Padding(0);
+            buttonBorrarOperario.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            buttonBorrarOperario.BorderWidth = 4F;
+            buttonBorrarOperario.Cursor = Cursors.Default;
+            buttonBorrarOperario.Dock = DockStyle.Fill;
+            buttonBorrarOperario.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            buttonBorrarOperario.ForeColor = Color.FromArgb(34, 29, 17);
+            buttonBorrarOperario.Foreground = KimTools.WinForms.KtColor.Empty;
+            buttonBorrarOperario.Icon = "";
+            buttonBorrarOperario.IconColor = KimTools.WinForms.KtColor.Empty;
+            buttonBorrarOperario.IconSize = 16;
+            buttonBorrarOperario.IconStroke = 2.5D;
+            buttonBorrarOperario.Location = new Point(0, 0);
+            buttonBorrarOperario.Name = "buttonBorrarOperario";
+            buttonBorrarOperario.Padding = new Padding(8, 0, 8, 0);
+            buttonBorrarOperario.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            buttonBorrarOperario.Size = new Size(265, 68);
+            buttonBorrarOperario.TabIndex = 2;
+            buttonBorrarOperario.Text = "ELIMINAR";
+            buttonBorrarOperario.UseVisualStyleBackColor = false;
+            buttonBorrarOperario.Click += buttonBorrarOperario_Click;
+            // 
+            // ktDivider14
+            // 
+            ktDivider14.BackColor = Color.Transparent;
+            ktDivider14.BackgroundImageLayout = ImageLayout.Stretch;
+            ktDivider14.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            ktDivider14.Dock = DockStyle.Top;
+            ktDivider14.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktDivider14.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            ktDivider14.Location = new Point(0, 511);
+            ktDivider14.Margin = new Padding(0);
+            ktDivider14.Name = "ktDivider14";
+            ktDivider14.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            ktDivider14.Size = new Size(1148, 45);
+            ktDivider14.TabIndex = 11;
+            // 
+            // ktPanel54
+            // 
+            ktPanel54.Background = new KimTools.WinForms.KtBrushSolid(KimTools.WinForms.KtColor.BASE_2);
+            ktPanel54.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            ktPanel54.BorderRadius = 24F;
+            ktPanel54.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel54.BorderWidth = 1.5F;
+            ktPanel54.Controls.Add(ktTablaOperarios);
+            ktPanel54.Dock = DockStyle.Top;
+            ktPanel54.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel54.Location = new Point(0, 64);
+            ktPanel54.Name = "ktPanel54";
+            ktPanel54.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel54.Size = new Size(1148, 447);
+            ktPanel54.TabIndex = 9;
+            // 
+            // ktTablaOperarios
+            // 
+            ktTablaOperarios.AllowUserToAddRows = false;
+            ktTablaOperarios.AllowUserToDeleteRows = false;
+            ktTablaOperarios.AllowUserToResizeColumns = false;
+            ktTablaOperarios.AllowUserToResizeRows = false;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle9.SelectionForeColor = Color.White;
+            ktTablaOperarios.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            ktTablaOperarios.BackgroundColor = Color.FromArgb(0, 78, 65);
+            ktTablaOperarios.BorderStyle = BorderStyle.None;
+            ktTablaOperarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
+            ktTablaOperarios.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
+            ktTablaOperarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle10.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle10.ForeColor = Color.White;
+            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle10.SelectionForeColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
+            ktTablaOperarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            ktTablaOperarios.ColumnHeadersHeight = 40;
+            ktTablaOperarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            ktTablaOperarios.Columns.AddRange(new DataGridViewColumn[] { IdOperario, NombreOp, ApellidoOp, Disponibilidad });
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyle11.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle11.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle11.SelectionForeColor = Color.White;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.False;
+            ktTablaOperarios.DefaultCellStyle = dataGridViewCellStyle11;
+            ktTablaOperarios.Dock = DockStyle.Fill;
+            ktTablaOperarios.EnableHeadersVisualStyles = false;
+            ktTablaOperarios.GridColor = Color.FromArgb(173, 151, 98);
+            ktTablaOperarios.Location = new Point(0, 0);
+            ktTablaOperarios.MultiSelect = false;
+            ktTablaOperarios.Name = "ktTablaOperarios";
+            ktTablaOperarios.ReadOnly = true;
+            ktTablaOperarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle12.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle12.ForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle12.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle12.SelectionForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
+            ktTablaOperarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            ktTablaOperarios.RowHeadersVisible = false;
+            ktTablaOperarios.RowHeadersWidth = 20;
+            ktTablaOperarios.RowTemplate.Height = 45;
+            ktTablaOperarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ktTablaOperarios.Size = new Size(1148, 447);
+            ktTablaOperarios.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktTablaOperarios.Style.Border = 0F;
+            ktTablaOperarios.Style.BorderHeader = 0F;
+            ktTablaOperarios.Style.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            ktTablaOperarios.Style.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktTablaOperarios.Style.Header.Background = KimTools.WinForms.KtColor.Empty;
+            ktTablaOperarios.Style.Header.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktTablaOperarios.Style.Row.Background = KimTools.WinForms.KtColor.BASE_2;
+            ktTablaOperarios.Style.Row.Foreground = KimTools.WinForms.KtColor.CONTENT;
+            ktTablaOperarios.Style.RowAlt.Background = KimTools.WinForms.KtColor.BASE_1;
+            ktTablaOperarios.Style.RowAlt.Foreground = KimTools.WinForms.KtColor.CONTENT;
+            ktTablaOperarios.Style.ScrollBar.Background = KimTools.WinForms.KtColor.Empty;
+            ktTablaOperarios.Style.ScrollBar.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktTablaOperarios.TabIndex = 1;
+            // 
+            // IdOperario
+            // 
+            IdOperario.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            IdOperario.DataPropertyName = "IdOperario";
+            IdOperario.Frozen = true;
+            IdOperario.HeaderText = "IdOp";
+            IdOperario.Name = "IdOperario";
+            IdOperario.ReadOnly = true;
+            IdOperario.Resizable = DataGridViewTriState.False;
+            IdOperario.Width = 71;
+            // 
+            // NombreOp
+            // 
+            NombreOp.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            NombreOp.DataPropertyName = "Nombre";
+            NombreOp.HeaderText = "Nombre";
+            NombreOp.Name = "NombreOp";
+            NombreOp.ReadOnly = true;
+            NombreOp.Resizable = DataGridViewTriState.False;
+            // 
+            // ApellidoOp
+            // 
+            ApellidoOp.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ApellidoOp.DataPropertyName = "Apellido";
+            ApellidoOp.HeaderText = "Apellido";
+            ApellidoOp.Name = "ApellidoOp";
+            ApellidoOp.ReadOnly = true;
+            ApellidoOp.Resizable = DataGridViewTriState.False;
+            // 
+            // Disponibilidad
+            // 
+            Disponibilidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Disponibilidad.DataPropertyName = "Disponibilidad";
+            Disponibilidad.HeaderText = "Estado";
+            Disponibilidad.Name = "Disponibilidad";
+            Disponibilidad.ReadOnly = true;
+            Disponibilidad.Resizable = DataGridViewTriState.False;
+            Disponibilidad.Width = 85;
+            // 
+            // ktDivider15
+            // 
+            ktDivider15.BackColor = Color.Transparent;
+            ktDivider15.BackgroundImageLayout = ImageLayout.Stretch;
+            ktDivider15.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            ktDivider15.Dock = DockStyle.Top;
+            ktDivider15.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktDivider15.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            ktDivider15.Location = new Point(0, 32);
+            ktDivider15.Margin = new Padding(0);
+            ktDivider15.Name = "ktDivider15";
+            ktDivider15.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            ktDivider15.Size = new Size(1148, 32);
+            ktDivider15.TabIndex = 8;
+            // 
+            // ktDivider16
+            // 
+            ktDivider16.BackColor = Color.Transparent;
+            ktDivider16.BackgroundImageLayout = ImageLayout.Stretch;
+            ktDivider16.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            ktDivider16.Dock = DockStyle.Top;
+            ktDivider16.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            ktDivider16.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            ktDivider16.Location = new Point(0, 0);
+            ktDivider16.Margin = new Padding(0);
+            ktDivider16.Name = "ktDivider16";
+            ktDivider16.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            ktDivider16.Size = new Size(1148, 32);
+            ktDivider16.TabIndex = 6;
+            // 
+            // tabPage2
+            // 
+            navBarOperarios.Set_Background(tabPage2, KimTools.WinForms.KtColor.Empty);
+            tabPage2.BackColor = Color.Transparent;
+            tabPage2.Location = new Point(0, 0);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(1154, 946);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "tabPage2";
+            // 
+            // navOperarios
+            // 
+            navOperarios.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            navOperarios.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            navOperarios.BorderEdges.BottomLeft = false;
+            navOperarios.BorderEdges.TopLeft = false;
+            navOperarios.BorderRadius = 24F;
+            navOperarios.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            navOperarios.BorderWidth = 1.5F;
+            navOperarios.Controls.Add(EliminarOperario);
+            navOperarios.Controls.Add(EditarOperario);
+            navOperarios.Controls.Add(AltaOperario);
+            navOperarios.Dock = DockStyle.Top;
+            navOperarios.Foreground = KimTools.WinForms.KtColor.Empty;
+            navOperarios.Location = new Point(0, 0);
+            navOperarios.Name = "navOperarios";
+            navOperarios.PatternColor = KimTools.WinForms.KtColor.Empty;
+            navOperarios.Size = new Size(1154, 66);
+            navOperarios.TabIndex = 0;
+            // 
+            // EliminarOperario
+            // 
+            EliminarOperario.BackColor = Color.Transparent;
+            EliminarOperario.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            EliminarOperario.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            EliminarOperario.BorderMargin = new Padding(0);
+            EliminarOperario.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            EliminarOperario.BorderWidth = 2F;
+            EliminarOperario.Cursor = Cursors.Default;
+            EliminarOperario.Dock = DockStyle.Left;
+            EliminarOperario.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            EliminarOperario.ForeColor = Color.FromArgb(204, 255, 246);
+            EliminarOperario.Foreground = KimTools.WinForms.KtColor.Empty;
+            EliminarOperario.Icon = "";
+            EliminarOperario.IconColor = KimTools.WinForms.KtColor.Empty;
+            EliminarOperario.IconSize = 16;
+            EliminarOperario.IconStroke = 2.5D;
+            EliminarOperario.Location = new Point(240, 0);
+            EliminarOperario.Name = "EliminarOperario";
+            EliminarOperario.Padding = new Padding(8, 0, 8, 0);
+            EliminarOperario.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            EliminarOperario.Size = new Size(120, 66);
+            EliminarOperario.TabIndex = 5;
+            EliminarOperario.Text = "Eliminar";
+            EliminarOperario.UseVisualStyleBackColor = false;
+            EliminarOperario.Click += EliminarOperario_Click;
+            // 
+            // EditarOperario
+            // 
+            EditarOperario.BackColor = Color.Transparent;
+            EditarOperario.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            EditarOperario.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            EditarOperario.BorderMargin = new Padding(0);
+            EditarOperario.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            EditarOperario.BorderWidth = 2F;
+            EditarOperario.Cursor = Cursors.Default;
+            EditarOperario.Dock = DockStyle.Left;
+            EditarOperario.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            EditarOperario.ForeColor = Color.FromArgb(204, 255, 246);
+            EditarOperario.Foreground = KimTools.WinForms.KtColor.Empty;
+            EditarOperario.Icon = "";
+            EditarOperario.IconColor = KimTools.WinForms.KtColor.Empty;
+            EditarOperario.IconSize = 16;
+            EditarOperario.IconStroke = 2.5D;
+            EditarOperario.Location = new Point(120, 0);
+            EditarOperario.Name = "EditarOperario";
+            EditarOperario.Padding = new Padding(8, 0, 8, 0);
+            EditarOperario.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            EditarOperario.Size = new Size(120, 66);
+            EditarOperario.TabIndex = 4;
+            EditarOperario.Text = "Editar";
+            EditarOperario.UseVisualStyleBackColor = false;
+            EditarOperario.Click += EditarOperario_Click;
+            // 
+            // AltaOperario
+            // 
+            AltaOperario.BackColor = Color.Transparent;
+            AltaOperario.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            AltaOperario.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            AltaOperario.BorderMargin = new Padding(0);
+            AltaOperario.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            AltaOperario.BorderWidth = 2F;
+            AltaOperario.Cursor = Cursors.Default;
+            AltaOperario.Dock = DockStyle.Left;
+            AltaOperario.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AltaOperario.ForeColor = Color.FromArgb(204, 255, 246);
+            AltaOperario.Foreground = KimTools.WinForms.KtColor.Empty;
+            AltaOperario.Icon = "";
+            AltaOperario.IconColor = KimTools.WinForms.KtColor.Empty;
+            AltaOperario.IconSize = 16;
+            AltaOperario.IconStroke = 2.5D;
+            AltaOperario.Location = new Point(0, 0);
+            AltaOperario.Name = "AltaOperario";
+            AltaOperario.Padding = new Padding(8, 0, 8, 0);
+            AltaOperario.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            AltaOperario.Size = new Size(120, 66);
+            AltaOperario.TabIndex = 3;
+            AltaOperario.Text = "Alta";
+            AltaOperario.UseVisualStyleBackColor = false;
+            AltaOperario.Click += AltaOperario_Click;
+            // 
             // MenuPPal
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
             ClientSize = new Size(1494, 1055);
+            Controls.Add(panelOperarios);
             Controls.Add(panelLotes);
-            Controls.Add(voidPanel);
-            Controls.Add(ktPanel3);
-            Controls.Add(ktPanel1);
+            Controls.Add(hudSuperiorCierre);
+            Controls.Add(hudLateral);
             Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
             ForeColor = Color.FromArgb(34, 29, 17);
             FormBorderStyle = FormBorderStyle.None;
@@ -2691,13 +4036,13 @@
             Name = "MenuPPal";
             Text = "Form1";
             Load += Form1_Load;
-            ktPanel1.ResumeLayout(false);
+            hudLateral.ResumeLayout(false);
             ktPanel4.ResumeLayout(false);
             ktPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ktPictureBox1).EndInit();
-            ktPanel3.ResumeLayout(false);
+            hudSuperiorCierre.ResumeLayout(false);
             panelLotes.ResumeLayout(false);
-            navBar.ResumeLayout(false);
+            navBarLotes.ResumeLayout(false);
             altaLotesPage.ResumeLayout(false);
             altaLoteSubPage.ResumeLayout(false);
             ktPanel20.ResumeLayout(false);
@@ -2748,14 +4093,45 @@
             ktPanel43.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ktTablaLotesEliminar).EndInit();
             navLotes.ResumeLayout(false);
+            panelOperarios.ResumeLayout(false);
+            navBarOperarios.ResumeLayout(false);
+            altaOperarioPage.ResumeLayout(false);
+            altaOperariosSubPage.ResumeLayout(false);
+            ktPanel49.ResumeLayout(false);
+            ktPanel50.ResumeLayout(false);
+            ktPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ktTablaCapacidades).EndInit();
+            panelApellidoOp.ResumeLayout(false);
+            ktPanel46.ResumeLayout(false);
+            ktPanel47.ResumeLayout(false);
+            ktPanel48.ResumeLayout(false);
+            panelNombreOp.ResumeLayout(false);
+            ktPanel3.ResumeLayout(false);
+            ktPanel42.ResumeLayout(false);
+            ktPanel45.ResumeLayout(false);
+            modificarOperarioPage.ResumeLayout(false);
+            modificarOperarioSubPage.ResumeLayout(false);
+            ktPanel56.ResumeLayout(false);
+            ktPanel57.ResumeLayout(false);
+            ktPanel58.ResumeLayout(false);
+            ktPanel67.ResumeLayout(false);
+            ktPanel68.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ktTable1).EndInit();
+            eliminarOperarioPage.ResumeLayout(false);
+            ktPanel51.ResumeLayout(false);
+            ktPanel52.ResumeLayout(false);
+            ktPanel53.ResumeLayout(false);
+            ktPanel54.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ktTablaOperarios).EndInit();
+            navOperarios.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private KimTools.WinForms.KtPanel ktPanel1;
+        private KimTools.WinForms.KtPanel hudLateral;
         private KimTools.WinForms.KtPanel ktPanel2;
-        private KimTools.WinForms.KtPanel ktPanel3;
+        private KimTools.WinForms.KtPanel hudSuperiorCierre;
         private KimTools.WinForms.KtPictureBox ktPictureBox1;
         private KimTools.WinForms.KtRadioButton PedidosPage;
         private KimTools.WinForms.KtDivider ktDivider1;
@@ -2767,7 +4143,6 @@
         private KimTools.WinForms.KtButton ktButton2;
         private KimTools.WinForms.KtButton ktButton3;
         private KimTools.WinForms.KtFormTools ktFormTools1;
-        private KimTools.WinForms.KtPanel voidPanel;
         private KimTools.WinForms.KtButton ktButton1;
         private KimTools.WinForms.KtPanel panelLotes;
         private KimTools.WinForms.KtPanel altaLoteSubPage;
@@ -2804,7 +4179,7 @@
         private KimTools.WinForms.KtPanel fechaIng;
         private KimTools.WinForms.KtDate fechaIngreso;
         private KimTools.WinForms.KtTable ktTablaProveedoresLotes;
-        private KimTools.WinForms.KtPages navBar;
+        private KimTools.WinForms.KtPages navBarLotes;
         private TabPage altaLotesPage;
         private TabPage modificarLotesPage;
         private KimTools.WinForms.KtTextBox fechaVencimiento;
@@ -2871,5 +4246,65 @@
         private DataGridViewTextBoxColumn FechaIngresoE;
         private DataGridViewTextBoxColumn FechaVencimientoE;
         private DataGridViewTextBoxColumn CantidadLoteE;
+        private KimTools.WinForms.KtPanel panelOperarios;
+        private KimTools.WinForms.KtPages navBarOperarios;
+        private TabPage altaOperarioPage;
+        private TabPage tabPage2;
+        private TabPage modificarOperarioPage;
+        private TabPage eliminarOperarioPage;
+        private KimTools.WinForms.KtPanel altaOperariosSubPage;
+        private KimTools.WinForms.KtPanel navOperarios;
+        private KimTools.WinForms.KtDivider ktDivider10;
+        private KimTools.WinForms.KtPanel panelNombreOp;
+        private KimTools.WinForms.KtPanel ktPanel3;
+        private KimTools.WinForms.KtTextBox nombreOpText;
+        private KimTools.WinForms.KtPanel ktPanel42;
+        private KimTools.WinForms.KtPanel ktPanel45;
+        private KimTools.WinForms.KtLabel ktLabel46;
+        private KimTools.WinForms.KtDivider ktDivider12;
+        private KimTools.WinForms.KtPanel panelApellidoOp;
+        private KimTools.WinForms.KtPanel ktPanel46;
+        private KimTools.WinForms.KtTextBox apellidoOpText;
+        private KimTools.WinForms.KtPanel ktPanel47;
+        private KimTools.WinForms.KtPanel ktPanel48;
+        private KimTools.WinForms.KtLabel ktLabel10;
+        private KimTools.WinForms.KtPanel ktPanel1;
+        private KimTools.WinForms.KtTable ktTablaCapacidades;
+        private DataGridViewTextBoxColumn IdCap;
+        private DataGridViewTextBoxColumn NomCapacidad;
+        private DataGridViewTextBoxColumn DescCapacidad;
+        private KimTools.WinForms.KtPanel ktPanel49;
+        private KimTools.WinForms.KtPanel ktPanel50;
+        private KimTools.WinForms.KtButton buttonGuardarOperario;
+        private KimTools.WinForms.KtDivider ktDivider13;
+        private KimTools.WinForms.KtButton EliminarOperario;
+        private KimTools.WinForms.KtButton EditarOperario;
+        private KimTools.WinForms.KtButton AltaOperario;
+        private KimTools.WinForms.KtPanel ktPanel51;
+        private KimTools.WinForms.KtPanel ktPanel52;
+        private KimTools.WinForms.KtPanel ktPanel53;
+        private KimTools.WinForms.KtButton buttonBorrarOperario;
+        private KimTools.WinForms.KtDivider ktDivider14;
+        private KimTools.WinForms.KtPanel ktPanel54;
+        private KimTools.WinForms.KtTable ktTablaOperarios;
+        private KimTools.WinForms.KtDivider ktDivider15;
+        private KimTools.WinForms.KtDivider ktDivider16;
+        private DataGridViewTextBoxColumn IdOperario;
+        private DataGridViewTextBoxColumn NombreOp;
+        private DataGridViewTextBoxColumn ApellidoOp;
+        private DataGridViewTextBoxColumn Disponibilidad;
+        private KimTools.WinForms.KtButton actualizarTablaEliminar;
+        private KimTools.WinForms.KtPanel modificarOperarioSubPage;
+        private KimTools.WinForms.KtPanel ktPanel56;
+        private KimTools.WinForms.KtPanel ktPanel57;
+        private KimTools.WinForms.KtDivider ktDivider19;
+        private KimTools.WinForms.KtPanel ktPanel67;
+        private KimTools.WinForms.KtPanel ktPanel68;
+        private KimTools.WinForms.KtTable ktTable1;
+        private KimTools.WinForms.KtDivider ktDivider20;
+        private KimTools.WinForms.KtPanel ktPanel58;
+        private KimTools.WinForms.KtButton buttonActualizarCambios;
+        private KimTools.WinForms.KtButton buttonGuardarCambiosOp;
+        private KimTools.WinForms.KtPanel ktPanel55;
     }
 }

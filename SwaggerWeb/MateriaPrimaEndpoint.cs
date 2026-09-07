@@ -7,11 +7,11 @@ namespace SwaggerWeb
     {
         public static void MapMateriapEndpoint(this WebApplication app)
         {
-            app.MapPost("/materiap", async (MateriaPrimaDTO dto, IMateriapServicio materiapServicio) =>
+            app.MapPost("/materiap", async (MateriapDTO dto, IMateriapServicio materiapServicio) =>
             {
                 try
                 {
-                    MateriaPrimaDTO materiapDto = await materiapServicio.AgregarMateriaPrima(dto);
+                    MateriapDTO materiapDto = await materiapServicio.AgregarMateriaPrima(dto);
 
                     return Results.Created($"/materiap/{materiapDto.IdMateriaP}", materiapDto);
                 }
@@ -21,7 +21,7 @@ namespace SwaggerWeb
                 }
             }).WithName("Alta Materia Prima")
             .WithTags("Materia Prima")
-            .Produces<MateriaPrimaDTO>(StatusCodes.Status201Created)
+            .Produces<MateriapDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
@@ -38,7 +38,7 @@ namespace SwaggerWeb
                 }
             }).WithName("Obtener Materias Primas")
             .WithTags("Materia Prima")
-            .Produces<List<MateriaPrimaDTO>>(StatusCodes.Status200OK)
+            .Produces<List<MateriapDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
 
 
@@ -61,11 +61,11 @@ namespace SwaggerWeb
                 }
             }).WithName("Obtener Materia Prima Por Id")
             .WithTags("Materia Prima")
-            .Produces<MateriaPrimaDTO>(StatusCodes.Status200OK)
+            .Produces<MateriapDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
-            app.MapPut("/materiap/{id}", async (int id, MateriaPrimaDTO dto, IMateriapServicio materiapServicio) =>
+            app.MapPut("/materiap/{id}", async (int id, MateriapDTO dto, IMateriapServicio materiapServicio) =>
             {
                 try
                 {
@@ -74,7 +74,7 @@ namespace SwaggerWeb
                         return Results.BadRequest(new { error = "El ID de la ruta no coincide con el ID de la materia prima." });
                     }
 
-                    MateriaPrimaDTO matActualizada = await materiapServicio.ModificarMateriaPrima(dto);
+                    MateriapDTO matActualizada = await materiapServicio.ModificarMateriaPrima(dto);
                     return Results.Ok(matActualizada);
                 }
                 catch (ArgumentException ex)
@@ -87,7 +87,7 @@ namespace SwaggerWeb
                 }
             }).WithName("Modificar Materia Prima")
             .WithTags("Materia Prima")
-            .Produces<MateriaPrimaDTO>(StatusCodes.Status200OK)
+            .Produces<MateriapDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
