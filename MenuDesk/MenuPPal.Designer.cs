@@ -2316,10 +2316,10 @@
             navBar.Set_Background(eliminarLotesPage, KimTools.WinForms.KtColor.Empty);
             eliminarLotesPage.BackColor = Color.FromArgb(173, 151, 98);
             eliminarLotesPage.Controls.Add(ktPanel38);
-            eliminarLotesPage.Location = new Point(0, 0);
+            eliminarLotesPage.Location = new Point(4, 4);
             eliminarLotesPage.Name = "eliminarLotesPage";
             eliminarLotesPage.Padding = new Padding(3);
-            eliminarLotesPage.Size = new Size(1154, 1012);
+            eliminarLotesPage.Size = new Size(1146, 978);
             eliminarLotesPage.TabIndex = 2;
             eliminarLotesPage.Text = "tabPage1";
             eliminarLotesPage.Click += sNavEliminarLote;
@@ -2337,7 +2337,7 @@
             ktPanel38.Location = new Point(3, 3);
             ktPanel38.Name = "ktPanel38";
             ktPanel38.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel38.Size = new Size(1148, 1006);
+            ktPanel38.Size = new Size(1140, 972);
             ktPanel38.TabIndex = 0;
             // 
             // ktPanel41
@@ -2354,7 +2354,7 @@
             ktPanel41.Location = new Point(0, 0);
             ktPanel41.Name = "ktPanel41";
             ktPanel41.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel41.Size = new Size(1148, 460);
+            ktPanel41.Size = new Size(1140, 460);
             ktPanel41.TabIndex = 0;
             // 
             // ktPanel44
@@ -2368,7 +2368,7 @@
             ktPanel44.Controls.Add(deshabilitarLote);
             ktPanel44.Dock = DockStyle.Right;
             ktPanel44.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel44.Location = new Point(877, 0);
+            ktPanel44.Location = new Point(869, 0);
             ktPanel44.Name = "ktPanel44";
             ktPanel44.PatternColor = KimTools.WinForms.KtColor.Empty;
             ktPanel44.Size = new Size(271, 460);
