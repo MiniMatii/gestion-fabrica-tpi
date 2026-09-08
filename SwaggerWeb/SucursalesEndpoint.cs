@@ -33,7 +33,7 @@ namespace SwaggerWeb
                     var found = await sucursalServicio.ModificarSucursal(dto);
                     if (found)
                     {
-                        return Results.NoContent(); //no sé qué es mejor, si el NoContent o el Ok
+                        return Results.NoContent(); 
                     }
                     return Results.NotFound();
                 }

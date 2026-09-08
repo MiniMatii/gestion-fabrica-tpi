@@ -45,15 +45,22 @@ namespace MenuDesk
                 string endpoint = "operario";
                 if (ktTablaCapacidades.SelectedCells != null)
                 {
-                    var caps = new CapacidadDTO();
-                    caps.IdCap = Convert.ToInt32(ktTablaCapacidades.CurrentRow.Cells["IdCap"].Value);
-                    caps.DescCapacidad = ktTablaCapacidades.CurrentRow.Cells["DescCapacidad"].Value.ToString();
-                    caps.NomCapacidad = ktTablaCapacidades.CurrentRow.Cells["NomCapacidad"].Value.ToString();
-
+                   
                     OperariosDTO n_Op = new OperariosDTO();
+                    
+                    
+                    foreach (DataGridViewRow fila in ktTablaCapacidades.SelectedRows) 
+                    {
+                        var caps = new CapacidadDTO();
+                        caps.IdCap = Convert.ToInt32(fila.Cells["IdCap"].Value);
+                        caps.DescCapacidad = fila.Cells["DescCapacidad"].Value.ToString();
+                        caps.NomCapacidad = fila.Cells["NomCapacidad"].Value.ToString();
+                        n_Op.IdCaps.Add(caps);
+                        
+                    }
+
                     n_Op.Nombre = nombreOpText.Text;
                     n_Op.Apellido = apellidoOpText.Text;
-                    n_Op.IdCaps.Add(caps);
                     n_Op.Disponibilidad = 1;
                     await _apiClient.PostAsync(endpoint, n_Op);
 
