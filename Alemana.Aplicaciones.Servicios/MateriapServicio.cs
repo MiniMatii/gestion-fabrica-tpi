@@ -74,5 +74,17 @@ namespace Alemana.Aplicaciones.Servicios
 
             return unaMatpDTO;
         }
+
+        public async Task<bool> EliminarLote(int idMp) 
+        {
+            var result = await materiapRepositorio.EliminarLote(idMp);
+
+            if (result)
+            {
+                return result;
+            }
+
+            return result;
+        }
     }
 }

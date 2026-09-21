@@ -361,3 +361,17 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Configuración con credenciales sensibles
+appsettings.json
+**/appsettings.json
+
+# Carpetas de build (si no las tenías ya ignoradas)
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Archivos de usuario de Visual Studio
+*.user
+.vs/

@@ -248,5 +248,38 @@ namespace MenuDesk
         {
             await CargarDatosLotesAsync();
         }
+
+        private void proveedorButton_Click(object sender, EventArgs e)
+        {
+            var miniFormAltaProveedor = new FormProvMini();
+            miniFormAltaProveedor.StartPosition = FormStartPosition.CenterScreen;
+            miniFormAltaProveedor.FormBorderStyle = FormBorderStyle.None;
+
+            var pPantalla = proveedorButton.PointToScreen(new Point(0, proveedorButton.Height));
+            miniFormAltaProveedor.Location = pPantalla;
+
+            miniFormAltaProveedor.Deactivate += (s, args) => miniFormAltaProveedor.Close();
+
+            miniFormAltaProveedor.Show(this);
+
+        }
+
+        private void materiapButton_Click(object sender, EventArgs e)
+        {
+
+            var miniFormMP = new FormMPMini();
+            miniFormMP.StartPosition = FormStartPosition.CenterScreen;
+            miniFormMP.FormBorderStyle = FormBorderStyle.None;
+
+            var pPantalla = proveedorButton.PointToScreen(new Point(0, proveedorButton.Height));
+            miniFormMP.Location = pPantalla;
+
+            miniFormMP.Deactivate += (s, args) => miniFormMP.Close();
+
+            miniFormMP.Show(this);
+
+
+        }
     }
+
 }

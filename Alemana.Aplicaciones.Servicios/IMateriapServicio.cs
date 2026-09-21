@@ -8,5 +8,6 @@ namespace Alemana.Aplicaciones.Servicios
         Task<List<MateriapDTO>> ObtenerTodos();
         Task<MateriapDTO> ObtenerPorId(int id);
         Task<MateriapDTO> ModificarMateriaPrima(MateriapDTO dto);
+        Task<bool> EliminarLote(int idMp);
     }
 }

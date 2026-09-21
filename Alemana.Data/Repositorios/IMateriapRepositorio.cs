@@ -8,5 +8,6 @@ namespace Alemana.Data.Repositorios
         Task<List<Materiap>> ObtenerTodos();
         Task<Materiap> ObtenerPorId(int id);
         Task ModificarMateriaPrima(Materiap materiaPrima);
+        Task<bool> EliminarLote(int idMp);
     }
 }

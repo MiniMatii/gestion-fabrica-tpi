@@ -40,5 +40,20 @@ namespace Alemana.Data.Repositorios
             _DbA.Set<Materiap>().Update(materiaPrima);
             await _DbA.SaveChangesAsync();
         }
+
+        public async Task<bool> EliminarLote(int idMp) 
+        {
+            var mpEliminada = await _DbA.Materiaps.FirstOrDefaultAsync(mp => mp.IdMateriaP == idMp);
+
+            if (mpEliminada != null)
+            {
+
+                _DbA.Materiaps.Remove(mpEliminada);
+                await _DbA.SaveChangesAsync();
+
+                return true;
+            }
+            return false;
+        }
     }
 }
