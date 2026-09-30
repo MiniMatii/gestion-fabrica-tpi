@@ -49,10 +49,9 @@ public partial class DbAlemanaContext : DbContext
 
     public virtual DbSet<Sucursale> Sucursales { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;database=alemanadb;uid=root;pwd=110105", ServerVersion.Parse("8.0.32-mysql"));
-
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //ning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+    //    => optionsBuilder.UseMySql("server=alemanadb-aws.cn6ii6em83s1.us-east-2.rds.amazonaws.com;port=3306;database=alemanadb;uid=alemana_admin;pwd=WubTD0uYDWA8AxRBud4u", ServerVersion.Parse("8.0.32-mysql"));
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder

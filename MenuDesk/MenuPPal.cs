@@ -31,11 +31,5 @@ namespace MenuDesk
             ? FormWindowState.Normal
             : FormWindowState.Maximized;
         }
-        private void ktButton3_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-
     }
 }

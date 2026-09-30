@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MenuDesk
 {
-    partial class MenuPPal
+    public partial class MenuPPal
     {
 
         private void OperariosPage_CheckedChanged(object sender, EventArgs e)
