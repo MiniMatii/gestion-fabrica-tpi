@@ -17,6 +17,8 @@ public partial class DbAlemanaContext : DbContext
         : base(options)
     {
     }
+    
+    public virtual DbSet<Usuario> Usuarios { get; set; }
 
     public virtual DbSet<Capacidad> Capacidads { get; set; }
 
@@ -103,6 +105,22 @@ public partial class DbAlemanaContext : DbContext
                         j.IndexerProperty<int>("IdOperario").HasColumnName("idOperario");
                     });
         });
+
+        modelBuilder.Entity<Usuario>(e =>
+        {
+            e.ToTable("usuarios");
+            e.HasKey(x => x.IdUsuario);
+            e.Property(x => x.IdUsuario).HasColumnName("idUsuario");
+            e.Property(x => x.NombreUsuario).HasColumnName("usuario").HasMaxLength(50).IsRequired();
+            e.HasIndex(x => x.NombreUsuario).IsUnique();
+            e.Property(x => x.ClaveHash).HasColumnName("claveHash").HasMaxLength(100).IsRequired();
+            e.Property(x => x.IdEmpleado).HasColumnName("idEmpleado");
+            e.Property(x => x.IdOperario).HasColumnName("idOperario");
+
+            e.HasOne(x => x.Empleado).WithMany().HasForeignKey(x => x.IdEmpleado);
+            e.HasOne(x => x.Operario).WithMany().HasForeignKey(x => x.IdOperario);
+        });
+
 
         modelBuilder.Entity<Ciudade>(entity =>
         {

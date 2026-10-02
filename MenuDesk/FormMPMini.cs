@@ -1,15 +1,7 @@
 ﻿using Alemana.DTOs;
 using KimTools.WinForms;
-using MenuDesk.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Alemana.API;
+
 
 namespace MenuDesk
 {
@@ -107,19 +99,20 @@ namespace MenuDesk
                 bool eliminado = await _apiClient.DeleteAsync($"materiap/{idMp}");
                 if (eliminado)
                 {
-                    MessageBox.Show("Materia eliminada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                    MessageBox.Show("Materia eliminada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else 
-                { 
+                else
+                {
                     MessageBox.Show("No se pudo eliminar la materia.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Error al eliminar la materia prima: {ex.Message}", "Error de Baja", MessageBoxButtons.OK);
 
             }
         }
+
 
     }
 }

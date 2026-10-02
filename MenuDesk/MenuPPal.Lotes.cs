@@ -280,6 +280,12 @@ namespace MenuDesk
 
 
         }
+
+
+        private void altaLoteSubPage_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

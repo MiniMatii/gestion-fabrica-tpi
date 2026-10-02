@@ -1,7 +1,7 @@
 using Alemana.DTOs;
 using KimTools;
 using KimTools.WinForms;
-using MenuDesk.Services;
+using Alemana.API;
 using System;
 using System.Windows.Forms;
 
@@ -33,9 +33,10 @@ namespace MenuDesk
         }
         private void ktButton3_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
 
+            Environment.Exit(0);
+
+        }
 
     }
 }

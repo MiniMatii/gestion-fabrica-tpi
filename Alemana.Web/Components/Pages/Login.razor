@@ -1,0 +1,80 @@
+﻿@page "/login"
+@rendermode InteractiveServer
+
+@using Alemana.Web.Auth
+@using Alemana.DTOs
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager Navigation
+@inject ApiClient Api
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Iniciar Sesión</h3>
+
+                    @if (!string.IsNullOrEmpty(mensajeError))
+                                        {
+                    <div class="alert alert-danger">@mensajeError</div>
+                                        }
+
+                    <EditForm Model="loginModel" OnValidSubmit="EjecutarLogin" FormName="formularioLogin">
+                        <DataAnnotationsValidator />
+
+                        <div class="mb-3">
+                            <label class="form-label">Usuario</label>
+                            <!-- Ahora coincide con LoginDTO.Usuario -->
+                            <InputText @bind-Value="loginModel.Usuario" class="form-control" placeholder="Ej: Esteban" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <!-- Ahora coincide con LoginDTO.Clave -->
+                            <InputText @bind-Value="loginModel.Clave" type="password" class="form-control" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private LoginDTO loginModel = new LoginDTO();
+    private string mensajeError = "";
+
+    private async Task EjecutarLogin()
+    {
+        mensajeError = "";
+        try
+        {
+
+            var resultado = await Api.LoginAsync(loginModel);
+
+            if (resultado != null && !string.IsNullOrEmpty(resultado.Token))
+            {
+
+                await LocalStorage.SetItemAsync("authToken", resultado.Token);
+
+                var customAuthStateProvider = (CustomAuthStateProvider)AuthStateProvider;
+                customAuthStateProvider.MarcarUsuarioComoAutenticado(resultado.Token);
+
+                Navigation.NavigateTo("/");
+            }
+            else
+            {
+
+                mensajeError = "Credenciales incorrectas.";
+            }
+        }
+        catch (Exception ex)
+        {
+            mensajeError = $"Error técnico: {ex.Message}";
+        }
+    }
+}

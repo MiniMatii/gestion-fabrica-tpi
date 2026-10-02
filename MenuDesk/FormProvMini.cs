@@ -1,7 +1,6 @@
 ﻿using Alemana.DTOs;
 using KimTools.WinForms;
-using MenuDesk.Services;
-using System.Threading.Tasks;
+using Alemana.API;
 
 namespace MenuDesk
 {
@@ -26,9 +25,10 @@ namespace MenuDesk
         }
 
 
+
         private async Task cargarProveedorMini()
         {
-            try 
+            try
             {
 
                 string endpoint = "proveedores";
@@ -39,12 +39,44 @@ namespace MenuDesk
 
                 await _apiClient.PostAsync(endpoint, nProv);
 
-            } 
-            catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar el proveedor: {ex.Message}", "Error de Alta", MessageBoxButtons.OK);
             }
-            
+
         }
+
+        private async void buttonEliminarProv_Click(object sender, EventArgs e)
+        {
+            pagesProvedores.Page = pageEliminarProv;
+            await CargarDatosEnGrillaAsync();
+        }
+
+
+
+        private async Task CargarDatosEnGrillaAsync()
+        {
+            try
+            {
+                string endpoint = "proveedores";
+
+                var listaDatos = await _apiClient.ObtenerListaAsync<ProveedorDTO>(endpoint);
+
+                if (listaDatos != null)
+                {
+                    ktTablaProveedoresLotes.DataSource = listaDatos;
+                    ktTablaProveedoresLotes.Columns["IdProveedor"].HeaderText = "IdProveedor";
+                    ktTablaProveedoresLotes.Columns["razonSocial"].HeaderText = "RazonSocial";
+                    ktTablaProveedoresLotes.Columns["Cuit"].HeaderText = "CUIT";
+                    ktTablaProveedoresLotes.Columns["Nombre"].HeaderText = "Nombre";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
