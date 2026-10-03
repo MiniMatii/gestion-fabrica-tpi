@@ -11,5 +11,7 @@ namespace Alemana.Aplicaciones.Servicios
         Task<EmpleadoDTO> ObtenerPorId(int id);
         Task<EmpleadoDTO> ModificarEmpleado(EmpleadoDTO unEmpDTO);
         Task<bool> BajaEmpleado(EmpleadoDTO unEmpDTO);
+
+        Task<bool> AsignarSucursalAEmpleado(int idEmpleado, int idSucursal);
     }
 }

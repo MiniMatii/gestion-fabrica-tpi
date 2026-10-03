@@ -90,6 +90,24 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
+            app.MapPost("/sucursales/{idS}/empleados", async (int idS, List<int> idE, ISucursalServicio sucursalServicio) =>
+            {
+                try
+                {
+                    var resultado = await sucursalServicio.AgregarEmpleados(idS, idE);
+                    return Results.Ok(resultado);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            }).WithTags("Sucursales")
+            .Produces<SucursalesDTO>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .Produces(StatusCodes.Status400BadRequest)
+            .WithOpenApi();
+
         }
+
     }
 }

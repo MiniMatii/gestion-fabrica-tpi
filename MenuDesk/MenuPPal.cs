@@ -31,5 +31,6 @@ namespace MenuDesk
             ? FormWindowState.Normal
             : FormWindowState.Maximized;
         }
+
     }
 }

@@ -19,7 +19,7 @@ namespace Alemana.Aplicaciones.Servicios
         }
 
 
-        public async Task<SucursalesDTO> AgregarUnaSucursal(SucursalesDTO dto) 
+        public async Task<SucursalesDTO> AgregarUnaSucursal(SucursalesDTO dto)
         {
             var sucE = new Sucursale
             {
@@ -28,6 +28,11 @@ namespace Alemana.Aplicaciones.Servicios
             };
 
             var sucRta = await sucursalRepositorio.AgregarUnaSucursal(sucE);
+
+            if (sucRta == null)
+            {
+                throw new Exception("Error al guardar: el repositorio devolvió null.");
+            }
 
             dto.IdSucursal = sucRta.IdSucursal;
 
