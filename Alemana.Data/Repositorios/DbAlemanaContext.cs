@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using Alemana.Dominio.Models;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
+
+using Microsoft.Extensions.Configuration;
+
 
 namespace Alemana.Data.Repositorios;
 
@@ -16,6 +17,8 @@ public partial class DbAlemanaContext : DbContext
         : base(options)
     {
     }
+    
+    public virtual DbSet<Usuario> Usuarios { get; set; }
 
     public virtual DbSet<Capacidad> Capacidads { get; set; }
 
@@ -49,9 +52,17 @@ public partial class DbAlemanaContext : DbContext
 
     public virtual DbSet<Sucursale> Sucursales { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //ning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    //    => optionsBuilder.UseMySql("server=alemanadb-aws.cn6ii6em83s1.us-east-2.rds.amazonaws.com;port=3306;database=alemanadb;uid=alemana_admin;pwd=WubTD0uYDWA8AxRBud4u", ServerVersion.Parse("8.0.32-mysql"));
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
+    { if (!optionsBuilder.IsConfigured) 
+
+        { 
+            var config = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build(); 
+            var connectionString = config.GetConnectionString("DefaultConnection"); 
+            optionsBuilder.UseMySql(connectionString, ServerVersion.Parse("8.4.9-mysql")); 
+        }
+    }
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -94,6 +105,22 @@ public partial class DbAlemanaContext : DbContext
                         j.IndexerProperty<int>("IdOperario").HasColumnName("idOperario");
                     });
         });
+
+        modelBuilder.Entity<Usuario>(e =>
+        {
+            e.ToTable("usuarios");
+            e.HasKey(x => x.IdUsuario);
+            e.Property(x => x.IdUsuario).HasColumnName("idUsuario");
+            e.Property(x => x.NombreUsuario).HasColumnName("usuario").HasMaxLength(50).IsRequired();
+            e.HasIndex(x => x.NombreUsuario).IsUnique();
+            e.Property(x => x.ClaveHash).HasColumnName("claveHash").HasMaxLength(100).IsRequired();
+            e.Property(x => x.IdEmpleado).HasColumnName("idEmpleado");
+            e.Property(x => x.IdOperario).HasColumnName("idOperario");
+
+            e.HasOne(x => x.Empleado).WithMany().HasForeignKey(x => x.IdEmpleado);
+            e.HasOne(x => x.Operario).WithMany().HasForeignKey(x => x.IdOperario);
+        });
+
 
         modelBuilder.Entity<Ciudade>(entity =>
         {

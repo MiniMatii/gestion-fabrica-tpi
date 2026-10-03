@@ -41,7 +41,6 @@ namespace SwaggerWeb
             .Produces<List<MateriapDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
 
-
             app.MapGet("/materiap/{id}", async (int id, IMateriapServicio materiapServicio) =>
             {
                 try
@@ -89,6 +88,23 @@ namespace SwaggerWeb
             .WithTags("Materia Prima")
             .Produces<MateriapDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithOpenApi();
+
+            app.MapDelete("/materiap/{idMp}", async (int idMp, IMateriapServicio materiapServicio) =>
+            {
+                var eliminado = await materiapServicio.EliminarLote(idMp);
+
+                if (!eliminado)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.NoContent();
+            })
+            .WithName("Borrar materia p")
+            .WithTags("Materia Prima")
+            .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
         }

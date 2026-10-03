@@ -68,6 +68,18 @@
             DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle19 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle20 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle21 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle22 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle23 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle24 = new DataGridViewCellStyle();
             hudLateral = new KimTools.WinForms.KtPanel();
             ktPanel4 = new KimTools.WinForms.KtPanel();
             SucursalesPage = new KimTools.WinForms.KtRadioButton();
@@ -183,6 +195,8 @@
             FechaVencimientoE = new DataGridViewTextBoxColumn();
             CantidadLoteE = new DataGridViewTextBoxColumn();
             navLotes = new KimTools.WinForms.KtPanel();
+            proveedorButton = new KimTools.WinForms.KtButton();
+            materiapButton = new KimTools.WinForms.KtButton();
             eliminarLotesNavButton = new KimTools.WinForms.KtButton();
             modLotesNavButton = new KimTools.WinForms.KtButton();
             altaLotesNavButton = new KimTools.WinForms.KtButton();
@@ -1060,6 +1074,7 @@
             altaLoteSubPage.PatternColor = KimTools.WinForms.KtColor.Empty;
             altaLoteSubPage.Size = new Size(1148, 1006);
             altaLoteSubPage.TabIndex = 1;
+            altaLoteSubPage.Click += altaLoteSubPage_Click;
             // 
             // ktDivider6
             // 
@@ -2864,6 +2879,8 @@
             navLotes.BorderRadius = 24F;
             navLotes.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             navLotes.BorderWidth = 1.5F;
+            navLotes.Controls.Add(proveedorButton);
+            navLotes.Controls.Add(materiapButton);
             navLotes.Controls.Add(eliminarLotesNavButton);
             navLotes.Controls.Add(modLotesNavButton);
             navLotes.Controls.Add(altaLotesNavButton);
@@ -2874,6 +2891,60 @@
             navLotes.PatternColor = KimTools.WinForms.KtColor.Empty;
             navLotes.Size = new Size(1154, 50);
             navLotes.TabIndex = 2;
+            // 
+            // proveedorButton
+            // 
+            proveedorButton.BackColor = Color.Transparent;
+            proveedorButton.Background = (KimTools.WinForms.KtBrushSolid)KimTools.WinForms.KtBrush.Solid;
+            proveedorButton.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            proveedorButton.BorderMargin = new Padding(0);
+            proveedorButton.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            proveedorButton.BorderWidth = 2F;
+            proveedorButton.Cursor = Cursors.Default;
+            proveedorButton.Dock = DockStyle.Right;
+            proveedorButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            proveedorButton.ForeColor = Color.FromArgb(204, 255, 246);
+            proveedorButton.Foreground = KimTools.WinForms.KtColor.Empty;
+            proveedorButton.Icon = "tabler.truck";
+            proveedorButton.IconColor = KimTools.WinForms.KtColor.Empty;
+            proveedorButton.IconSize = 30;
+            proveedorButton.IconStroke = 2.5D;
+            proveedorButton.ImageAlign = ContentAlignment.MiddleCenter;
+            proveedorButton.Location = new Point(898, 0);
+            proveedorButton.Name = "proveedorButton";
+            proveedorButton.Padding = new Padding(8, 0, 8, 0);
+            proveedorButton.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            proveedorButton.Size = new Size(128, 50);
+            proveedorButton.TabIndex = 4;
+            proveedorButton.UseVisualStyleBackColor = false;
+            proveedorButton.Click += proveedorButton_Click;
+            // 
+            // materiapButton
+            // 
+            materiapButton.BackColor = Color.Transparent;
+            materiapButton.Background = (KimTools.WinForms.KtBrushSolid)KimTools.WinForms.KtBrush.Solid;
+            materiapButton.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            materiapButton.BorderMargin = new Padding(0);
+            materiapButton.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            materiapButton.BorderWidth = 2F;
+            materiapButton.Cursor = Cursors.Default;
+            materiapButton.Dock = DockStyle.Right;
+            materiapButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            materiapButton.ForeColor = Color.FromArgb(204, 255, 246);
+            materiapButton.Foreground = KimTools.WinForms.KtColor.Empty;
+            materiapButton.Icon = "tabler.box";
+            materiapButton.IconColor = KimTools.WinForms.KtColor.Empty;
+            materiapButton.IconSize = 30;
+            materiapButton.IconStroke = 2.5D;
+            materiapButton.ImageAlign = ContentAlignment.MiddleCenter;
+            materiapButton.Location = new Point(1026, 0);
+            materiapButton.Name = "materiapButton";
+            materiapButton.Padding = new Padding(8, 0, 8, 0);
+            materiapButton.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            materiapButton.Size = new Size(128, 50);
+            materiapButton.TabIndex = 3;
+            materiapButton.UseVisualStyleBackColor = false;
+            materiapButton.Click += materiapButton_Click;
             // 
             // eliminarLotesNavButton
             // 
@@ -6165,7 +6236,6 @@
             ClientSize = new Size(1494, 881);
             Controls.Add(panelSucursales);
             Controls.Add(panelOperarios);
-            Controls.Add(panelLotes);
             Controls.Add(hudSuperiorCierre);
             Controls.Add(hudLateral);
             Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);

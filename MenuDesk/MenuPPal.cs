@@ -1,7 +1,7 @@
 using Alemana.DTOs;
 using KimTools;
 using KimTools.WinForms;
-using MenuDesk.Services;
+using Alemana.API;
 using System;
 using System.Windows.Forms;
 
@@ -30,6 +30,12 @@ namespace MenuDesk
             this.WindowState = this.WindowState == FormWindowState.Maximized
             ? FormWindowState.Normal
             : FormWindowState.Maximized;
+        }
+        private void ktButton3_Click(object sender, EventArgs e)
+        {
+
+            Environment.Exit(0);
+
         }
 
     }
