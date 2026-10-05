@@ -25,7 +25,7 @@ namespace Alemana.Aplicaciones.Servicios
                 Nombre = unEmpDTO.Nombre,
                 Apellido = unEmpDTO.Apellido,
                 Dni = unEmpDTO.Dni,
-                //IdSucursal = unEmpDTO.IdSucursal,
+                IdSucursal = unEmpDTO.IdSucursal,
                 IdJefe = unEmpDTO.IdJefe,
                 Disponibilidad = 1,
                 Motivo = null
@@ -49,7 +49,7 @@ namespace Alemana.Aplicaciones.Servicios
                 Nombre = e.Nombre,
                 Apellido = e.Apellido,
                 Dni = e.Dni,
-                //IdSucursal = e.IdSucursal,
+                IdSucursal = e.IdSucursal,
                 IdJefe = e.IdJefe,
                 Disponibilidad = e.Disponibilidad,
                 Motivo = e.Motivo
@@ -68,7 +68,7 @@ namespace Alemana.Aplicaciones.Servicios
                 Nombre = empleado.Nombre,
                 Apellido = empleado.Apellido,
                 Dni = empleado.Dni,
-                //IdSucursal = empleado.IdSucursal,
+                IdSucursal = empleado.IdSucursal, // Descomentado
                 IdJefe = empleado.IdJefe,
                 Disponibilidad = empleado.Disponibilidad,
                 Motivo = empleado.Motivo
@@ -85,29 +85,19 @@ namespace Alemana.Aplicaciones.Servicios
             }
 
             if (!string.IsNullOrWhiteSpace(unEmpDTO.Nombre) && unEmpDTO.Nombre != "string")
-            {
                 empExistente.Nombre = unEmpDTO.Nombre;
-            }
 
             if (!string.IsNullOrWhiteSpace(unEmpDTO.Apellido) && unEmpDTO.Apellido != "string")
-            {
                 empExistente.Apellido = unEmpDTO.Apellido;
-            }
 
             if (!string.IsNullOrWhiteSpace(unEmpDTO.Dni) && unEmpDTO.Dni != "string")
-            {
                 empExistente.Dni = unEmpDTO.Dni;
-            }
 
-            //if (unEmpDTO.IdSucursal > 0)
-            //{
-            //    empExistente.IdSucursal = unEmpDTO.IdSucursal;
-            //}
+            if (unEmpDTO.IdSucursal > 0)
+                empExistente.IdSucursal = unEmpDTO.IdSucursal; 
 
             if (unEmpDTO.IdJefe != 0)
-            {
                 empExistente.IdJefe = unEmpDTO.IdJefe;
-            }
 
             await empRepositorio.ModificarEmpleado(empExistente);
 
@@ -123,5 +113,10 @@ namespace Alemana.Aplicaciones.Servicios
 
             return await empRepositorio.BajaEmpleado(unEmpDTO.IdEmpleado, unEmpDTO.Motivo);
         }
+
+        public async Task<bool> AsignarSucursalAEmpleado(int idEmpleado, int idSucursal)
+        {
+            return await empRepositorio.AsignarSucursalAEmpleado(idEmpleado, idSucursal);
+        }
     }
-    }
+}

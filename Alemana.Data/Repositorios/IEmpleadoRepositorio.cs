@@ -11,5 +11,6 @@ namespace Alemana.Data.Repositorios
         Task<Empleado> ObtenerPorId(int id);
         Task<Empleado> ModificarEmpleado(Empleado empleado);
         Task<bool> BajaEmpleado(int idEmpleado, string motivo);
+        Task<bool> AsignarSucursalAEmpleado(int idEmpleado, int idSucursal);
     }
 }

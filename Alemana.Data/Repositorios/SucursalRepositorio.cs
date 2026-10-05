@@ -17,18 +17,18 @@ namespace Alemana.Data.Repositorios
         }
 
 
-        public async Task<Sucursale> AgregarUnaSucursal(Sucursale unaSucu) 
+        public async Task<Sucursale> AgregarUnaSucursal(Sucursale unaSucu)
         {
-            if (unaSucu == null) 
+            if (unaSucu == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(unaSucu), "La sucursal enviada es nula.");
             }
 
             var CiuE = await _DbA.Ciudades.FindAsync(unaSucu.CodPostal);
 
             if (CiuE == null)
             {
-                return null;
+                throw new Exception($"El Código Postal {unaSucu.CodPostal} no existe en la base de datos. Ingrese una ciudad válida.");
             }
 
             await _DbA.Sucursales.AddAsync(unaSucu);

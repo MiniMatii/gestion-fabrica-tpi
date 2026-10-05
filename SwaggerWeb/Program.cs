@@ -41,6 +41,12 @@ builder.Services.AddScoped<IEmpleadoServicio, EmpleadoServicio>();
 builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
 builder.Services.AddScoped<IProductoServicio, ProductoServicio>();
 
+builder.Services.AddScoped<ISucursalRepositorio, SucursalRepositorio>();
+builder.Services.AddScoped<ISucursalServicio, SucursalServicio>();
+
+builder.Services.AddScoped<ISolicitudPedidoRepositorio, SolicitudPedidoRepositorio>();
+builder.Services.AddScoped<ISolicitudPedidoServicio, SolicitudPedidoServicio>();
+
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 builder.Services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 
@@ -77,4 +83,6 @@ app.MapMateriapEndpoint();
 app.MapCapacidadesEndpoint();
 app.MapEmpleadoEndpoint();
 app.MapProductoEndpoint();
+app.MapSucursalesEndpoint();
+app.MapSolicitudPedidoEndpoint();
 app.Run();

@@ -74,24 +74,24 @@ namespace Alemana.API
             }
         }
 
-        public async Task<bool> PatchAsync<T>(string endpoint, T objetoDto) 
+        public async Task<bool> PatchAsync<T>(string endpoint, T objetoDto)
         {
-            try 
+            try
             {
                 var response = await _client.PatchAsJsonAsync(endpoint, objetoDto);
                 return response.IsSuccessStatusCode;
-            } 
-            catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
                 throw new Exception($"Error al actualiar algunos campos en '{endpoint}': {ex.Message}");
             }
         }
 
-        public async Task<bool> DeleteAsync(string endpoint) 
+        public async Task<bool> DeleteAsync(string endpoint)
         {
-            try 
+            try
             {
-                 var response = await _client.DeleteAsync(endpoint);
+                var response = await _client.DeleteAsync(endpoint);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -102,7 +102,7 @@ namespace Alemana.API
 
                 return response.IsSuccessStatusCode;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new Exception($"Excepción: {ex.Message}\nInner: {ex.InnerException?.Message}");
             }
