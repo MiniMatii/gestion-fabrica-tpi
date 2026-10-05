@@ -2,6 +2,7 @@
 using Alemana.Data.Repositorios;
 using Alemana.DTOs;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -18,11 +19,15 @@ namespace SwaggerWeb
                 var usuario = await usuarios.Validar(dto.Usuario, dto.Clave);
                 if (usuario is null) return Results.Unauthorized();
 
-                var claims = new[]
+                var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, usuario.Nombre),
-                    new Claim(ClaimTypes.Role, usuario.Rol)
+                    new(ClaimTypes.Name, usuario.Nombre),
+                    new(ClaimTypes.Role, usuario.Rol)
                 };
+                if (usuario.IdOperario.HasValue)
+                    claims.Add(new Claim("operarioId", usuario.IdOperario.Value.ToString()));
+                if (usuario.IdEmpleado.HasValue)
+                    claims.Add(new Claim("empleadoId", usuario.IdEmpleado.Value.ToString()));
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!));
                 var token = new JwtSecurityToken(
@@ -41,7 +46,26 @@ namespace SwaggerWeb
 
 
 
+            app.MapPost("/auth/registrar", async (LoginDTO dto, IUsuarioServicio svc) =>
+            {
+                try
+                {
+                    var id = await svc.RegistrarAsync(dto);
+                    return Results.Created($"/auth/usuarios/{id}", new { id });
+                }
+                catch (ArgumentException ex)
+                {
+                    return Results.BadRequest(ex.Message);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    return Results.Conflict(ex.Message);
+                }
+            }).AllowAnonymous();
         }
+
+
+    
     }
 }
 

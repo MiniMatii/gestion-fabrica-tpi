@@ -10,5 +10,8 @@ namespace Alemana.DTOs
     {
         public string Nombre { get; set; }
         public string Rol { get; set; }
+
+        public int? IdEmpleado { get; set; }
+        public int? IdOperario { get; set; }
     }
 }

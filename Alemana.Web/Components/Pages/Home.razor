@@ -1,0 +1,8 @@
+﻿@page "/"
+
+@using System.Security.Claims
+
+<AuthorizeView>
+    <h3>Bienvenido, @context.User.Identity?.Name</h3>
+    <p>Rol: @context.User.FindFirst(ClaimTypes.Role)?.Value</p>
+</AuthorizeView>

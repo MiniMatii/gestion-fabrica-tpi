@@ -9,15 +9,32 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 //
-builder.Services.AddHttpClient("Api", c =>
-    c.BaseAddress = new Uri(builder.Configuration["ApiBaseUri"]!));
-
 builder.Services.AddScoped(sp =>
-    new ApiClient(sp.GetRequiredService<IHttpClientFactory>().CreateClient("Api")));
+{
+    var handler = new TokenHandler(sp.GetRequiredService<ILocalStorageService>())
+    {
+        InnerHandler = new HttpClientHandler()
+    };
+
+    var http = new HttpClient(handler)
+    {
+        BaseAddress = new Uri("https://localhost:7150/")   // el mismo puerto que usa el escritorio
+    };
+
+    return new ApiClient(http);
+});
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+
+builder.Services.AddAuthorization(o =>
+{
+    o.AddPolicy("Autenticado", p => p.RequireAuthenticatedUser());
+    //o.AddPolicy("GenerarPedidos", p => p.RequireRole("Empleado"));
+    o.AddPolicy("VerPedidosAsignados", p => p.RequireRole("Operario"));
+});
+
 
 var app = builder.Build();
 
@@ -29,12 +46,18 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+   .AddInteractiveServerRenderMode()
+   .AllowAnonymous();
+
+
 
 app.Run();
