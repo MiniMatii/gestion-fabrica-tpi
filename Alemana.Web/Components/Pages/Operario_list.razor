@@ -1,0 +1,119 @@
+﻿@page "/operarios"
+@attribute [Authorize]
+@inject ApiClient Api
+
+<h3>Operarios</h3>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <div class="alert @(exito ? "alert-success" : "alert-danger")">@mensaje</div>
+}
+
+<EditForm Model="nuevo" OnValidSubmit="Guardar">
+    <div class="row g-2 mb-4">
+        <div class="col-md-4">
+            <label class="form-label">Nombre</label>
+            <InputText class="form-control" @bind-Value="nuevo.Nombre" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Apellido</label>
+            <InputText class="form-control" @bind-Value="nuevo.Apellido" />
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <div class="form-check">
+                <InputCheckbox class="form-check-input" @bind-Value="disponible" />
+                <label class="form-check-label">Disponible</label>
+            </div>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Agregar</button>
+        </div>
+    </div>
+</EditForm>
+
+@if (operarios is null)
+{
+    <p>Cargando...</p>
+}
+else if (!operarios.Any())
+{
+    <p>No hay operarios cargados.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Id</th><th>Nombre</th><th>Apellido</th><th>Disponible</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var o in operarios)
+            {
+                <tr>
+                    <td>@o.IdOperario</td>
+                    <td>@o.Nombre</td>
+                    <td>@o.Apellido</td>
+                    <td>@(o.Disponibilidad == 1 ? "Sí" : "No")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<OperariosDTO>? operarios;
+    private OperariosDTO nuevo = new();
+    private string? mensaje;
+    private bool exito;
+    private bool disponible = true;
+
+    protected override async Task OnInitializedAsync() => await Cargar();
+
+    private async Task Cargar()
+    {
+        try
+        {
+            operarios = await Api.ObtenerListaAsync<OperariosDTO>("operario/");
+        }
+        catch (Exception ex)
+        {
+            operarios = new();
+            mensaje = ex.Message;
+            exito = false;
+        }
+    }
+
+    private async Task Guardar()
+    {
+        mensaje = null;
+        nuevo.Disponibilidad = (sbyte)(disponible ? 1 : 0);
+
+        if (string.IsNullOrWhiteSpace(nuevo.Nombre) || string.IsNullOrWhiteSpace(nuevo.Apellido))
+        {
+            mensaje = "Nombre y apellido son obligatorios.";
+            exito = false;
+            return;
+        }
+
+        try
+        {
+            var ok = await Api.PostAsync("operario/", nuevo);
+            if (ok)
+            {
+                mensaje = "Operario creado.";
+                exito = true;
+                nuevo = new();
+                await Cargar();
+            }
+            else
+            {
+                mensaje = "La API rechazó el alta (¿sesión vencida o datos inválidos?).";
+                exito = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            exito = false;
+        }
+    }
+}
