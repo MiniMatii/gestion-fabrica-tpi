@@ -2,9 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
 namespace Alemana.Data.Repositorios
 {
     public class SucursalRepositorio : ISucursalRepositorio
@@ -16,34 +15,24 @@ namespace Alemana.Data.Repositorios
             this._DbA = DbA;
         }
 
-
         public async Task<Sucursale> AgregarUnaSucursal(Sucursale unaSucu)
         {
-            if (unaSucu == null)
-            {
-                throw new ArgumentNullException(nameof(unaSucu), "La sucursal enviada es nula.");
-            }
-
+            if (unaSucu == null) throw new ArgumentNullException(nameof(unaSucu), "La sucursal enviada es nula.");
             var CiuE = await _DbA.Ciudades.FindAsync(unaSucu.CodPostal);
-
-            if (CiuE == null)
-            {
-                throw new Exception($"El Código Postal {unaSucu.CodPostal} no existe en la base de datos. Ingrese una ciudad válida.");
-            }
+            if (CiuE == null) throw new Exception($"El Código Postal {unaSucu.CodPostal} no existe en la base de datos.");
 
             await _DbA.Sucursales.AddAsync(unaSucu);
             await _DbA.SaveChangesAsync();
-
             return unaSucu;
         }
 
         public async Task<bool> ModificarSucursal(Sucursale sucursal)
         {
             var sE = await _DbA.Sucursales.FindAsync(sucursal.IdSucursal);
-            if (sE!= null)
+            if (sE != null)
             {
                 sE.NombreSuc = sucursal.NombreSuc;
-                sE.CodPostal= sucursal.CodPostal;
+                sE.CodPostal = sucursal.CodPostal;
                 await _DbA.SaveChangesAsync();
                 return true;
             }
@@ -52,40 +41,41 @@ namespace Alemana.Data.Repositorios
 
         public async Task<Sucursale> ObtenerPorId(int id)
         {
-            var sucursal = await _DbA.Sucursales.FindAsync(id);
-            if (sucursal == null)
-            {
-                return null;
-            }
-            return sucursal;
+            return await _DbA.Sucursales.FindAsync(id);
         }
+
         public async Task<IEnumerable<Sucursale>> ObtenerTodos()
         {
             return await _DbA.Sucursales.ToListAsync();
         }
-        
+
         public async Task<Sucursale> AgregarEmpleados(int ids, List<int> ides)
         {
             var laS = await _DbA.Sucursales.FindAsync(ids);
-
             if (laS is not null)
             {
                 foreach (int i in ides)
                 {
                     var empleado = await _DbA.Empleados.FindAsync(i);
-
-                    if (empleado is null)
-                    {
-                        throw new ArgumentException($"No existe el empleado con ID {i}.");
-                    }
-
+                    if (empleado is null) throw new ArgumentException($"No existe el empleado con ID {i}.");
+                    empleado.IdSucursal = ids;
                     laS.Empleados.Add(empleado);
                 }
-
                 await _DbA.SaveChangesAsync();
             }
-
             return laS;
+        }
+
+        public async Task<bool> EliminarSucursal(int id)
+        {
+            var sucursal = await _DbA.Sucursales.FindAsync(id);
+            if (sucursal != null)
+            {
+                _DbA.Sucursales.Remove(sucursal);
+                await _DbA.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
     }
 }
