@@ -93,8 +93,8 @@ namespace Alemana.Aplicaciones.Servicios
             if (!string.IsNullOrWhiteSpace(unEmpDTO.Dni) && unEmpDTO.Dni != "string")
                 empExistente.Dni = unEmpDTO.Dni;
 
-            if (unEmpDTO.IdSucursal > 0)
-                empExistente.IdSucursal = unEmpDTO.IdSucursal; 
+
+            empExistente.IdSucursal = unEmpDTO.IdSucursal; 
 
             if (unEmpDTO.IdJefe != 0)
                 empExistente.IdJefe = unEmpDTO.IdJefe;

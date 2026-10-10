@@ -21,7 +21,9 @@ namespace MenuDesk
             panelSucursales.Visible = !(panelSucursales.Visible);
             panelSucursales.Enabled = !(panelSucursales.Enabled);
         }
-        private async void abrirMenuSucursales_Click(object sender, EventArgs e) {
+
+        private async void abrirMenuSucursales_Click(object sender, EventArgs e)
+        {
             await CargarSucursalesEnGrilla();
             await CargarTablaEmpleadosAsync();
         }
@@ -35,6 +37,7 @@ namespace MenuDesk
         {
             navBarSucursales.SelectedTab = modificarSucursalPage;
         }
+
         private void EliminarSucursal_Click(object sender, EventArgs e)
         {
             navBarSucursales.SelectedTab = eliminarSucursalPage;
@@ -50,6 +53,7 @@ namespace MenuDesk
 
                 if (listaDatos != null)
                 {
+                    ktTablaSucursales.AutoGenerateColumns = false;
                     ktTablaSucursales.DataSource = listaDatos;
                     ktTablaSucursales.Columns["IdSucursal"].HeaderText = "IdSucursal";
                     ktTablaSucursales.Columns["NombreSuc"].HeaderText = "NombreSuc";
@@ -58,7 +62,6 @@ namespace MenuDesk
                     ktTablaSucursales.Columns["IdSucursal"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     ktTablaSucursales.Columns["NombreSuc"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     ktTablaSucursales.Columns["CodPostal"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
                 }
             }
             catch (Exception ex)
@@ -114,7 +117,7 @@ namespace MenuDesk
 
                 if (listaEmpleados != null)
                 {
-
+                    sucktTable2.AutoGenerateColumns = false;
                     sucktTable2.DataSource = listaEmpleados;
 
                     if (ktTablaSucursales.Columns["IdEmpleado"] != null)
@@ -146,19 +149,55 @@ namespace MenuDesk
                 List<int> idsEmpleados = new List<int>();
                 foreach (DataGridViewRow fila in sucktTable2.SelectedRows)
                 {
-                    int idEmp = Convert.ToInt32(fila.Cells["IdEmpleado"].Value);
+                    int idEmp = Convert.ToInt32(fila.Cells[0].Value);
                     idsEmpleados.Add(idEmp);
                 }
 
-                string endpoint = $"sucursales/{idSucursal}/empleado";
+                string endpoint = $"sucursales/{idSucursal}/empleados";
 
                 await _apiClient.PostAsync(endpoint, idsEmpleados);
 
                 MessageBox.Show("¡Empleado(s) asignado(s) a la sucursal con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                await CargarTablaEmpleadosAsync();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al asignar el empleado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void bottonEliminarSucursal_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ktTablaSucursales.CurrentRow == null)
+                {
+                    MessageBox.Show("Por favor, seleccione una sucursal de la lista antes de eliminar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DialogResult confirmacion = MessageBox.Show(
+                    "¿Está seguro que desea eliminar esta sucursal? Esta acción no se puede deshacer.",
+                    "Confirmar Eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirmacion == DialogResult.Yes)
+                {
+                    int idSucursal = Convert.ToInt32(ktTablaSucursales.CurrentRow.Cells["IdSucursal"].Value);
+                    string endpoint = $"sucursales/{idSucursal}";
+
+                    await _apiClient.DeleteAsync(endpoint);
+
+                    MessageBox.Show("¡Sucursal eliminada con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    await CargarSucursalesEnGrilla();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al intentar eliminar la sucursal: \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

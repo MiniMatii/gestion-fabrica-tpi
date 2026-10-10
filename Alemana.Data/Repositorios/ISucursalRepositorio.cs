@@ -18,5 +18,6 @@ namespace Alemana.Data.Repositorios
         Task<Sucursale> AgregarEmpleados(int idS, List<int> idE);
 
         //listar los empleados de una sucursal?
+        Task<bool> EliminarSucursal(int id);
     }
 }
