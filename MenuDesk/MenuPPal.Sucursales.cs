@@ -38,9 +38,9 @@ namespace MenuDesk
             navBarSucursales.SelectedTab = modificarSucursalPage;
         }
 
-        private void EliminarSucursal_Click(object sender, EventArgs e)
+        private void AgregarEmpleado_Click(object sender, EventArgs e)
         {
-            navBarSucursales.SelectedTab = eliminarSucursalPage;
+            navBarSucursales.SelectedTab = agregarEmpleadoPage;
         }
 
         private async Task CargarSucursalesEnGrilla()
@@ -120,6 +120,17 @@ namespace MenuDesk
                     sucktTable2.AutoGenerateColumns = false;
                     sucktTable2.DataSource = listaEmpleados;
 
+                    empktTable4.AutoGenerateColumns = false;
+                    empktTable4.DataSource = listaEmpleados;
+
+                    if (empktTable4.Columns["IdEmpleadodataGridViewTextBoxColumn20"] != null) empktTable4.Columns["IdEmpleadodataGridViewTextBoxColumn20"].DataPropertyName = "IdEmpleado";
+                    if (empktTable4.Columns["nombreEmpdataGridViewTextBoxColumn21"] != null) empktTable4.Columns["nombreEmpdataGridViewTextBoxColumn21"].DataPropertyName = "Nombre";
+                    if (empktTable4.Columns["ApellidoEmpdataGridViewTextBoxColumn22"] != null) empktTable4.Columns["ApellidoEmpdataGridViewTextBoxColumn22"].DataPropertyName = "Apellido";
+                    if (empktTable4.Columns["Dni"] != null) empktTable4.Columns["Dni"].DataPropertyName = "Dni";
+                    if (empktTable4.Columns["IdJefe"] != null) empktTable4.Columns["IdJefe"].DataPropertyName = "IdJefe";
+                    if (empktTable4.Columns["disponibilidadEmp"] != null) empktTable4.Columns["disponibilidadEmp"].DataPropertyName = "Disponibilidad";
+                    if (empktTable4.Columns["Motivo"] != null) empktTable4.Columns["Motivo"].DataPropertyName = "Motivo";
+
                     if (ktTablaSucursales.Columns["IdEmpleado"] != null)
                         ktTablaSucursales.Columns["IdEmpleado"].HeaderText = "ID";
                 }
@@ -198,6 +209,170 @@ namespace MenuDesk
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al intentar eliminar la sucursal: \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private static string PedirMotivo(string mensaje, string titulo)
+        {
+            Form prompt = new Form()
+            {
+                Width = 400,
+                Height = 180,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = titulo,
+                StartPosition = FormStartPosition.CenterScreen,
+                MaximizeBox = false
+            };
+            Label textLabel = new Label() { Left = 20, Top = 20, Width = 340, Text = mensaje };
+            TextBox textBox = new TextBox() { Left = 20, Top = 50, Width = 340 };
+            Button confirmation = new Button() { Text = "Aceptar", Left = 260, Width = 100, Top = 90, DialogResult = DialogResult.OK };
+
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text.Trim() : string.Empty;
+        }
+
+        private async void guardarEmpktButton14_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(nombreEmpText.Text) ||
+                    string.IsNullOrWhiteSpace(apellidoEmpText.Text) ||
+                    string.IsNullOrWhiteSpace(dniEmpText.Text))
+                {
+                    MessageBox.Show("Por favor, complete Nombre, Apellido y DNI.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int? idJefe = null;
+                if (!string.IsNullOrWhiteSpace(idJefeEmpText.Text))
+                {
+                    if (int.TryParse(idJefeEmpText.Text, out int parsedJefe))
+                    {
+                        idJefe = parsedJefe;
+                    }
+                    else
+                    {
+                        MessageBox.Show("El ID del Jefe debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                var nuevoEmpleado = new EmpleadoDTO
+                {
+                    Nombre = nombreEmpText.Text,
+                    Apellido = apellidoEmpText.Text,
+                    Dni = dniEmpText.Text,
+                    IdJefe = idJefe,
+                    IdSucursal = 1,
+                    Disponibilidad = 1,
+                    Motivo = null
+                };
+
+                string endpoint = "empleado";
+                await _apiClient.PostAsync(endpoint, nuevoEmpleado);
+
+                MessageBox.Show("¡Empleado guardado con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                nombreEmpText.Clear();
+                apellidoEmpText.Clear();
+                dniEmpText.Clear();
+                idJefeEmpText.Clear();
+
+                await CargarTablaEmpleadosAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al registrar el empleado: \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void darBajaEmpktButton16_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (empktTable4.CurrentRow == null)
+                {
+                    MessageBox.Show("Por favor, seleccione un empleado de la tabla.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int idEmpleado = Convert.ToInt32(empktTable4.CurrentRow.Cells["IdEmpleadodataGridViewTextBoxColumn20"].Value);
+                sbyte disponibilidadActual = Convert.ToSByte(empktTable4.CurrentRow.Cells["disponibilidadEmp"].Value);
+
+                bool esBaja = (disponibilidadActual == 1);
+                string accionTexto = esBaja ? "baja" : "alta";
+
+                string motivo = PedirMotivo($"Ingrese el motivo para dar de {accionTexto} al empleado:", $"Confirmar {accionTexto.ToUpper()}");
+
+                if (string.IsNullOrWhiteSpace(motivo))
+                {
+                    MessageBox.Show("La operación fue cancelada. El motivo es obligatorio.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var empleadoActualizado = new EmpleadoDTO
+                {
+                    IdEmpleado = idEmpleado,
+                    Motivo = motivo,
+                    Disponibilidad = (sbyte)(esBaja ? 0 : 1)
+                };
+
+                if (esBaja)
+                {
+                    string endpoint = $"empleado/baja/{idEmpleado}";
+                    await _apiClient.PutAsync(endpoint, empleadoActualizado);
+                }
+                else
+                {
+                    string endpoint = $"empleado/{idEmpleado}";
+                    await _apiClient.PutAsync(endpoint, empleadoActualizado);
+                }
+
+                MessageBox.Show($"¡Empleado dado de {accionTexto} con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                await CargarTablaEmpleadosAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al procesar la solicitud: \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void eliminarEmpktButton15_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (empktTable4.CurrentRow == null)
+                {
+                    MessageBox.Show("Por favor, seleccione un empleado de la tabla antes de eliminar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DialogResult confirmacion = MessageBox.Show(
+                    "¿Está seguro que desea eliminar este empleado de forma definitiva? Esta acción no se puede deshacer.",
+                    "Confirmar Eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirmacion == DialogResult.Yes)
+                {
+                    int idEmpleado = Convert.ToInt32(empktTable4.CurrentRow.Cells["IdEmpleadodataGridViewTextBoxColumn20"].Value);
+                    string endpoint = $"empleado/{idEmpleado}";
+
+                    await _apiClient.DeleteAsync(endpoint);
+
+                    MessageBox.Show("¡Empleado eliminado con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    await CargarTablaEmpleadosAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al intentar eliminar el empleado: \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -99,6 +99,9 @@ namespace Alemana.Aplicaciones.Servicios
             if (unEmpDTO.IdJefe != 0)
                 empExistente.IdJefe = unEmpDTO.IdJefe;
 
+            empExistente.Disponibilidad = unEmpDTO.Disponibilidad;
+            empExistente.Motivo = unEmpDTO.Motivo;
+
             await empRepositorio.ModificarEmpleado(empExistente);
 
             return unEmpDTO;
@@ -117,6 +120,11 @@ namespace Alemana.Aplicaciones.Servicios
         public async Task<bool> AsignarSucursalAEmpleado(int idEmpleado, int idSucursal)
         {
             return await empRepositorio.AsignarSucursalAEmpleado(idEmpleado, idSucursal);
+        }
+
+        public async Task<bool> EliminarEmpleado(int id)
+        {
+            return await empRepositorio.EliminarEmpleado(id);
         }
     }
 }

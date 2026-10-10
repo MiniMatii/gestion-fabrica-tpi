@@ -27,7 +27,17 @@ namespace Alemana.Data.Repositorios
 
         public async Task<List<Empleado>> ObtenerTodos()
         {
-            return await _DbA.Set<Empleado>().Where(e => e.Disponibilidad == 1).ToListAsync();
+            return await _DbA.Set<Empleado>().ToListAsync();
+        }
+
+        public async Task<bool> EliminarEmpleado(int id)
+        {
+            var empleado = await _DbA.Set<Empleado>().FindAsync(id);
+            if (empleado == null) return false;
+
+            _DbA.Set<Empleado>().Remove(empleado);
+            await _DbA.SaveChangesAsync();
+            return true;
         }
 
         public async Task<Empleado> ObtenerPorId(int id)
