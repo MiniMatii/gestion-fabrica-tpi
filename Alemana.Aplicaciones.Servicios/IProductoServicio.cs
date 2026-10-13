@@ -17,5 +17,7 @@ namespace Alemana.Aplicaciones.Servicios
         Task<bool> EliminarProducto(int id);
         Task<bool> ActualizarProducto(ProductoDTO unProducto);
 
+        Task<List<ProductoDTO>>ObtenerTodos();
+
     }
 }

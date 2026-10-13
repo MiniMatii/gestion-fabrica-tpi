@@ -1,4 +1,5 @@
 ﻿using Alemana.Dominio.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,5 +92,9 @@ namespace Alemana.Data.Repositorios
             return prE;
         }
 
+        public async Task<List<Producto>> ObtenerTodos()
+        {
+            return await _DbA.Productos.ToListAsync();
+        }
     }
 }
