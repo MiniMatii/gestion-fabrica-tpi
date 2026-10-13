@@ -52,8 +52,8 @@ namespace MenuDesk
         //para abm RECETAS
         private void buttonAgregarReceta_Click(object sender, EventArgs e)
         {
-           /* MiniMenuReceta miniMenuReceta = new MiniMenuReceta();
-            miniMenuReceta.Show();*/
+            MiniMenuReceta miniMenuReceta = new MiniMenuReceta();
+            miniMenuReceta.Show();
         }
 
         //NUEVO prod guardar
@@ -115,7 +115,7 @@ namespace MenuDesk
 
             }
         }
-        //que traiga los datos actuales del producto al seleccionarlo del datagrid 
+        //que me traiga los datos actuales del producto al seleccionarlo del datagrid 
         private void modifProductosTabla_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -150,7 +150,7 @@ namespace MenuDesk
                     //prueba porque no me cambia el estado de disponible
                     /* MessageBox.Show($"Cámara: {camaraModifCheckBox.Checked}\n" + $"Disponible: {dispModifCheckBox.Checked}");*/
 
-                    await _apiClient.PatchAsync(endpoint, prod);
+                    await _apiClient.PutAsync(endpoint, prod); //o patch quizás. Debería agregar el endpoint
                     MessageBox.Show("Cambios de guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

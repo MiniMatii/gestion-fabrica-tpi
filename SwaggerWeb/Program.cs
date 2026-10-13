@@ -50,8 +50,8 @@ builder.Services.AddScoped<ISolicitudPedidoServicio, SolicitudPedidoServicio>();
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 builder.Services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 
-builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
-builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
+builder.Services.AddScoped<IRecetaProductoRepositorio, RecetaProductoRepositorio>();
+builder.Services.AddScoped<IRecetaProductoServicio, RecetaProductoServicio>();
 
 
 
@@ -89,4 +89,5 @@ app.MapEmpleadoEndpoint();
 app.MapProductoEndpoint();
 app.MapSucursalesEndpoint();
 app.MapSolicitudPedidoEndpoint();
+app.MapRecetaProductoEndpoint();
 app.Run();
