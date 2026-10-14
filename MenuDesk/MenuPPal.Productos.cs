@@ -70,6 +70,13 @@ namespace MenuDesk
                 n_Prod.IdReceta = Convert.ToInt32(selectorRAP.SelectedValue);
                 await _apiClient.PostAsync("producto", n_Prod);
                 MessageBox.Show("Producto guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //limpio los campos porque sino queda todo cargado
+                textBoxNomAP.Clear();
+                checkBoxCamAP.Checked = false;
+                checkBoxDispAP.Checked = false;
+                textBoxStockAP.Clear();
+                selectorRAP.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -149,8 +156,7 @@ namespace MenuDesk
                     prod.IdReceta = Convert.ToInt32(selectorRMProd.SelectedValue);
                     //prueba porque no me cambia el estado de disponible
                     /* MessageBox.Show($"Cámara: {camaraModifCheckBox.Checked}\n" + $"Disponible: {dispModifCheckBox.Checked}");*/
-
-                    await _apiClient.PutAsync(endpoint, prod); //o patch quizás. Debería agregar el endpoint
+                    await _apiClient.PutAsync(endpoint, prod); 
                     MessageBox.Show("Cambios de guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

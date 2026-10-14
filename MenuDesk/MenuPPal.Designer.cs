@@ -608,8 +608,9 @@
             panelTablaMProd = new KimTools.WinForms.KtPanel();
             ktPanel149 = new KimTools.WinForms.KtPanel();
             tablaMProd = new KimTools.WinForms.KtTable();
-            idProdMProd = new DataGridViewTextBoxColumn();
+            idProductoM = new DataGridViewTextBoxColumn();
             nombrePM = new DataGridViewTextBoxColumn();
+            disponiblePM = new DataGridViewTextBoxColumn();
             stockPM = new DataGridViewTextBoxColumn();
             camaraPM = new DataGridViewTextBoxColumn();
             idRecetaPM = new DataGridViewTextBoxColumn();
@@ -623,11 +624,6 @@
             ktDivider46 = new KimTools.WinForms.KtDivider();
             ktPanel153 = new KimTools.WinForms.KtPanel();
             tablaEP = new KimTools.WinForms.KtTable();
-            dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn20 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn21 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn22 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn23 = new DataGridViewTextBoxColumn();
             ktDivider47 = new KimTools.WinForms.KtDivider();
             ktDivider48 = new KimTools.WinForms.KtDivider();
             navProductos = new KimTools.WinForms.KtPanel();
@@ -635,6 +631,12 @@
             eliminarProducuto = new KimTools.WinForms.KtButton();
             modificarProducto = new KimTools.WinForms.KtButton();
             altaProducto = new KimTools.WinForms.KtButton();
+            idProductoE = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn20 = new DataGridViewTextBoxColumn();
+            disponibleER = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn21 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn22 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn23 = new DataGridViewTextBoxColumn();
             hudLateral.SuspendLayout();
             ktPanel4.SuspendLayout();
             ktPanel2.SuspendLayout();
@@ -1022,6 +1024,7 @@
             ProductosPage.TabIndex = 6;
             ProductosPage.Text = "PRODUCTOS";
             ProductosPage.UseVisualStyleBackColor = false;
+            ProductosPage.Click += (this.cargarTablasProd_Click);
             // 
             // LotesPage
             // 
@@ -9563,6 +9566,7 @@
             buttonGuardarAP.TabIndex = 2;
             buttonGuardarAP.Text = "GUARDAR";
             buttonGuardarAP.UseVisualStyleBackColor = false;
+            buttonGuardarAP.Click += (this.GuardarProducto_Click);
             // 
             // ktDivider54
             // 
@@ -10397,10 +10401,10 @@
             navBarProductos.Set_Background(modificarProductoPage, new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));
             modificarProductoPage.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
             modificarProductoPage.Controls.Add(modificarProductoSubPage);
-            modificarProductoPage.Location = new Point(0, 0);
+            modificarProductoPage.Location = new Point(4, 4);
             modificarProductoPage.Name = "modificarProductoPage";
             modificarProductoPage.Padding = new Padding(3);
-            modificarProductoPage.Size = new Size(1154, 772);
+            modificarProductoPage.Size = new Size(1146, 731);
             modificarProductoPage.TabIndex = 3;
             modificarProductoPage.Text = "tabPage4";
             // 
@@ -10421,7 +10425,7 @@
             modificarProductoSubPage.Location = new Point(3, 3);
             modificarProductoSubPage.Name = "modificarProductoSubPage";
             modificarProductoSubPage.PatternColor = KimTools.WinForms.KtColor.Empty;
-            modificarProductoSubPage.Size = new Size(1148, 766);
+            modificarProductoSubPage.Size = new Size(1140, 725);
             modificarProductoSubPage.TabIndex = 1;
             // 
             // ktPanel132
@@ -10446,7 +10450,7 @@
             ktPanel132.Name = "ktPanel132";
             ktPanel132.Padding = new Padding(20, 20, 40, 10);
             ktPanel132.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel132.Size = new Size(1148, 766);
+            ktPanel132.Size = new Size(1140, 725);
             ktPanel132.TabIndex = 2;
             // 
             // panelTablayDatosMP
@@ -10465,7 +10469,7 @@
             panelTablayDatosMP.Location = new Point(20, 298);
             panelTablayDatosMP.Name = "panelTablayDatosMP";
             panelTablayDatosMP.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelTablayDatosMP.Size = new Size(1088, 458);
+            panelTablayDatosMP.Size = new Size(1080, 417);
             panelTablayDatosMP.TabIndex = 6;
             // 
             // footerMProd
@@ -10482,7 +10486,7 @@
             footerMProd.Location = new Point(0, 900);
             footerMProd.Name = "footerMProd";
             footerMProd.PatternColor = KimTools.WinForms.KtColor.Empty;
-            footerMProd.Size = new Size(1067, 56);
+            footerMProd.Size = new Size(1059, 56);
             footerMProd.TabIndex = 12;
             // 
             // ktButton15
@@ -10510,6 +10514,7 @@
             ktButton15.TabIndex = 2;
             ktButton15.Text = "Actualizar";
             ktButton15.UseVisualStyleBackColor = false;
+            ktButton15.Click += (this.cargarTablasProd_Click);
             // 
             // ktButton16
             // 
@@ -10536,6 +10541,7 @@
             ktButton16.TabIndex = 1;
             ktButton16.Text = "Guardar Cambios";
             ktButton16.UseVisualStyleBackColor = false;
+            ktButton16.Click += (this.GuardarCambiosProd_Click);
             // 
             // panelDatosMProd
             // 
@@ -10561,7 +10567,7 @@
             panelDatosMProd.Location = new Point(0, 20);
             panelDatosMProd.Name = "panelDatosMProd";
             panelDatosMProd.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelDatosMProd.Size = new Size(1067, 880);
+            panelDatosMProd.Size = new Size(1059, 880);
             panelDatosMProd.TabIndex = 13;
             // 
             // ktDivider43
@@ -10576,7 +10582,7 @@
             ktDivider43.Margin = new Padding(0);
             ktDivider43.Name = "ktDivider43";
             ktDivider43.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider43.Size = new Size(1067, 38);
+            ktDivider43.Size = new Size(1059, 38);
             ktDivider43.TabIndex = 11;
             // 
             // panelSelectorRMProd
@@ -10594,7 +10600,7 @@
             panelSelectorRMProd.Margin = new Padding(4);
             panelSelectorRMProd.Name = "panelSelectorRMProd";
             panelSelectorRMProd.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelSelectorRMProd.Size = new Size(1067, 136);
+            panelSelectorRMProd.Size = new Size(1059, 136);
             panelSelectorRMProd.TabIndex = 13;
             // 
             // ktPanel144
@@ -10615,7 +10621,7 @@
             ktPanel144.Location = new Point(0, 55);
             ktPanel144.Name = "ktPanel144";
             ktPanel144.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel144.Size = new Size(1067, 74);
+            ktPanel144.Size = new Size(1059, 74);
             ktPanel144.TabIndex = 1;
             // 
             // ktDivider55
@@ -10631,7 +10637,7 @@
             ktDivider55.Margin = new Padding(4, 3, 4, 3);
             ktDivider55.Name = "ktDivider55";
             ktDivider55.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider55.Size = new Size(1047, 8);
+            ktDivider55.Size = new Size(1039, 8);
             ktDivider55.TabIndex = 6;
             // 
             // selectorRMProd
@@ -10668,7 +10674,7 @@
             selectorRMProd.ItemTopMargin = 10;
             selectorRMProd.Location = new Point(10, 8);
             selectorRMProd.Name = "selectorRMProd";
-            selectorRMProd.Size = new Size(1047, 52);
+            selectorRMProd.Size = new Size(1039, 52);
             selectorRMProd.TabIndex = 2;
             selectorRMProd.Text = null;
             selectorRMProd.TextAlignment = KimTools.WinForms.KtSelect.TextAlign.Left;
@@ -10700,7 +10706,7 @@
             ktDivider57.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)0, (int)(byte)0), null, null);
             ktDivider57.LineStyle = KimTools.WinForms.KtDivider.LineStyles.Solid;
             ktDivider57.LineThickness = 0F;
-            ktDivider57.Location = new Point(1057, 8);
+            ktDivider57.Location = new Point(1049, 8);
             ktDivider57.Margin = new Padding(4, 3, 4, 3);
             ktDivider57.Name = "ktDivider57";
             ktDivider57.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Vertical;
@@ -10720,7 +10726,7 @@
             ktDivider58.Margin = new Padding(4, 3, 4, 3);
             ktDivider58.Name = "ktDivider58";
             ktDivider58.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider58.Size = new Size(1067, 8);
+            ktDivider58.Size = new Size(1059, 8);
             ktDivider58.TabIndex = 5;
             // 
             // ktPanel145
@@ -10737,7 +10743,7 @@
             ktPanel145.Margin = new Padding(4);
             ktPanel145.Name = "ktPanel145";
             ktPanel145.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel145.Size = new Size(1067, 55);
+            ktPanel145.Size = new Size(1059, 55);
             ktPanel145.TabIndex = 0;
             // 
             // ktPanel146
@@ -10786,7 +10792,7 @@
             ktDivider42.Margin = new Padding(0);
             ktDivider42.Name = "ktDivider42";
             ktDivider42.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider42.Size = new Size(1067, 54);
+            ktDivider42.Size = new Size(1059, 54);
             ktDivider42.TabIndex = 14;
             // 
             // panelStockMProd
@@ -10804,7 +10810,7 @@
             panelStockMProd.Margin = new Padding(4);
             panelStockMProd.Name = "panelStockMProd";
             panelStockMProd.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelStockMProd.Size = new Size(1067, 136);
+            panelStockMProd.Size = new Size(1059, 136);
             panelStockMProd.TabIndex = 15;
             // 
             // ktPanel140
@@ -10821,7 +10827,7 @@
             ktPanel140.Location = new Point(0, 55);
             ktPanel140.Name = "ktPanel140";
             ktPanel140.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel140.Size = new Size(1067, 81);
+            ktPanel140.Size = new Size(1059, 81);
             ktPanel140.TabIndex = 1;
             // 
             // textBoxStockMP
@@ -10858,7 +10864,7 @@
             textBoxStockMP.SelectionLength = 0;
             textBoxStockMP.SelectionStart = 0;
             textBoxStockMP.ShortcutsEnabled = true;
-            textBoxStockMP.Size = new Size(1067, 81);
+            textBoxStockMP.Size = new Size(1059, 81);
             textBoxStockMP.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
             textBoxStockMP.TabIndex = 5;
             textBoxStockMP.TextMarginBottom = 0;
@@ -10878,7 +10884,7 @@
             ktPanel141.Margin = new Padding(4);
             ktPanel141.Name = "ktPanel141";
             ktPanel141.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel141.Size = new Size(1067, 55);
+            ktPanel141.Size = new Size(1059, 55);
             ktPanel141.TabIndex = 0;
             // 
             // ktPanel142
@@ -10927,7 +10933,7 @@
             ktDivider41.Margin = new Padding(0);
             ktDivider41.Name = "ktDivider41";
             ktDivider41.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider41.Size = new Size(1067, 54);
+            ktDivider41.Size = new Size(1059, 54);
             ktDivider41.TabIndex = 17;
             // 
             // panelDispMProd
@@ -10945,7 +10951,7 @@
             panelDispMProd.Margin = new Padding(4);
             panelDispMProd.Name = "panelDispMProd";
             panelDispMProd.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelDispMProd.Size = new Size(1067, 136);
+            panelDispMProd.Size = new Size(1059, 136);
             panelDispMProd.TabIndex = 16;
             // 
             // ktPanel136
@@ -10963,7 +10969,7 @@
             ktPanel136.Location = new Point(0, 55);
             ktPanel136.Name = "ktPanel136";
             ktPanel136.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel136.Size = new Size(1067, 81);
+            ktPanel136.Size = new Size(1059, 81);
             ktPanel136.TabIndex = 1;
             // 
             // checkBoxDispMP
@@ -11026,7 +11032,7 @@
             ktTextBox7.SelectionLength = 0;
             ktTextBox7.SelectionStart = 0;
             ktTextBox7.ShortcutsEnabled = true;
-            ktTextBox7.Size = new Size(1067, 81);
+            ktTextBox7.Size = new Size(1059, 81);
             ktTextBox7.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
             ktTextBox7.TabIndex = 5;
             ktTextBox7.TextMarginBottom = 0;
@@ -11046,7 +11052,7 @@
             ktPanel137.Margin = new Padding(4);
             ktPanel137.Name = "ktPanel137";
             ktPanel137.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel137.Size = new Size(1067, 55);
+            ktPanel137.Size = new Size(1059, 55);
             ktPanel137.TabIndex = 0;
             // 
             // ktPanel138
@@ -11095,7 +11101,7 @@
             ktDivider59.Margin = new Padding(0);
             ktDivider59.Name = "ktDivider59";
             ktDivider59.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider59.Size = new Size(1067, 27);
+            ktDivider59.Size = new Size(1059, 27);
             ktDivider59.TabIndex = 8;
             // 
             // panelCamMProd
@@ -11113,7 +11119,7 @@
             panelCamMProd.Margin = new Padding(4);
             panelCamMProd.Name = "panelCamMProd";
             panelCamMProd.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelCamMProd.Size = new Size(1067, 136);
+            panelCamMProd.Size = new Size(1059, 136);
             panelCamMProd.TabIndex = 7;
             // 
             // ktPanel148
@@ -11131,7 +11137,7 @@
             ktPanel148.Location = new Point(0, 55);
             ktPanel148.Name = "ktPanel148";
             ktPanel148.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel148.Size = new Size(1067, 81);
+            ktPanel148.Size = new Size(1059, 81);
             ktPanel148.TabIndex = 1;
             // 
             // checkBoxCamMP
@@ -11194,7 +11200,7 @@
             textBoxCamMP.SelectionLength = 0;
             textBoxCamMP.SelectionStart = 0;
             textBoxCamMP.ShortcutsEnabled = true;
-            textBoxCamMP.Size = new Size(1067, 81);
+            textBoxCamMP.Size = new Size(1059, 81);
             textBoxCamMP.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
             textBoxCamMP.TabIndex = 5;
             textBoxCamMP.TextMarginBottom = 0;
@@ -11214,7 +11220,7 @@
             labelCamMP.Margin = new Padding(4);
             labelCamMP.Name = "labelCamMP";
             labelCamMP.PatternColor = KimTools.WinForms.KtColor.Empty;
-            labelCamMP.Size = new Size(1067, 55);
+            labelCamMP.Size = new Size(1059, 55);
             labelCamMP.TabIndex = 0;
             // 
             // ktPanel157
@@ -11263,7 +11269,7 @@
             ktDivider60.Margin = new Padding(0);
             ktDivider60.Name = "ktDivider60";
             ktDivider60.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider60.Size = new Size(1067, 27);
+            ktDivider60.Size = new Size(1059, 27);
             ktDivider60.TabIndex = 6;
             // 
             // panelNomMProd
@@ -11281,7 +11287,7 @@
             panelNomMProd.Margin = new Padding(4);
             panelNomMProd.Name = "panelNomMProd";
             panelNomMProd.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelNomMProd.Size = new Size(1067, 136);
+            panelNomMProd.Size = new Size(1059, 136);
             panelNomMProd.TabIndex = 3;
             // 
             // ktPanel159
@@ -11298,7 +11304,7 @@
             ktPanel159.Location = new Point(0, 55);
             ktPanel159.Name = "ktPanel159";
             ktPanel159.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel159.Size = new Size(1067, 81);
+            ktPanel159.Size = new Size(1059, 81);
             ktPanel159.TabIndex = 1;
             // 
             // textBoxNomMP
@@ -11335,7 +11341,7 @@
             textBoxNomMP.SelectionLength = 0;
             textBoxNomMP.SelectionStart = 0;
             textBoxNomMP.ShortcutsEnabled = true;
-            textBoxNomMP.Size = new Size(1067, 81);
+            textBoxNomMP.Size = new Size(1059, 81);
             textBoxNomMP.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
             textBoxNomMP.TabIndex = 5;
             textBoxNomMP.TextMarginBottom = 0;
@@ -11355,7 +11361,7 @@
             ktPanel160.Margin = new Padding(4);
             ktPanel160.Name = "ktPanel160";
             ktPanel160.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel160.Size = new Size(1067, 55);
+            ktPanel160.Size = new Size(1059, 55);
             ktPanel160.TabIndex = 0;
             // 
             // ktPanel161
@@ -11404,7 +11410,7 @@
             ktDivider44.Margin = new Padding(0);
             ktDivider44.Name = "ktDivider44";
             ktDivider44.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider44.Size = new Size(1067, 20);
+            ktDivider44.Size = new Size(1059, 20);
             ktDivider44.TabIndex = 5;
             // 
             // panelTablaMProd
@@ -11421,7 +11427,7 @@
             panelTablaMProd.Margin = new Padding(4);
             panelTablaMProd.Name = "panelTablaMProd";
             panelTablaMProd.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelTablaMProd.Size = new Size(1088, 255);
+            panelTablaMProd.Size = new Size(1080, 255);
             panelTablaMProd.TabIndex = 4;
             // 
             // ktPanel149
@@ -11438,7 +11444,7 @@
             ktPanel149.Location = new Point(0, 0);
             ktPanel149.Name = "ktPanel149";
             ktPanel149.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel149.Size = new Size(1088, 255);
+            ktPanel149.Size = new Size(1080, 255);
             ktPanel149.TabIndex = 1;
             // 
             // tablaMProd
@@ -11467,7 +11473,7 @@
             tablaMProd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             tablaMProd.ColumnHeadersHeight = 40;
             tablaMProd.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            tablaMProd.Columns.AddRange(new DataGridViewColumn[] { idProdMProd, nombrePM, stockPM, camaraPM, idRecetaPM });
+            tablaMProd.Columns.AddRange(new DataGridViewColumn[] { idProductoM, nombrePM, disponiblePM, stockPM, camaraPM, idRecetaPM });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = Color.FromArgb((int)(byte)30, (int)(byte)41, (int)(byte)57);
             dataGridViewCellStyle3.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
@@ -11496,7 +11502,7 @@
             tablaMProd.RowHeadersWidth = 20;
             tablaMProd.RowTemplate.Height = 45;
             tablaMProd.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaMProd.Size = new Size(1088, 255);
+            tablaMProd.Size = new Size(1080, 255);
             tablaMProd.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             tablaMProd.Style.Border = 0F;
             tablaMProd.Style.BorderHeader = 0F;
@@ -11511,16 +11517,17 @@
             tablaMProd.Style.ScrollBar.Background = KimTools.WinForms.KtColor.Empty;
             tablaMProd.Style.ScrollBar.Foreground = KimTools.WinForms.KtColor.Empty;
             tablaMProd.TabIndex = 0;
+            tablaMProd.CellContentClick += (this.modifProductosTabla_CellContentClick);
             // 
-            // idProdMProd
+            // idProductoM
             // 
-            idProdMProd.DataPropertyName = "IdProducto";
-            idProdMProd.Frozen = true;
-            idProdMProd.HeaderText = "IdProducto";
-            idProdMProd.MinimumWidth = 6;
-            idProdMProd.Name = "idProdMProd";
-            idProdMProd.ReadOnly = true;
-            idProdMProd.Width = 125;
+            idProductoM.DataPropertyName = "IdProducto";
+            idProductoM.Frozen = true;
+            idProductoM.HeaderText = "IdProducto";
+            idProductoM.MinimumWidth = 6;
+            idProductoM.Name = "idProductoM";
+            idProductoM.ReadOnly = true;
+            idProductoM.Width = 125;
             // 
             // nombrePM
             // 
@@ -11531,6 +11538,16 @@
             nombrePM.Name = "nombrePM";
             nombrePM.ReadOnly = true;
             nombrePM.Width = 125;
+            // 
+            // disponiblePM
+            // 
+            disponiblePM.DataPropertyName = "Disponible";
+            disponiblePM.Frozen = true;
+            disponiblePM.HeaderText = "Disponible";
+            disponiblePM.MinimumWidth = 6;
+            disponiblePM.Name = "disponiblePM";
+            disponiblePM.ReadOnly = true;
+            disponiblePM.Width = 125;
             // 
             // stockPM
             // 
@@ -11573,7 +11590,7 @@
             ktDivider45.Margin = new Padding(0);
             ktDivider45.Name = "ktDivider45";
             ktDivider45.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider45.Size = new Size(1088, 23);
+            ktDivider45.Size = new Size(1080, 23);
             ktDivider45.TabIndex = 1;
             // 
             // eliminarProductoPage
@@ -11581,10 +11598,10 @@
             navBarProductos.Set_Background(eliminarProductoPage, new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));
             eliminarProductoPage.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
             eliminarProductoPage.Controls.Add(eliminarProductoSubPage);
-            eliminarProductoPage.Location = new Point(0, 0);
+            eliminarProductoPage.Location = new Point(4, 4);
             eliminarProductoPage.Name = "eliminarProductoPage";
             eliminarProductoPage.Padding = new Padding(3);
-            eliminarProductoPage.Size = new Size(1154, 772);
+            eliminarProductoPage.Size = new Size(1146, 731);
             eliminarProductoPage.TabIndex = 2;
             eliminarProductoPage.Text = "tabPage3";
             // 
@@ -11605,7 +11622,7 @@
             eliminarProductoSubPage.Location = new Point(3, 3);
             eliminarProductoSubPage.Name = "eliminarProductoSubPage";
             eliminarProductoSubPage.PatternColor = KimTools.WinForms.KtColor.Empty;
-            eliminarProductoSubPage.Size = new Size(1148, 766);
+            eliminarProductoSubPage.Size = new Size(1140, 725);
             eliminarProductoSubPage.TabIndex = 1;
             // 
             // footerEP
@@ -11622,7 +11639,7 @@
             footerEP.Location = new Point(0, 556);
             footerEP.Name = "footerEP";
             footerEP.PatternColor = KimTools.WinForms.KtColor.Empty;
-            footerEP.Size = new Size(1148, 68);
+            footerEP.Size = new Size(1140, 68);
             footerEP.TabIndex = 12;
             // 
             // ktButton17
@@ -11642,7 +11659,7 @@
             ktButton17.IconColor = KimTools.WinForms.KtColor.Empty;
             ktButton17.IconSize = 16;
             ktButton17.IconStroke = 2.5D;
-            ktButton17.Location = new Point(618, 0);
+            ktButton17.Location = new Point(610, 0);
             ktButton17.Name = "ktButton17";
             ktButton17.Padding = new Padding(8, 0, 8, 0);
             ktButton17.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
@@ -11650,6 +11667,7 @@
             ktButton17.TabIndex = 12;
             ktButton17.Text = "ACTUALIZAR";
             ktButton17.UseVisualStyleBackColor = false;
+            ktButton17.Click += (this.cargarTablasProd_Click);
             // 
             // ktPanel152
             // 
@@ -11662,7 +11680,7 @@
             ktPanel152.Dock = DockStyle.Right;
             ktPanel152.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
             ktPanel152.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel152.Location = new Point(883, 0);
+            ktPanel152.Location = new Point(875, 0);
             ktPanel152.Name = "ktPanel152";
             ktPanel152.PatternColor = KimTools.WinForms.KtColor.Empty;
             ktPanel152.Size = new Size(265, 68);
@@ -11693,6 +11711,7 @@
             ktButton18.TabIndex = 2;
             ktButton18.Text = "ELIMINAR";
             ktButton18.UseVisualStyleBackColor = false;
+            ktButton18.Click += (this.confirmarEPbutton_Click);
             // 
             // ktDivider46
             // 
@@ -11706,7 +11725,7 @@
             ktDivider46.Margin = new Padding(0);
             ktDivider46.Name = "ktDivider46";
             ktDivider46.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider46.Size = new Size(1148, 45);
+            ktDivider46.Size = new Size(1140, 45);
             ktDivider46.TabIndex = 11;
             // 
             // ktPanel153
@@ -11722,7 +11741,7 @@
             ktPanel153.Location = new Point(0, 64);
             ktPanel153.Name = "ktPanel153";
             ktPanel153.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel153.Size = new Size(1148, 447);
+            ktPanel153.Size = new Size(1140, 447);
             ktPanel153.TabIndex = 9;
             // 
             // tablaEP
@@ -11751,7 +11770,7 @@
             tablaEP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             tablaEP.ColumnHeadersHeight = 40;
             tablaEP.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            tablaEP.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn20, dataGridViewTextBoxColumn21, dataGridViewTextBoxColumn22, dataGridViewTextBoxColumn23 });
+            tablaEP.Columns.AddRange(new DataGridViewColumn[] { idProductoE, dataGridViewTextBoxColumn20, disponibleER, dataGridViewTextBoxColumn21, dataGridViewTextBoxColumn22, dataGridViewTextBoxColumn23 });
             dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = Color.FromArgb((int)(byte)30, (int)(byte)41, (int)(byte)57);
             dataGridViewCellStyle7.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
@@ -11780,7 +11799,7 @@
             tablaEP.RowHeadersWidth = 20;
             tablaEP.RowTemplate.Height = 45;
             tablaEP.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaEP.Size = new Size(1148, 447);
+            tablaEP.Size = new Size(1140, 447);
             tablaEP.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             tablaEP.Style.Border = 0F;
             tablaEP.Style.BorderHeader = 0F;
@@ -11796,55 +11815,6 @@
             tablaEP.Style.ScrollBar.Foreground = KimTools.WinForms.KtColor.Empty;
             tablaEP.TabIndex = 1;
             // 
-            // dataGridViewTextBoxColumn9
-            // 
-            dataGridViewTextBoxColumn9.DataPropertyName = "IdProducto";
-            dataGridViewTextBoxColumn9.Frozen = true;
-            dataGridViewTextBoxColumn9.HeaderText = "IdProducto";
-            dataGridViewTextBoxColumn9.MinimumWidth = 6;
-            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            dataGridViewTextBoxColumn9.ReadOnly = true;
-            dataGridViewTextBoxColumn9.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn20
-            // 
-            dataGridViewTextBoxColumn20.DataPropertyName = "Nombre";
-            dataGridViewTextBoxColumn20.Frozen = true;
-            dataGridViewTextBoxColumn20.HeaderText = "Nombre";
-            dataGridViewTextBoxColumn20.MinimumWidth = 6;
-            dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
-            dataGridViewTextBoxColumn20.ReadOnly = true;
-            dataGridViewTextBoxColumn20.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn21
-            // 
-            dataGridViewTextBoxColumn21.DataPropertyName = "StockActual";
-            dataGridViewTextBoxColumn21.Frozen = true;
-            dataGridViewTextBoxColumn21.HeaderText = "Stock";
-            dataGridViewTextBoxColumn21.MinimumWidth = 6;
-            dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
-            dataGridViewTextBoxColumn21.ReadOnly = true;
-            dataGridViewTextBoxColumn21.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn22
-            // 
-            dataGridViewTextBoxColumn22.DataPropertyName = "Camara";
-            dataGridViewTextBoxColumn22.Frozen = true;
-            dataGridViewTextBoxColumn22.HeaderText = "Camara";
-            dataGridViewTextBoxColumn22.MinimumWidth = 6;
-            dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
-            dataGridViewTextBoxColumn22.ReadOnly = true;
-            dataGridViewTextBoxColumn22.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn23
-            // 
-            dataGridViewTextBoxColumn23.DataPropertyName = "idReceta";
-            dataGridViewTextBoxColumn23.HeaderText = "IdReceta";
-            dataGridViewTextBoxColumn23.MinimumWidth = 6;
-            dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
-            dataGridViewTextBoxColumn23.ReadOnly = true;
-            dataGridViewTextBoxColumn23.Width = 125;
-            // 
             // ktDivider47
             // 
             ktDivider47.BackColor = Color.Transparent;
@@ -11857,7 +11827,7 @@
             ktDivider47.Margin = new Padding(0);
             ktDivider47.Name = "ktDivider47";
             ktDivider47.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider47.Size = new Size(1148, 32);
+            ktDivider47.Size = new Size(1140, 32);
             ktDivider47.TabIndex = 8;
             // 
             // ktDivider48
@@ -11872,7 +11842,7 @@
             ktDivider48.Margin = new Padding(0);
             ktDivider48.Name = "ktDivider48";
             ktDivider48.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider48.Size = new Size(1148, 32);
+            ktDivider48.Size = new Size(1140, 32);
             ktDivider48.TabIndex = 6;
             // 
             // navProductos
@@ -11948,6 +11918,7 @@
             eliminarProducuto.TabIndex = 5;
             eliminarProducuto.Text = "Eliminar";
             eliminarProducuto.UseVisualStyleBackColor = false;
+            eliminarProducuto.Click += (this.EliminarProducto_Click);
             // 
             // modificarProducto
             // 
@@ -11974,6 +11945,7 @@
             modificarProducto.TabIndex = 4;
             modificarProducto.Text = "Editar";
             modificarProducto.UseVisualStyleBackColor = false;
+            modificarProducto.Click += (this.ModificarProducto_Click);
             // 
             // altaProducto
             // 
@@ -12000,6 +11972,65 @@
             altaProducto.TabIndex = 3;
             altaProducto.Text = "Alta";
             altaProducto.UseVisualStyleBackColor = false;
+            altaProducto.Click += (this.altaProductoButton_Click);
+            // 
+            // idProductoE
+            // 
+            idProductoE.DataPropertyName = "IdProducto";
+            idProductoE.Frozen = true;
+            idProductoE.HeaderText = "IdProducto";
+            idProductoE.MinimumWidth = 6;
+            idProductoE.Name = "idProductoE";
+            idProductoE.ReadOnly = true;
+            idProductoE.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn20
+            // 
+            dataGridViewTextBoxColumn20.DataPropertyName = "Nombre";
+            dataGridViewTextBoxColumn20.Frozen = true;
+            dataGridViewTextBoxColumn20.HeaderText = "Nombre";
+            dataGridViewTextBoxColumn20.MinimumWidth = 6;
+            dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
+            dataGridViewTextBoxColumn20.ReadOnly = true;
+            dataGridViewTextBoxColumn20.Width = 125;
+            // 
+            // disponibleER
+            // 
+            disponibleER.Frozen = true;
+            disponibleER.HeaderText = "Disponible";
+            disponibleER.MinimumWidth = 6;
+            disponibleER.Name = "disponibleER";
+            disponibleER.ReadOnly = true;
+            disponibleER.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn21
+            // 
+            dataGridViewTextBoxColumn21.DataPropertyName = "StockActual";
+            dataGridViewTextBoxColumn21.Frozen = true;
+            dataGridViewTextBoxColumn21.HeaderText = "Stock";
+            dataGridViewTextBoxColumn21.MinimumWidth = 6;
+            dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
+            dataGridViewTextBoxColumn21.ReadOnly = true;
+            dataGridViewTextBoxColumn21.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn22
+            // 
+            dataGridViewTextBoxColumn22.DataPropertyName = "Camara";
+            dataGridViewTextBoxColumn22.Frozen = true;
+            dataGridViewTextBoxColumn22.HeaderText = "Camara";
+            dataGridViewTextBoxColumn22.MinimumWidth = 6;
+            dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
+            dataGridViewTextBoxColumn22.ReadOnly = true;
+            dataGridViewTextBoxColumn22.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn23
+            // 
+            dataGridViewTextBoxColumn23.DataPropertyName = "idReceta";
+            dataGridViewTextBoxColumn23.HeaderText = "IdReceta";
+            dataGridViewTextBoxColumn23.MinimumWidth = 6;
+            dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
+            dataGridViewTextBoxColumn23.ReadOnly = true;
+            dataGridViewTextBoxColumn23.Width = 125;
             // 
             // MenuPPal
             // 
@@ -12541,7 +12572,6 @@
         private KimTools.WinForms.KtPanel sucktPanel108;
         private KimTools.WinForms.KtTable sucktTable3;
         private DataGridViewTextBoxColumn IdEmpleado;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private DataGridViewTextBoxColumn Apellido;
         private KimTools.WinForms.KtDivider sucktDivider31;
         private KimTools.WinForms.KtDivider sucktDivider32;
@@ -12842,19 +12872,22 @@
         private KimTools.WinForms.KtPanel ktPanel161;
         private KimTools.WinForms.KtLabel ktLabel30;
         private KimTools.WinForms.KtTable tablaEP;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
         private KimTools.WinForms.KtCheckBox checkBoxDispAP;
         private KimTools.WinForms.KtCheckBox checkBoxCamAP;
         private KimTools.WinForms.KtCheckBox checkBoxDispMP;
         private KimTools.WinForms.KtCheckBox checkBoxCamMP;
-        private DataGridViewTextBoxColumn idProdMProd;
+        private KimTools.WinForms.KtButton buttonReceta;
+        private DataGridViewTextBoxColumn idProductoM;
         private DataGridViewTextBoxColumn nombrePM;
+        private DataGridViewTextBoxColumn disponiblePM;
         private DataGridViewTextBoxColumn stockPM;
         private DataGridViewTextBoxColumn camaraPM;
         private DataGridViewTextBoxColumn idRecetaPM;
-        private KimTools.WinForms.KtButton buttonReceta;
+        private DataGridViewTextBoxColumn idProductoE;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
+        private DataGridViewTextBoxColumn disponibleER;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
     }
 }

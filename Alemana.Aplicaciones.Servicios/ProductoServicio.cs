@@ -68,6 +68,8 @@ namespace Alemana.Aplicaciones.Servicios
 
             prodE.Nombre = dto.Nombre;
             prodE.Camara = dto.Camara;
+            prodE.IdReceta = dto.IdReceta;
+            prodE.Disponible = dto.Disponible;
 
             var result = await _productoRepositorio.ActualizarProducto(prodE);
 

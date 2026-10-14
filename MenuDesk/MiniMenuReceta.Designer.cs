@@ -537,10 +537,10 @@
             navBarRecetas.Set_Background(modificarRecetaPage, KimTools.WinForms.KtColor.Empty);
             modificarRecetaPage.BackColor = Color.Transparent;
             modificarRecetaPage.Controls.Add(modificarRecetaSubPage);
-            modificarRecetaPage.Location = new Point(4, 4);
+            modificarRecetaPage.Location = new Point(0, 0);
             modificarRecetaPage.Name = "modificarRecetaPage";
             modificarRecetaPage.Padding = new Padding(3);
-            modificarRecetaPage.Size = new Size(792, 308);
+            modificarRecetaPage.Size = new Size(800, 341);
             modificarRecetaPage.TabIndex = 3;
             modificarRecetaPage.Text = "tabPage4";
             // 
@@ -562,7 +562,7 @@
             modificarRecetaSubPage.Location = new Point(3, 3);
             modificarRecetaSubPage.Name = "modificarRecetaSubPage";
             modificarRecetaSubPage.PatternColor = KimTools.WinForms.KtColor.Empty;
-            modificarRecetaSubPage.Size = new Size(786, 302);
+            modificarRecetaSubPage.Size = new Size(794, 335);
             modificarRecetaSubPage.TabIndex = 1;
             // 
             // ktPanel56
@@ -588,7 +588,7 @@
             ktPanel56.Name = "ktPanel56";
             ktPanel56.Padding = new Padding(20, 20, 40, 10);
             ktPanel56.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel56.Size = new Size(786, 302);
+            ktPanel56.Size = new Size(794, 335);
             ktPanel56.TabIndex = 2;
             // 
             // ktPanel57
@@ -605,7 +605,7 @@
             ktPanel57.Location = new Point(20, 321);
             ktPanel57.Name = "ktPanel57";
             ktPanel57.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel57.Size = new Size(726, 0);
+            ktPanel57.Size = new Size(734, 4);
             ktPanel57.TabIndex = 6;
             // 
             // footerMR
@@ -622,7 +622,7 @@
             footerMR.Location = new Point(0, 474);
             footerMR.Name = "footerMR";
             footerMR.PatternColor = KimTools.WinForms.KtColor.Empty;
-            footerMR.Size = new Size(726, 56);
+            footerMR.Size = new Size(734, 56);
             footerMR.TabIndex = 12;
             // 
             // actualizarMR
@@ -694,7 +694,7 @@
             panelDatosModif.Margin = new Padding(4);
             panelDatosModif.Name = "panelDatosModif";
             panelDatosModif.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelDatosModif.Size = new Size(726, 474);
+            panelDatosModif.Size = new Size(734, 474);
             panelDatosModif.TabIndex = 11;
             // 
             // ktDivider17
@@ -709,7 +709,7 @@
             ktDivider17.Margin = new Padding(0);
             ktDivider17.Name = "ktDivider17";
             ktDivider17.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider17.Size = new Size(726, 23);
+            ktDivider17.Size = new Size(734, 23);
             ktDivider17.TabIndex = 7;
             // 
             // panelDescMR
@@ -727,7 +727,7 @@
             panelDescMR.Margin = new Padding(4);
             panelDescMR.Name = "panelDescMR";
             panelDescMR.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelDescMR.Size = new Size(726, 136);
+            panelDescMR.Size = new Size(734, 136);
             panelDescMR.TabIndex = 4;
             // 
             // ktPanel59
@@ -744,7 +744,7 @@
             ktPanel59.Location = new Point(0, 55);
             ktPanel59.Name = "ktPanel59";
             ktPanel59.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel59.Size = new Size(726, 81);
+            ktPanel59.Size = new Size(734, 81);
             ktPanel59.TabIndex = 1;
             // 
             // textBoxDescMR
@@ -781,7 +781,7 @@
             textBoxDescMR.SelectionLength = 0;
             textBoxDescMR.SelectionStart = 0;
             textBoxDescMR.ShortcutsEnabled = true;
-            textBoxDescMR.Size = new Size(726, 81);
+            textBoxDescMR.Size = new Size(734, 81);
             textBoxDescMR.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
             textBoxDescMR.TabIndex = 5;
             textBoxDescMR.TextMarginBottom = 0;
@@ -801,7 +801,7 @@
             ktPanel60.Margin = new Padding(4);
             ktPanel60.Name = "ktPanel60";
             ktPanel60.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel60.Size = new Size(726, 55);
+            ktPanel60.Size = new Size(734, 55);
             ktPanel60.TabIndex = 0;
             // 
             // ktPanel61
@@ -850,7 +850,7 @@
             ktDivider19.Margin = new Padding(0);
             ktDivider19.Name = "ktDivider19";
             ktDivider19.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider19.Size = new Size(726, 23);
+            ktDivider19.Size = new Size(734, 23);
             ktDivider19.TabIndex = 5;
             // 
             // panelTablaMR
@@ -867,7 +867,7 @@
             panelTablaMR.Margin = new Padding(4);
             panelTablaMR.Name = "panelTablaMR";
             panelTablaMR.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelTablaMR.Size = new Size(726, 255);
+            panelTablaMR.Size = new Size(734, 255);
             panelTablaMR.TabIndex = 4;
             // 
             // ktPanel68
@@ -884,7 +884,7 @@
             ktPanel68.Location = new Point(0, 0);
             ktPanel68.Name = "ktPanel68";
             ktPanel68.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel68.Size = new Size(726, 255);
+            ktPanel68.Size = new Size(734, 255);
             ktPanel68.TabIndex = 1;
             // 
             // tablaMR
@@ -942,7 +942,7 @@
             tablaMR.RowHeadersWidth = 20;
             tablaMR.RowTemplate.Height = 45;
             tablaMR.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaMR.Size = new Size(726, 255);
+            tablaMR.Size = new Size(734, 255);
             tablaMR.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
             tablaMR.Style.Border = 0F;
             tablaMR.Style.BorderHeader = 0F;
@@ -991,7 +991,7 @@
             ktDivider20.Margin = new Padding(0);
             ktDivider20.Name = "ktDivider20";
             ktDivider20.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider20.Size = new Size(726, 23);
+            ktDivider20.Size = new Size(734, 23);
             ktDivider20.TabIndex = 1;
             // 
             // eliminarRecetaPage
@@ -1136,7 +1136,7 @@
             buttonGuardarER.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
             buttonGuardarER.Size = new Size(213, 56);
             buttonGuardarER.TabIndex = 1;
-            buttonGuardarER.Text = "Guardar Cambios";
+            buttonGuardarER.Text = "Eliminar";
             buttonGuardarER.UseVisualStyleBackColor = false;
             buttonGuardarER.Click += buttonGuardarER_Click;
             // 
