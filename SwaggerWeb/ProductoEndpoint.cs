@@ -9,6 +9,30 @@ namespace SwaggerWeb
 
         public static void MapProductoEndpoint(this WebApplication app)
         {
+            app.MapGet("/producto", async (IProductoServicio productoServicio) =>
+            {
+                var productos = await productoServicio.ObtenerProductos();
+                return Results.Ok(productos);
+            })
+            .WithName("ObtenerProductos")
+            .WithTags("Producto")
+            .Produces<List<ProductoDTO>>(StatusCodes.Status200OK)
+            .WithOpenApi();
+
+            app.MapGet("/producto/{id}", async (int id, IProductoServicio productoServicio) =>
+            {
+                var producto = await productoServicio.ObtenerProductoPorId(id);
+                if (producto == null)
+                {
+                    return Results.NotFound(new { mensaje = "El producto no existe." });
+                }
+                return Results.Ok(producto);
+            })
+            .WithName("ObtenerProductoPorId")
+            .WithTags("Producto")
+            .Produces<ProductoDTO>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithOpenApi();
             app.MapPost("/producto", async (ProductoDTO productoDTO, IProductoServicio productoServicio) =>
             {
                 try

@@ -1,0 +1,182 @@
+@page "/productos"
+@attribute [Authorize]
+@inject ApiClient Api
+
+<PageTitle>Productos - Alemana</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">Productos</h2>
+        <p class="page-subtitle">Cargá y consultá los productos y su stock.</p>
+    </div>
+    @if (productos is not null)
+    {
+        <span class="contador"><i class="bi bi-box-seam-fill"></i> @productos.Count en total</span>
+    }
+</div>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <div class="alert @(exito ? "alert-success" : "alert-danger")" role="alert">
+        <i class="bi @(exito ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill") me-2"></i>@mensaje
+    </div>
+}
+
+<div class="card mb-4">
+    <div class="card-body p-4">
+        <h5 class="form-titulo">Nuevo producto</h5>
+
+        <EditForm Model="nuevo" OnValidSubmit="Guardar">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label" for="prod-nombre">Nombre</label>
+                    <InputText id="prod-nombre" class="form-control" @bind-Value="nuevo.Nombre" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="prod-receta">Id de receta</label>
+                    <InputNumber id="prod-receta" class="form-control" @bind-Value="nuevo.IdReceta" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="prod-stock">Stock inicial</label>
+                    <InputNumber id="prod-stock" class="form-control" @bind-Value="nuevo.StockActual" />
+                </div>
+                <div class="col-md-2">
+                    <div class="form-check form-switch">
+                        <InputCheckbox id="prod-camara" class="form-check-input" @bind-Value="nuevo.Camara" />
+                        <label class="form-check-label" for="prod-camara">Cámara</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <InputCheckbox id="prod-disp" class="form-check-input" @bind-Value="disponible" />
+                        <label class="form-check-label" for="prod-disp">Disponible</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-lg me-1"></i> Agregar
+                    </button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@if (productos is null)
+{
+    <div class="empty-state">
+        <div class="spinner-border" role="status" aria-hidden="true"></div>
+        <p>Cargando productos...</p>
+    </div>
+}
+else if (!productos.Any())
+{
+    <div class="empty-state">
+        <i class="bi bi-box-seam"></i>
+        <p>Todavía no hay productos. Agregá el primero con el formulario de arriba.</p>
+    </div>
+}
+else
+{
+    <div class="tabla-wrap">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th style="width: 5rem;">Id</th>
+                    <th>Nombre</th>
+                    <th>Receta</th>
+                    <th>Cámara</th>
+                    <th class="text-end">Stock</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in productos)
+                {
+                    <tr>
+                        <td class="text-muted">@p.IdProducto</td>
+                        <td class="fw-semibold">@p.Nombre</td>
+                        <td>@p.IdReceta</td>
+                        <td>@(p.Camara ? "Sí" : "No")</td>
+                        <td class="text-end fw-semibold">@p.StockActual.ToString("N0")</td>
+                        <td>
+                            @if (p.Disponible == true)
+                            {
+                                <span class="pill pill-si">Disponible</span>
+                            }
+                            else
+                            {
+                                <span class="pill pill-no">No disponible</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<ProductoDTO>? productos;
+    private ProductoDTO nuevo = new();
+    private string? mensaje;
+    private bool exito;
+    private bool disponible = true;
+
+    protected override async Task OnInitializedAsync() => await Cargar();
+
+    private async Task Cargar()
+    {
+        try
+        {
+            productos = await Api.ObtenerListaAsync<ProductoDTO>("producto/");
+        }
+        catch (Exception ex)
+        {
+            productos = new();
+            mensaje = ex.Message;
+            exito = false;
+        }
+    }
+
+    private async Task Guardar()
+    {
+        mensaje = null;
+        nuevo.Disponible = disponible;
+
+        if (string.IsNullOrWhiteSpace(nuevo.Nombre) || nuevo.IdReceta <= 0)
+        {
+            mensaje = "Nombre e id de receta son obligatorios.";
+            exito = false;
+            return;
+        }
+
+        if (nuevo.StockActual < 0)
+        {
+            mensaje = "El stock no puede ser negativo.";
+            exito = false;
+            return;
+        }
+
+        try
+        {
+            var ok = await Api.PostAsync("producto/", nuevo);
+            if (ok)
+            {
+                mensaje = "Producto creado.";
+                exito = true;
+                nuevo = new();
+                disponible = true;
+                await Cargar();
+            }
+            else
+            {
+                mensaje = "La API rechazó el alta (¿sesión vencida o datos inválidos?).";
+                exito = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            exito = false;
+        }
+    }
+}

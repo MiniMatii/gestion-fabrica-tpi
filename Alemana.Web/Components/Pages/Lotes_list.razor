@@ -1,1 +1,210 @@
-﻿
+@page "/lotes"
+@attribute [Authorize]
+@inject ApiClient Api
+
+<PageTitle>Lotes - Alemana</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">Lotes</h2>
+        <p class="page-subtitle">Lotes de materia prima, ordenados por fecha de vencimiento.</p>
+    </div>
+    @if (lotes is not null)
+    {
+        <span class="contador"><i class="bi bi-boxes"></i> @lotes.Count en total</span>
+    }
+</div>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <div class="alert @(exito ? "alert-success" : "alert-danger")" role="alert">
+        <i class="bi @(exito ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill") me-2"></i>@mensaje
+    </div>
+}
+
+<div class="card mb-4">
+    <div class="card-body p-4">
+        <h5 class="form-titulo">Nuevo lote</h5>
+
+        <EditForm Model="nuevo" OnValidSubmit="Guardar">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label" for="lote-ingreso">Fecha de ingreso</label>
+                    <InputDate id="lote-ingreso" class="form-control" @bind-Value="nuevo.FechaIngreso" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="lote-venc">Fecha de vencimiento</label>
+                    <InputDate id="lote-venc" class="form-control" @bind-Value="nuevo.FechaVencimiento" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="lote-cant">Cantidad</label>
+                    <InputNumber id="lote-cant" class="form-control" @bind-Value="nuevo.CantidadLote" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="lote-prov">Id proveedor</label>
+                    <InputNumber id="lote-prov" class="form-control" @bind-Value="nuevo.IdProveedor" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="lote-mat">Id materia prima</label>
+                    <InputNumber id="lote-mat" class="form-control" @bind-Value="nuevo.IdMateriaP" />
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check form-switch pb-2">
+                        <InputCheckbox id="lote-activo" class="form-check-input" @bind-Value="activo" />
+                        <label class="form-check-label" for="lote-activo">Lote activo</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-lg me-1"></i> Agregar
+                    </button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@if (lotes is null)
+{
+    <div class="empty-state">
+        <div class="spinner-border" role="status" aria-hidden="true"></div>
+        <p>Cargando lotes...</p>
+    </div>
+}
+else if (!lotes.Any())
+{
+    <div class="empty-state">
+        <i class="bi bi-boxes"></i>
+        <p>Todavía no hay lotes. Agregá el primero con el formulario de arriba.</p>
+    </div>
+}
+else
+{
+    <div class="tabla-wrap">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th style="width: 5rem;">Id</th>
+                    <th>Ingreso</th>
+                    <th>Vencimiento</th>
+                    <th class="text-end">Cantidad</th>
+                    <th>Proveedor</th>
+                    <th>Materia prima</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var l in lotes.OrderBy(x => x.FechaVencimiento))
+                {
+                    var aviso = AvisoVencimiento(l.FechaVencimiento);
+                    <tr>
+                        <td class="text-muted">@l.IdLote</td>
+                        <td>@l.FechaIngreso.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <span class="fw-semibold">@l.FechaVencimiento.ToString("dd/MM/yyyy")</span>
+                            @if (aviso is not null)
+                            {
+                                <span class="pill ms-2 @(aviso == "Vencido" ? "pill-alerta" : "pill-aviso")">@aviso</span>
+                            }
+                        </td>
+                        <td class="text-end fw-semibold">@l.CantidadLote.ToString("0.##")</td>
+                        <td>@l.IdProveedor</td>
+                        <td>@l.IdMateriaP</td>
+                        <td>
+                            @if (l.EstadoLote == 1)
+                            {
+                                <span class="pill pill-si">Activo</span>
+                            }
+                            else
+                            {
+                                <span class="pill pill-no">Inactivo</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<LoteDTO>? lotes;
+    private LoteDTO nuevo = NuevoLote();
+    private string? mensaje;
+    private bool exito;
+    private bool activo = true;
+
+    protected override async Task OnInitializedAsync() => await Cargar();
+
+    private static LoteDTO NuevoLote() => new()
+    {
+        FechaIngreso = DateTime.Today,
+        FechaVencimiento = DateTime.Today.AddMonths(1)
+    };
+
+    private async Task Cargar()
+    {
+        try
+        {
+            lotes = await Api.ObtenerListaAsync<LoteDTO>("lotes/");
+        }
+        catch (Exception ex)
+        {
+            lotes = new();
+            mensaje = ex.Message;
+            exito = false;
+        }
+    }
+
+    private async Task Guardar()
+    {
+        mensaje = null;
+        nuevo.EstadoLote = (sbyte)(activo ? 1 : 0);
+
+        if (nuevo.CantidadLote <= 0 || nuevo.IdProveedor <= 0 || nuevo.IdMateriaP <= 0)
+        {
+            mensaje = "Cantidad, proveedor y materia prima son obligatorios.";
+            exito = false;
+            return;
+        }
+
+        if (nuevo.FechaVencimiento < nuevo.FechaIngreso)
+        {
+            mensaje = "El vencimiento no puede ser anterior al ingreso.";
+            exito = false;
+            return;
+        }
+
+        try
+        {
+            var ok = await Api.PostAsync("lotes/", nuevo);
+            if (ok)
+            {
+                mensaje = "Lote creado.";
+                exito = true;
+                nuevo = NuevoLote();
+                activo = true;
+                await Cargar();
+            }
+            else
+            {
+                mensaje = "La API rechazó el alta (¿sesión vencida o datos inválidos?).";
+                exito = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            exito = false;
+        }
+    }
+
+    // Avisa si el lote ya venció o vence en los próximos 7 días
+    private static string? AvisoVencimiento(DateTime vencimiento)
+    {
+        var dias = (vencimiento.Date - DateTime.Today).Days;
+        if (dias < 0) return "Vencido";
+        if (dias <= 7) return "Por vencer";
+        return null;
+    }
+}

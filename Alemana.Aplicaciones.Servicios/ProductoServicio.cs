@@ -18,7 +18,38 @@ namespace Alemana.Aplicaciones.Servicios
             _productoRepositorio = productoRepositorio;
         }
 
-        public async Task<ProductoDTO> AgregarProducto(ProductoDTO dto) 
+        public async Task<List<ProductoDTO>> ObtenerProductos()
+        {
+            var productos = await _productoRepositorio.ObtenerProductos();
+
+            return productos.Select(p => new ProductoDTO
+            {
+                IdProducto = p.IdProducto,
+                Nombre = p.Nombre,
+                Camara = p.Camara,
+                Disponible = p.Disponible,
+                IdReceta = p.IdReceta,
+                StockActual = p.StockActual
+            }).ToList();
+        }
+
+        public async Task<ProductoDTO> ObtenerProductoPorId(int id)
+        {
+            var p = await _productoRepositorio.ObtenerProductoPorId(id);
+            if (p == null) return null;
+
+            return new ProductoDTO
+            {
+                IdProducto = p.IdProducto,
+                Nombre = p.Nombre,
+                Camara = p.Camara,
+                Disponible = p.Disponible,
+                IdReceta = p.IdReceta,
+                StockActual = p.StockActual
+            };
+        }
+
+        public async Task<ProductoDTO> AgregarProducto(ProductoDTO dto)
         {
             var prodDTO = new Producto()
             {
@@ -36,10 +67,12 @@ namespace Alemana.Aplicaciones.Servicios
             return dto;
         }
 
-        public async Task<ProductoDTO> BajaProducto(int id) 
+        public async Task<ProductoDTO> BajaProducto(int id)
         {
             var prod = await _productoRepositorio.BajaProducto(id);
-            var prodDTO = new ProductoDTO 
+            if (prod == null) return null;
+
+            var prodDTO = new ProductoDTO
             {
                 IdProducto = prod.IdProducto,
                 Nombre = prod.Nombre,
@@ -52,12 +85,12 @@ namespace Alemana.Aplicaciones.Servicios
             return prodDTO;
         }
 
-        public async Task<bool> EliminarProducto(int id) 
+        public async Task<bool> EliminarProducto(int id)
         {
             return await _productoRepositorio.EliminarProducto(id);
         }
 
-        public async Task<bool> ActualizarProducto(ProductoDTO dto) 
+        public async Task<bool> ActualizarProducto(ProductoDTO dto)
         {
             var prodE = await _productoRepositorio.ObtenerProductoPorId(dto.IdProducto);
 
@@ -72,7 +105,6 @@ namespace Alemana.Aplicaciones.Servicios
             var result = await _productoRepositorio.ActualizarProducto(prodE);
 
             return result;
-
         }
     }
 }

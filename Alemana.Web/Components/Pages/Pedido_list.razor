@@ -1,0 +1,93 @@
+@page "/pedidos"
+@attribute [Authorize]
+@inject ApiClient Api
+
+<PageTitle>Pedidos - Alemana</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">Pedidos</h2>
+        <p class="page-subtitle">Seguimiento de los pedidos, del más reciente al más antiguo.</p>
+    </div>
+    @if (pedidos is not null)
+    {
+        <span class="contador"><i class="bi bi-cart-fill"></i> @pedidos.Count en total</span>
+    }
+</div>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>@mensaje
+    </div>
+}
+
+@if (pedidos is null)
+{
+    <div class="empty-state">
+        <div class="spinner-border" role="status" aria-hidden="true"></div>
+        <p>Cargando pedidos...</p>
+    </div>
+}
+else if (!pedidos.Any())
+{
+    <div class="empty-state">
+        <i class="bi bi-cart"></i>
+        <p>Todavía no hay pedidos registrados.</p>
+    </div>
+}
+else
+{
+    <div class="tabla-wrap">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th style="width: 5rem;">N°</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Entrega estimada</th>
+                    <th>Entrega real</th>
+                    <th>Empleado</th>
+                    <th class="text-end">Ítems</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in pedidos.OrderByDescending(x => x.FechaPedido))
+                {
+                    <tr>
+                        <td class="text-muted">@p.IdPedido</td>
+                        <td class="fw-semibold">@Fecha(p.FechaPedido)</td>
+                        <td>
+                            <span class="pill @(p.FechaReal is null ? "pill-aviso" : "pill-si")">@p.EstadoPedido</span>
+                        </td>
+                        <td>@Fecha(p.FechaEstimada)</td>
+                        <td>@Fecha(p.FechaReal)</td>
+                        <td>@p.IdEmpleado</td>
+                        <td class="text-end">@(p.DetallePedidos?.Count ?? 0)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<SolicitudPedidoDTO>? pedidos;
+    private string? mensaje;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            pedidos = await Api.ObtenerListaAsync<SolicitudPedidoDTO>("pedidos/");
+        }
+        catch (Exception ex)
+        {
+            pedidos = new();
+            mensaje = ex.Message;
+        }
+    }
+
+    private static string Fecha(DateTime? fecha) =>
+        fecha?.ToString("dd/MM/yyyy") ?? "—";
+}

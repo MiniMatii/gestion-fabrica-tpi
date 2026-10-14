@@ -18,6 +18,8 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
+
+        // TU CÓDIGO ORIGINAL INTACTO DEBAJO (no se ejecutará hasta que borres el bloque de arriba)
         try
         {
             var token = await _localStorage.GetItemAsync<string>(TokenKey);
