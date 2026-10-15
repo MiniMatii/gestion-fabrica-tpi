@@ -3,6 +3,7 @@ using Alemana.Dominio.Models;
 using Alemana.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -80,6 +81,13 @@ namespace Alemana.Aplicaciones.Servicios
             await provRepositorio.ModificarProveedor(proveedorExistente);
 
             return unProvDTO;
+        }
+
+        public async Task<bool> EliminarProveedor(int id) 
+        {
+            bool repsonse = await provRepositorio.EliminarProveedor(id);
+
+            return repsonse;
         }
 
     }

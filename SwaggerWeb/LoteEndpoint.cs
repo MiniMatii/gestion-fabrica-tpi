@@ -106,6 +106,22 @@ namespace SwaggerWeb
             .WithOpenApi();
 
 
+            app.MapGet("/lotes/full", async (ILoteServicio loteServicio) =>
+            {
+                try
+                {
+                    var lotes = await loteServicio.GenerarListadoLotes();
+                    return Results.Ok(lotes);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            }).WithName("Obtener Lotes Full Info")
+            .WithTags("Lotes")
+            .Produces<List<ListadoLotesFullDTO>>(StatusCodes.Status200OK)
+            .WithOpenApi();
+
         }
 
 

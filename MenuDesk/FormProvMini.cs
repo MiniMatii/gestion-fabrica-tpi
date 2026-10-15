@@ -1,11 +1,13 @@
 ﻿using Alemana.DTOs;
 using KimTools.WinForms;
 using Alemana.API;
+using System.Threading.Tasks;
 
 namespace MenuDesk
 {
     public partial class FormProvMini : KtWindow
     {
+        const string endpoint = "proveedores";
 
         private readonly ApiClient _apiClient = new ApiClient();
 
@@ -31,7 +33,7 @@ namespace MenuDesk
             try
             {
 
-                string endpoint = "proveedores";
+
                 var nProv = new ProveedorDTO();
                 nProv.Cuit = textCuit.Text;
                 nProv.RazonSocial = textRSocial.Text;
@@ -59,7 +61,6 @@ namespace MenuDesk
         {
             try
             {
-                string endpoint = "proveedores";
 
                 var listaDatos = await _apiClient.ObtenerListaAsync<ProveedorDTO>(endpoint);
 
@@ -76,6 +77,31 @@ namespace MenuDesk
             {
                 MessageBox.Show(ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private async void eliminarProveedor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int idEliminar = Convert.ToInt32(ktTablaProveedoresLotes.CurrentRow.Cells["IdProveedor"].Value);
+                bool eliminado = await _apiClient.DeleteAsync($"proveedores/{idEliminar}");
+
+                if (eliminado)
+                    MessageBox.Show("Proveedor eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("No se pudo eliminar el proveedor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al eliminar el proveedor: {ex.Message}", "Error de Eliminación", MessageBoxButtons.OK);
+            }
+
+        }
+
+        private void volverMiniProv_Click(object sender, EventArgs e)
+        {
+            pagesProvedores.Page = altaMiniProv;
         }
 
     }

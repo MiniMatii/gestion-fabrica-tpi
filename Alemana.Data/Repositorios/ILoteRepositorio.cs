@@ -15,5 +15,6 @@ namespace Alemana.Data.Repositorios
         Task<List<Lote>> ObtenerTodos();
         Task<Lote> ObtenerLotePorId(int id);
         Task<bool> GuardarCambiosLote();
+        Task<List<Lote>> GenerarListadoLotes();
     }
 }

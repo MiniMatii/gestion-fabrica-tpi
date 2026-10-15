@@ -102,5 +102,23 @@ namespace Alemana.Aplicaciones.Servicios
 
             return false;
         }
+
+        public async Task<List<ListadoLotesFullDTO>> GenerarListadoLotes() 
+        {
+            var listaLotes = await loteRepositorio.GenerarListadoLotes();
+            
+            return listaLotes.Select(l => new ListadoLotesFullDTO
+            {
+                IdLote = l.IdLote,
+                FechaIngreso = l.FechaIngreso,
+                FechaVencimiento = l.FechaVencimiento,
+                CantidadLote = l.CantidadLote,
+                NombreMateriaPrima = l.IdMateriaPNavigation?.Nombre ?? string.Empty,
+                NombreProveedor = l.IdProveedorNavigation?.Nombre ?? string.Empty,
+                EstadoLote = l.EstadoLote
+            }).ToList();
+        } 
+
+
     }
 }

@@ -13,6 +13,6 @@ namespace Alemana.Data.Repositorios
         Task<List<Proveedore>> ObtenerTodos();
         Task<Proveedore> ObtenerPorId(int id);
         Task ModificarProveedor(Proveedore proveedor);
-
+        Task<bool> EliminarProveedor(int id);
     }
 }

@@ -46,5 +46,20 @@ namespace Alemana.Data.Repositorios
             _DbA.Set<Proveedore>().Update(proveedor);
             await _DbA.SaveChangesAsync();
         }
+
+        public async Task<bool> EliminarProveedor(int id) 
+        {
+            var enttidad =  await _DbA.Proveedores.FindAsync(id);
+
+            if (enttidad == null) 
+            {
+                return false;
+            }
+
+            _DbA.Proveedores.Remove(enttidad);
+            await _DbA.SaveChangesAsync();
+
+            return true;
+        }
     } 
 }

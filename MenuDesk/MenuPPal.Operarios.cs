@@ -130,6 +130,23 @@ namespace MenuDesk
             await CargarOperariosEnGrilla();
         }
 
+
+        private void miniFormCapacidades_Click(object sender, EventArgs e)
+        {
+            var miniFormCap = new FormCapsMini();
+            miniFormCap.StartPosition = FormStartPosition.CenterScreen;
+            miniFormCap.FormBorderStyle = FormBorderStyle.None;
+
+            var pPantalla = capacidadesButton.PointToScreen(new Point(0, capacidadesButton.Height));
+            miniFormCap.Location = pPantalla;
+
+            miniFormCap.Deactivate += (s, args) => miniFormCap.Close();
+
+            miniFormCap.Show(this);
+        }
+
+
+
         private async Task CargarCapacidadesEnGrilla() 
         {
             try

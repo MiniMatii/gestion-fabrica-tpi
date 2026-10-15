@@ -79,5 +79,10 @@ namespace Alemana.Data.Repositorios
 
             return response > 0;
         }
+
+        public async Task<List<Lote>> GenerarListadoLotes() 
+        {
+            return await _DbA.Lotes.AsNoTracking().Include(mp => mp.IdMateriaPNavigation).Include(pr => pr.IdProveedorNavigation).ToListAsync();
+        }
     }
 }

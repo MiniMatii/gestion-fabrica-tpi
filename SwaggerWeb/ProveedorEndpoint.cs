@@ -92,7 +92,37 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
+
+            app.MapDelete("/proveedores/{id}", async (int id, IProveedorServicio proveedorServicio) =>
+            {
+                try
+                {
+                    var eliminado = await proveedorServicio.EliminarProveedor(id);
+
+                    if (!eliminado)
+                    {
+                        return Results.NotFound();
+                    }
+                    return Results.NoContent();
+                }
+                catch (ArgumentException ex)
+                {
+                    return Results.NotFound(new { error = ex.Message });
+
+                } 
+                catch (Exception ex) 
+                {
+                    return Results.BadRequest(new {error = ex.Message});
+                }
+            }).WithName("Eliminar Proveedor")
+            .WithTags("Proveedores")
+            .Produces<ProveedorDTO>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithOpenApi();
         }
+
+
 
     }
 }

@@ -9,7 +9,8 @@ namespace Alemana.DTOs
     public class CapacidadDTO
     {
         public int IdCap { get; set; }
-        public string DescCapacidad { get; set; } = null!;
         public string NomCapacidad { get; set; } = null!;
+        public string DescCapacidad { get; set; } = null!;
+
     }
 }

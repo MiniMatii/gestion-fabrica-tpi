@@ -73,7 +73,8 @@ namespace MenuDesk
             {
                 string endpoint = "lotes";
 
-                var listaDatos = await _apiClient.ObtenerListaAsync<LoteDTO>(endpoint);
+                //var listaDatos = await _apiClient.ObtenerListaAsync<LoteDTO>(endpoint);
+                var listaDatos = await _apiClient.ObtenerListaAsync<ListadoLotesFullDTO>("lotes/full");
 
                 if (listaDatos != null)
                 {
@@ -81,22 +82,22 @@ namespace MenuDesk
                     ktTablaLotes.DataSource = listaDatos;
                     ktTablaLotesEliminar.DataSource = listaDatos;
 
+                    //Falta corregir el display de los contenidos
+                    ktTablaLotes.Columns[0].HeaderText = "IdLote";
+                    ktTablaLotes.Columns[1].HeaderText = "NombreProveedor";
+                    ktTablaLotes.Columns[2].HeaderText = "NombreMateriaPrima";
+                    ktTablaLotes.Columns[2].HeaderText = "EstadoLote";
+                    ktTablaLotes.Columns[3].HeaderText = "FechaIngreso";
+                    ktTablaLotes.Columns[4].HeaderText = "FechaVencimiento";
+                    ktTablaLotes.Columns[5].HeaderText = "CantidadLote";
 
-                    ktTablaLotes.Columns["IdLote"].HeaderText = "IdLote";
-                    ktTablaLotes.Columns["IdProv"].HeaderText = "IdProveedor";
-                    ktTablaLotes.Columns["IdMateriaP"].HeaderText = "IdMateriaP";
-                    ktTablaLotes.Columns["EstadoLote"].HeaderText = "EstadoLote";
-                    ktTablaLotes.Columns["FechaDeIngreso"].HeaderText = "FechaIngreso";
-                    ktTablaLotes.Columns["FechaDeVencimiento"].HeaderText = "FechaVencimiento";
-                    ktTablaLotes.Columns["CantidadLote"].HeaderText = "CantidadLote";
-
-                    ktTablaLotes.Columns["IdLote"].HeaderText = "IdLoteE";
-                    ktTablaLotes.Columns["IdProv"].HeaderText = "IdProveedorE";
-                    ktTablaLotes.Columns["IdMateriaP"].HeaderText = "IdMateriaPE";
-                    ktTablaLotes.Columns["EstadoLote"].HeaderText = "EstadoLoteE";
-                    ktTablaLotes.Columns["FechaDeIngreso"].HeaderText = "FechaIngresoE";
-                    ktTablaLotes.Columns["FechaDeVencimiento"].HeaderText = "FechaVencimientoE";
-                    ktTablaLotes.Columns["CantidadLote"].HeaderText = "CantidadLoteE";
+                    ktTablaLotesEliminar.Columns[0].HeaderText = "IdLoteE";
+                    ktTablaLotesEliminar.Columns[1].HeaderText = "NombreProveedorE";
+                    ktTablaLotesEliminar.Columns[2].HeaderText = "NombreMateriaPrimaE";
+                    ktTablaLotesEliminar.Columns[2].HeaderText = "EstadoLoteE";
+                    ktTablaLotesEliminar.Columns[3].HeaderText = "FechaIngresoE";
+                    ktTablaLotesEliminar.Columns[4].HeaderText = "FechaVencimientoE";
+                    ktTablaLotesEliminar.Columns[5].HeaderText = "CantidadLoteE";
                 }
             }
             catch (Exception ex)
@@ -119,7 +120,7 @@ namespace MenuDesk
                 SelectUnidad.DisplayMember = "Unidad";
                 SelectUnidad.ValueMember = "Unidad";
                 
-                SelectUnidad.DataSource = listadoMP;
+                SelectUnidad.DataSource = listadoMP.DistinctBy(u => u.Unidad).ToList();
                 SelectMP.DataSource = listadoMP;
 
 
