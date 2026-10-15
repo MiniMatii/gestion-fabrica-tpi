@@ -999,10 +999,10 @@
             navBarRecetas.Set_Background(eliminarRecetaPage, new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
             eliminarRecetaPage.BackColor = Color.FromArgb(173, 151, 98);
             eliminarRecetaPage.Controls.Add(ktPanel1);
-            eliminarRecetaPage.Location = new Point(4, 4);
+            eliminarRecetaPage.Location = new Point(0, 0);
             eliminarRecetaPage.Name = "eliminarRecetaPage";
             eliminarRecetaPage.Padding = new Padding(3);
-            eliminarRecetaPage.Size = new Size(792, 308);
+            eliminarRecetaPage.Size = new Size(800, 341);
             eliminarRecetaPage.TabIndex = 2;
             eliminarRecetaPage.Text = "tabPage3";
             // 
@@ -1023,7 +1023,7 @@
             ktPanel1.Location = new Point(3, 3);
             ktPanel1.Name = "ktPanel1";
             ktPanel1.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel1.Size = new Size(786, 302);
+            ktPanel1.Size = new Size(794, 335);
             ktPanel1.TabIndex = 2;
             // 
             // ktPanel2
@@ -1050,7 +1050,7 @@
             ktPanel2.Name = "ktPanel2";
             ktPanel2.Padding = new Padding(20, 20, 40, 10);
             ktPanel2.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel2.Size = new Size(786, 302);
+            ktPanel2.Size = new Size(794, 335);
             ktPanel2.TabIndex = 2;
             // 
             // ktPanel4
@@ -1066,7 +1066,7 @@
             ktPanel4.Location = new Point(20, 321);
             ktPanel4.Name = "ktPanel4";
             ktPanel4.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel4.Size = new Size(705, 0);
+            ktPanel4.Size = new Size(734, 4);
             ktPanel4.TabIndex = 6;
             // 
             // footerER
@@ -1083,7 +1083,7 @@
             footerER.Location = new Point(0, 0);
             footerER.Name = "footerER";
             footerER.PatternColor = KimTools.WinForms.KtColor.Empty;
-            footerER.Size = new Size(705, 56);
+            footerER.Size = new Size(734, 56);
             footerER.TabIndex = 12;
             // 
             // buttonActualizarER
@@ -1152,7 +1152,7 @@
             ktDivider2.Margin = new Padding(0);
             ktDivider2.Name = "ktDivider2";
             ktDivider2.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider2.Size = new Size(705, 23);
+            ktDivider2.Size = new Size(734, 23);
             ktDivider2.TabIndex = 5;
             // 
             // ktPanel11
@@ -1169,7 +1169,7 @@
             ktPanel11.Margin = new Padding(4);
             ktPanel11.Name = "ktPanel11";
             ktPanel11.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel11.Size = new Size(705, 255);
+            ktPanel11.Size = new Size(734, 255);
             ktPanel11.TabIndex = 4;
             // 
             // ktPanel12
@@ -1186,7 +1186,7 @@
             ktPanel12.Location = new Point(0, 0);
             ktPanel12.Name = "ktPanel12";
             ktPanel12.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel12.Size = new Size(705, 255);
+            ktPanel12.Size = new Size(734, 255);
             ktPanel12.TabIndex = 1;
             // 
             // tablaER
@@ -1244,7 +1244,7 @@
             tablaER.RowHeadersWidth = 20;
             tablaER.RowTemplate.Height = 45;
             tablaER.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaER.Size = new Size(705, 255);
+            tablaER.Size = new Size(734, 255);
             tablaER.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
             tablaER.Style.Border = 0F;
             tablaER.Style.BorderHeader = 0F;
@@ -1292,7 +1292,7 @@
             ktDivider3.Margin = new Padding(0);
             ktDivider3.Name = "ktDivider3";
             ktDivider3.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider3.Size = new Size(705, 23);
+            ktDivider3.Size = new Size(734, 23);
             ktDivider3.TabIndex = 1;
             // 
             // navProductos

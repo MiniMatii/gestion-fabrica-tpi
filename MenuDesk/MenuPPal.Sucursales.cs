@@ -374,6 +374,16 @@ namespace MenuDesk
             {
                 MessageBox.Show($"Error al intentar eliminar el empleado: \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
+
+        private void buttonAgregarCiudad_Click(object sender, EventArgs e)
+        {
+            MiniMenuCiudad miniMenuCiudad = new MiniMenuCiudad();
+            miniMenuCiudad.Show();
+        }
+
+
+
     }
 }
