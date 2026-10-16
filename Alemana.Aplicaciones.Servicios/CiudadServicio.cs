@@ -10,9 +10,9 @@ namespace Alemana.Aplicaciones.Servicios
 {
     public class CiudadServicio : ICiudadServicio
     {
-        private readonly ICiudadesRespositorio ciudadRepositorio;
+        private readonly ICiudadRespositorio ciudadRepositorio;
 
-        public CiudadServicio(ICiudadesRespositorio ciudadRep)
+        public CiudadServicio(ICiudadRespositorio ciudadRep)
         {
             this.ciudadRepositorio = ciudadRep;
         }

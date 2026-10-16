@@ -9,11 +9,11 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace Alemana.Data.Repositorios
 {
-    public class CiudadesRepositorio : ICiudadadRespositorio
+    public class CiudadRepositorio : ICiudadRespositorio
     {
         private readonly DbAlemanaContext _DbA;
 
-        public CiudadesRepositorio(DbAlemanaContext DbA)
+        public CiudadRepositorio(DbAlemanaContext DbA)
         {
             this._DbA = DbA;
         }

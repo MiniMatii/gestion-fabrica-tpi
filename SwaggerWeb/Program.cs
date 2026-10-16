@@ -53,6 +53,9 @@ builder.Services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 builder.Services.AddScoped<IRecetaProductoRepositorio, RecetaProductoRepositorio>();
 builder.Services.AddScoped<IRecetaProductoServicio, RecetaProductoServicio>();
 
+builder.Services.AddScoped<ICiudadRespositorio, CiudadRepositorio>();
+builder.Services.AddScoped<ICiudadServicio, ICiudadServicio>();
+
 
 
 //Configurando el JWT 
@@ -90,4 +93,5 @@ app.MapProductoEndpoint();
 app.MapSucursalesEndpoint();
 app.MapSolicitudPedidoEndpoint();
 app.MapRecetaProductoEndpoint();
+app.MapCiudadesEndpoint();
 app.Run();
