@@ -54,7 +54,7 @@ builder.Services.AddScoped<IRecetaProductoRepositorio, RecetaProductoRepositorio
 builder.Services.AddScoped<IRecetaProductoServicio, RecetaProductoServicio>();
 
 builder.Services.AddScoped<ICiudadRespositorio, CiudadRepositorio>();
-builder.Services.AddScoped<ICiudadServicio, ICiudadServicio>();
+builder.Services.AddScoped<ICiudadServicio, CiudadServicio>();
 
 
 

@@ -158,6 +158,12 @@ namespace MenuDesk
                     /* MessageBox.Show($"Cámara: {camaraModifCheckBox.Checked}\n" + $"Disponible: {dispModifCheckBox.Checked}");*/
                     await _apiClient.PutAsync(endpoint, prod); 
                     MessageBox.Show("Cambios de guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    textBoxNomAP.Clear();
+                    checkBoxCamAP.Checked = false;
+                    checkBoxDispAP.Checked = false;
+                    textBoxStockAP.Clear();
+                    selectorRAP.SelectedIndex = -1;
+
                 }
             }
             catch (Exception ex)

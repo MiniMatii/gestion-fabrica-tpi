@@ -18,6 +18,7 @@ namespace MenuDesk
         {
             panelLotes.Visible = false;
             panelOperarios.Visible = false;
+            panelProductos.Visible = false;
             panelSucursales.Visible = !(panelSucursales.Visible);
             panelSucursales.Enabled = !(panelSucursales.Enabled);
         }

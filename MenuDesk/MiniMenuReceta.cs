@@ -86,6 +86,7 @@ namespace MenuDesk
                 r.Descripcion = textBoxDescAR.Text;
                 await _apiClient.PostAsync(endpoint, r);
                 MessageBox.Show("Receta guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                textBoxDescAR.Clear();
             }
             catch (Exception ex)
             {
@@ -120,7 +121,7 @@ namespace MenuDesk
 
                     await _apiClient.PutAsync(endpoint, rmodif); //sino patch(? tendría que crear el endpoint
                     MessageBox.Show("Cambios de guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    textBoxDescMR.Clear();
                 }
 
             }
