@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 
 
 namespace MenuDesk
@@ -38,6 +39,26 @@ namespace MenuDesk
 
         }
 
+        private void altaCiudadButton_Click(object sender, EventArgs e)
+        {
+            navBarCiudades.SelectedTab = altaCiudadPage;
 
+        }
+
+        private void EliminarCiudad_Click(object sender, EventArgs e)
+        {
+            navBarCiudades.SelectedTab = eliminarCiudadPage;
+        }
+
+        private void buttonGuardarReceta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string endpoint = "ciudades";
+            }
+            catch (Exception ex) 
+            {
+            }
+        }
     }
 }
