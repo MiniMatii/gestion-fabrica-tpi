@@ -24,13 +24,11 @@ namespace SwaggerWeb
                 }
             }).WithName("Alta Empleado").WithTags("Empleados").WithOpenApi();
 
-
             app.MapGet("/empleado", async (IEmpleadoServicio empleadoServicio) =>
             {
                 var empleados = await empleadoServicio.ObtenerTodos();
                 return Results.Ok(empleados);
             }).WithName("Obtener Empleados").WithTags("Empleados").WithOpenApi();
-
 
             app.MapGet("/empleado/{id}", async (int id, IEmpleadoServicio empleadoServicio) =>
             {
@@ -39,7 +37,6 @@ namespace SwaggerWeb
 
                 return Results.Ok(empleado);
             }).WithName("Obtener Empleado Por Id").WithTags("Empleados").WithOpenApi();
-
 
             app.MapPut("/empleado/{id}", async (int id, EmpleadoDTO dto, IEmpleadoServicio empleadoServicio) =>
             {
@@ -66,6 +63,22 @@ namespace SwaggerWeb
 
                 return Results.Ok(new { mensaje = "Empleado dado de baja exitosamente." });
             }).WithName("Dar de Baja Empleado").WithTags("Empleados").WithOpenApi();
+
+            app.MapDelete("/empleado/{id}", async (int id, IEmpleadoServicio empleadoServicio) =>
+            {
+                try
+                {
+                    bool eliminado = await empleadoServicio.EliminarEmpleado(id);
+
+                    if (!eliminado) return Results.NotFound(new { error = "Empleado no encontrado." });
+
+                    return Results.Ok(new { mensaje = "Empleado eliminado exitosamente." });
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            }).WithName("Eliminar Empleado").WithTags("Empleados").WithOpenApi();
         }
     }
 }

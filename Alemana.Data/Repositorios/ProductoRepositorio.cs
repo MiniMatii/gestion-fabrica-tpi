@@ -1,4 +1,5 @@
 ﻿using Alemana.Dominio.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,24 @@ namespace Alemana.Data.Repositorios
     {
 
         private readonly DbAlemanaContext _DbA;
-        public ProductoRepositorio(DbAlemanaContext DbA) 
+        public ProductoRepositorio(DbAlemanaContext DbA)
         {
             _DbA = DbA;
         }
 
+        public async Task<List<Producto>> ObtenerProductos()
+        {
+            return await _DbA.Productos.ToListAsync();
+        }
 
-        public async Task<Producto> AgregarProducto(Producto unProducto) 
+        public async Task<Producto> AgregarProducto(Producto unProducto)
         {
             if (unProducto == null)
             {
                 return null;
             }
             var recetaProd = await _DbA.Recetaproductos.FindAsync(unProducto.IdReceta);
-            
+
             if (recetaProd == null)
             {
                 return null;
@@ -34,12 +39,11 @@ namespace Alemana.Data.Repositorios
             recetaProd.Producto = unProducto;
             _DbA.Productos.Add(unProducto);
 
-            
-
             await _DbA.SaveChangesAsync();
             return unProducto;
         }
-        public async Task<Producto> BajaProducto(int id) 
+
+        public async Task<Producto> BajaProducto(int id)
         {
             var prE = await _DbA.Productos.FindAsync(id);
             if (prE == null)
@@ -51,7 +55,8 @@ namespace Alemana.Data.Repositorios
             await _DbA.SaveChangesAsync();
             return prE;
         }
-        public async Task<bool> EliminarProducto(int id) 
+
+        public async Task<bool> EliminarProducto(int id)
         {
             var prE = await _DbA.Productos.FindAsync(id);
             if (prE == null)
@@ -62,14 +67,15 @@ namespace Alemana.Data.Repositorios
             await _DbA.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> ActualizarProducto(Producto unProducto) 
+
+        public async Task<bool> ActualizarProducto(Producto unProducto)
         {
             var prE = await _DbA.Productos.FindAsync(unProducto.IdProducto);
             if (prE == null)
             {
                 return false;
             }
-            if (!string.IsNullOrWhiteSpace(unProducto.Nombre) && unProducto.Nombre != "string") 
+            if (!string.IsNullOrWhiteSpace(unProducto.Nombre) && unProducto.Nombre != "string")
             {
                 prE.Nombre = unProducto.Nombre;
             }
@@ -81,7 +87,7 @@ namespace Alemana.Data.Repositorios
             return true;
         }
 
-        public async Task<Producto> ObtenerProductoPorId(int id) 
+        public async Task<Producto> ObtenerProductoPorId(int id)
         {
             var prE = await _DbA.Productos.FindAsync(id);
             if (prE == null)

@@ -1,0 +1,143 @@
+@page "/sucursales"
+@attribute [Authorize]
+@inject ApiClient Api
+
+<PageTitle>Sucursales - Alemana</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">Sucursales</h2>
+        <p class="page-subtitle">Cargá y consultá las sedes de la panadería.</p>
+    </div>
+    @if (sucursales is not null)
+    {
+        <span class="contador"><i class="bi bi-shop"></i> @sucursales.Count en total</span>
+    }
+</div>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <div class="alert @(exito ? "alert-success" : "alert-danger")" role="alert">
+        <i class="bi @(exito ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill") me-2"></i>@mensaje
+    </div>
+}
+
+<div class="card mb-4">
+    <div class="card-body p-4">
+        <h5 class="form-titulo">Nueva sucursal</h5>
+
+        <EditForm Model="nuevo" OnValidSubmit="Guardar">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label class="form-label" for="suc-nombre">Nombre</label>
+                    <InputText id="suc-nombre" class="form-control" @bind-Value="nuevo.NombreSuc" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="suc-cp">Código postal</label>
+                    <InputNumber id="suc-cp" class="form-control" @bind-Value="nuevo.CodPostal" />
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-lg me-1"></i> Agregar
+                    </button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@if (sucursales is null)
+{
+    <div class="empty-state">
+        <div class="spinner-border" role="status" aria-hidden="true"></div>
+        <p>Cargando sucursales...</p>
+    </div>
+}
+else if (!sucursales.Any())
+{
+    <div class="empty-state">
+        <i class="bi bi-shop"></i>
+        <p>Todavía no hay sucursales. Agregá la primera con el formulario de arriba.</p>
+    </div>
+}
+else
+{
+    <div class="tabla-wrap">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th style="width: 5rem;">Id</th>
+                    <th>Nombre</th>
+                    <th>Código postal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in sucursales)
+                {
+                    <tr>
+                        <td class="text-muted">@s.IdSucursal</td>
+                        <td class="fw-semibold">@s.NombreSuc</td>
+                        <td>@s.CodPostal</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<SucursalesDTO>? sucursales;
+    private SucursalesDTO nuevo = new();
+    private string? mensaje;
+    private bool exito;
+
+    protected override async Task OnInitializedAsync() => await Cargar();
+
+    private async Task Cargar()
+    {
+        try
+        {
+            sucursales = await Api.ObtenerListaAsync<SucursalesDTO>("sucursales/");
+        }
+        catch (Exception ex)
+        {
+            sucursales = new();
+            mensaje = ex.Message;
+            exito = false;
+        }
+    }
+
+    private async Task Guardar()
+    {
+        mensaje = null;
+
+        if (string.IsNullOrWhiteSpace(nuevo.NombreSuc) || nuevo.CodPostal <= 0)
+        {
+            mensaje = "Nombre y código postal son obligatorios.";
+            exito = false;
+            return;
+        }
+
+        try
+        {
+            var ok = await Api.PostAsync("sucursales/", nuevo);
+            if (ok)
+            {
+                mensaje = "Sucursal creada.";
+                exito = true;
+                nuevo = new();
+                await Cargar();
+            }
+            else
+            {
+                mensaje = "La API rechazó el alta (¿sesión vencida o datos inválidos?).";
+                exito = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            exito = false;
+        }
+    }
+}

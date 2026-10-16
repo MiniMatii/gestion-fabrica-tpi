@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Alemana.Dominio.Models;
 
-
 namespace Alemana.Data.Repositorios
 {
     public interface IProductoRepositorio
     {
+        Task<List<Producto>> ObtenerProductos();
         Task<Producto> AgregarProducto(Producto unProducto);
         Task<Producto> BajaProducto(int id);
         Task<bool> EliminarProducto(int id);

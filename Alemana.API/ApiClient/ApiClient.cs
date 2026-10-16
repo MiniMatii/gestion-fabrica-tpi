@@ -108,7 +108,25 @@ namespace Alemana.API
             }
         }
 
+        public async Task<bool> PutAsync<T>(string endpoint, T objetoDto)
+        {
+            try
+            {
+                var response = await _client.PutAsJsonAsync(endpoint, objetoDto);
 
+                if (!response.IsSuccessStatusCode)
+                {
+                    string contenido = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Status: {response.StatusCode}\nContenido: {contenido}");
+                }
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al actualizar datos en '{endpoint}': {ex.Message}");
+            }
+        }
 
 
     }

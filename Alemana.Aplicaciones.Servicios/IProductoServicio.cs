@@ -6,16 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Alemana.DTOs;
 
-
 namespace Alemana.Aplicaciones.Servicios
 {
     public interface IProductoServicio
     {
-
+        Task<List<ProductoDTO>> ObtenerProductos();
+        Task<ProductoDTO> ObtenerProductoPorId(int id);
         Task<ProductoDTO> AgregarProducto(ProductoDTO unProducto);
         Task<ProductoDTO> BajaProducto(int id);
         Task<bool> EliminarProducto(int id);
         Task<bool> ActualizarProducto(ProductoDTO unProducto);
-
     }
 }

@@ -107,7 +107,31 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
+            app.MapDelete("/sucursales/{id}", async (int id, ISucursalServicio sucursalServicio) =>
+            {
+                try
+                {
+                    var eliminado = await sucursalServicio.EliminarSucursal(id);
+                    if (eliminado)
+                    {
+                        return Results.Ok(new { mensaje = "Sucursal eliminada correctamente" });
+                    }
+                    return Results.NotFound(new { mensaje = "Sucursal no encontrada" });
+                }
+                catch (InvalidOperationException ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem($"Ocurrió un error: {ex.Message}");
+                }
+            }).WithName("Eliminar Sucursal")
+             .WithTags("Sucursales")
+             .Produces(StatusCodes.Status200OK)
+             .Produces(StatusCodes.Status400BadRequest)
+             .Produces(StatusCodes.Status404NotFound)
+             .WithOpenApi();
         }
-
     }
 }

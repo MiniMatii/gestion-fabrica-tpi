@@ -2,57 +2,98 @@
 @attribute [Authorize]
 @inject ApiClient Api
 
-<h3>Operarios</h3>
+<PageTitle>Operarios - Alemana</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">Operarios</h2>
+        <p class="page-subtitle">Cargá y consultá al personal de producción.</p>
+    </div>
+    @if (operarios is not null)
+    {
+        <span class="contador"><i class="bi bi-people-fill"></i> @operarios.Count en total</span>
+    }
+</div>
 
 @if (!string.IsNullOrEmpty(mensaje))
 {
-    <div class="alert @(exito ? "alert-success" : "alert-danger")">@mensaje</div>
+    <div class="alert @(exito ? "alert-success" : "alert-danger")" role="alert">
+        <i class="bi @(exito ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill") me-2"></i>@mensaje
+    </div>
 }
 
-<EditForm Model="nuevo" OnValidSubmit="Guardar">
-    <div class="row g-2 mb-4">
-        <div class="col-md-4">
-            <label class="form-label">Nombre</label>
-            <InputText class="form-control" @bind-Value="nuevo.Nombre" />
-        </div>
-        <div class="col-md-4">
-            <label class="form-label">Apellido</label>
-            <InputText class="form-control" @bind-Value="nuevo.Apellido" />
-        </div>
-        <div class="col-md-2 d-flex align-items-end">
-            <div class="form-check">
-                <InputCheckbox class="form-check-input" @bind-Value="disponible" />
-                <label class="form-check-label">Disponible</label>
+<div class="card mb-4">
+    <div class="card-body p-4">
+        <h5 class="form-titulo">Nuevo operario</h5>
+
+        <EditForm Model="nuevo" OnValidSubmit="Guardar">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label" for="op-nombre">Nombre</label>
+                    <InputText id="op-nombre" class="form-control" @bind-Value="nuevo.Nombre" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="op-apellido">Apellido</label>
+                    <InputText id="op-apellido" class="form-control" @bind-Value="nuevo.Apellido" />
+                </div>
+                <div class="col-md-2">
+                    <div class="form-check form-switch pb-2">
+                        <InputCheckbox id="op-disponible" class="form-check-input" @bind-Value="disponible" />
+                        <label class="form-check-label" for="op-disponible">Disponible</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-lg me-1"></i> Agregar
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="col-md-2 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">Agregar</button>
-        </div>
+        </EditForm>
     </div>
-</EditForm>
+</div>
 
 @if (operarios is null)
 {
-    <p>Cargando...</p>
+    <div class="empty-state">
+        <div class="spinner-border" role="status" aria-hidden="true"></div>
+        <p>Cargando operarios...</p>
+    </div>
 }
 else if (!operarios.Any())
 {
-    <p>No hay operarios cargados.</p>
+    <div class="empty-state">
+        <i class="bi bi-person-plus"></i>
+        <p>Todavía no hay operarios. Agregá el primero con el formulario de arriba.</p>
+    </div>
 }
 else
 {
-    <table class="table table-striped">
+    <table class="table table-hover align-middle">
         <thead>
-            <tr><th>Id</th><th>Nombre</th><th>Apellido</th><th>Disponible</th></tr>
+            <tr>
+                <th style="width: 5rem;">Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Estado</th>
+            </tr>
         </thead>
         <tbody>
             @foreach (var o in operarios)
             {
                 <tr>
-                    <td>@o.IdOperario</td>
-                    <td>@o.Nombre</td>
+                    <td class="text-muted">@o.IdOperario</td>
+                    <td class="fw-semibold">@o.Nombre</td>
                     <td>@o.Apellido</td>
-                    <td>@(o.Disponibilidad == 1 ? "Sí" : "No")</td>
+                    <td>
+                        @if (o.Disponibilidad == 1)
+                        {
+                            <span class="pill pill-si">Disponible</span>
+                        }
+                        else
+                        {
+                            <span class="pill pill-no">No disponible</span>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
@@ -102,6 +143,7 @@ else
                 mensaje = "Operario creado.";
                 exito = true;
                 nuevo = new();
+                disponible = true;
                 await Cargar();
             }
             else

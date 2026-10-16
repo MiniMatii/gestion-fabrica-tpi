@@ -13,5 +13,6 @@ namespace Alemana.Aplicaciones.Servicios
         Task<bool> BajaEmpleado(EmpleadoDTO unEmpDTO);
 
         Task<bool> AsignarSucursalAEmpleado(int idEmpleado, int idSucursal);
+        Task<bool> EliminarEmpleado(int id);
     }
 }

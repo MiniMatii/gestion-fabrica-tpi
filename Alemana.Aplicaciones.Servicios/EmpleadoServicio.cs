@@ -93,11 +93,14 @@ namespace Alemana.Aplicaciones.Servicios
             if (!string.IsNullOrWhiteSpace(unEmpDTO.Dni) && unEmpDTO.Dni != "string")
                 empExistente.Dni = unEmpDTO.Dni;
 
-            if (unEmpDTO.IdSucursal > 0)
-                empExistente.IdSucursal = unEmpDTO.IdSucursal; 
+
+            empExistente.IdSucursal = unEmpDTO.IdSucursal; 
 
             if (unEmpDTO.IdJefe != 0)
                 empExistente.IdJefe = unEmpDTO.IdJefe;
+
+            empExistente.Disponibilidad = unEmpDTO.Disponibilidad;
+            empExistente.Motivo = unEmpDTO.Motivo;
 
             await empRepositorio.ModificarEmpleado(empExistente);
 
@@ -117,6 +120,11 @@ namespace Alemana.Aplicaciones.Servicios
         public async Task<bool> AsignarSucursalAEmpleado(int idEmpleado, int idSucursal)
         {
             return await empRepositorio.AsignarSucursalAEmpleado(idEmpleado, idSucursal);
+        }
+
+        public async Task<bool> EliminarEmpleado(int id)
+        {
+            return await empRepositorio.EliminarEmpleado(id);
         }
     }
 }

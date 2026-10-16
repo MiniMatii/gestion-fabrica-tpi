@@ -1,71 +1,84 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Security.Claims
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager Navigation
 
-
-
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Alemana.Web</a>
-    </div>
+<div class="sidebar-brand">
+    <a class="brand-link" href="">
+        <span class="brand-logo"><i class="bi bi-basket2-fill"></i></span>
+        <span>Alemana<small>.Web</small></span>
+    </a>
 </div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+<input type="checkbox" title="Menú de navegación" class="navbar-toggler" />
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
+    <nav>
+        <div class="nav-item">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <i class="bi bi-house-door-fill" aria-hidden="true"></i> Inicio
             </NavLink>
         </div>
 
         <AuthorizeView>
             <Authorized>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="operarios">
+                        <i class="bi bi-person-badge-fill" aria-hidden="true"></i> Operarios
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="sucursales">
+                        <i class="bi bi-shop" aria-hidden="true"></i> Sucursales
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="productos">
+                        <i class="bi bi-box-seam-fill" aria-hidden="true"></i> Productos
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="pedidos">
+                        <i class="bi bi-cart-fill" aria-hidden="true"></i> Pedidos
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="lotes">
+                        <i class="bi bi-boxes" aria-hidden="true"></i> Lotes
+                    </NavLink>
+                </div>
 
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="operarios">Operarios</NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="lotes">Lotes</NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <span class="nav-link text-white-50">
-                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span>
-                        @context.User.Identity?.Name
+                <div class="nav-spacer"></div>
+                <div class="nav-divider"></div>
+
+                <div class="user-chip">
+                    <span class="user-avatar">@Inicial(context.User.Identity?.Name)</span>
+                    <span class="user-meta">
+                        <strong>@context.User.Identity?.Name</strong>
+                        <small>@context.User.FindFirst(ClaimTypes.Role)?.Value</small>
                     </span>
                 </div>
 
-                <div class="nav-item px-3">
-                    <button class="nav-link btn btn-link w-100 text-start" @onclick="CerrarSesion">
-                        <span class="bi bi-box-arrow-right-nav-menu" aria-hidden="true"></span> Cerrar sesión
+                <div class="nav-item">
+                    <button type="button" class="nav-link" @onclick="CerrarSesion">
+                        <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Cerrar sesión
                     </button>
                 </div>
             </Authorized>
             <NotAuthorized>
-                <div class="nav-item px-3">
+                <div class="nav-item">
                     <NavLink class="nav-link" href="login">
-                        <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Iniciar sesión
+                        <i class="bi bi-person-fill" aria-hidden="true"></i> Iniciar sesión
                     </NavLink>
                 </div>
             </NotAuthorized>
         </AuthorizeView>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
     </nav>
 </div>
 
 @code {
+    private static string Inicial(string? nombre) =>
+        string.IsNullOrWhiteSpace(nombre) ? "?" : nombre.Trim()[0].ToString().ToUpper();
+
     private async Task CerrarSesion()
     {
         await ((CustomAuthStateProvider)AuthStateProvider).MarcarUsuarioComoDesconectadoAsync();

@@ -1,8 +1,320 @@
 ﻿@page "/"
-
+@attribute [Authorize]
 @using System.Security.Claims
+@using ApexCharts
+@inject ApiClient Api
+
+<PageTitle>Dashboard - Alemana</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">Panel de control</h2>
+        <p class="page-subtitle">Resumen general del estado de la panadería.</p>
+    </div>
+    <AuthorizeView>
+        <Authorized>
+            <button type="button" class="btn btn-secondary" @onclick="Cargar" disabled="@cargando">
+                <i class="bi bi-arrow-clockwise me-1"></i> Actualizar
+            </button>
+        </Authorized>
+    </AuthorizeView>
+</div>
 
 <AuthorizeView>
-    <h3>Bienvenido, @context.User.Identity?.Name</h3>
-    <p>Rol: @context.User.FindFirst(ClaimTypes.Role)?.Value</p>
+    <Authorized>
+        <div class="welcome-banner">
+            <div class="welcome-avatar"><i class="bi bi-emoji-smile-fill"></i></div>
+            <div>
+                <h5>¡Bienvenido, <strong>@context.User.Identity?.Name</strong>!</h5>
+                <span class="role-badge">@context.User.FindFirst(ClaimTypes.Role)?.Value</span>
+            </div>
+        </div>
+
+        @if (hayErrores)
+        {
+            <div class="alert alert-warning mt-4 mb-0" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>No se pudieron cargar algunos datos. Los que faltan se muestran con un guion.
+            </div>
+        }
+
+        <div class="dashboard-container">
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h4>Operarios</h4>
+                    <div class="stat-icon"><i class="bi bi-person-badge"></i></div>
+                </div>
+                <div class="stat-value">@Mostrar(totalOperarios)</div>
+                <p><span class="highlight">@Mostrar(operariosDisponibles)</span> disponibles hoy</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h4>Sucursales</h4>
+                    <div class="stat-icon"><i class="bi bi-shop"></i></div>
+                </div>
+                <div class="stat-value">@Mostrar(totalSucursales)</div>
+                <p>Sedes registradas</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h4>Stock de productos</h4>
+                    <div class="stat-icon"><i class="bi bi-box-seam"></i></div>
+                </div>
+                <div class="stat-value">@Mostrar(stockTotal)</div>
+                <p><span class="highlight">@Mostrar(totalProductos)</span> productos registrados</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h4>Pedidos de hoy</h4>
+                    <div class="stat-icon"><i class="bi bi-cart-check"></i></div>
+                </div>
+                <div class="stat-value">@Mostrar(pedidosHoy)</div>
+                <p><span class="highlight">@Mostrar(pedidosSinEntregar)</span> sin entregar</p>
+            </div>
+
+        </div>
+
+        <div class="charts-container">
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h4>Pedidos de los últimos 7 días</h4>
+                        <small>Cantidad de pedidos por día</small>
+                    </div>
+                    <div class="stat-icon"><i class="bi bi-bar-chart-line"></i></div>
+                </div>
+                @if (cargando)
+                {
+                    <div class="chart-empty"><div class="spinner-border" role="status"></div></div>
+                }
+                else if (pedidosPorDia.Count == 0)
+                {
+                    <div class="chart-empty"><i class="bi bi-graph-up"></i><span>Sin datos para mostrar</span></div>
+                }
+                else
+                {
+                    <ApexChart TItem="PuntoGrafico" Options="opcionesPedidos" Height="280">
+                        <ApexPointSeries TItem="PuntoGrafico"
+                                         Items="pedidosPorDia"
+                                         Name="Pedidos"
+                                         SeriesType="SeriesType.Bar"
+                                         XValue="@(p => p.Etiqueta)"
+                                         YAggregate="@(p => p.Sum(x => x.Valor))" />
+                    </ApexChart>
+                }
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h4>Estado de operarios</h4>
+                        <small>Disponibles frente a no disponibles</small>
+                    </div>
+                    <div class="stat-icon"><i class="bi bi-pie-chart"></i></div>
+                </div>
+                @if (cargando)
+                {
+                    <div class="chart-empty"><div class="spinner-border" role="status"></div></div>
+                }
+                else if (operariosEstado.Count == 0)
+                {
+                    <div class="chart-empty"><i class="bi bi-people"></i><span>Sin datos para mostrar</span></div>
+                }
+                else
+                {
+                    <ApexChart TItem="PuntoGrafico" Options="opcionesDona" Height="280">
+                        <ApexPointSeries TItem="PuntoGrafico"
+                                         Items="operariosEstado"
+                                         SeriesType="SeriesType.Donut"
+                                         XValue="@(p => p.Etiqueta)"
+                                         YAggregate="@(p => p.Sum(x => x.Valor))" />
+                    </ApexChart>
+                }
+            </div>
+
+            <div class="chart-card chart-wide">
+                <div class="chart-header">
+                    <div>
+                        <h4>Top 5 productos por stock</h4>
+                        <small>Los productos con más unidades disponibles</small>
+                    </div>
+                    <div class="stat-icon"><i class="bi bi-box-seam"></i></div>
+                </div>
+                @if (cargando)
+                {
+                    <div class="chart-empty"><div class="spinner-border" role="status"></div></div>
+                }
+                else if (topStock.Count == 0)
+                {
+                    <div class="chart-empty"><i class="bi bi-box"></i><span>Sin datos para mostrar</span></div>
+                }
+                else
+                {
+                    <ApexChart TItem="PuntoGrafico" Options="opcionesStock" Height="300">
+                        <ApexPointSeries TItem="PuntoGrafico"
+                                         Items="topStock"
+                                         Name="Stock"
+                                         SeriesType="SeriesType.Bar"
+                                         XValue="@(p => p.Etiqueta)"
+                                         YAggregate="@(p => p.Sum(x => x.Valor))" />
+                    </ApexChart>
+                }
+            </div>
+
+        </div>
+    </Authorized>
+
+    <NotAuthorized>
+        <div class="notice">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span>Para ver las métricas, <a href="login"><strong>inicia sesión</strong></a>.</span>
+        </div>
+    </NotAuthorized>
 </AuthorizeView>
+
+@code {
+    [CascadingParameter] private Task<AuthenticationState>? AuthState { get; set; }
+
+    private record PuntoGrafico(string Etiqueta, int Valor);
+
+    // Paleta de la app (la misma de app.css)
+    private const string VerdeOscuro = "#004E42";
+    private const string VerdeSalvia = "#35736A";
+    private const string Dorado = "#AD9962";
+    private const string FuenteGrafico = "'DM Sans', 'Segoe UI', Roboto, Arial, sans-serif";
+
+    private bool cargando = true;
+    private bool hayErrores;
+
+    private int? totalOperarios;
+    private int? operariosDisponibles;
+    private int? totalSucursales;
+    private int? totalProductos;
+    private int? stockTotal;
+    private int? pedidosHoy;
+    private int? pedidosSinEntregar;
+
+    private List<PuntoGrafico> pedidosPorDia = new();
+    private List<PuntoGrafico> operariosEstado = new();
+    private List<PuntoGrafico> topStock = new();
+
+    // Pedidos por día: columnas verdes, eje Y con números enteros
+    private readonly ApexChartOptions<PuntoGrafico> opcionesPedidos = new()
+    {
+        Colors = new List<string> { VerdeOscuro },
+        Chart = new Chart { FontFamily = FuenteGrafico, Toolbar = new Toolbar { Show = false } },
+        Legend = new Legend { Show = false },
+        DataLabels = new DataLabels { Enabled = false },
+        PlotOptions = new PlotOptions { Bar = new PlotOptionsBar { ColumnWidth = "45%" } },
+        Yaxis = new List<YAxis> { new YAxis { DecimalsInFloat = 0 } }
+    };
+
+    // Dona: verde = disponibles, dorado = no disponibles
+    private readonly ApexChartOptions<PuntoGrafico> opcionesDona = new()
+    {
+        Colors = new List<string> { VerdeOscuro, Dorado },
+        Chart = new Chart { FontFamily = FuenteGrafico, Toolbar = new Toolbar { Show = false } },
+        Legend = new Legend { Position = LegendPosition.Bottom }
+    };
+
+    // Top stock: barras horizontales, con el valor al final de cada barra
+    private readonly ApexChartOptions<PuntoGrafico> opcionesStock = new()
+    {
+        Colors = new List<string> { VerdeSalvia },
+        Chart = new Chart { FontFamily = FuenteGrafico, Toolbar = new Toolbar { Show = false } },
+        Legend = new Legend { Show = false },
+        DataLabels = new DataLabels { Enabled = true },
+        PlotOptions = new PlotOptions { Bar = new PlotOptionsBar { Horizontal = true, BarHeight = "55%" } }
+    };
+
+    protected override async Task OnInitializedAsync() => await Cargar();
+
+    private async Task Cargar()
+    {
+        cargando = true;
+        hayErrores = false;
+
+        // Solo consultamos la API si hay sesión iniciada
+        var autenticado = AuthState is not null && (await AuthState).User.Identity?.IsAuthenticated == true;
+        if (!autenticado)
+        {
+            cargando = false;
+            return;
+        }
+
+        // Las 4 consultas salen en paralelo
+        var tareaOperarios = ObtenerAsync<OperariosDTO>("operario/");
+        var tareaSucursales = ObtenerAsync<SucursalesDTO>("sucursales/");
+        var tareaProductos = ObtenerAsync<ProductoDTO>("producto/");
+        var tareaPedidos = ObtenerAsync<SolicitudPedidoDTO>("pedidos/");
+
+        await Task.WhenAll(tareaOperarios, tareaSucursales, tareaProductos, tareaPedidos);
+
+        var operarios = tareaOperarios.Result;
+        totalOperarios = operarios?.Count;
+        operariosDisponibles = operarios?.Count(o => o.Disponibilidad == 1);
+        totalSucursales = tareaSucursales.Result?.Count;
+
+        var productos = tareaProductos.Result;
+        totalProductos = productos?.Count;
+        stockTotal = productos?.Sum(p => p.StockActual);
+
+        var pedidos = tareaPedidos.Result;
+        pedidosHoy = pedidos?.Count(p => p.FechaPedido.Date == DateTime.Today);
+        pedidosSinEntregar = pedidos?.Count(p => p.FechaReal is null);
+
+        // Datos para los gráficos (si una llamada falló, el gráfico muestra "Sin datos")
+        pedidosPorDia = pedidos is null
+            ? new()
+            : Enumerable.Range(0, 7)
+                .Select(i => DateTime.Today.AddDays(i - 6))
+                .Select(d => new PuntoGrafico(d.ToString("dd/MM"),
+                                              pedidos.Count(p => p.FechaPedido.Date == d)))
+                .ToList();
+
+        if (operarios is null || operarios.Count == 0)
+        {
+            operariosEstado = new();
+        }
+        else
+        {
+            var disponibles = operarios.Count(o => o.Disponibilidad == 1);
+            operariosEstado = new()
+            {
+                new PuntoGrafico("Disponibles", disponibles),
+                new PuntoGrafico("No disponibles", operarios.Count - disponibles)
+            };
+        }
+
+        topStock = productos is null
+            ? new()
+            : productos
+                .OrderByDescending(p => p.StockActual)
+                .Take(5)
+                .Select(p => new PuntoGrafico(p.Nombre, p.StockActual))   // ajusta "Nombre" si tu propiedad se llama distinto
+                .ToList();
+
+        cargando = false;
+    }
+
+    // Si una llamada falla devuelve null y el resto del panel sigue funcionando
+    private async Task<List<T>?> ObtenerAsync<T>(string ruta)
+    {
+        try
+        {
+            return await Api.ObtenerListaAsync<T>(ruta);
+        }
+        catch
+        {
+            hayErrores = true;
+            return null;
+        }
+    }
+
+    private string Mostrar(int? valor) =>
+        cargando ? "…" : valor?.ToString("N0") ?? "—";
+}

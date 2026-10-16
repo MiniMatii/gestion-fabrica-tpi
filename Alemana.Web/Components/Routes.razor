@@ -1,29 +1,24 @@
-﻿<CascadingAuthenticationState>
-    <Router AppAssembly="@typeof(Program).Assembly">
-        <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)">
-                <NotAuthorized>
-                    @if (context.User.Identity?.IsAuthenticated != true)
-                    {
-                        <div class="alert alert-warning m-4 text-center">
-                            Debes <a href="/login">iniciar sesión</a> para acceder a esta pantalla.
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="alert alert-danger m-4 text-center">
-                            No tienes el nivel de acceso necesario para ver esta sección.
-                        </div>
-                    }
-                </NotAuthorized>
-            </AuthorizeRouteView>
-            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-        </Found>
-        <NotFound>
-            <PageTitle>No encontrado</PageTitle>
-            <LayoutView Layout="@typeof(Layout.MainLayout)">
-                <p role="alert">Lo sentimos, no hay nada en esta dirección.</p>
-            </LayoutView>
-        </NotFound>
-    </Router>
-</CascadingAuthenticationState>
+﻿<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+            <NotAuthorized>
+                <RedirectToLogin />
+            </NotAuthorized>
+            <Authorizing>
+                <div class="empty-state">
+                    <div class="spinner-border" role="status" aria-hidden="true"></div>
+                    <p>Verificando sesión...</p>
+                </div>
+            </Authorizing>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="typeof(Layout.MainLayout)">
+            <div class="notice">
+                <i class="bi bi-compass"></i>
+                <span>Esta página no existe. <a href=""><strong>Volver al inicio</strong></a></span>
+            </div>
+        </LayoutView>
+    </NotFound>
+</Router>
