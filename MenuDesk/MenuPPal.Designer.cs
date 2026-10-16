@@ -42,6 +42,10 @@
             DataGridViewCellStyle dataGridViewCellStyle24 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle25 = new DataGridViewCellStyle();
             KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation1 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
+            DataGridViewCellStyle dataGridViewCellStyleEmp5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyleEmp6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyleEmp7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyleEmp8 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPPal));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
@@ -474,6 +478,55 @@
             ktButton11 = new KimTools.WinForms.KtButton();
             ktButton12 = new KimTools.WinForms.KtButton();
             ktButton13 = new KimTools.WinForms.KtButton();
+            buttonEliminarSucursal = new KimTools.WinForms.KtButton();
+            agregarEmpleadoPage = new TabPage();
+            empktPanel73 = new KimTools.WinForms.KtPanel();
+            empktDivider36 = new KimTools.WinForms.KtDivider();
+            empktPanel119 = new KimTools.WinForms.KtPanel();
+            darBajaEmpktButton16 = new KimTools.WinForms.KtButton();
+            guardarEmpktButton14 = new KimTools.WinForms.KtButton();
+            empktPanel120 = new KimTools.WinForms.KtPanel();
+            eliminarEmpktButton15 = new KimTools.WinForms.KtButton();
+            empktDivider39 = new KimTools.WinForms.KtDivider();
+            empktPanel121 = new KimTools.WinForms.KtPanel();
+            DniEmp = new DataGridViewTextBoxColumn();
+            empktTable4 = new KimTools.WinForms.KtTable();
+            IdEmpleadodataGridViewTextBoxColumn20 = new DataGridViewTextBoxColumn();
+            IdJefe = new DataGridViewTextBoxColumn();
+            nombreEmpdataGridViewTextBoxColumn21 = new DataGridViewTextBoxColumn();
+            ApellidoEmpdataGridViewTextBoxColumn22 = new DataGridViewTextBoxColumn();
+            disponibilidadEmp = new DataGridViewTextBoxColumn();
+            Motivo = new DataGridViewTextBoxColumn();
+            empktDivider40 = new KimTools.WinForms.KtDivider();
+            empktPanel122 = new KimTools.WinForms.KtPanel();
+            empktPanel123 = new KimTools.WinForms.KtPanel();
+            idJefeEmpText = new KimTools.WinForms.KtTextBox();
+            empktPanel124 = new KimTools.WinForms.KtPanel();
+            dniEmpText = new KimTools.WinForms.KtTextBox();
+            empktPanel125 = new KimTools.WinForms.KtPanel();
+            empktPanel126 = new KimTools.WinForms.KtPanel();
+            empktLabel21 = new KimTools.WinForms.KtLabel();
+            empktPanel127 = new KimTools.WinForms.KtPanel();
+            empktLabel22 = new KimTools.WinForms.KtLabel();
+            empktPanel128 = new KimTools.WinForms.KtPanel();
+            empktLabel23 = new KimTools.WinForms.KtLabel();
+            empktDivider41 = new KimTools.WinForms.KtDivider();
+            empktPanel129 = new KimTools.WinForms.KtPanel();
+            empktPanel130 = new KimTools.WinForms.KtPanel();
+            apellidoEmpText = new KimTools.WinForms.KtTextBox();
+            empktPanel131 = new KimTools.WinForms.KtPanel();
+            nombreEmpText = new KimTools.WinForms.KtTextBox();
+            empktPanel132 = new KimTools.WinForms.KtPanel();
+            empktPanel133 = new KimTools.WinForms.KtPanel();
+            empktLabel24 = new KimTools.WinForms.KtLabel();
+            empktPanel134 = new KimTools.WinForms.KtPanel();
+            empktLabel25 = new KimTools.WinForms.KtLabel();
+            empktPanel135 = new KimTools.WinForms.KtPanel();
+            empktLabel26 = new KimTools.WinForms.KtLabel();
+            sucktLabel21 = new KimTools.WinForms.KtLabel();
+            empIdEmpleado = new DataGridViewTextBoxColumn();
+            SucursalEmpleado = new DataGridViewTextBoxColumn();
+            AltaEmpleado = new KimTools.WinForms.KtButton();
             hudLateral.SuspendLayout();
             ktPanel4.SuspendLayout();
             ktPanel2.SuspendLayout();
@@ -661,6 +714,25 @@
             ktPanel117.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ktTable3).BeginInit();
             ktPanel118.SuspendLayout();
+            agregarEmpleadoPage.SuspendLayout();
+            empktPanel73.SuspendLayout();
+            empktPanel119.SuspendLayout();
+            empktPanel120.SuspendLayout();
+            empktPanel121.SuspendLayout();
+            empktPanel122.SuspendLayout();
+            empktPanel123.SuspendLayout();
+            empktPanel124.SuspendLayout();
+            empktPanel125.SuspendLayout();
+            empktPanel126.SuspendLayout();
+            empktPanel127.SuspendLayout();
+            empktPanel128.SuspendLayout();
+            empktPanel129.SuspendLayout();
+            empktPanel130.SuspendLayout();
+            empktPanel131.SuspendLayout();
+            empktPanel132.SuspendLayout();
+            empktPanel133.SuspendLayout();
+            empktPanel134.SuspendLayout();
+            empktPanel135.SuspendLayout();
             SuspendLayout();
             // 
             // hudLateral
@@ -5079,9 +5151,8 @@
             navBarSucursales.AllowTransitions = false;
             navBarSucursales.Background = KimTools.WinForms.KtColor.Empty;
             navBarSucursales.Controls.Add(altaSucursalesPage);
+            navBarSucursales.Controls.Add(agregarEmpleadoPage);
             navBarSucursales.Controls.Add(modificarSucursalPage);
-            navBarSucursales.Controls.Add(eliminarSucursalPage);
-            navBarSucursales.Controls.Add(suctabPage5);
             navBarSucursales.Dock = DockStyle.Fill;
             navBarSucursales.Location = new Point(0, 66);
             navBarSucursales.Multiline = true;
@@ -5163,6 +5234,7 @@
             sucktPanel75.BorderRadius = 24F;
             sucktPanel75.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             sucktPanel75.BorderWidth = 0F;
+            sucktPanel75.Controls.Add(buttonGuardarSucursal);
             sucktPanel75.Controls.Add(sucktPanel76);
             sucktPanel75.Dock = DockStyle.Top;
             sucktPanel75.Foreground = KimTools.WinForms.KtColor.Empty;
@@ -5179,7 +5251,7 @@
             sucktPanel76.BorderRadius = 24F;
             sucktPanel76.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             sucktPanel76.BorderWidth = 1.5F;
-            sucktPanel76.Controls.Add(buttonGuardarSucursal);
+            sucktPanel76.Controls.Add(buttonEliminarSucursal);
             sucktPanel76.Dock = DockStyle.Right;
             sucktPanel76.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
             sucktPanel76.Foreground = KimTools.WinForms.KtColor.Empty;
@@ -5191,6 +5263,7 @@
             // 
             // buttonGuardarSucursal
             // 
+            buttonGuardarSucursal.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             buttonGuardarSucursal.BackColor = Color.Transparent;
             buttonGuardarSucursal.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
             buttonGuardarSucursal.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
@@ -5198,7 +5271,6 @@
             buttonGuardarSucursal.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             buttonGuardarSucursal.BorderWidth = 4F;
             buttonGuardarSucursal.Cursor = Cursors.Default;
-            buttonGuardarSucursal.Dock = DockStyle.Fill;
             buttonGuardarSucursal.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             buttonGuardarSucursal.ForeColor = Color.FromArgb(34, 29, 17);
             buttonGuardarSucursal.Foreground = KimTools.WinForms.KtColor.Empty;
@@ -5206,11 +5278,11 @@
             buttonGuardarSucursal.IconColor = KimTools.WinForms.KtColor.Empty;
             buttonGuardarSucursal.IconSize = 16;
             buttonGuardarSucursal.IconStroke = 2.5D;
-            buttonGuardarSucursal.Location = new Point(0, 0);
+            buttonGuardarSucursal.Location = new Point(3, 0);
             buttonGuardarSucursal.Name = "buttonGuardarSucursal";
             buttonGuardarSucursal.Padding = new Padding(8, 0, 8, 0);
             buttonGuardarSucursal.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
-            buttonGuardarSucursal.Size = new Size(242, 85);
+            buttonGuardarSucursal.Size = new Size(250, 85);
             buttonGuardarSucursal.TabIndex = 2;
             buttonGuardarSucursal.Text = "GUARDAR";
             buttonGuardarSucursal.UseVisualStyleBackColor = false;
@@ -6441,7 +6513,7 @@
             sucktPanel109.BorderRadius = 24F;
             sucktPanel109.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             sucktPanel109.BorderWidth = 1.5F;
-            sucktPanel109.Controls.Add(sucktButton9);
+            sucktPanel109.Controls.Add(AltaEmpleado);
             sucktPanel109.Controls.Add(sucktButton4);
             sucktPanel109.Controls.Add(sucktButton11);
             sucktPanel109.Dock = DockStyle.Top;
@@ -6477,7 +6549,6 @@
             sucktButton9.TabIndex = 5;
             sucktButton9.Text = "Eliminar";
             sucktButton9.UseVisualStyleBackColor = false;
-            sucktButton9.Click += EliminarSucursal_Click;
             // 
             // sucktButton4
             // 
@@ -8600,6 +8671,978 @@
             ktButton13.Text = "Alta";
             ktButton13.UseVisualStyleBackColor = false;
             // 
+            // AltaEmpleado
+            // 
+            AltaEmpleado.BackColor = Color.Transparent;
+            AltaEmpleado.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            AltaEmpleado.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            AltaEmpleado.BorderMargin = new Padding(0);
+            AltaEmpleado.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            AltaEmpleado.BorderWidth = 2F;
+            AltaEmpleado.Cursor = Cursors.Default;
+            AltaEmpleado.Dock = DockStyle.Left;
+            AltaEmpleado.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AltaEmpleado.ForeColor = Color.FromArgb(204, 255, 246);
+            AltaEmpleado.Foreground = KimTools.WinForms.KtColor.Empty;
+            AltaEmpleado.Icon = "";
+            AltaEmpleado.IconColor = KimTools.WinForms.KtColor.Empty;
+            AltaEmpleado.IconSize = 16;
+            AltaEmpleado.IconStroke = 2.5D;
+            AltaEmpleado.Location = new Point(240, 0);
+            AltaEmpleado.Name = "AltaEmpleado";
+            AltaEmpleado.Padding = new Padding(8, 0, 8, 0);
+            AltaEmpleado.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            AltaEmpleado.Size = new Size(120, 66);
+            AltaEmpleado.TabIndex = 7;
+            AltaEmpleado.Text = "Alta Empleado";
+            AltaEmpleado.UseVisualStyleBackColor = false;
+            AltaEmpleado.Click += AgregarEmpleado_Click;
+            // 
+            // buttonEliminarSucursal
+            // 
+            buttonEliminarSucursal.BackColor = Color.Transparent;
+            buttonEliminarSucursal.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            buttonEliminarSucursal.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            buttonEliminarSucursal.BorderMargin = new Padding(0);
+            buttonEliminarSucursal.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            buttonEliminarSucursal.BorderWidth = 4F;
+            buttonEliminarSucursal.Cursor = Cursors.Default;
+            buttonEliminarSucursal.Dock = DockStyle.Fill;
+            buttonEliminarSucursal.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            buttonEliminarSucursal.ForeColor = Color.FromArgb(34, 29, 17);
+            buttonEliminarSucursal.Foreground = KimTools.WinForms.KtColor.Empty;
+            buttonEliminarSucursal.Icon = "";
+            buttonEliminarSucursal.IconColor = KimTools.WinForms.KtColor.Empty;
+            buttonEliminarSucursal.IconSize = 16;
+            buttonEliminarSucursal.IconStroke = 2.5D;
+            buttonEliminarSucursal.Location = new Point(0, 0);
+            buttonEliminarSucursal.Name = "buttonEliminarSucursal";
+            buttonEliminarSucursal.Padding = new Padding(8, 0, 8, 0);
+            buttonEliminarSucursal.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            buttonEliminarSucursal.Size = new Size(242, 85);
+            buttonEliminarSucursal.TabIndex = 3;
+            buttonEliminarSucursal.Text = "ELIMINAR";
+            buttonEliminarSucursal.UseVisualStyleBackColor = false;
+            buttonEliminarSucursal.Click += bottonEliminarSucursal_Click;
+            // 
+            // empIdEmpleado
+            // 
+            empIdEmpleado.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            empIdEmpleado.DataPropertyName = "IdEmpleado";
+            empIdEmpleado.HeaderText = "IdEmpleado";
+            empIdEmpleado.Name = "empIdEmpleado";
+            empIdEmpleado.ReadOnly = true;
+            empIdEmpleado.Width = 101;
+            // 
+            // SucursalEmpleado
+            // 
+            SucursalEmpleado.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            SucursalEmpleado.DataPropertyName = "IdSucursal";
+            SucursalEmpleado.HeaderText = "IdSucursal";
+            SucursalEmpleado.Name = "SucursalEmpleado";
+            SucursalEmpleado.ReadOnly = true;
+            SucursalEmpleado.Width = 93;
+            // 
+            // sucktLabel21
+            // 
+            sucktLabel21.Align = ContentAlignment.MiddleCenter;
+            sucktLabel21.Auto = false;
+            sucktLabel21.Background = KimTools.WinForms.KtColor.Empty;
+            sucktLabel21.Color = KimTools.WinForms.KtColor.CONTENT;
+            sucktLabel21.Dock = DockStyle.Fill;
+            sucktLabel21.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            sucktLabel21.Location = new Point(0, 0);
+            sucktLabel21.Margin = new Padding(4, 0, 4, 0);
+            sucktLabel21.Name = "sucktLabel21";
+            sucktLabel21.Size = new Size(333, 55);
+            sucktLabel21.TabIndex = 1;
+            sucktLabel21.Text = "ID SUCURSAL";
+            // 
+            // agregarEmpleadoPage
+            // 
+            navBarSucursales.Set_Background(agregarEmpleadoPage, new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            agregarEmpleadoPage.BackColor = Color.FromArgb(173, 151, 98);
+            agregarEmpleadoPage.Controls.Add(empktPanel73);
+            agregarEmpleadoPage.Controls.Add(empktPanel129);
+            agregarEmpleadoPage.Location = new Point(0, 0);
+            agregarEmpleadoPage.Name = "agregarEmpleadoPage";
+            agregarEmpleadoPage.Padding = new Padding(3);
+            agregarEmpleadoPage.Size = new Size(1154, 772);
+            agregarEmpleadoPage.TabIndex = 4;
+            agregarEmpleadoPage.Text = "tabPage1";
+            // 
+            // empktPanel73
+            // 
+            empktPanel73.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            empktPanel73.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel73.BorderRadius = 24F;
+            empktPanel73.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel73.BorderWidth = 1.5F;
+            empktPanel73.Controls.Add(empktDivider36);
+            empktPanel73.Controls.Add(empktPanel119);
+            empktPanel73.Controls.Add(empktDivider39);
+            empktPanel73.Controls.Add(empktPanel121);
+            empktPanel73.Controls.Add(empktDivider40);
+            empktPanel73.Controls.Add(empktPanel122);
+            empktPanel73.Controls.Add(empktDivider41);
+            empktPanel73.Dock = DockStyle.Fill;
+            empktPanel73.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel73.Location = new Point(3, 139);
+            empktPanel73.Name = "empktPanel73";
+            empktPanel73.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel73.Size = new Size(1148, 630);
+            empktPanel73.TabIndex = 0;
+            // 
+            // empktDivider36
+            // 
+            empktDivider36.BackColor = Color.Transparent;
+            empktDivider36.BackgroundImageLayout = ImageLayout.Stretch;
+            empktDivider36.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            empktDivider36.Dock = DockStyle.Top;
+            empktDivider36.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            empktDivider36.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            empktDivider36.Location = new Point(0, 569);
+            empktDivider36.Margin = new Padding(0);
+            empktDivider36.Name = "empktDivider36";
+            empktDivider36.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            empktDivider36.Size = new Size(1148, 45);
+            empktDivider36.TabIndex = 13;
+            // 
+            // empktPanel119
+            // 
+            empktPanel119.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel119.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel119.BorderRadius = 24F;
+            empktPanel119.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel119.BorderWidth = 0F;
+            empktPanel119.Controls.Add(darBajaEmpktButton16);
+            empktPanel119.Controls.Add(guardarEmpktButton14);
+            empktPanel119.Controls.Add(empktPanel120);
+            empktPanel119.Dock = DockStyle.Top;
+            empktPanel119.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel119.Location = new Point(0, 484);
+            empktPanel119.Name = "empktPanel119";
+            empktPanel119.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel119.Size = new Size(1148, 85);
+            empktPanel119.TabIndex = 12;
+            // 
+            // guardarEmpktButton14
+            // 
+            guardarEmpktButton14.Anchor = AnchorStyles.Left;
+            guardarEmpktButton14.BackColor = Color.Transparent;
+            guardarEmpktButton14.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            guardarEmpktButton14.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            guardarEmpktButton14.BorderMargin = new Padding(0);
+            guardarEmpktButton14.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            guardarEmpktButton14.BorderWidth = 4F;
+            guardarEmpktButton14.Cursor = Cursors.Default;
+            guardarEmpktButton14.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            guardarEmpktButton14.ForeColor = Color.FromArgb(34, 29, 17);
+            guardarEmpktButton14.Foreground = KimTools.WinForms.KtColor.Empty;
+            guardarEmpktButton14.Icon = "";
+            guardarEmpktButton14.IconColor = KimTools.WinForms.KtColor.Empty;
+            guardarEmpktButton14.IconSize = 16;
+            guardarEmpktButton14.IconStroke = 2.5D;
+            guardarEmpktButton14.Location = new Point(14, 0);
+            guardarEmpktButton14.Name = "guardarEmpktButton14";
+            guardarEmpktButton14.Padding = new Padding(8, 0, 8, 0);
+            guardarEmpktButton14.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            guardarEmpktButton14.Size = new Size(242, 85);
+            guardarEmpktButton14.TabIndex = 2;
+            guardarEmpktButton14.Text = "GUARDAR";
+            guardarEmpktButton14.UseVisualStyleBackColor = false;
+            guardarEmpktButton14.Click += guardarEmpktButton14_Click;
+            // 
+            // empktPanel120
+            // 
+            empktPanel120.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel120.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel120.BorderRadius = 24F;
+            empktPanel120.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel120.BorderWidth = 1.5F;
+            empktPanel120.Controls.Add(eliminarEmpktButton15);
+            empktPanel120.Dock = DockStyle.Right;
+            empktPanel120.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            empktPanel120.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel120.Location = new Point(906, 0);
+            empktPanel120.Name = "empktPanel120";
+            empktPanel120.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel120.Size = new Size(242, 85);
+            empktPanel120.TabIndex = 11;
+            // 
+            // eliminarEmpktButton15
+            // 
+            eliminarEmpktButton15.BackColor = Color.Transparent;
+            eliminarEmpktButton15.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            eliminarEmpktButton15.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            eliminarEmpktButton15.BorderMargin = new Padding(0);
+            eliminarEmpktButton15.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            eliminarEmpktButton15.BorderWidth = 4F;
+            eliminarEmpktButton15.Cursor = Cursors.Default;
+            eliminarEmpktButton15.Dock = DockStyle.Fill;
+            eliminarEmpktButton15.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            eliminarEmpktButton15.ForeColor = Color.FromArgb(34, 29, 17);
+            eliminarEmpktButton15.Foreground = KimTools.WinForms.KtColor.Empty;
+            eliminarEmpktButton15.Icon = "";
+            eliminarEmpktButton15.IconColor = KimTools.WinForms.KtColor.Empty;
+            eliminarEmpktButton15.IconSize = 16;
+            eliminarEmpktButton15.IconStroke = 2.5D;
+            eliminarEmpktButton15.Location = new Point(0, 0);
+            eliminarEmpktButton15.Name = "eliminarEmpktButton15";
+            eliminarEmpktButton15.Padding = new Padding(8, 0, 8, 0);
+            eliminarEmpktButton15.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            eliminarEmpktButton15.Size = new Size(242, 85);
+            eliminarEmpktButton15.TabIndex = 3;
+            eliminarEmpktButton15.Text = "ELIMINAR";
+            eliminarEmpktButton15.UseVisualStyleBackColor = false;
+            eliminarEmpktButton15.Click += eliminarEmpktButton15_Click;
+            // 
+            // empktDivider39
+            // 
+            empktDivider39.BackColor = Color.Transparent;
+            empktDivider39.BackgroundImageLayout = ImageLayout.Stretch;
+            empktDivider39.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            empktDivider39.Dock = DockStyle.Top;
+            empktDivider39.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            empktDivider39.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            empktDivider39.Location = new Point(0, 439);
+            empktDivider39.Margin = new Padding(0);
+            empktDivider39.Name = "empktDivider39";
+            empktDivider39.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            empktDivider39.Size = new Size(1148, 45);
+            empktDivider39.TabIndex = 11;
+            // 
+            // empktPanel121
+            // 
+            empktPanel121.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            empktPanel121.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel121.BorderRadius = 24F;
+            empktPanel121.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel121.BorderWidth = 1.5F;
+            empktPanel121.Controls.Add(empktTable4);
+            empktPanel121.Dock = DockStyle.Top;
+            empktPanel121.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel121.Location = new Point(0, 200);
+            empktPanel121.Name = "empktPanel121";
+            empktPanel121.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel121.Size = new Size(1148, 239);
+            empktPanel121.TabIndex = 9;
+            // 
+            // DniEmp
+            // 
+            DniEmp.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DniEmp.HeaderText = "Dni";
+            DniEmp.Name = "Dni";
+            DniEmp.ReadOnly = true;
+            // 
+            // empktTable4
+            // 
+            empktTable4.AllowUserToAddRows = false;
+            empktTable4.AllowUserToDeleteRows = false;
+            empktTable4.AllowUserToResizeColumns = false;
+            empktTable4.AllowUserToResizeRows = false;
+            dataGridViewCellStyleEmp5.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyleEmp5.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyleEmp5.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyleEmp5.SelectionForeColor = Color.White;
+            empktTable4.AlternatingRowsDefaultCellStyle = dataGridViewCellStyleEmp5;
+            empktTable4.BackgroundColor = Color.FromArgb(0, 78, 65);
+            empktTable4.BorderStyle = BorderStyle.None;
+            empktTable4.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
+            empktTable4.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
+            empktTable4.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyleEmp6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyleEmp6.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyleEmp6.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyleEmp6.ForeColor = Color.White;
+            dataGridViewCellStyleEmp6.SelectionBackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyleEmp6.SelectionForeColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyleEmp6.WrapMode = DataGridViewTriState.True;
+            empktTable4.ColumnHeadersDefaultCellStyle = dataGridViewCellStyleEmp6;
+            empktTable4.ColumnHeadersHeight = 40;
+            empktTable4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            empktTable4.Columns.AddRange(new DataGridViewColumn[] { IdEmpleadodataGridViewTextBoxColumn20, IdJefe, nombreEmpdataGridViewTextBoxColumn21, ApellidoEmpdataGridViewTextBoxColumn22, DniEmp, disponibilidadEmp, Motivo });
+            dataGridViewCellStyleEmp7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyleEmp7.BackColor = Color.FromArgb(0, 78, 65);
+            dataGridViewCellStyleEmp7.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyleEmp7.ForeColor = Color.FromArgb(34, 29, 17);
+            dataGridViewCellStyleEmp7.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyleEmp7.SelectionForeColor = Color.White;
+            dataGridViewCellStyleEmp7.WrapMode = DataGridViewTriState.False;
+            empktTable4.DefaultCellStyle = dataGridViewCellStyleEmp7;
+            empktTable4.Dock = DockStyle.Fill;
+            empktTable4.EnableHeadersVisualStyles = false;
+            empktTable4.GridColor = Color.FromArgb(173, 151, 98);
+            empktTable4.Location = new Point(0, 0);
+            empktTable4.Name = "empktTable4";
+            empktTable4.ReadOnly = true;
+            empktTable4.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyleEmp8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyleEmp8.BackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyleEmp8.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyleEmp8.ForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyleEmp8.SelectionBackColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyleEmp8.SelectionForeColor = Color.FromArgb(173, 151, 98);
+            dataGridViewCellStyleEmp8.WrapMode = DataGridViewTriState.True;
+            empktTable4.RowHeadersDefaultCellStyle = dataGridViewCellStyleEmp8;
+            empktTable4.RowHeadersVisible = false;
+            empktTable4.RowHeadersWidth = 20;
+            empktTable4.RowTemplate.Height = 45;
+            empktTable4.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            empktTable4.Size = new Size(1148, 239);
+            empktTable4.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            empktTable4.Style.Border = 0F;
+            empktTable4.Style.BorderHeader = 0F;
+            empktTable4.Style.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            empktTable4.Style.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            empktTable4.Style.Header.Background = KimTools.WinForms.KtColor.Empty;
+            empktTable4.Style.Header.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktTable4.Style.Row.Background = KimTools.WinForms.KtColor.BASE_2;
+            empktTable4.Style.Row.Foreground = KimTools.WinForms.KtColor.CONTENT;
+            empktTable4.Style.RowAlt.Background = KimTools.WinForms.KtColor.BASE_1;
+            empktTable4.Style.RowAlt.Foreground = KimTools.WinForms.KtColor.CONTENT;
+            empktTable4.Style.ScrollBar.Background = KimTools.WinForms.KtColor.Empty;
+            empktTable4.Style.ScrollBar.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktTable4.TabIndex = 1;
+            // 
+            // empktDivider40
+            // 
+            empktDivider40.BackColor = Color.Transparent;
+            empktDivider40.BackgroundImageLayout = ImageLayout.Stretch;
+            empktDivider40.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            empktDivider40.Dock = DockStyle.Top;
+            empktDivider40.ForeColor = Color.Black;
+            empktDivider40.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            empktDivider40.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            empktDivider40.Location = new Point(0, 168);
+            empktDivider40.Margin = new Padding(0);
+            empktDivider40.Name = "empktDivider40";
+            empktDivider40.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            empktDivider40.Size = new Size(1148, 32);
+            empktDivider40.TabIndex = 8;
+            // 
+            // empktPanel122
+            // 
+            empktPanel122.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            empktPanel122.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel122.BorderRadius = 24F;
+            empktPanel122.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            empktPanel122.BorderWidth = 1.5F;
+            empktPanel122.Controls.Add(empktPanel123);
+            empktPanel122.Controls.Add(empktPanel124);
+            empktPanel122.Controls.Add(empktPanel125);
+            empktPanel122.Dock = DockStyle.Top;
+            empktPanel122.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel122.Location = new Point(0, 32);
+            empktPanel122.Margin = new Padding(4);
+            empktPanel122.Name = "empktPanel122";
+            empktPanel122.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel122.Size = new Size(1148, 136);
+            empktPanel122.TabIndex = 3;
+            // 
+            // empktPanel123
+            // 
+            empktPanel123.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            empktPanel123.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            empktPanel123.BorderEdges.TopLeft = false;
+            empktPanel123.BorderRadius = 90F;
+            empktPanel123.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel123.BorderWidth = 1.5F;
+            empktPanel123.Controls.Add(idJefeEmpText);
+            empktPanel123.Dock = DockStyle.Fill;
+            empktPanel123.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel123.Location = new Point(536, 55);
+            empktPanel123.Name = "empktPanel123";
+            empktPanel123.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel123.Size = new Size(612, 81);
+            empktPanel123.TabIndex = 1;
+            // 
+            // idJefeEmpText
+            // 
+            idJefeEmpText.AcceptsReturn = false;
+            idJefeEmpText.AcceptsTab = false;
+            idJefeEmpText.AccessibleRole = AccessibleRole.None;
+            idJefeEmpText.AnimationSpeed = 200;
+            idJefeEmpText.AutoCompleteMode = AutoCompleteMode.None;
+            idJefeEmpText.AutoCompleteSource = AutoCompleteSource.None;
+            idJefeEmpText.AutoSizeHeight = true;
+            idJefeEmpText.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            idJefeEmpText.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            idJefeEmpText.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
+            idJefeEmpText.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
+            idJefeEmpText.BorderRadius = 80;
+            idJefeEmpText.BorderThickness = 0;
+            idJefeEmpText.Content = KimTools.WinForms.KtColor.CONTENT;
+            idJefeEmpText.CustomIconLeft = null;
+            idJefeEmpText.CustomIconRight = null;
+            idJefeEmpText.DefaultFont = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            idJefeEmpText.Dock = DockStyle.Fill;
+            idJefeEmpText.ForeColor = Color.Empty;
+            idJefeEmpText.HideSelection = true;
+            idJefeEmpText.Location = new Point(0, 0);
+            idJefeEmpText.MaxLength = 32767;
+            idJefeEmpText.MinimumSize = new Size(1, 1);
+            idJefeEmpText.Modified = false;
+            idJefeEmpText.Name = "idJefeEmpText";
+            idJefeEmpText.Password = false;
+            idJefeEmpText.PasswordChar = '\0';
+            idJefeEmpText.ScrollBars = ScrollBars.None;
+            idJefeEmpText.SelectedText = "";
+            idJefeEmpText.SelectionLength = 0;
+            idJefeEmpText.SelectionStart = 0;
+            idJefeEmpText.ShortcutsEnabled = true;
+            idJefeEmpText.Size = new Size(612, 81);
+            idJefeEmpText.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            idJefeEmpText.TabIndex = 5;
+            idJefeEmpText.TextMarginBottom = 0;
+            idJefeEmpText.TextPlaceholder = "Ingrese aqui . . .";
+            // 
+            // empktPanel124
+            // 
+            empktPanel124.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            empktPanel124.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            empktPanel124.BorderEdges.TopLeft = false;
+            empktPanel124.BorderRadius = 90F;
+            empktPanel124.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel124.BorderWidth = 1.5F;
+            empktPanel124.Controls.Add(dniEmpText);
+            empktPanel124.Dock = DockStyle.Left;
+            empktPanel124.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel124.Location = new Point(0, 55);
+            empktPanel124.Name = "empktPanel124";
+            empktPanel124.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel124.Size = new Size(536, 81);
+            empktPanel124.TabIndex = 1;
+            // 
+            // dniEmpText
+            // 
+            dniEmpText.AcceptsReturn = false;
+            dniEmpText.AcceptsTab = false;
+            dniEmpText.AccessibleRole = AccessibleRole.None;
+            dniEmpText.AnimationSpeed = 200;
+            dniEmpText.AutoCompleteMode = AutoCompleteMode.None;
+            dniEmpText.AutoCompleteSource = AutoCompleteSource.None;
+            dniEmpText.AutoSizeHeight = true;
+            dniEmpText.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            dniEmpText.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            dniEmpText.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
+            dniEmpText.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
+            dniEmpText.BorderRadius = 80;
+            dniEmpText.BorderThickness = 0;
+            dniEmpText.Content = KimTools.WinForms.KtColor.CONTENT;
+            dniEmpText.CustomIconLeft = null;
+            dniEmpText.CustomIconRight = null;
+            dniEmpText.DefaultFont = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dniEmpText.Dock = DockStyle.Fill;
+            dniEmpText.ForeColor = Color.Empty;
+            dniEmpText.HideSelection = true;
+            dniEmpText.Location = new Point(0, 0);
+            dniEmpText.MaxLength = 32767;
+            dniEmpText.MinimumSize = new Size(1, 1);
+            dniEmpText.Modified = false;
+            dniEmpText.Name = "dniEmpText";
+            dniEmpText.Password = false;
+            dniEmpText.PasswordChar = '\0';
+            dniEmpText.ScrollBars = ScrollBars.None;
+            dniEmpText.SelectedText = "";
+            dniEmpText.SelectionLength = 0;
+            dniEmpText.SelectionStart = 0;
+            dniEmpText.ShortcutsEnabled = true;
+            dniEmpText.Size = new Size(536, 81);
+            dniEmpText.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            dniEmpText.TabIndex = 5;
+            dniEmpText.TextMarginBottom = 0;
+            dniEmpText.TextPlaceholder = "Ingrese aqui . . .";
+            // 
+            // empktPanel125
+            // 
+            empktPanel125.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            empktPanel125.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            empktPanel125.BorderEdges.BottomLeft = false;
+            empktPanel125.BorderEdges.BottomRight = false;
+            empktPanel125.BorderEdges.TopLeft = false;
+            empktPanel125.BorderEdges.TopRight = false;
+            empktPanel125.BorderRadius = 0F;
+            empktPanel125.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel125.BorderWidth = 0F;
+            empktPanel125.Controls.Add(empktPanel126);
+            empktPanel125.Controls.Add(empktPanel127);
+            empktPanel125.Controls.Add(empktPanel128);
+            empktPanel125.Dock = DockStyle.Top;
+            empktPanel125.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            empktPanel125.Location = new Point(0, 0);
+            empktPanel125.Margin = new Padding(4);
+            empktPanel125.Name = "empktPanel125";
+            empktPanel125.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel125.Size = new Size(1148, 55);
+            empktPanel125.TabIndex = 0;
+            // 
+            // empktPanel126
+            // 
+            empktPanel126.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            empktPanel126.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel126.BorderEdges.BottomLeft = false;
+            empktPanel126.BorderEdges.BottomRight = false;
+            empktPanel126.BorderRadius = 24F;
+            empktPanel126.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel126.BorderWidth = 1.5F;
+            empktPanel126.Controls.Add(empktLabel21);
+            empktPanel126.Dock = DockStyle.Left;
+            empktPanel126.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel126.Location = new Point(536, 0);
+            empktPanel126.Margin = new Padding(4);
+            empktPanel126.Name = "empktPanel126";
+            empktPanel126.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel126.Size = new Size(333, 55);
+            empktPanel126.TabIndex = 2;
+            // 
+            // empktLabel21
+            // 
+            empktLabel21.Align = ContentAlignment.MiddleCenter;
+            empktLabel21.Auto = false;
+            empktLabel21.Background = KimTools.WinForms.KtColor.Empty;
+            empktLabel21.Color = KimTools.WinForms.KtColor.CONTENT;
+            empktLabel21.Dock = DockStyle.Fill;
+            empktLabel21.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            empktLabel21.Location = new Point(0, 0);
+            empktLabel21.Margin = new Padding(4, 0, 4, 0);
+            empktLabel21.Name = "empktLabel21";
+            empktLabel21.Size = new Size(333, 55);
+            empktLabel21.TabIndex = 0;
+            empktLabel21.Text = "ID JEFE";
+            // 
+            // empktPanel127
+            // 
+            empktPanel127.Background = (KimTools.WinForms.KtBrushGradient)KimTools.WinForms.KtBrush.Gradient;
+            empktPanel127.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel127.BorderEdges.BottomLeft = false;
+            empktPanel127.BorderEdges.BottomRight = false;
+            empktPanel127.BorderEdges.TopLeft = false;
+            empktPanel127.BorderEdges.TopRight = false;
+            empktPanel127.BorderRadius = 0F;
+            empktPanel127.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel127.BorderWidth = 1.5F;
+            empktPanel127.Controls.Add(empktLabel22);
+            empktPanel127.Dock = DockStyle.Left;
+            empktPanel127.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel127.Location = new Point(333, 0);
+            empktPanel127.Margin = new Padding(4);
+            empktPanel127.Name = "empktPanel127";
+            empktPanel127.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel127.Size = new Size(203, 55);
+            empktPanel127.TabIndex = 1;
+            // 
+            // empktLabel22
+            // 
+            empktLabel22.Align = ContentAlignment.MiddleCenter;
+            empktLabel22.Auto = false;
+            empktLabel22.Background = new KimTools.WinForms.KtColor(Color.Transparent, null, 100);
+            empktLabel22.CausesValidation = false;
+            empktLabel22.Color = new KimTools.WinForms.KtColor(Color.Transparent, null, 100);
+            empktLabel22.Dock = DockStyle.Left;
+            empktLabel22.Enabled = false;
+            empktLabel22.FlatStyle = FlatStyle.Flat;
+            empktLabel22.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            empktLabel22.Location = new Point(0, 0);
+            empktLabel22.Margin = new Padding(4, 0, 4, 0);
+            empktLabel22.Name = "empktLabel22";
+            empktLabel22.Size = new Size(203, 55);
+            empktLabel22.TabIndex = 0;
+            empktLabel22.UseMnemonic = false;
+            empktLabel22.Visible = false;
+            // 
+            // empktPanel128
+            // 
+            empktPanel128.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            empktPanel128.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            empktPanel128.BorderEdges.BottomLeft = false;
+            empktPanel128.BorderEdges.BottomRight = false;
+            empktPanel128.BorderRadius = 24F;
+            empktPanel128.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel128.BorderWidth = 1.5F;
+            empktPanel128.Controls.Add(empktLabel23);
+            empktPanel128.Dock = DockStyle.Left;
+            empktPanel128.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel128.Location = new Point(0, 0);
+            empktPanel128.Margin = new Padding(4);
+            empktPanel128.Name = "empktPanel128";
+            empktPanel128.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel128.Size = new Size(333, 55);
+            empktPanel128.TabIndex = 1;
+            // 
+            // empktLabel23
+            // 
+            empktLabel23.Align = ContentAlignment.MiddleCenter;
+            empktLabel23.Auto = false;
+            empktLabel23.Background = KimTools.WinForms.KtColor.Empty;
+            empktLabel23.Color = KimTools.WinForms.KtColor.CONTENT;
+            empktLabel23.Dock = DockStyle.Fill;
+            empktLabel23.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            empktLabel23.Location = new Point(0, 0);
+            empktLabel23.Margin = new Padding(4, 0, 4, 0);
+            empktLabel23.Name = "empktLabel23";
+            empktLabel23.Size = new Size(333, 55);
+            empktLabel23.TabIndex = 0;
+            empktLabel23.Text = "DNI";
+            // 
+            // empktDivider41
+            // 
+            empktDivider41.BackColor = Color.Transparent;
+            empktDivider41.BackgroundImageLayout = ImageLayout.Stretch;
+            empktDivider41.DashCap = KimTools.WinForms.KtDivider.CapStyles.Flat;
+            empktDivider41.Dock = DockStyle.Top;
+            empktDivider41.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            empktDivider41.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
+            empktDivider41.Location = new Point(0, 0);
+            empktDivider41.Margin = new Padding(0);
+            empktDivider41.Name = "empktDivider41";
+            empktDivider41.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
+            empktDivider41.Size = new Size(1148, 32);
+            empktDivider41.TabIndex = 6;
+            // 
+            // darBajaEmpktButton16
+            // 
+            darBajaEmpktButton16.Anchor = AnchorStyles.Left;
+            darBajaEmpktButton16.BackColor = Color.Transparent;
+            darBajaEmpktButton16.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            darBajaEmpktButton16.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            darBajaEmpktButton16.BorderMargin = new Padding(0);
+            darBajaEmpktButton16.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            darBajaEmpktButton16.BorderWidth = 4F;
+            darBajaEmpktButton16.Cursor = Cursors.Default;
+            darBajaEmpktButton16.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            darBajaEmpktButton16.ForeColor = Color.FromArgb(34, 29, 17);
+            darBajaEmpktButton16.Foreground = KimTools.WinForms.KtColor.Empty;
+            darBajaEmpktButton16.Icon = "";
+            darBajaEmpktButton16.IconColor = KimTools.WinForms.KtColor.Empty;
+            darBajaEmpktButton16.IconSize = 16;
+            darBajaEmpktButton16.IconStroke = 2.5D;
+            darBajaEmpktButton16.Location = new Point(307, 0);
+            darBajaEmpktButton16.Name = "darBajaEmpktButton16";
+            darBajaEmpktButton16.Padding = new Padding(8, 0, 8, 0);
+            darBajaEmpktButton16.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            darBajaEmpktButton16.Size = new Size(242, 85);
+            darBajaEmpktButton16.TabIndex = 12;
+            darBajaEmpktButton16.Text = "DAR DE BAJA";
+            darBajaEmpktButton16.UseVisualStyleBackColor = false;
+            darBajaEmpktButton16.Click += darBajaEmpktButton16_Click;
+            // 
+            // empktPanel129
+            // 
+            empktPanel129.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            empktPanel129.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel129.BorderRadius = 24F;
+            empktPanel129.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            empktPanel129.BorderWidth = 1.5F;
+            empktPanel129.Controls.Add(empktPanel130);
+            empktPanel129.Controls.Add(empktPanel131);
+            empktPanel129.Controls.Add(empktPanel132);
+            empktPanel129.Dock = DockStyle.Top;
+            empktPanel129.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel129.Location = new Point(3, 3);
+            empktPanel129.Margin = new Padding(4);
+            empktPanel129.Name = "empktPanel129";
+            empktPanel129.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel129.Size = new Size(1148, 136);
+            empktPanel129.TabIndex = 4;
+            // 
+            // empktPanel130
+            // 
+            empktPanel130.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            empktPanel130.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            empktPanel130.BorderEdges.TopLeft = false;
+            empktPanel130.BorderRadius = 90F;
+            empktPanel130.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel130.BorderWidth = 1.5F;
+            empktPanel130.Controls.Add(apellidoEmpText);
+            empktPanel130.Dock = DockStyle.Fill;
+            empktPanel130.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel130.Location = new Point(536, 55);
+            empktPanel130.Name = "empktPanel130";
+            empktPanel130.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel130.Size = new Size(612, 81);
+            empktPanel130.TabIndex = 1;
+            // 
+            // apellidoEmpText
+            // 
+            apellidoEmpText.AcceptsReturn = false;
+            apellidoEmpText.AcceptsTab = false;
+            apellidoEmpText.AccessibleRole = AccessibleRole.None;
+            apellidoEmpText.AnimationSpeed = 200;
+            apellidoEmpText.AutoCompleteMode = AutoCompleteMode.None;
+            apellidoEmpText.AutoCompleteSource = AutoCompleteSource.None;
+            apellidoEmpText.AutoSizeHeight = true;
+            apellidoEmpText.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            apellidoEmpText.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            apellidoEmpText.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
+            apellidoEmpText.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
+            apellidoEmpText.BorderRadius = 80;
+            apellidoEmpText.BorderThickness = 0;
+            apellidoEmpText.Content = KimTools.WinForms.KtColor.CONTENT;
+            apellidoEmpText.CustomIconLeft = null;
+            apellidoEmpText.CustomIconRight = null;
+            apellidoEmpText.DefaultFont = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            apellidoEmpText.Dock = DockStyle.Fill;
+            apellidoEmpText.ForeColor = Color.Empty;
+            apellidoEmpText.HideSelection = true;
+            apellidoEmpText.Location = new Point(0, 0);
+            apellidoEmpText.MaxLength = 32767;
+            apellidoEmpText.MinimumSize = new Size(1, 1);
+            apellidoEmpText.Modified = false;
+            apellidoEmpText.Name = "apellidoEmpText";
+            apellidoEmpText.Password = false;
+            apellidoEmpText.PasswordChar = '\0';
+            apellidoEmpText.ScrollBars = ScrollBars.None;
+            apellidoEmpText.SelectedText = "";
+            apellidoEmpText.SelectionLength = 0;
+            apellidoEmpText.SelectionStart = 0;
+            apellidoEmpText.ShortcutsEnabled = true;
+            apellidoEmpText.Size = new Size(612, 81);
+            apellidoEmpText.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            apellidoEmpText.TabIndex = 5;
+            apellidoEmpText.TextMarginBottom = 0;
+            apellidoEmpText.TextPlaceholder = "Ingrese aqui . . .";
+            // 
+            // empktPanel131
+            // 
+            empktPanel131.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            empktPanel131.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            empktPanel131.BorderEdges.TopLeft = false;
+            empktPanel131.BorderRadius = 90F;
+            empktPanel131.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel131.BorderWidth = 1.5F;
+            empktPanel131.Controls.Add(nombreEmpText);
+            empktPanel131.Dock = DockStyle.Left;
+            empktPanel131.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel131.Location = new Point(0, 55);
+            empktPanel131.Name = "empktPanel131";
+            empktPanel131.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel131.Size = new Size(536, 81);
+            empktPanel131.TabIndex = 1;
+            // 
+            // nombreEmpText
+            // 
+            nombreEmpText.AcceptsReturn = false;
+            nombreEmpText.AcceptsTab = false;
+            nombreEmpText.AccessibleRole = AccessibleRole.None;
+            nombreEmpText.AnimationSpeed = 200;
+            nombreEmpText.AutoCompleteMode = AutoCompleteMode.None;
+            nombreEmpText.AutoCompleteSource = AutoCompleteSource.None;
+            nombreEmpText.AutoSizeHeight = true;
+            nombreEmpText.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            nombreEmpText.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            nombreEmpText.Border = new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null);
+            nombreEmpText.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb(255, 255, 255), null, null);
+            nombreEmpText.BorderRadius = 80;
+            nombreEmpText.BorderThickness = 0;
+            nombreEmpText.Content = KimTools.WinForms.KtColor.CONTENT;
+            nombreEmpText.CustomIconLeft = null;
+            nombreEmpText.CustomIconRight = null;
+            nombreEmpText.DefaultFont = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            nombreEmpText.Dock = DockStyle.Fill;
+            nombreEmpText.ForeColor = Color.Empty;
+            nombreEmpText.HideSelection = true;
+            nombreEmpText.Location = new Point(0, 0);
+            nombreEmpText.MaxLength = 32767;
+            nombreEmpText.MinimumSize = new Size(1, 1);
+            nombreEmpText.Modified = false;
+            nombreEmpText.Name = "nombreEmpText";
+            nombreEmpText.Password = false;
+            nombreEmpText.PasswordChar = '\0';
+            nombreEmpText.ScrollBars = ScrollBars.None;
+            nombreEmpText.SelectedText = "";
+            nombreEmpText.SelectionLength = 0;
+            nombreEmpText.SelectionStart = 0;
+            nombreEmpText.ShortcutsEnabled = true;
+            nombreEmpText.Size = new Size(536, 81);
+            nombreEmpText.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            nombreEmpText.TabIndex = 5;
+            nombreEmpText.TextMarginBottom = 0;
+            nombreEmpText.TextPlaceholder = "Ingrese aqui . . .";
+            // 
+            // empktPanel132
+            // 
+            empktPanel132.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            empktPanel132.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
+            empktPanel132.BorderEdges.BottomLeft = false;
+            empktPanel132.BorderEdges.BottomRight = false;
+            empktPanel132.BorderEdges.TopLeft = false;
+            empktPanel132.BorderEdges.TopRight = false;
+            empktPanel132.BorderRadius = 0F;
+            empktPanel132.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel132.BorderWidth = 0F;
+            empktPanel132.Controls.Add(empktPanel133);
+            empktPanel132.Controls.Add(empktPanel134);
+            empktPanel132.Controls.Add(empktPanel135);
+            empktPanel132.Dock = DockStyle.Top;
+            empktPanel132.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            empktPanel132.Location = new Point(0, 0);
+            empktPanel132.Margin = new Padding(4);
+            empktPanel132.Name = "empktPanel132";
+            empktPanel132.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel132.Size = new Size(1148, 55);
+            empktPanel132.TabIndex = 0;
+            // 
+            // empktPanel133
+            // 
+            empktPanel133.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            empktPanel133.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel133.BorderEdges.BottomLeft = false;
+            empktPanel133.BorderEdges.BottomRight = false;
+            empktPanel133.BorderRadius = 24F;
+            empktPanel133.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel133.BorderWidth = 1.5F;
+            empktPanel133.Controls.Add(empktLabel24);
+            empktPanel133.Dock = DockStyle.Left;
+            empktPanel133.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel133.Location = new Point(536, 0);
+            empktPanel133.Margin = new Padding(4);
+            empktPanel133.Name = "empktPanel133";
+            empktPanel133.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel133.Size = new Size(333, 55);
+            empktPanel133.TabIndex = 2;
+            // 
+            // empktLabel24
+            // 
+            empktLabel24.Align = ContentAlignment.MiddleCenter;
+            empktLabel24.Auto = false;
+            empktLabel24.Background = KimTools.WinForms.KtColor.Empty;
+            empktLabel24.Color = KimTools.WinForms.KtColor.CONTENT;
+            empktLabel24.Dock = DockStyle.Fill;
+            empktLabel24.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            empktLabel24.Location = new Point(0, 0);
+            empktLabel24.Margin = new Padding(4, 0, 4, 0);
+            empktLabel24.Name = "empktLabel24";
+            empktLabel24.Size = new Size(333, 55);
+            empktLabel24.TabIndex = 0;
+            empktLabel24.Text = "APELLIDO";
+            // 
+            // empktPanel134
+            // 
+            empktPanel134.Background = (KimTools.WinForms.KtBrushGradient)KimTools.WinForms.KtBrush.Gradient;
+            empktPanel134.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            empktPanel134.BorderEdges.BottomLeft = false;
+            empktPanel134.BorderEdges.BottomRight = false;
+            empktPanel134.BorderEdges.TopLeft = false;
+            empktPanel134.BorderEdges.TopRight = false;
+            empktPanel134.BorderRadius = 0F;
+            empktPanel134.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel134.BorderWidth = 1.5F;
+            empktPanel134.Controls.Add(empktLabel25);
+            empktPanel134.Dock = DockStyle.Left;
+            empktPanel134.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel134.Location = new Point(333, 0);
+            empktPanel134.Margin = new Padding(4);
+            empktPanel134.Name = "empktPanel134";
+            empktPanel134.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel134.Size = new Size(203, 55);
+            empktPanel134.TabIndex = 1;
+            // 
+            // empktLabel25
+            // 
+            empktLabel25.Align = ContentAlignment.MiddleCenter;
+            empktLabel25.Auto = false;
+            empktLabel25.Background = new KimTools.WinForms.KtColor(Color.Transparent, null, 100);
+            empktLabel25.CausesValidation = false;
+            empktLabel25.Color = new KimTools.WinForms.KtColor(Color.Transparent, null, 100);
+            empktLabel25.Dock = DockStyle.Left;
+            empktLabel25.Enabled = false;
+            empktLabel25.FlatStyle = FlatStyle.Flat;
+            empktLabel25.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            empktLabel25.Location = new Point(0, 0);
+            empktLabel25.Margin = new Padding(4, 0, 4, 0);
+            empktLabel25.Name = "empktLabel25";
+            empktLabel25.Size = new Size(203, 55);
+            empktLabel25.TabIndex = 0;
+            empktLabel25.UseMnemonic = false;
+            empktLabel25.Visible = false;
+            // 
+            // empktPanel135
+            // 
+            empktPanel135.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 0, 0), null, null));
+            empktPanel135.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            empktPanel135.BorderEdges.BottomLeft = false;
+            empktPanel135.BorderEdges.BottomRight = false;
+            empktPanel135.BorderRadius = 24F;
+            empktPanel135.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            empktPanel135.BorderWidth = 1.5F;
+            empktPanel135.Controls.Add(empktLabel26);
+            empktPanel135.Dock = DockStyle.Left;
+            empktPanel135.Foreground = KimTools.WinForms.KtColor.Empty;
+            empktPanel135.Location = new Point(0, 0);
+            empktPanel135.Margin = new Padding(4);
+            empktPanel135.Name = "empktPanel135";
+            empktPanel135.PatternColor = KimTools.WinForms.KtColor.Empty;
+            empktPanel135.Size = new Size(333, 55);
+            empktPanel135.TabIndex = 1;
+            // 
+            // empktLabel26
+            // 
+            empktLabel26.Align = ContentAlignment.MiddleCenter;
+            empktLabel26.Auto = false;
+            empktLabel26.Background = KimTools.WinForms.KtColor.Empty;
+            empktLabel26.Color = KimTools.WinForms.KtColor.CONTENT;
+            empktLabel26.Dock = DockStyle.Fill;
+            empktLabel26.Font = new Font("Segoe UI Symbol", 14F, FontStyle.Bold);
+            empktLabel26.Location = new Point(0, 0);
+            empktLabel26.Margin = new Padding(4, 0, 4, 0);
+            empktLabel26.Name = "empktLabel26";
+            empktLabel26.Size = new Size(333, 55);
+            empktLabel26.TabIndex = 0;
+            empktLabel26.Text = "NOMBRE";
+            // 
+            // IdEmpleadodataGridViewTextBoxColumn20
+            // 
+            IdEmpleadodataGridViewTextBoxColumn20.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            IdEmpleadodataGridViewTextBoxColumn20.DataPropertyName = "IdEmpleado";
+            IdEmpleadodataGridViewTextBoxColumn20.HeaderText = "IdEmpleado";
+            IdEmpleadodataGridViewTextBoxColumn20.Name = "IdEmpleadodataGridViewTextBoxColumn20";
+            IdEmpleadodataGridViewTextBoxColumn20.ReadOnly = true;
+            IdEmpleadodataGridViewTextBoxColumn20.Resizable = DataGridViewTriState.False;
+            IdEmpleadodataGridViewTextBoxColumn20.Width = 125;
+            // 
+            // IdJefe
+            // 
+            IdJefe.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            IdJefe.HeaderText = "Id Jefe";
+            IdJefe.Name = "IdJefe";
+            IdJefe.ReadOnly = true;
+            IdJefe.Width = 84;
+            // 
+            // nombreEmpdataGridViewTextBoxColumn21
+            // 
+            nombreEmpdataGridViewTextBoxColumn21.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            nombreEmpdataGridViewTextBoxColumn21.DataPropertyName = "Nombre";
+            nombreEmpdataGridViewTextBoxColumn21.HeaderText = "Nombre";
+            nombreEmpdataGridViewTextBoxColumn21.Name = "nombreEmpdataGridViewTextBoxColumn21";
+            nombreEmpdataGridViewTextBoxColumn21.ReadOnly = true;
+            nombreEmpdataGridViewTextBoxColumn21.Resizable = DataGridViewTriState.False;
+            // 
+            // ApellidoEmpdataGridViewTextBoxColumn22
+            // 
+            ApellidoEmpdataGridViewTextBoxColumn22.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ApellidoEmpdataGridViewTextBoxColumn22.DataPropertyName = "Apellido";
+            ApellidoEmpdataGridViewTextBoxColumn22.HeaderText = "Apellido";
+            ApellidoEmpdataGridViewTextBoxColumn22.Name = "ApellidoEmpdataGridViewTextBoxColumn22";
+            ApellidoEmpdataGridViewTextBoxColumn22.ReadOnly = true;
+            ApellidoEmpdataGridViewTextBoxColumn22.Resizable = DataGridViewTriState.False;
+            // 
+            // disponibilidadEmp
+            // 
+            disponibilidadEmp.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            disponibilidadEmp.DataPropertyName = "Disponibilidad";
+            disponibilidadEmp.HeaderText = "Disponibilidad";
+            disponibilidadEmp.Name = "disponibilidadEmp";
+            disponibilidadEmp.ReadOnly = true;
+            disponibilidadEmp.Width = 147;
+            // 
+            // Motivo
+            // 
+            Motivo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Motivo.HeaderText = "Motivo";
+            Motivo.Name = "Motivo";
+            Motivo.ReadOnly = true;
+            // 
             // MenuPPal
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
@@ -8805,6 +9848,25 @@
             ktPanel117.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ktTable3).EndInit();
             ktPanel118.ResumeLayout(false);
+            agregarEmpleadoPage.ResumeLayout(false);
+            empktPanel73.ResumeLayout(false);
+            empktPanel119.ResumeLayout(false);
+            empktPanel120.ResumeLayout(false);
+            empktPanel121.ResumeLayout(false);
+            empktPanel122.ResumeLayout(false);
+            empktPanel123.ResumeLayout(false);
+            empktPanel124.ResumeLayout(false);
+            empktPanel125.ResumeLayout(false);
+            empktPanel126.ResumeLayout(false);
+            empktPanel127.ResumeLayout(false);
+            empktPanel128.ResumeLayout(false);
+            empktPanel129.ResumeLayout(false);
+            empktPanel130.ResumeLayout(false);
+            empktPanel131.ResumeLayout(false);
+            empktPanel132.ResumeLayout(false);
+            empktPanel133.ResumeLayout(false);
+            empktPanel134.ResumeLayout(false);
+            empktPanel135.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -9202,5 +10264,56 @@
         private DataGridViewTextBoxColumn FechaVencimientoE;
         private DataGridViewTextBoxColumn CantidadLoteE;
         private KimTools.WinForms.KtButton capacidadesButton;
+        private KimTools.WinForms.KtButton AltaEmpleado;
+        private KimTools.WinForms.KtButton buttonEliminarSucursal;
+        private DataGridViewTextBoxColumn empIdEmpleado;
+        private DataGridViewTextBoxColumn SucursalEmpleado;
+        private KimTools.WinForms.KtLabel SUCktLabel21;
+        private KimTools.WinForms.KtLabel sucktLabel21;
+        private TabPage agregarEmpleadoPage;
+        private KimTools.WinForms.KtPanel empktPanel73;
+        private KimTools.WinForms.KtDivider empktDivider36;
+        private KimTools.WinForms.KtPanel empktPanel119;
+        private KimTools.WinForms.KtButton guardarEmpktButton14;
+        private KimTools.WinForms.KtPanel empktPanel120;
+        private KimTools.WinForms.KtButton eliminarEmpktButton15;
+        private KimTools.WinForms.KtDivider empktDivider39;
+        private KimTools.WinForms.KtPanel empktPanel121;
+        private KimTools.WinForms.KtTable empktTable4;
+        private DataGridViewTextBoxColumn DniEmp;
+        private KimTools.WinForms.KtDivider empktDivider40;
+        private KimTools.WinForms.KtPanel empktPanel122;
+        private KimTools.WinForms.KtPanel empktPanel123;
+        private KimTools.WinForms.KtTextBox idJefeEmpText;
+        private KimTools.WinForms.KtPanel empktPanel124;
+        private KimTools.WinForms.KtTextBox dniEmpText;
+        private KimTools.WinForms.KtPanel empktPanel125;
+        private KimTools.WinForms.KtPanel empktPanel126;
+        private KimTools.WinForms.KtLabel empktLabel21;
+        private KimTools.WinForms.KtPanel empktPanel127;
+        private KimTools.WinForms.KtLabel empktLabel22;
+        private KimTools.WinForms.KtPanel empktPanel128;
+        private KimTools.WinForms.KtLabel empktLabel23;
+        private KimTools.WinForms.KtDivider empktDivider41;
+        private KimTools.WinForms.KtButton darBajaEmpktButton16;
+        private KimTools.WinForms.KtPanel empktPanel129;
+        private KimTools.WinForms.KtPanel empktPanel130;
+        private KimTools.WinForms.KtTextBox apellidoEmpText;
+        private KimTools.WinForms.KtPanel empktPanel131;
+        private KimTools.WinForms.KtTextBox nombreEmpText;
+        private KimTools.WinForms.KtPanel empktPanel132;
+        private KimTools.WinForms.KtPanel empktPanel133;
+        private KimTools.WinForms.KtLabel empktLabel24;
+        private KimTools.WinForms.KtPanel empktPanel134;
+        private KimTools.WinForms.KtLabel empktLabel25;
+        private KimTools.WinForms.KtPanel empktPanel135;
+        private KimTools.WinForms.KtLabel empktLabel26;
+        private DataGridViewTextBoxColumn IdEmpleadodataGridViewTextBoxColumn20;
+        private DataGridViewTextBoxColumn IdJefe;
+        private DataGridViewTextBoxColumn nombreEmpdataGridViewTextBoxColumn21;
+        private DataGridViewTextBoxColumn ApellidoEmpdataGridViewTextBoxColumn22;
+        private DataGridViewTextBoxColumn disponibilidadEmp;
+        private DataGridViewTextBoxColumn Motivo;
+        
     }
 }
