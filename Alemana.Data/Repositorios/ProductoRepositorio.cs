@@ -97,5 +97,9 @@ namespace Alemana.Data.Repositorios
             return prE;
         }
 
+        public async Task<List<Producto>> ObtenerTodos()
+        {
+            return await _DbA.Productos.ToListAsync();
+        }
     }
 }

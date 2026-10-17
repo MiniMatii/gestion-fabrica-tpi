@@ -101,10 +101,34 @@ namespace Alemana.Aplicaciones.Servicios
 
             prodE.Nombre = dto.Nombre;
             prodE.Camara = dto.Camara;
+            prodE.IdReceta = dto.IdReceta;
+            prodE.Disponible = dto.Disponible;
 
             var result = await _productoRepositorio.ActualizarProducto(prodE);
 
             return result;
         }
+
+        public async Task<List<ProductoDTO>> ObtenerTodos()
+        {
+            var prods = await _productoRepositorio.ObtenerTodos();
+            List<ProductoDTO> prodsDto = new List<ProductoDTO>();
+
+            foreach (var prod in prods)
+            {
+                prodsDto.Add(new ProductoDTO
+                {
+                    IdProducto = prod.IdProducto,
+                    Nombre = prod.Nombre,
+                    Camara = prod.Camara,
+                    Disponible = prod.Disponible,
+                    IdReceta = prod.IdReceta,
+                    StockActual = prod.StockActual
+                });
+            }
+            return prodsDto;
+        }
+
+
     }
 }

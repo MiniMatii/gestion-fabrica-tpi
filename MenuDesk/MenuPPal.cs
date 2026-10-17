@@ -33,8 +33,11 @@ namespace MenuDesk
         }
         private void ktButton3_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
+            Environment.Exit(0);
+
         }
 
+        
     }
 }

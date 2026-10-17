@@ -50,9 +50,16 @@ builder.Services.AddScoped<ISolicitudPedidoServicio, SolicitudPedidoServicio>();
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 builder.Services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 
+builder.Services.AddScoped<IRecetaProductoRepositorio, RecetaProductoRepositorio>();
+builder.Services.AddScoped<IRecetaProductoServicio, RecetaProductoServicio>();
+
+builder.Services.AddScoped<ICiudadRespositorio, CiudadRepositorio>();
+builder.Services.AddScoped<ICiudadServicio, CiudadServicio>();
+
+
 
 //Configurando el JWT 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+/*builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(o => o.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -64,12 +71,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
     });
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization();*/
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 app.UseSwagger(); 
 app.UseSwaggerUI();
 
@@ -85,4 +92,6 @@ app.MapEmpleadoEndpoint();
 app.MapProductoEndpoint();
 app.MapSucursalesEndpoint();
 app.MapSolicitudPedidoEndpoint();
+app.MapRecetaProductoEndpoint();
+app.MapCiudadesEndpoint();
 app.Run();

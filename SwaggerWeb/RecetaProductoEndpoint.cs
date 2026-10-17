@@ -55,6 +55,7 @@ namespace SwaggerWeb
                 return Results.Ok(recetas);
             }).WithName("Obtener Recetas")
               .WithTags("Recetas")
+              .Produces<List<RecetaProductoDTO>>(StatusCodes.Status200OK)
               .WithOpenApi();
 
             app.MapGet("/Recetas/{id}", async (int id, IRecetaProductoServicio recetaService) =>

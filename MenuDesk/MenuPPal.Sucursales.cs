@@ -18,6 +18,7 @@ namespace MenuDesk
         {
             panelLotes.Visible = false;
             panelOperarios.Visible = false;
+            panelProductos.Visible = false;
             panelSucursales.Visible = !(panelSucursales.Visible);
             panelSucursales.Enabled = !(panelSucursales.Enabled);
         }
@@ -374,6 +375,16 @@ namespace MenuDesk
             {
                 MessageBox.Show($"Error al intentar eliminar el empleado: \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
+
+        private void buttonAgregarCiudad_Click(object sender, EventArgs e)
+        {
+            MiniMenuCiudad miniMenuCiudad = new MiniMenuCiudad();
+            miniMenuCiudad.Show();
+        }
+
+
+
     }
 }
