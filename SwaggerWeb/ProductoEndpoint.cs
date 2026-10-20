@@ -60,7 +60,7 @@ namespace SwaggerWeb
 
                     return Results.Ok(productoBaja);
                 }
-                catch (ArgumentException ex) 
+                catch (ArgumentException ex)
                 {
                     return Results.BadRequest(ex.Message);
                 }
@@ -70,13 +70,14 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapDelete("/producto/{id}", async (int id, IProductoServicio productoServicio) => 
+            app.MapDelete("/producto/{id}", async (int id, IProductoServicio productoServicio) =>
             {
-                try 
-                { 
+                try
+                {
                     var result = await productoServicio.EliminarProducto(id);
                     return Results.Ok(result);
-                } catch (ArgumentException ex) 
+                }
+                catch (ArgumentException ex)
                 {
                     return Results.BadRequest(ex.Message);
                 }
@@ -102,25 +103,25 @@ namespace SwaggerWeb
             .Produces<bool>(StatusCodes.Status202Accepted)
             .Produces(StatusCodes.Status400BadRequest).WithOpenApi();
 
-            app.MapGet("/producto/", async (IProductoServicio productoServicio) =>
-            {
-                try
-                {
-                    List<ProductoDTO> losProd = await productoServicio.ObtenerTodos();
-                    return Results.Ok(losProd);
-                }
-                catch (ArgumentException ex)
-                {
-                    return Results.BadRequest(ex.Message);
-                }
+            //    app.MapGet("/producto/", async (IProductoServicio productoServicio) =>
+            //    {
+            //        try
+            //        {
+            //            List<ProductoDTO> losProd = await productoServicio.ObtenerTodos();
+            //            return Results.Ok(losProd);
+            //        }
+            //        catch (ArgumentException ex)
+            //        {
+            //            return Results.BadRequest(ex.Message);
+            //        }
 
-            }).WithName("Listar Productos")
-            .WithTags("Producto")
-            .Produces<List<ProductoDTO>>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest).WithOpenApi();
+            //    }).WithName("Listar Productos")
+            //    .WithTags("Producto")
+            //    .Produces<List<ProductoDTO>>(StatusCodes.Status200OK)
+            //    .Produces(StatusCodes.Status400BadRequest).WithOpenApi();
+            //}
+
         }
-
-
 
 
     }

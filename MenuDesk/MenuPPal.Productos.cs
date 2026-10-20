@@ -15,24 +15,26 @@ namespace MenuDesk
         private void ProductosPage_CheckedChanged(object sender, EventArgs e)
         {
             panelLotes.Visible = false;
+            panelOperarios.Visible = false;
+            panelSucursales.Visible = false;
             panelProductos.Visible = !(panelProductos.Visible);
             panelProductos.Enabled = !(panelProductos.Enabled);
         }
 
-
-        private async void navBarProductos_SelectedIndexChanged(object sender, EventArgs e)//no sé de cuándo me quedó esto
-        {
-            await ListarRecetas();
-        }
-
-        //cuando toco PRODUCTOS en menu lateral y actualizar
         private async void cargarTablasProd_Click(object sender, EventArgs e)
         {
-            await ListarRecetas();
-            await CargarProductosEnGrilla();
+            try
+            {
+                await ListarRecetas();
+                await CargarProductosEnGrilla();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un problema al conectar con la API de productos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-        //esto es del navBar////////////////////////////////////////////////////////
-        private void altaProductoButton_Click(object sender, EventArgs e) //altaProducto
+
+        private void altaProductoButton_Click(object sender, EventArgs e)
         {
             navBarProductos.SelectedTab = altaProductoPage;
 
@@ -47,13 +49,20 @@ namespace MenuDesk
         {
             navBarProductos.SelectedTab = eliminarProductoPage;
         }
-        /////////////////////////////////////////////////////////////////////////////////
 
-        //para abm RECETAS
         private void buttonAgregarReceta_Click(object sender, EventArgs e)
         {
-            MiniMenuReceta miniMenuReceta = new MiniMenuReceta();
-            miniMenuReceta.Show();
+            var miniMenuReceta = new MiniMenuReceta();
+            miniMenuReceta.StartPosition = FormStartPosition.CenterScreen;
+            miniMenuReceta.FormBorderStyle = FormBorderStyle.None;
+
+            var pPantalla = proveedorButton.PointToScreen(new Point(0, proveedorButton.Height));
+            miniMenuReceta.Location = pPantalla;
+
+            miniMenuReceta.Deactivate += (s, args) => miniMenuReceta.Close();
+
+            miniMenuReceta.Show(this);
+
         }
 
         //NUEVO prod guardar
