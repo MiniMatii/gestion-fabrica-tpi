@@ -10,10 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddEndpointsApiExplorer(); 
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DbAlemanaContext>(options =>
@@ -26,7 +24,7 @@ builder.Services.AddScoped<ILoteServicio, LoteServicio>();
 builder.Services.AddScoped<IProveedoresRepositorio, ProveedoresRepositorio>();
 builder.Services.AddScoped<IProveedorServicio, ProveedorServicio>();
 
-builder.Services.AddScoped<ICapacidadesRepositorio,CapacidadesRepositorio>();
+builder.Services.AddScoped<ICapacidadesRepositorio, CapacidadesRepositorio>();
 builder.Services.AddScoped<ICapacidadServicio, CapacidadServicio>();
 
 builder.Services.AddScoped<IOperarioRepositorio, OperarioRepositorio>();
@@ -56,7 +54,14 @@ builder.Services.AddScoped<IRecetaProductoServicio, RecetaProductoServicio>();
 builder.Services.AddScoped<ICiudadRespositorio, CiudadRepositorio>();
 builder.Services.AddScoped<ICiudadServicio, CiudadServicio>();
 
+builder.Services.AddScoped<IOrdenProduccionRepositorio, OrdenProduccionRepositorio>();
+builder.Services.AddScoped<IOrdenProduccionServicio, OrdenProduccionServicio>();
 
+builder.Services.AddScoped<IConsumoLoteRepositorio, ConsumoLoteRepositorio>();
+builder.Services.AddScoped<IConsumoLoteServicio, ConsumoLoteServicio>();
+
+builder.Services.AddScoped<IOrdAsigOpRepositorio, OrdAsigOpRepositorio>();
+builder.Services.AddScoped<IOrdAsigOpServicio, OrdAsigOpServicio>();
 
 //Configurando el JWT 
 /*builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -77,10 +82,8 @@ var app = builder.Build();
 
 //app.UseAuthentication();
 //app.UseAuthorization();
-app.UseSwagger(); 
+app.UseSwagger();
 app.UseSwaggerUI();
-
-
 
 app.MapAuthEndpoints();
 app.MapOperariosEndpoint();
@@ -94,4 +97,8 @@ app.MapSucursalesEndpoint();
 app.MapSolicitudPedidoEndpoint();
 app.MapRecetaProductoEndpoint();
 app.MapCiudadesEndpoint();
+app.MapOrdenProduccionEndpoint();
+app.MapConsumoLoteEndpoint();
+app.MapOrdAsigOpEndpoint();
+
 app.Run();
