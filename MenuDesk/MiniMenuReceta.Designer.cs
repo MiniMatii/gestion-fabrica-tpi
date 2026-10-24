@@ -92,11 +92,6 @@
             idER = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             ktDivider3 = new KimTools.WinForms.KtDivider();
-            navProductos = new KimTools.WinForms.KtPanel();
-            AgregarMP = new KimTools.WinForms.KtButton();
-            EliminarReceta = new KimTools.WinForms.KtButton();
-            EditarReceta = new KimTools.WinForms.KtButton();
-            AltaReceta = new KimTools.WinForms.KtButton();
             hudSuperiorCierre.SuspendLayout();
             panelRecetas.SuspendLayout();
             navBarRecetas.SuspendLayout();
@@ -129,7 +124,6 @@
             ktPanel11.SuspendLayout();
             ktPanel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tablaER).BeginInit();
-            navProductos.SuspendLayout();
             SuspendLayout();
             // 
             // hudSuperiorCierre
@@ -259,7 +253,6 @@
             panelRecetas.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             panelRecetas.BorderWidth = 1.5F;
             panelRecetas.Controls.Add(navBarRecetas);
-            panelRecetas.Controls.Add(navProductos);
             panelRecetas.Dock = DockStyle.Fill;
             panelRecetas.Foreground = KimTools.WinForms.KtColor.Empty;
             panelRecetas.Location = new Point(0, 43);
@@ -277,11 +270,11 @@
             navBarRecetas.Controls.Add(modificarRecetaPage);
             navBarRecetas.Controls.Add(eliminarRecetaPage);
             navBarRecetas.Dock = DockStyle.Fill;
-            navBarRecetas.Location = new Point(0, 66);
+            navBarRecetas.Location = new Point(0, 0);
             navBarRecetas.Multiline = true;
             navBarRecetas.Name = "navBarRecetas";
             navBarRecetas.SelectedIndex = 0;
-            navBarRecetas.Size = new Size(800, 341);
+            navBarRecetas.Size = new Size(800, 407);
             navBarRecetas.TabIndex = 0;
             animation1.AnimateOnlyDifferences = false;
             animation1.BlindCoeff = (PointF)resources.GetObject("animation1.BlindCoeff");
@@ -309,7 +302,7 @@
             altaRecetaPage.Location = new Point(0, 0);
             altaRecetaPage.Name = "altaRecetaPage";
             altaRecetaPage.Padding = new Padding(3);
-            altaRecetaPage.Size = new Size(800, 341);
+            altaRecetaPage.Size = new Size(800, 407);
             altaRecetaPage.TabIndex = 0;
             altaRecetaPage.Text = "tabPage1";
             // 
@@ -328,7 +321,7 @@
             altaRecetaSubPage.Location = new Point(3, 3);
             altaRecetaSubPage.Name = "altaRecetaSubPage";
             altaRecetaSubPage.PatternColor = KimTools.WinForms.KtColor.Empty;
-            altaRecetaSubPage.Size = new Size(794, 335);
+            altaRecetaSubPage.Size = new Size(794, 401);
             altaRecetaSubPage.TabIndex = 0;
             // 
             // footerAR
@@ -1295,144 +1288,16 @@
             ktDivider3.Size = new Size(734, 23);
             ktDivider3.TabIndex = 1;
             // 
-            // navProductos
-            // 
-            navProductos.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
-            navProductos.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            navProductos.BorderEdges.BottomLeft = false;
-            navProductos.BorderEdges.TopLeft = false;
-            navProductos.BorderRadius = 24F;
-            navProductos.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            navProductos.BorderWidth = 1.5F;
-            navProductos.Controls.Add(AgregarMP);
-            navProductos.Controls.Add(EliminarReceta);
-            navProductos.Controls.Add(EditarReceta);
-            navProductos.Controls.Add(AltaReceta);
-            navProductos.Dock = DockStyle.Top;
-            navProductos.Foreground = KimTools.WinForms.KtColor.Empty;
-            navProductos.Location = new Point(0, 0);
-            navProductos.Name = "navProductos";
-            navProductos.PatternColor = KimTools.WinForms.KtColor.Empty;
-            navProductos.Size = new Size(800, 66);
-            navProductos.TabIndex = 0;
-            // 
-            // AgregarMP
-            // 
-            AgregarMP.BackColor = Color.Transparent;
-            AgregarMP.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            AgregarMP.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            AgregarMP.BorderMargin = new Padding(0);
-            AgregarMP.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            AgregarMP.BorderWidth = 2F;
-            AgregarMP.Cursor = Cursors.Default;
-            AgregarMP.Dock = DockStyle.Left;
-            AgregarMP.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AgregarMP.ForeColor = Color.FromArgb(204, 255, 246);
-            AgregarMP.Foreground = KimTools.WinForms.KtColor.Empty;
-            AgregarMP.Icon = "";
-            AgregarMP.IconColor = KimTools.WinForms.KtColor.Empty;
-            AgregarMP.IconSize = 16;
-            AgregarMP.IconStroke = 2.5D;
-            AgregarMP.Location = new Point(360, 0);
-            AgregarMP.Name = "AgregarMP";
-            AgregarMP.Padding = new Padding(8, 0, 8, 0);
-            AgregarMP.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
-            AgregarMP.Size = new Size(133, 66);
-            AgregarMP.TabIndex = 6;
-            AgregarMP.Text = "Asignar materia prima";
-            AgregarMP.UseVisualStyleBackColor = false;
-            // 
-            // EliminarReceta
-            // 
-            EliminarReceta.BackColor = Color.Transparent;
-            EliminarReceta.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            EliminarReceta.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            EliminarReceta.BorderMargin = new Padding(0);
-            EliminarReceta.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            EliminarReceta.BorderWidth = 2F;
-            EliminarReceta.Cursor = Cursors.Default;
-            EliminarReceta.Dock = DockStyle.Left;
-            EliminarReceta.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            EliminarReceta.ForeColor = Color.FromArgb(204, 255, 246);
-            EliminarReceta.Foreground = KimTools.WinForms.KtColor.Empty;
-            EliminarReceta.Icon = "";
-            EliminarReceta.IconColor = KimTools.WinForms.KtColor.Empty;
-            EliminarReceta.IconSize = 16;
-            EliminarReceta.IconStroke = 2.5D;
-            EliminarReceta.Location = new Point(240, 0);
-            EliminarReceta.Name = "EliminarReceta";
-            EliminarReceta.Padding = new Padding(8, 0, 8, 0);
-            EliminarReceta.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
-            EliminarReceta.Size = new Size(120, 66);
-            EliminarReceta.TabIndex = 5;
-            EliminarReceta.Text = "Eliminar";
-            EliminarReceta.UseVisualStyleBackColor = false;
-            EliminarReceta.Click += EliminarReceta_Click;
-            // 
-            // EditarReceta
-            // 
-            EditarReceta.BackColor = Color.Transparent;
-            EditarReceta.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            EditarReceta.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            EditarReceta.BorderMargin = new Padding(0);
-            EditarReceta.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            EditarReceta.BorderWidth = 2F;
-            EditarReceta.Cursor = Cursors.Default;
-            EditarReceta.Dock = DockStyle.Left;
-            EditarReceta.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            EditarReceta.ForeColor = Color.FromArgb(204, 255, 246);
-            EditarReceta.Foreground = KimTools.WinForms.KtColor.Empty;
-            EditarReceta.Icon = "";
-            EditarReceta.IconColor = KimTools.WinForms.KtColor.Empty;
-            EditarReceta.IconSize = 16;
-            EditarReceta.IconStroke = 2.5D;
-            EditarReceta.Location = new Point(120, 0);
-            EditarReceta.Name = "EditarReceta";
-            EditarReceta.Padding = new Padding(8, 0, 8, 0);
-            EditarReceta.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
-            EditarReceta.Size = new Size(120, 66);
-            EditarReceta.TabIndex = 4;
-            EditarReceta.Text = "Editar";
-            EditarReceta.UseVisualStyleBackColor = false;
-            EditarReceta.Click += ModificarReceta_Click;
-            // 
-            // AltaReceta
-            // 
-            AltaReceta.BackColor = Color.Transparent;
-            AltaReceta.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            AltaReceta.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            AltaReceta.BorderMargin = new Padding(0);
-            AltaReceta.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            AltaReceta.BorderWidth = 2F;
-            AltaReceta.Cursor = Cursors.Default;
-            AltaReceta.Dock = DockStyle.Left;
-            AltaReceta.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AltaReceta.ForeColor = Color.FromArgb(204, 255, 246);
-            AltaReceta.Foreground = KimTools.WinForms.KtColor.Empty;
-            AltaReceta.Icon = "";
-            AltaReceta.IconColor = KimTools.WinForms.KtColor.Empty;
-            AltaReceta.IconSize = 16;
-            AltaReceta.IconStroke = 2.5D;
-            AltaReceta.Location = new Point(0, 0);
-            AltaReceta.Name = "AltaReceta";
-            AltaReceta.Padding = new Padding(8, 0, 8, 0);
-            AltaReceta.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
-            AltaReceta.Size = new Size(120, 66);
-            AltaReceta.TabIndex = 3;
-            AltaReceta.Text = "Alta";
-            AltaReceta.UseVisualStyleBackColor = false;
-            AltaReceta.Click += altaRecetaButton_Click;
-            // 
             // MiniMenuReceta
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(15, 23, 43);
-            Background = (KimTools.WinForms.KtBrushSolid)KimTools.WinForms.KtBrush.Solid;
+            BackColor = Color.FromArgb(173, 151, 98);
+            Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
             ClientSize = new Size(800, 450);
             Controls.Add(panelRecetas);
             Controls.Add(hudSuperiorCierre);
-            ForeColor = Color.FromArgb(255, 255, 255);
+            ForeColor = Color.FromArgb(34, 29, 17);
             FormBorderStyle = FormBorderStyle.None;
             Name = "MiniMenuReceta";
             Text = "MiniMenuReceta";
@@ -1469,7 +1334,6 @@
             ktPanel11.ResumeLayout(false);
             ktPanel12.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)tablaER).EndInit();
-            navProductos.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1535,10 +1399,6 @@
         private KimTools.WinForms.KtTable tablaMR;
         private KimTools.WinForms.KtDivider ktDivider20;
         private TabPage eliminarRecetaPage;
-        private KimTools.WinForms.KtPanel navProductos;
-        private KimTools.WinForms.KtButton EliminarReceta;
-        private KimTools.WinForms.KtButton EditarReceta;
-        private KimTools.WinForms.KtButton AltaReceta;
         private DataGridViewTextBoxColumn idMR;
         private DataGridViewTextBoxColumn descMR;
         private KimTools.WinForms.KtPanel ktPanel1;
@@ -1552,7 +1412,6 @@
         private KimTools.WinForms.KtPanel ktPanel12;
         private KimTools.WinForms.KtTable tablaER;
         private KimTools.WinForms.KtDivider ktDivider3;
-        private KimTools.WinForms.KtButton AgregarMP;
         private DataGridViewTextBoxColumn idER;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
