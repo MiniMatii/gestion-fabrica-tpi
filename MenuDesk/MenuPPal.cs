@@ -15,10 +15,8 @@ namespace MenuDesk
         public MenuPPal()
         {
             InitializeComponent();
-        }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+
         }
 
         private void ktButton1_Click(object sender, EventArgs e)
@@ -33,11 +31,10 @@ namespace MenuDesk
         }
         private void ktButton3_Click(object sender, EventArgs e)
         {
-            //this.Close();
+            this.Close();
             Environment.Exit(0);
 
         }
-
 
     }
 }

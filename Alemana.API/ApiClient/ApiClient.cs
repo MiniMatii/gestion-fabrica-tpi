@@ -128,6 +128,26 @@ namespace Alemana.API
             }
         }
 
+        public async Task<T> ObtenerAsync<T>(string endpoint)
+        {
+            try
+            {
+                var response = await _client.GetAsync(endpoint);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string contenido = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Status: {response.StatusCode}\nContenido: {contenido}");
+                }
+
+                return await response.Content.ReadFromJsonAsync<T>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener datos de '{endpoint}': {ex.Message}");
+            }
+        }
+
 
     }
 }
