@@ -10,6 +10,8 @@ namespace Alemana.Aplicaciones.Servicios
         Task<List<SolicitudPedidoDTO>> ObtenerTodos();
         Task<SolicitudPedidoDTO> ObtenerPorId(int id);
         Task<bool> EliminarPedido(int id);
+        Task<List<PedidoItemDTO>> ObtenerProductosDePedidoAsync(int idPedido);
+
     }
 
 }

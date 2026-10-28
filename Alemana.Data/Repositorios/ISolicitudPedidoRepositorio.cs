@@ -9,6 +9,8 @@ namespace Alemana.Data.Repositorios
         Task<List<Solicitudpedido>> ObtenerTodos();
         Task<Solicitudpedido> ObtenerPorId(int id);
         Task<bool> EliminarPedido(int id);
+        Task<List<DetallePedido>> ObtenerDetallePedido(int idPedido);
+
     }
 
 }

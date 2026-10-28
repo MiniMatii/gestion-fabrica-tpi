@@ -3,6 +3,7 @@
     public class DetallePedidoDTO
     {
         public int IdProducto { get; set; }
+        public string NombreProducto { get; set; }
         public int CantidadesProductos { get; set; }
     }
 

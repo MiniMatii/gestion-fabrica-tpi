@@ -26,7 +26,6 @@ namespace MenuDesk.Controles
 
         private void btnVer_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("btnVer click");
             var handler = VerPedidoClick;
             if (handler != null) handler(PedidoId);
         }

@@ -55,5 +55,15 @@ namespace Alemana.Data.Repositorios
             await _DbA.SaveChangesAsync();
             return true;
         }
+
+        public async Task<List<DetallePedido>> ObtenerDetallePedido(int idPedido)
+        {
+            return await _DbA.DetallePedidos
+                .AsNoTracking()
+                .Include(d => d.IdProductoNavigation)
+                .Where(d => d.IdPedido == idPedido)
+                .ToListAsync();
+        }
+
     }
     }

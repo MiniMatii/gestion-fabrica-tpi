@@ -137,7 +137,6 @@
             BackColor = Color.FromArgb(173, 151, 98);
             Controls.Add(ktPanel2);
             Controls.Add(ktPanel1);
-            Enabled = false;
             Name = "PedidoCard";
             Size = new Size(220, 110);
             ktPanel1.ResumeLayout(false);

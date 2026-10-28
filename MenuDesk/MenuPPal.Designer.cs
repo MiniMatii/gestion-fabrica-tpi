@@ -12603,7 +12603,6 @@
             navBarPedidos.Controls.Add(gestionPedidos);
             navBarPedidos.Controls.Add(tabPage6);
             navBarPedidos.Dock = DockStyle.Fill;
-            navBarPedidos.Enabled = false;
             navBarPedidos.Location = new Point(0, 0);
             navBarPedidos.Multiline = true;
             navBarPedidos.Name = "navBarPedidos";

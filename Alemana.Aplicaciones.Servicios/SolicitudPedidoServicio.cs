@@ -87,5 +87,19 @@ namespace Alemana.Aplicaciones.Servicios
         {
             return await _pedidoRepositorio.EliminarPedido(id);
         }
+
+
+        public async Task<List<PedidoItemDTO>> ObtenerProductosDePedidoAsync(int idPedido)
+        {
+            var detalles = await _pedidoRepositorio.ObtenerDetallePedido(idPedido);
+
+            return detalles.Select(d => new PedidoItemDTO
+            {
+                IdProducto = d.IdProducto,
+                NombreProducto = d.IdProductoNavigation?.Nombre ?? "(sin nombre)",
+                CantidadPedida = d.CantidadesProductos
+            }).ToList();
+        }
+
     }
 }

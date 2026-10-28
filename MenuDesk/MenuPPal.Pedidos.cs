@@ -48,7 +48,7 @@ namespace MenuDesk
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudieron cargar los pedidos: " + ex.Message);
+                MessageBox.Show("No se pudieron cargar los pedidos:\n" + ex.ToString());
             }
             finally
             {
@@ -83,9 +83,9 @@ namespace MenuDesk
         {
             try
             {
-                var detalle = await ObtenerDetallePedidoAsync(pedidoId);
-                using (var frm = new FormPedidoDetalleMini(detalle))
-                    frm.ShowDialog(this);
+                var productos = await ObtenerProductosPedidoAsync(pedidoId);
+                var frm = new FormPedidoDetalleMini(pedidoId, productos);
+                frm.Show(this);
             }
             catch (Exception ex)
             {
@@ -120,9 +120,9 @@ namespace MenuDesk
             return Task.FromResult(new List<PedidoResumenDTO>());
         }
 
-        private async Task<PedidoDetalleDTO> ObtenerDetallePedidoAsync(int pedidoId)
+        private async Task<List<PedidoItemDTO>> ObtenerProductosPedidoAsync(int pedidoId)
         {
-            return await _apiClient.ObtenerAsync<PedidoDetalleDTO>($"{endpoint}/{pedidoId}");
+            return await _apiClient.ObtenerListaAsync<PedidoItemDTO>($"{endpoint}/{pedidoId}/productos");
         }
     }
 }

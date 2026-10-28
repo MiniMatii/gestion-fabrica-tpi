@@ -53,6 +53,20 @@ namespace SwaggerWeb
               .Produces(StatusCodes.Status204NoContent)
               .Produces(StatusCodes.Status404NotFound)
               .WithOpenApi();
+
+
+
+            app.MapGet("/pedidos/{id:int}/productos", async (int id, ISolicitudPedidoServicio servicio) =>
+            {
+                var productos = await servicio.ObtenerProductosDePedidoAsync(id);
+                return Results.Ok(productos);
+            })
+            .WithName("Obtener Productos De Pedido")
+            .WithTags("Pedidos")
+            .WithOpenApi();
         }
+
+
+
     }
 }

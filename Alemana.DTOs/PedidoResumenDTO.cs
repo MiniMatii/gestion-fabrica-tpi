@@ -13,15 +13,9 @@ namespace Alemana.DTOs
     {
         public int Id { get; set; }
         public DateTime FechaIngreso { get; set; }
-        public System.Collections.Generic.List<PedidoItemDTO> Items { get; set; }
-            = new System.Collections.Generic.List<PedidoItemDTO>();
+        public List<PedidoItemDTO> Items { get; set; } = new List<PedidoItemDTO>();
     }
 
-    public class PedidoItemDTO
-    {
-        public string Producto { get; set; }
-        public int Cantidad { get; set; }
-    }
 
 
 }
