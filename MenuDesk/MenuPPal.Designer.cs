@@ -674,7 +674,6 @@
             panelPedidos = new KimTools.WinForms.KtPanel();
             navBarPedidos = new KimTools.WinForms.KtPages();
             gestionPedidos = new TabPage();
-            pnlPedidos = new MenuDesk.Controles.PedidosCardsPanel();
             tabPage6 = new TabPage();
             tmrPedidos = new System.Windows.Forms.Timer(components);
             hudLateral.SuspendLayout();
@@ -948,7 +947,6 @@
             navProductos.SuspendLayout();
             panelPedidos.SuspendLayout();
             navBarPedidos.SuspendLayout();
-            gestionPedidos.SuspendLayout();
             this.SuspendLayout();
             // 
             // hudLateral
@@ -12631,23 +12629,12 @@
             // 
             navBarPedidos.Set_Background(gestionPedidos, new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));
             gestionPedidos.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            gestionPedidos.Controls.Add(pnlPedidos);
             gestionPedidos.Location = new Point(0, 0);
             gestionPedidos.Name = "gestionPedidos";
             gestionPedidos.Padding = new Padding(3);
             gestionPedidos.Size = new Size(1154, 838);
             gestionPedidos.TabIndex = 0;
             gestionPedidos.Text = "tabPage5";
-            // 
-            // pnlPedidos
-            // 
-            pnlPedidos.AutoScroll = true;
-            pnlPedidos.Dock = DockStyle.Fill;
-            pnlPedidos.Location = new Point(3, 3);
-            pnlPedidos.Name = "pnlPedidos";
-            pnlPedidos.Size = new Size(1148, 832);
-            pnlPedidos.TabIndex = 0;
-            pnlPedidos.VisibleChanged += (this.pnlPedidos_VisibleChanged);
             // 
             // tabPage6
             // 
@@ -12957,7 +12944,6 @@
             navProductos.ResumeLayout(false);
             panelPedidos.ResumeLayout(false);
             navBarPedidos.ResumeLayout(false);
-            gestionPedidos.ResumeLayout(false);
             this.ResumeLayout(false);
         }
 

@@ -31,7 +31,7 @@ namespace Alemana.Aplicaciones.Servicios
                 DetallePedidos = dto.DetallePedidos.Select(d => new DetallePedido
                 {
                     IdProducto = d.IdProducto,
-                    CantidadesProductos = d.CantidadesProductos
+                    CantidadesProductos = d.CantidadPedida
                 }).ToList()
             };
 
@@ -54,10 +54,10 @@ namespace Alemana.Aplicaciones.Servicios
                 FechaEstimada = p.FechaEstimada,
                 FechaReal = p.FechaReal,
                 IdEmpleado = p.IdEmpleado,
-                DetallePedidos = p.DetallePedidos.Select(d => new DetallePedidoDTO
+                DetallePedidos = p.DetallePedidos.Select(d => new PedidoItemDTO
                 {
                     IdProducto = d.IdProducto,
-                    CantidadesProductos = d.CantidadesProductos
+                    CantidadPedida = d.CantidadesProductos
                 }).ToList()
             }).ToList();
         }
@@ -75,10 +75,10 @@ namespace Alemana.Aplicaciones.Servicios
                 FechaEstimada = p.FechaEstimada,
                 FechaReal = p.FechaReal,
                 IdEmpleado = p.IdEmpleado,
-                DetallePedidos = p.DetallePedidos.Select(d => new DetallePedidoDTO
+                DetallePedidos = p.DetallePedidos.Select(d => new PedidoItemDTO
                 {
                     IdProducto = d.IdProducto,
-                    CantidadesProductos = d.CantidadesProductos
+                    CantidadPedida = d.CantidadesProductos
                 }).ToList()
             };
         }

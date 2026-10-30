@@ -51,5 +51,10 @@ namespace Alemana.Aplicaciones.Servicios
                 NombreCiudad = c.NombreCiudad
             }).ToList();
         }
+
+        public async Task<bool> BorrarCiudad(int idC) 
+        {
+            return await ciudadRepositorio.BorrarCiudad(idC);
+        }
     }
 }

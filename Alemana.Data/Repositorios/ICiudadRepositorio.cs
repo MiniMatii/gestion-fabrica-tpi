@@ -11,7 +11,7 @@ namespace Alemana.Data.Repositorios
     {
         Task<Ciudade> AltaCiudad(Ciudade unaCiudad);
         Task<Ciudade> BuscarCiudad(int idC);
-
+        Task<bool> BorrarCiudad(int idC);
         Task<List<Ciudade>> BuscarTodas();
 
     }

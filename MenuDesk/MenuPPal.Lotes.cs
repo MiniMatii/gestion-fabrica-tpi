@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace MenuDesk
 {
-    //SECCION LOTES
+
     public partial class MenuPPal
     {
         private void LotesPage_CheckedChanged(object sender, EventArgs e)
         {
-            //voidPanel.Visible = !(voidPanel.Visible);
+
             panelOperarios.Visible = false;
             panelLotes.Visible = !(panelLotes.Visible);
             panelLotes.Enabled = !(panelLotes.Enabled);
-            //ConfigurarScrollbar();
+
 
         }
 
@@ -73,7 +73,6 @@ namespace MenuDesk
             {
                 string endpoint = "lotes";
 
-                //var listaDatos = await _apiClient.ObtenerListaAsync<LoteDTO>(endpoint);
                 var listaDatos = await _apiClient.ObtenerListaAsync<ListadoLotesFullDTO>("lotes/full");
 
                 if (listaDatos != null)
@@ -82,7 +81,6 @@ namespace MenuDesk
                     ktTablaLotes.DataSource = listaDatos;
                     ktTablaLotesEliminar.DataSource = listaDatos;
 
-                    //Falta corregir el display de los contenidos
                     ktTablaLotes.Columns[0].HeaderText = "IdLote";
                     ktTablaLotes.Columns[1].HeaderText = "NombreProveedor";
                     ktTablaLotes.Columns[2].HeaderText = "NombreMateriaPrima";
@@ -133,15 +131,26 @@ namespace MenuDesk
             {
                 var nuevoLote = new LoteDTO();
                 nuevoLote.FechaIngreso = fechaIngreso.Value;
-                nuevoLote.FechaVencimiento = DateTime.Parse(fechaVencimiento.Text);
+
+
+                if (DateTime.TryParse(fechaVencimiento.Text, out DateTime fechaVen))
+                {
+                    nuevoLote.FechaVencimiento = fechaVen;
+                }
 
                 if (ktTablaProveedoresLotes.CurrentRow != null)
                 {
                     nuevoLote.IdProveedor = Convert.ToInt32(ktTablaProveedoresLotes.CurrentRow.Cells["IdProveedor"].Value);
                 }
 
-                nuevoLote.IdMateriaP = Convert.ToInt32(SelectMP.SelectedValue); 
-                nuevoLote.CantidadLote = int.Parse(cantidadMateriaPrima.Text);
+
+                nuevoLote.IdMateriaP = Convert.ToInt32(SelectMP.SelectedValue);
+
+                if (int.TryParse(cantidadMateriaPrima.Text, out int numero)) 
+                {
+                    nuevoLote.CantidadLote = numero;
+                }
+                
                 nuevoLote.EstadoLote = 1;
 
 
@@ -155,28 +164,6 @@ namespace MenuDesk
             }
 
         }
-
-        //private void ConfigurarScrollbar()
-        //{
-
-
-
-        //    //int alturaContenido = altaLoteSubPage.Controls
-        //    //    .OfType<Control>()
-        //    //    .Sum(c => c.Height);
-        //    //int alturaVisible = altaLoteSubPage.ClientSize.Height;
-
-        //    //ktScrollbar1.Minimum = 0;
-        //    //ktScrollbar1.Maximum = Math.Max(0, alturaContenido - alturaVisible);
-        //    //ktScrollbar1.LargeChange = alturaVisible;
-        //    //ktScrollbar1.SmallChange = 40;
-        //    //ktScrollbar1.Value = 0;
-        //}
-
-        //private void ktScrollbar1_Scroll(object sender, KimTools.WinForms.KtScrollbar.ScrollEventArgs e)
-        //{
-        //    altaLoteSubPage.AutoScrollPosition = new Point(0, e.Value);
-        //}
 
         private void ktTablaLotes_SelectionChanged(object sender, EventArgs e)
         {

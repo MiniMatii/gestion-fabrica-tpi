@@ -11,10 +11,8 @@ namespace Alemana.Aplicaciones.Servicios
     public interface ICiudadServicio
     {
         Task<CiudadesDTO> AltaCiudad(CiudadesDTO nuevaCiudad);
-        //Task<CiudadesDTO> AgregarSucursal(int idCiudad, List<int> idSucursal); 
-
+        Task<bool> BorrarCiudad(int idC);
         Task<CiudadesDTO> BuscarCiudad(int idC);
-
         Task<List<CiudadesDTO>> BuscarTodas();
     }
 }

@@ -28,6 +28,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(ex.Message);
                 }
             }).WithName("Alta Ciudad")
+            .WithTags("Ciudades")
             .Produces<CiudadesDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
@@ -48,6 +49,7 @@ namespace SwaggerWeb
                     return Results.BadRequest(new { error = ex.Message });
                 }
             }).WithName("Buscar Ciudad")
+            .WithTags("Ciudades")
             .Produces<CiudadesDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
@@ -58,9 +60,32 @@ namespace SwaggerWeb
                 var lasc = await ciudadServicio.BuscarTodas();
                 return Results.Ok(lasc);
             }
-            ).WithName("Buscar todas las ciudades")
+            )
+            .WithName("Buscar todas las ciudades")
+            .WithTags("Ciudades")
             .Produces<List<CiudadesDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
+
+            app.MapDelete("/ciudades/{id}", async (int id, ICiudadServicio ciudadServicio) =>
+            {
+                try
+                {
+                    await ciudadServicio.BorrarCiudad(id);
+                    return Results.Ok();
+                }
+                catch (ArgumentException ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            }
+            )
+            .WithName("Borrar Ciudad")
+            .WithTags("Ciudades")
+            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status400BadRequest)
+            .WithOpenApi();
+
+
         }
     }
 }

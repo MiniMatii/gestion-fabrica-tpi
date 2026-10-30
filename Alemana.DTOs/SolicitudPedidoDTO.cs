@@ -9,6 +9,6 @@
         public DateTime? FechaReal { get; set; }
         public int IdEmpleado { get; set; }
 
-        public List<DetallePedidoDTO> DetallePedidos { get; set; } = new List<DetallePedidoDTO>();
+        public List<PedidoItemDTO> DetallePedidos { get; set; } = new List<PedidoItemDTO>();
     }
 }
