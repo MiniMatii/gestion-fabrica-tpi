@@ -1,78 +1,72 @@
-﻿using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components.Authorization;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace Alemana.Web.Auth;
 
-public class CustomAuthStateProvider : AuthenticationStateProvider
+/// <summary>
+/// Autenticación basada en claims. La sesión se guarda cifrada en el navegador (ProtectedLocalStorage),
+/// así no hace falta token JWT ni llamadas a la API.
+/// </summary>
+public class CustomAuthStateProvider(ProtectedLocalStorage almacen) : AuthenticationStateProvider
 {
-    private const string TokenKey = "authToken";
-    private readonly ILocalStorageService _localStorage;
-
-    private static AuthenticationState Anonimo() =>
-        new(new ClaimsPrincipal(new ClaimsIdentity()));
-
-    public CustomAuthStateProvider(ILocalStorageService localStorage)
-        => _localStorage = localStorage;
+    private const string ClaveAlmacen = "sesionAlemana";
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-
-        // TU CÓDIGO ORIGINAL INTACTO DEBAJO (no se ejecutará hasta que borres el bloque de arriba)
         try
         {
-            var token = await _localStorage.GetItemAsync<string>(TokenKey);
-            if (string.IsNullOrWhiteSpace(token))
-                return Anonimo();
-
-            var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
-
-            // Token vencido: se limpia y queda como anónimo
-            if (jwt.ValidTo <= DateTime.UtcNow)
+            var resultado = await almacen.GetAsync<SesionUsuario>(ClaveAlmacen);
+            if (!resultado.Success || resultado.Value is null)
             {
-                await _localStorage.RemoveItemAsync(TokenKey);
                 return Anonimo();
             }
-
-            return new AuthenticationState(CrearPrincipal(jwt));
+            return new AuthenticationState(CrearPrincipal(resultado.Value));
         }
         catch (InvalidOperationException)
         {
-            // Todavía no hay JavaScript disponible (prerenderizado)
+            // Prerenderizado: todavía no hay JavaScript disponible
             return Anonimo();
         }
         catch (Exception)
         {
-            // Token mal formado
+            // Dato alterado o ilegible
             return Anonimo();
         }
     }
 
-    public void MarcarUsuarioComoAutenticado(string token)
+    public async Task IniciarSesionAsync(SesionUsuario sesion)
     {
-        var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
-        NotifyAuthenticationStateChanged(
-            Task.FromResult(new AuthenticationState(CrearPrincipal(jwt))));
+        await almacen.SetAsync(ClaveAlmacen, sesion);
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(CrearPrincipal(sesion))));
     }
 
-    public async Task MarcarUsuarioComoDesconectadoAsync()
+    public async Task CerrarSesionAsync()
     {
-        await _localStorage.RemoveItemAsync(TokenKey);
+        await almacen.DeleteAsync(ClaveAlmacen);
         NotifyAuthenticationStateChanged(Task.FromResult(Anonimo()));
     }
 
-    private static ClaimsPrincipal CrearPrincipal(JwtSecurityToken jwt)
-    {
-        var claims = jwt.Claims.Select(c => c.Type switch
-        {
-            "unique_name" => new Claim(ClaimTypes.Name, c.Value),
-            "role" => new Claim(ClaimTypes.Role, c.Value),
-            "nameid" => new Claim(ClaimTypes.NameIdentifier, c.Value),
-            _ => c   // los que ya vienen con nombre largo pasan tal cual
-        }).ToList();
+    private static AuthenticationState Anonimo() => new(new ClaimsPrincipal(new ClaimsIdentity()));
 
-        var identity = new ClaimsIdentity(claims, "jwt", ClaimTypes.Name, ClaimTypes.Role);
-        return new ClaimsPrincipal(identity);
+    private static ClaimsPrincipal CrearPrincipal(SesionUsuario sesion)
+    {
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Name, sesion.Nombre),
+            new(ClaimTypes.Role, sesion.Rol),
+            new(ClaimTypes.NameIdentifier, sesion.IdUsuario.ToString())
+        };
+        if (sesion.IdOperario is not null)
+        {
+            claims.Add(new Claim("operarioId", sesion.IdOperario.Value.ToString()));
+        }
+        if (sesion.IdEmpleado is not null)
+        {
+            claims.Add(new Claim("empleadoId", sesion.IdEmpleado.Value.ToString()));
+        }
+
+        var identidad = new ClaimsIdentity(claims, "sesion", ClaimTypes.Name, ClaimTypes.Role);
+        return new ClaimsPrincipal(identidad);
     }
 }

@@ -1,6 +1,6 @@
 @page "/productos"
 @attribute [Authorize]
-@inject ApiClient Api
+@inject ProductoRepositorio Repo
 
 <PageTitle>Productos - Alemana</PageTitle>
 
@@ -11,7 +11,7 @@
     </div>
     @if (productos is not null)
     {
-        <span class="contador"><i class="bi bi-box-seam-fill"></i> @productos.Count en total</span>
+        <span class="contador"><i class="bi bi-box-seam-fill"></i> @productos.Count resultado(s)</span>
     }
 </div>
 
@@ -60,6 +60,37 @@
     </div>
 </div>
 
+<div class="card mb-4 filtros">
+    <div class="card-body p-3">
+        <form class="row g-2 align-items-end" @onsubmit="Buscar" @onsubmit:preventDefault>
+            <div class="col-md-4">
+                <label class="form-label small text-muted" for="prod-buscar">Buscar por nombre</label>
+                <input id="prod-buscar" class="form-control" placeholder="Ej: Pan de campo" @bind="filtroTexto" @bind:event="oninput" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small text-muted" for="prod-filtro-camara">Cámara</label>
+                <select id="prod-filtro-camara" class="form-select" @bind="filtroCamara">
+                    <option value="">Todos</option>
+                    <option value="1">Sí</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small text-muted" for="prod-filtro-disp">Disponibilidad</label>
+                <select id="prod-filtro-disp" class="form-select" @bind="filtroDisp">
+                    <option value="">Todos</option>
+                    <option value="1">Disponible</option>
+                    <option value="0">No disponible</option>
+                </select>
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-fill"><i class="bi bi-search me-1"></i> Buscar</button>
+                <button type="button" class="btn btn-outline-secondary" @onclick="Limpiar"><i class="bi bi-x-lg"></i> Limpiar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 @if (productos is null)
 {
     <div class="empty-state">
@@ -71,7 +102,7 @@ else if (!productos.Any())
 {
     <div class="empty-state">
         <i class="bi bi-box-seam"></i>
-        <p>Todavía no hay productos. Agregá el primero con el formulario de arriba.</p>
+        <p>@(HayFiltros ? "No hay productos que coincidan con los filtros." : "Todavía no hay productos. Agregá el primero con el formulario de arriba.")</p>
     </div>
 }
 else
@@ -115,11 +146,18 @@ else
 }
 
 @code {
-    private List<ProductoDTO>? productos;
+    private List<ProductoFila>? productos;
     private ProductoDTO nuevo = new();
     private string? mensaje;
     private bool exito;
     private bool disponible = true;
+
+    private string filtroTexto = "";
+    private string filtroCamara = "";
+    private string filtroDisp = "";
+
+    private bool HayFiltros => !string.IsNullOrWhiteSpace(filtroTexto)
+        || !string.IsNullOrEmpty(filtroCamara) || !string.IsNullOrEmpty(filtroDisp);
 
     protected override async Task OnInitializedAsync() => await Cargar();
 
@@ -127,7 +165,7 @@ else
     {
         try
         {
-            productos = await Api.ObtenerListaAsync<ProductoDTO>("producto/");
+            productos = await Repo.ListarAsync(filtroTexto, ParseBool(filtroCamara), ParseBool(filtroDisp));
         }
         catch (Exception ex)
         {
@@ -136,6 +174,23 @@ else
             exito = false;
         }
     }
+
+    private async Task Buscar() => await Cargar();
+
+    private async Task Limpiar()
+    {
+        filtroTexto = "";
+        filtroCamara = "";
+        filtroDisp = "";
+        await Cargar();
+    }
+
+    private static bool? ParseBool(string valor) => valor switch
+    {
+        "1" => true,
+        "0" => false,
+        _ => (bool?)null
+    };
 
     private async Task Guardar()
     {
@@ -158,24 +213,16 @@ else
 
         try
         {
-            var ok = await Api.PostAsync("producto/", nuevo);
-            if (ok)
-            {
-                mensaje = "Producto creado.";
-                exito = true;
-                nuevo = new();
-                disponible = true;
-                await Cargar();
-            }
-            else
-            {
-                mensaje = "La API rechazó el alta (¿sesión vencida o datos inválidos?).";
-                exito = false;
-            }
+            await Repo.AltaAsync(nuevo);
+            mensaje = "Producto creado.";
+            exito = true;
+            nuevo = new();
+            disponible = true;
+            await Cargar();
         }
         catch (Exception ex)
         {
-            mensaje = ex.Message;
+            mensaje = $"No se pudo guardar el producto: {ex.Message}";
             exito = false;
         }
     }

@@ -1,6 +1,6 @@
 @page "/sucursales"
 @attribute [Authorize]
-@inject ApiClient Api
+@inject SucursalRepositorio Repo
 
 <PageTitle>Sucursales - Alemana</PageTitle>
 
@@ -11,7 +11,7 @@
     </div>
     @if (sucursales is not null)
     {
-        <span class="contador"><i class="bi bi-shop"></i> @sucursales.Count en total</span>
+        <span class="contador"><i class="bi bi-shop"></i> @sucursales.Count resultado(s)</span>
     }
 </div>
 
@@ -46,6 +46,25 @@
     </div>
 </div>
 
+<div class="card mb-4 filtros">
+    <div class="card-body p-3">
+        <form class="row g-2 align-items-end" @onsubmit="Buscar" @onsubmit:preventDefault>
+            <div class="col-md-6">
+                <label class="form-label small text-muted" for="suc-buscar">Buscar por nombre o ciudad</label>
+                <input id="suc-buscar" class="form-control" placeholder="Ej: Rosario" @bind="filtroTexto" @bind:event="oninput" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small text-muted" for="suc-filtro-cp">Código postal</label>
+                <input id="suc-filtro-cp" type="number" class="form-control" placeholder="Ej: 2000" @bind="filtroCp" @bind:event="oninput" />
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-fill"><i class="bi bi-search me-1"></i> Buscar</button>
+                <button type="button" class="btn btn-outline-secondary" @onclick="Limpiar"><i class="bi bi-x-lg"></i> Limpiar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 @if (sucursales is null)
 {
     <div class="empty-state">
@@ -57,7 +76,7 @@ else if (!sucursales.Any())
 {
     <div class="empty-state">
         <i class="bi bi-shop"></i>
-        <p>Todavía no hay sucursales. Agregá la primera con el formulario de arriba.</p>
+        <p>@(HayFiltros ? "No hay sucursales que coincidan con los filtros." : "Todavía no hay sucursales. Agregá la primera con el formulario de arriba.")</p>
     </div>
 }
 else
@@ -68,6 +87,7 @@ else
                 <tr>
                     <th style="width: 5rem;">Id</th>
                     <th>Nombre</th>
+                    <th>Ciudad</th>
                     <th>Código postal</th>
                 </tr>
             </thead>
@@ -77,6 +97,7 @@ else
                     <tr>
                         <td class="text-muted">@s.IdSucursal</td>
                         <td class="fw-semibold">@s.NombreSuc</td>
+                        <td>@s.NombreCiudad</td>
                         <td>@s.CodPostal</td>
                     </tr>
                 }
@@ -86,10 +107,15 @@ else
 }
 
 @code {
-    private List<SucursalesDTO>? sucursales;
+    private List<SucursalFila>? sucursales;
     private SucursalesDTO nuevo = new();
     private string? mensaje;
     private bool exito;
+
+    private string filtroTexto = "";
+    private int? filtroCp;
+
+    private bool HayFiltros => !string.IsNullOrWhiteSpace(filtroTexto) || filtroCp is not null;
 
     protected override async Task OnInitializedAsync() => await Cargar();
 
@@ -97,7 +123,7 @@ else
     {
         try
         {
-            sucursales = await Api.ObtenerListaAsync<SucursalesDTO>("sucursales/");
+            sucursales = await Repo.ListarAsync(filtroTexto, filtroCp);
         }
         catch (Exception ex)
         {
@@ -105,6 +131,15 @@ else
             mensaje = ex.Message;
             exito = false;
         }
+    }
+
+    private async Task Buscar() => await Cargar();
+
+    private async Task Limpiar()
+    {
+        filtroTexto = "";
+        filtroCp = null;
+        await Cargar();
     }
 
     private async Task Guardar()
@@ -120,23 +155,15 @@ else
 
         try
         {
-            var ok = await Api.PostAsync("sucursales/", nuevo);
-            if (ok)
-            {
-                mensaje = "Sucursal creada.";
-                exito = true;
-                nuevo = new();
-                await Cargar();
-            }
-            else
-            {
-                mensaje = "La API rechazó el alta (¿sesión vencida o datos inválidos?).";
-                exito = false;
-            }
+            await Repo.AltaAsync(nuevo);
+            mensaje = "Sucursal creada.";
+            exito = true;
+            nuevo = new();
+            await Cargar();
         }
         catch (Exception ex)
         {
-            mensaje = ex.Message;
+            mensaje = $"No se pudo guardar la sucursal: {ex.Message}";
             exito = false;
         }
     }

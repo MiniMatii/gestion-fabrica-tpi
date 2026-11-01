@@ -81,7 +81,7 @@
 
     private async Task CerrarSesion()
     {
-        await ((CustomAuthStateProvider)AuthStateProvider).MarcarUsuarioComoDesconectadoAsync();
+        await ((CustomAuthStateProvider)AuthStateProvider).CerrarSesionAsync();
         Navigation.NavigateTo("/login");
     }
 }
