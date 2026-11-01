@@ -1,3 +1,5 @@
+using Alemana.API;
+
 namespace MenuDesk
 {
     internal static class Program
@@ -11,7 +13,18 @@ namespace MenuDesk
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MenuPPal());
+
+
+
+            var api = new ApiClient(new HttpClient { BaseAddress = new Uri("https://localhost:7150") });
+
+            using (var login = new Login(api))
+            {
+                if (login.ShowDialog() != DialogResult.OK) return;
+            }
+
+            Application.Run(new MenuPPal(api));
+
         }
     }
 }

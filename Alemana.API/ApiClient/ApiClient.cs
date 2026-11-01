@@ -18,17 +18,16 @@ namespace Alemana.API
 
         public ApiClient() : this(_clientEscritorio) { }
 
-
-        //web
         private readonly HttpClient _client;
 
         public ApiClient(HttpClient client)
         {
             _client = client;
         }
-        
+
         public string? Token
         {
+            get => _client.DefaultRequestHeaders.Authorization?.Parameter;
             set => _client.DefaultRequestHeaders.Authorization = value is null
                 ? null
                 : new AuthenticationHeaderValue("Bearer", value);
@@ -39,14 +38,17 @@ namespace Alemana.API
             var response = await _client.PostAsJsonAsync("api/auth/login", dto);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
-                return null;   
+                return null;
 
             if (!response.IsSuccessStatusCode)
-                throw new Exception(
-                    $"Login falló: {(int)response.StatusCode} - {await response.Content.ReadAsStringAsync()}");
+                throw new Exception($"Login falló: {(int)response.StatusCode} - {await response.Content.ReadAsStringAsync()}");
 
-            return await response.Content.ReadFromJsonAsync<LoginRespuestaDTO>();
+            var result = await response.Content.ReadFromJsonAsync<LoginRespuestaDTO>();
+            Token = result?.Token;   // ajustá al nombre real de la propiedad del DTO
+            return result;
         }
+
+        public void Logout() => Token = null;
 
         //
         public async Task<List<T>?> ObtenerListaAsync<T>(string endpoint)

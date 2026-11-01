@@ -9,14 +9,19 @@ namespace MenuDesk
 {
     public partial class MenuPPal : KtWindow
     {
-
-        private readonly ApiClient _apiClient = new ApiClient();
+        private ApiClient _apiClient = null!;
 
         public MenuPPal()
         {
             InitializeComponent();
-
-
+            hudLateral.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            hudLateral.BackColor = Color.FromArgb(0, 78, 65);
+            hudLateral.BackgroundImage = Properties.Resources.backgroundAleman_340x1179;
+            hudLateral.BackgroundImageLayout = ImageLayout.None;
+        }
+        public MenuPPal(ApiClient api) : this()
+        {
+            _apiClient = api;
         }
 
         private void ktButton1_Click(object sender, EventArgs e)
