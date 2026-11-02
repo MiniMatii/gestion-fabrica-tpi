@@ -16,7 +16,6 @@ namespace Alemana.Aplicaciones.Servicios
         Task<ProveedorDTO> ObtenerPorId(int id);
         Task<ProveedorDTO> ModificarProveedor(ProveedorDTO proveedorDTO);
         Task<bool> EliminarProveedor(int id);
-        Task<List<ProduccionPedidoDTO>> ObtenerProduccionAsync();
 
     }
 }

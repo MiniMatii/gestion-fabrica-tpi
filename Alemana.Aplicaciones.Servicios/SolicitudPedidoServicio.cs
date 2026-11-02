@@ -174,7 +174,7 @@ namespace Alemana.Aplicaciones.Servicios
                     CantidadRequerida = det.CantidadesProductos,
                     FechaPedido = pedido.FechaPedido,
                     FechaEstimada = pedido.FechaEstimada,
-                    EstadoPedido = "Sin asignar"
+                    EstadoPedido = "Pendiente"                       
                 };
 
                 var idOperario = asignaciones
@@ -187,7 +187,6 @@ namespace Alemana.Aplicaciones.Servicios
                         return (ResultadoAceptacion.AsignacionInvalida,
                             $"El operario {idOperario.Value} no puede producir el producto {det.IdProducto}.");
 
-                    orden.EstadoPedido = "Asignada";
                     orden.OrdAsigOps.Add(new OrdAsigOp
                     {
                         IdOperario = idOperario.Value,
@@ -196,10 +195,12 @@ namespace Alemana.Aplicaciones.Servicios
                     });
                 }
 
-                _ordenesRepositorio.Agregar(orden);
+                _ordenesRepositorio.AgregarOrden(orden);             
             }
 
             pedido.EstadoPedido = "Aceptado";
+            await _pedidoRepositorio.GuardarCambiosAsync();          
+
             return (ResultadoAceptacion.Ok, null);
         }
     }

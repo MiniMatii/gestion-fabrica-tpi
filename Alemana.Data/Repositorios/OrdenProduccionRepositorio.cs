@@ -63,6 +63,11 @@ namespace Alemana.Data.Repositorios
                 || await _db.OrdAsigOps.AnyAsync(a => a.IdProd == idProd);
         }
 
+        public void AgregarOrden(Ordenproduccion orden)
+        {
+            _db.Ordenproduccions.Add(orden);
+        }
+
         public async Task<List<Ordenproduccion>> ObtenerParaProduccionAsync()
         {
             return await _db.Ordenproduccions
@@ -70,6 +75,7 @@ namespace Alemana.Data.Repositorios
                 .Include(o => o.IdProductoNavigation)
                 .Include(o => o.OrdAsigOps)
                     .ThenInclude(a => a.IdOperarioNavigation)
+                .Where(o => o.FechaReal == null)
                 .OrderByDescending(o => o.IdPedido)
                 .ThenBy(o => o.IdProd)
                 .ToListAsync();

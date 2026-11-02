@@ -33,7 +33,7 @@ namespace Alemana.Data.Repositorios
                 .ToListAsync();
         }
 
-        public async Task<Solicitudpedido> ObtenerPorId(int id)
+        public async Task<Solicitudpedido?> ObtenerPorId(int id)
         {
             return await _DbA.Solicitudpedidos
                 .Include(p => p.DetallePedidos)

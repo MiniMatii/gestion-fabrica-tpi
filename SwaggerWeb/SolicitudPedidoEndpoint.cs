@@ -64,6 +64,42 @@ namespace SwaggerWeb
             .WithName("Obtener Productos De Pedido")
             .WithTags("Pedidos")
             .WithOpenApi();
+
+            app.MapGet("/pedidos/pendientes", async (ISolicitudPedidoServicio servicio) =>
+               Results.Ok(await servicio.ObtenerPendientesAsync()))
+                .WithTags("Pedidos")
+                .WithOpenApi();
+
+
+            app.MapGet("/pedidos/desde/{ultimoId:int}", async (int ultimoId, ISolicitudPedidoServicio servicio) =>
+                Results.Ok(await servicio.ObtenerPendientesDesdeAsync(ultimoId)))
+                .WithTags("Pedidos")
+                .WithOpenApi();
+
+            app.MapGet("/pedidos/{id:int}/asignables", async (int id, ISolicitudPedidoServicio servicio) =>
+            {
+                var items = await servicio.ObtenerItemsAsignablesAsync(id);
+                return items is null ? Results.NotFound() : Results.Ok(items);
+            })
+            .WithTags("Pedidos")
+            .WithOpenApi();
+
+            app.MapPost("/pedidos/{id:int}/aceptar",
+                async (int id, AceptarPedidoDTO dto, ISolicitudPedidoServicio servicio) =>
+                {
+                    var (resultado, mensaje) = await servicio.AceptarPedidoAsync(id, dto);
+
+                    IResult respuesta = resultado switch
+                    {
+                        ResultadoAceptacion.Ok => Results.NoContent(),
+                        ResultadoAceptacion.NoExiste => Results.NotFound(),
+                        ResultadoAceptacion.NoPendiente => Results.Conflict(mensaje),
+                        _ => Results.BadRequest(mensaje)
+                    };
+                    return respuesta;
+                })
+                .WithTags("Pedidos")
+            .WithOpenApi();
         }
 
 

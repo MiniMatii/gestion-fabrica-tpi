@@ -11,6 +11,9 @@ namespace Alemana.DTOs
         public DateTime? FechaReal { get; set; }
         public int CantidadRequerida { get; set; }
         public int IdProducto { get; set; }
-        //public int? IdPedido { get; set; }
+        public int? IdPedido { get; set; }
+        public string? NombreProducto { get; set; }
+        public int? IdOperario { get; set; }
+        public string? NombreOperario { get; set; }
     }
 }

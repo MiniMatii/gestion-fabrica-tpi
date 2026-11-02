@@ -156,6 +156,9 @@ namespace Alemana.Aplicaciones.Servicios
 
         private static OrdenProduccionDTO ADto(Ordenproduccion o)
         {
+            var asig = o.OrdAsigOps.FirstOrDefault();
+            var op = asig?.IdOperarioNavigation;
+
             return new OrdenProduccionDTO
             {
                 IdProd = o.IdProd,
@@ -165,8 +168,29 @@ namespace Alemana.Aplicaciones.Servicios
                 FechaReal = o.FechaReal,
                 CantidadRequerida = o.CantidadRequerida,
                 IdProducto = o.IdProducto,
-                IdPedido = o.IdPedido
+                IdPedido = o.IdPedido,
+
+                NombreProducto = o.IdProductoNavigation?.Nombre,
+                IdOperario = asig?.IdOperario,
+                NombreOperario = op == null ? null : $"{op.Nombre} {op.Apellido}"
             };
+        }
+
+        public async Task<List<ProduccionPedidoDTO>> ObtenerProduccionAsync()
+        {
+            var ordenes = await _repo.ObtenerParaProduccionAsync();
+
+            return ordenes
+                .GroupBy(o => o.IdPedido ?? 0)
+                .Select(g => new ProduccionPedidoDTO
+                {
+                    IdPedido = g.Key,
+                    FechaPedido = g.Min(o => o.FechaPedido),
+                    FechaEstimada = g.Max(o => o.FechaEstimada),
+                    Ordenes = g.Select(ADto).ToList()
+                })
+                .OrderByDescending(p => p.IdPedido)
+                .ToList();
         }
     }
 }

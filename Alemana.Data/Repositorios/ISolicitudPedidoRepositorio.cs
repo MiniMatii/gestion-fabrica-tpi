@@ -7,7 +7,7 @@ namespace Alemana.Data.Repositorios
     {
         Task<Solicitudpedido> AltaPedido(Solicitudpedido pedido);
         Task<List<Solicitudpedido>> ObtenerTodos();
-        Task<Solicitudpedido> ObtenerPorId(int id);
+        Task<Solicitudpedido?> ObtenerPorId(int id);
         Task<bool> EliminarPedido(int id);
         Task<List<DetallePedido>> ObtenerDetallePedido(int idPedido);
         Task<List<Solicitudpedido>> ObtenerPendientes();               

@@ -11,5 +11,7 @@ namespace Alemana.Aplicaciones.Servicios
         Task<OrdenProduccionDTO> Agregar(OrdenProduccionDTO dto);
         Task<bool> Actualizar(OrdenProduccionDTO dto);
         Task<bool> Eliminar(int id);
+        Task<List<ProduccionPedidoDTO>> ObtenerProduccionAsync();
+
     }
 }
