@@ -9,10 +9,10 @@ namespace MenuDesk.Controles
     {
         public int PedidoId { get; private set; }
         public event Action<int> VerPedidoClick;
+        public event Action<int>? AceptarClick;
 
         public PedidoCard()
         {
-
             InitializeComponent();
             DoubleBuffered = true;
         }
@@ -26,8 +26,12 @@ namespace MenuDesk.Controles
 
         private void btnVer_Click(object sender, EventArgs e)
         {
-            var handler = VerPedidoClick;
-            if (handler != null) handler(PedidoId);
+            VerPedidoClick?.Invoke(PedidoId);
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            AceptarClick?.Invoke(PedidoId);
         }
     }
 }

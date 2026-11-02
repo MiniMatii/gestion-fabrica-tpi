@@ -33,6 +33,7 @@
             lblNumero = new KimTools.WinForms.KtLabel();
             btnVer = new KimTools.WinForms.KtButton();
             ktPanel2 = new KimTools.WinForms.KtPanel();
+            btnAceptar = new KimTools.WinForms.KtButton();
             ktPanel1.SuspendLayout();
             ktPanel2.SuspendLayout();
             SuspendLayout();
@@ -120,6 +121,7 @@
             ktPanel2.BorderRadius = 24F;
             ktPanel2.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             ktPanel2.BorderWidth = 1F;
+            ktPanel2.Controls.Add(btnAceptar);
             ktPanel2.Controls.Add(btnVer);
             ktPanel2.Dock = DockStyle.Bottom;
             ktPanel2.Foreground = KimTools.WinForms.KtColor.Empty;
@@ -129,6 +131,34 @@
             ktPanel2.PatternColor = KimTools.WinForms.KtColor.Empty;
             ktPanel2.Size = new Size(220, 52);
             ktPanel2.TabIndex = 3;
+            // 
+            // btnAceptar
+            // 
+            btnAceptar.BackColor = Color.Transparent;
+            btnAceptar.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
+            btnAceptar.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            btnAceptar.BorderMargin = new Padding(0);
+            btnAceptar.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            btnAceptar.BorderWidth = 2F;
+            btnAceptar.Cursor = Cursors.Default;
+            btnAceptar.Dock = DockStyle.Right;
+            btnAceptar.Font = new Font("Segoe UI Symbol", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAceptar.ForeColor = Color.FromArgb(204, 255, 246);
+            btnAceptar.Foreground = KimTools.WinForms.KtColor.Empty;
+            btnAceptar.Icon = "";
+            btnAceptar.IconColor = KimTools.WinForms.KtColor.Empty;
+            btnAceptar.IconSize = 16;
+            btnAceptar.IconStroke = 2.5D;
+            btnAceptar.Location = new Point(16, 5);
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Padding = new Padding(8, 0, 8, 0);
+            btnAceptar.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
+            btnAceptar.Pattern.Style = KimTools.WinForms.KtPatternStyle.Default;
+            btnAceptar.Size = new Size(97, 42);
+            btnAceptar.TabIndex = 3;
+            btnAceptar.Text = "Aceptar";
+            btnAceptar.UseVisualStyleBackColor = false;
+            btnAceptar.Click += btnAceptar_Click;
             // 
             // PedidoCard
             // 
@@ -151,5 +181,6 @@
         private KimTools.WinForms.KtLabel lblNumero;
         private KimTools.WinForms.KtButton btnVer;
         private KimTools.WinForms.KtPanel ktPanel2;
+        private KimTools.WinForms.KtButton btnAceptar;
     }
 }

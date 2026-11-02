@@ -11,6 +11,7 @@ namespace MenuDesk.Controles
         private readonly Dictionary<int, PedidoCard> _tarjetas = new Dictionary<int, PedidoCard>();
 
         public event Action<int> VerPedidoClick;
+        public event Action<int>? AceptarPedidoClick;
 
         public PedidosCardsPanel()
         {
@@ -46,6 +47,7 @@ namespace MenuDesk.Controles
                     var handler = VerPedidoClick;
                     if (handler != null) handler(id);
                 };
+                card.AceptarClick += id => AceptarPedidoClick?.Invoke(id);
                 _tarjetas.Add(p.IdPedido, card);
                 tarjetasNuevas.Add(card);
             }

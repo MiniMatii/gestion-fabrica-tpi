@@ -44,7 +44,7 @@ namespace Alemana.API
                 throw new Exception($"Login falló: {(int)response.StatusCode} - {await response.Content.ReadAsStringAsync()}");
 
             var result = await response.Content.ReadFromJsonAsync<LoginRespuestaDTO>();
-            Token = result?.Token;   // ajustá al nombre real de la propiedad del DTO
+            Token = result?.Token;   
             return result;
         }
 
@@ -55,7 +55,7 @@ namespace Alemana.API
         {
             try
             {
-                return await _clientEscritorio.GetFromJsonAsync<List<T>>(endpoint);
+                return await _client.GetFromJsonAsync<List<T>>(endpoint);
             }
             catch (Exception ex)
             {
@@ -150,6 +150,23 @@ namespace Alemana.API
             }
         }
 
+        public async Task<(bool Ok, HttpStatusCode Status, string? Mensaje)> PostConRespuestaAsync<T>(string endpoint, T objetoDto)
+        {
+            try
+            {
+                var response = await _client.PostAsJsonAsync(endpoint, objetoDto);
+
+                if (response.IsSuccessStatusCode)
+                    return (true, response.StatusCode, null);
+
+                var texto = await response.Content.ReadAsStringAsync();
+                return (false, response.StatusCode, texto.Trim('"'));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al enviar datos a '{endpoint}': {ex.Message}");
+            }
+        }
 
     }
 }

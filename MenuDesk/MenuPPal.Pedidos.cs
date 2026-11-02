@@ -1,5 +1,6 @@
-﻿using System.Linq;
-using Alemana.DTOs;
+﻿using Alemana.DTOs;
+using System.Linq;
+using System.Net;
 
 namespace MenuDesk
 {
@@ -36,11 +37,12 @@ namespace MenuDesk
                 {
                     pnlPedidos.VerPedidoClick += PnlPedidos_VerPedidoClick;
                     _pedidosIniciado = true;
+                    pnlPedidos.AceptarPedidoClick += PnlPedidos_AceptarPedidoClick;
                 }
 
                 var pedidos = await ObtenerPedidosPendientesAsync();
 
-                if (!pnlPedidos.Visible) return;   // el usuario ya salió de la pantalla
+                if (!pnlPedidos.Visible) return;   
 
                 pnlPedidos.Limpiar();
                 pnlPedidos.CargarPedidos(pedidos);
@@ -71,7 +73,7 @@ namespace MenuDesk
             }
             catch (Exception)
             {
-                // Falla momentánea de red: se reintenta en el próximo tick.
+
             }
             finally
             {
@@ -93,11 +95,50 @@ namespace MenuDesk
             }
         }
 
-        // ---- Conectar con tu ApiClient PRUEBAS----
+        private async void PnlPedidos_AceptarPedidoClick(int idPedido)
+        {
+            try
+            {
+                var items = await _apiClient.ObtenerListaAsync<ItemAsignableDTO>($"{endpoint}/{idPedido}/asignables");
+                if (items == null || items.Count == 0)
+                {
+                    MessageBox.Show("No se encontró el pedido o no tiene productos.",
+                        "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            catch { }
+            //    using var frm = new FormAsignarOperarios(idPedido, items);
+            //    if (frm.ShowDialog(this) != DialogResult.OK) return;
+
+            //    var dto = new AceptarPedidoDTO { Asignaciones = frm.Asignaciones };
+            //    var (ok, status, mensaje) = await _apiClient.PostAsync($"{endpoint}/{idPedido}/aceptar", dto);
+
+            //    if (ok)
+            //    {
+            //        pnlPedidos.QuitarPedido(idPedido);   
+            //        return;
+            //    }
+
+            //    MessageBox.Show(mensaje ?? "No se pudo aceptar el pedido.",
+            //        "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
+            //    if (status == HttpStatusCode.Conflict)
+            //        pnlPedidos.QuitarPedido(idPedido);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error al aceptar el pedido: " + ex.Message,
+            //        "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+        }
+
+
 
         private async Task<List<PedidoResumenDTO>> ObtenerPedidosPendientesAsync()
         {
-            //var lista = Enumerable.Range(1, 20)
+
             try 
             {
                 var lista = await _apiClient.ObtenerListaAsync<PedidoResumenDTO>(endpoint);
