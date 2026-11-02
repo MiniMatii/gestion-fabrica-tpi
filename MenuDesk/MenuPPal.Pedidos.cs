@@ -106,32 +106,31 @@ namespace MenuDesk
                         "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
+                using var frm = new FormAsignarOperario(idPedido, items);
+                if (frm.ShowDialog(this) != DialogResult.OK) return;
+
+                var dto = new AceptarPedidoDTO { Asignaciones = frm.Asignaciones };
+                var (ok, status, mensaje) = await _apiClient.PostConRespuestaAsync($"{endpoint}/{idPedido}/aceptar", dto);
+
+                if (ok)
+                {
+                    pnlPedidos.QuitarPedido(idPedido);   
+                    return;
+                }
+
+                MessageBox.Show(mensaje ?? "No se pudo aceptar el pedido.",
+                    "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+             
+                if (status == HttpStatusCode.Conflict)
+                    pnlPedidos.QuitarPedido(idPedido);
             }
-            catch { }
-            //    using var frm = new FormAsignarOperarios(idPedido, items);
-            //    if (frm.ShowDialog(this) != DialogResult.OK) return;
-
-            //    var dto = new AceptarPedidoDTO { Asignaciones = frm.Asignaciones };
-            //    var (ok, status, mensaje) = await _apiClient.PostAsync($"{endpoint}/{idPedido}/aceptar", dto);
-
-            //    if (ok)
-            //    {
-            //        pnlPedidos.QuitarPedido(idPedido);   
-            //        return;
-            //    }
-
-            //    MessageBox.Show(mensaje ?? "No se pudo aceptar el pedido.",
-            //        "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-
-            //    if (status == HttpStatusCode.Conflict)
-            //        pnlPedidos.QuitarPedido(idPedido);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error al aceptar el pedido: " + ex.Message,
-            //        "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al aceptar el pedido: " + ex.Message,
+                    "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
