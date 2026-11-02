@@ -13,13 +13,10 @@ namespace Alemana.Data.Repositorios
         Task<bool> BajaOperario(int id);
         Task<List<int>> AsignarCapacidad(int idOpe, List<int> idCap);
         Task<Operario> ModificarOperario(Operario unOperario);
-        //Task<Operario> CambiarCapacidades(int idOperario);
-
         Task<List<Capacidad>> EncontrarCapacidades(List<int> iCapacidades);
-
         Task<IEnumerable<Operario>> ObtenerTodos();
         Task<List<Capacidad>> ObtenerCapacidadesAsignadas(int idOp);
-
+        Task<List<Operario>> ObtenerCapacesAsync(int idProducto);
         Task<Operario> ObtenerOperarioPorId(int idOperario);
         Task GuardarCambios();
         Task<bool> EliminarOperario(int idOperario);

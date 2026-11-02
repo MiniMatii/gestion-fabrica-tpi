@@ -48,7 +48,6 @@ namespace Alemana.Data.Repositorios
 
             if (pedido == null) return false;
 
-            // Opcional: Remover detalles primero si no tienes configurado cascade delete en la BD
             _DbA.DetallePedidos.RemoveRange(pedido.DetallePedidos);
             _DbA.Solicitudpedidos.Remove(pedido);
 
@@ -64,6 +63,30 @@ namespace Alemana.Data.Repositorios
                 .Where(d => d.IdPedido == idPedido)
                 .ToListAsync();
         }
+
+        public async Task<List<Solicitudpedido>> ObtenerPendientes()
+        {
+            return await _DbA.Solicitudpedidos
+                .AsNoTracking()
+                .Where(p => p.EstadoPedido == "Pendiente")
+                .OrderBy(p => p.IdPedido)
+                .ToListAsync();
+        }
+
+        public async Task<List<Solicitudpedido>> ObtenerPendientesDesde(int ultimoId)
+        {
+            return await _DbA.Solicitudpedidos
+                .AsNoTracking()
+                .Where(p => p.EstadoPedido == "Pendiente" && p.IdPedido > ultimoId)
+                .OrderBy(p => p.IdPedido)
+                .ToListAsync();
+        }
+
+        public async Task GuardarCambiosAsync()
+        {
+            await _DbA.SaveChangesAsync();
+        }
+
 
     }
     }

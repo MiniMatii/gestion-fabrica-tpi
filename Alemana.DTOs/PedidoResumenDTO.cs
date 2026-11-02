@@ -9,12 +9,12 @@ namespace Alemana.DTOs
 
     }
 
-    public class PedidoDetalleDTO
-    {
-        public int Id { get; set; }
-        public DateTime FechaIngreso { get; set; }
-        public List<PedidoItemDTO> Items { get; set; } = new List<PedidoItemDTO>();
-    }
+    //public class PedidoDetalleDTO
+    //{
+    //    public int Id { get; set; }
+    //    public DateTime FechaIngreso { get; set; }
+    //    public List<PedidoItemDTO> Items { get; set; } = new List<PedidoItemDTO>();
+    //}
 
 
 

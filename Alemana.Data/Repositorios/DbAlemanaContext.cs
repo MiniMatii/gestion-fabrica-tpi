@@ -415,6 +415,15 @@ public partial class DbAlemanaContext : DbContext
                 .HasForeignKey<Producto>(d => d.IdReceta)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("productos_ibfk_1");
+
+            entity.HasIndex(e => e.IdCap, "fk_productos_capacidad");
+
+            entity.Property(e => e.IdCap).HasColumnName("idCap");
+
+            entity.HasOne(d => d.IdCapNavigation).WithMany(p => p.Productos)
+                .HasForeignKey(d => d.IdCap)
+                .HasConstraintName("fk_productos_capacidad");
+
         });
 
         modelBuilder.Entity<Proveedore>(entity =>

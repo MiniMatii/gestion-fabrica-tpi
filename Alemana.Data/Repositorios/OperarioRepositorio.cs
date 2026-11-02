@@ -155,5 +155,25 @@ namespace Alemana.Data.Repositorios
 
             return true;
         }
+
+        public async Task<List<Operario>> ObtenerCapacesAsync(int idProducto)
+        {
+            var idCap = await _DbA.Productos
+                .AsNoTracking()
+                .Where(p => p.IdProducto == idProducto)
+                .Select(p => p.IdCap)
+                .FirstOrDefaultAsync();
+
+            if (idCap == null)
+                return new List<Operario>();
+
+            return await _DbA.Operarios
+                .AsNoTracking()
+                .Where(o => o.Disponibilidad == 1
+                         && o.IdCaps.Any(c => c.IdCap == idCap))
+                .OrderBy(o => o.Apellido).ThenBy(o => o.Nombre)
+                .ToListAsync();
+        }
+
     }
 }

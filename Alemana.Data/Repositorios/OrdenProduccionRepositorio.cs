@@ -62,5 +62,19 @@ namespace Alemana.Data.Repositorios
             return await _db.Consumolotes.AnyAsync(c => c.IdProd == idProd)
                 || await _db.OrdAsigOps.AnyAsync(a => a.IdProd == idProd);
         }
+
+        public async Task<List<Ordenproduccion>> ObtenerParaProduccionAsync()
+        {
+            return await _db.Ordenproduccions
+                .AsNoTracking()
+                .Include(o => o.IdProductoNavigation)
+                .Include(o => o.OrdAsigOps)
+                    .ThenInclude(a => a.IdOperarioNavigation)
+                .OrderByDescending(o => o.IdPedido)
+                .ThenBy(o => o.IdProd)
+                .ToListAsync();
+        }
+
+
     }
 }

@@ -11,6 +11,10 @@ namespace Alemana.Aplicaciones.Servicios
         Task<SolicitudPedidoDTO> ObtenerPorId(int id);
         Task<bool> EliminarPedido(int id);
         Task<List<PedidoItemDTO>> ObtenerProductosDePedidoAsync(int idPedido);
+        Task<List<PedidoResumenDTO>> ObtenerPendientesAsync();
+        Task<List<PedidoResumenDTO>> ObtenerPendientesDesdeAsync(int ultimoId);
+        Task<List<ItemAsignableDTO>?> ObtenerItemsAsignablesAsync(int idPedido);
+        Task<(ResultadoAceptacion Resultado, string? Mensaje)> AceptarPedidoAsync(int idPedido, AceptarPedidoDTO dto);
 
     }
 

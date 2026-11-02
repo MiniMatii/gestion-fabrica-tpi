@@ -11,7 +11,7 @@ namespace Alemana.Data.Repositorios
         Task<Ordenproduccion> Agregar(Ordenproduccion entidad);
         Task<bool> Actualizar(Ordenproduccion entidad);
         Task<bool> Eliminar(int id);
-
         Task<bool> TieneDependencias(int idProd);
+        Task<List<Ordenproduccion>> ObtenerParaProduccionAsync();
     }
 }

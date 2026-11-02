@@ -17,6 +17,10 @@ public partial class Producto
 
     public int StockActual { get; set; }
 
+    public int? IdCap { get; set; }
+    
+    public virtual Capacidad? IdCapNavigation { get; set; }
+
     public virtual ICollection<DetallePedido> DetallePedidos { get; set; } = new List<DetallePedido>();
 
     public virtual Recetaproducto IdRecetaNavigation { get; set; } = null!;
