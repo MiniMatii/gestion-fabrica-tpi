@@ -9,6 +9,7 @@ namespace MenuDesk.Controles
             DoubleBuffered = true;
             AutoScroll = true;
             WrapContents = true;
+            FlowDirection = FlowDirection.LeftToRight;
         }
 
         public void Cargar(List<ProduccionPedidoDTO> pedidos)

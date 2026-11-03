@@ -27,11 +27,11 @@ namespace MenuDesk
                 var fila = new FilaAsignacion();
                 fila.Cargar(item);
                 fila.Width = pnlItems.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - fila.Margin.Horizontal;
-                pnlItems.Controls.Add(fila);
+                flowItems.Controls.Add(fila);
                 _filas.Add(fila);
             }
             pnlItems.ResumeLayout();
-            lblAviso.Text = $"Ítems: {items.Count} | Filas: {pnlItems.Controls.Count} | Ancho: {pnlItems.ClientSize.Width}";
+            lblAviso.Text = $"Ítems: {items.Count} | Filas: {flowItems.Controls.Count}";
 
         }
 

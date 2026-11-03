@@ -35,11 +35,11 @@
             // 
             // lblProducto
             // 
-            lblProducto.Align = ContentAlignment.MiddleCenter;
+            lblProducto.Align = ContentAlignment.MiddleLeft;
             lblProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblProducto.Auto = false;
             lblProducto.Background = KimTools.WinForms.KtColor.Empty;
-            lblProducto.Color = KimTools.WinForms.KtColor.Empty;
+            lblProducto.Color = new KimTools.WinForms.KtColor(Color.Black, null, null);
             lblProducto.Location = new Point(0, 0);
             lblProducto.Name = "lblProducto";
             lblProducto.Size = new Size(134, 50);
@@ -52,7 +52,7 @@
             lblCantidad.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblCantidad.Auto = false;
             lblCantidad.Background = KimTools.WinForms.KtColor.Empty;
-            lblCantidad.Color = KimTools.WinForms.KtColor.Empty;
+            lblCantidad.Color = new KimTools.WinForms.KtColor(Color.Black, null, null);
             lblCantidad.Location = new Point(183, 0);
             lblCantidad.Name = "lblCantidad";
             lblCantidad.Size = new Size(134, 50);
@@ -62,9 +62,9 @@
             // cboOperario
             // 
             cboOperario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            cboOperario.Bg = KimTools.WinForms.KtColor.PRIMARY;
-            cboOperario.BorderColor = new KimTools.WinForms.KtColor("$Primary", null, 50);
-            cboOperario.BorderRadius = 1;
+            cboOperario.Bg = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            cboOperario.BorderColor = new KimTools.WinForms.KtColor(Color.Black, null, null);
+            cboOperario.BorderRadius = 3;
             cboOperario.Direction = KimTools.WinForms.KtSelect.Directions.Down;
             cboOperario.DisabledBackColor = KimTools.WinForms.KtColor.Gray;
             cboOperario.DisabledBorderColor = new KimTools.WinForms.KtColor("@Gray", null, 50);
@@ -83,8 +83,8 @@
             cboOperario.IndicatorAlignment = KimTools.WinForms.KtSelect.Indicator.Right;
             cboOperario.IndicatorColor = new KimTools.WinForms.KtColor("$PrimaryContent", null, null);
             cboOperario.IndicatorLocation = KimTools.WinForms.KtSelect.Indicator.Right;
-            cboOperario.ItemBackColor = KimTools.WinForms.KtColor.BASE_2;
-            cboOperario.ItemBorderColor = new KimTools.WinForms.KtColor("$Base_2", null, 50);
+            cboOperario.ItemBackColor = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            cboOperario.ItemBorderColor = new KimTools.WinForms.KtColor(Color.Black, null, null);
             cboOperario.ItemForeColor = KimTools.WinForms.KtColor.CONTENT;
             cboOperario.ItemHeight = 15;
             cboOperario.ItemHighLightColor = KimTools.WinForms.KtColor.PRIMARY;

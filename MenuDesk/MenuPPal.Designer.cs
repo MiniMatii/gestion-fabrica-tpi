@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation3 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
+            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation4 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
             DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
@@ -42,7 +42,7 @@
             DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle19 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle20 = new DataGridViewCellStyle();
-            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation4 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
+            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation5 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
             DataGridViewCellStyle dataGridViewCellStyle21 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle22 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle23 = new DataGridViewCellStyle();
@@ -56,7 +56,7 @@
             DataGridViewCellStyle dataGridViewCellStyle31 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle32 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle33 = new DataGridViewCellStyle();
-            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation5 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
+            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation6 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
             DataGridViewCellStyle dataGridViewCellStyle34 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle35 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle36 = new DataGridViewCellStyle();
@@ -73,7 +73,7 @@
             DataGridViewCellStyle dataGridViewCellStyle47 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle48 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle49 = new DataGridViewCellStyle();
-            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation6 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
+            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation7 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
             DataGridViewCellStyle dataGridViewCellStyle50 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle51 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle52 = new DataGridViewCellStyle();
@@ -86,7 +86,7 @@
             DataGridViewCellStyle dataGridViewCellStyle59 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle60 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle61 = new DataGridViewCellStyle();
-            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation2 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
+            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation3 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
@@ -95,6 +95,7 @@
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation2 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
             KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation1 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPPal));
             hudLateral = new KimTools.WinForms.KtPanel();
@@ -676,6 +677,11 @@
             gestionPedidos = new TabPage();
             tabPage6 = new TabPage();
             tmrPedidos = new System.Windows.Forms.Timer(components);
+            panelProduccion = new KimTools.WinForms.KtPanel();
+            ktPages2 = new KimTools.WinForms.KtPages();
+            gestionProduccion = new TabPage();
+            tabPage7 = new TabPage();
+            tmrProduccion = new System.Windows.Forms.Timer(components);
             hudLateral.SuspendLayout();
             ktPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ktPictureBox1).BeginInit();
@@ -947,6 +953,8 @@
             panelPedidos.SuspendLayout();
             navBarPedidos.SuspendLayout();
             gestionPedidos.SuspendLayout();
+            panelProduccion.SuspendLayout();
+            ktPages2.SuspendLayout();
             this.SuspendLayout();
             // 
             // hudLateral
@@ -1156,6 +1164,7 @@
             OrdenesProduccionPage.TabIndex = 9;
             OrdenesProduccionPage.Text = "PRODUCCION";
             OrdenesProduccionPage.UseVisualStyleBackColor = false;
+            OrdenesProduccionPage.CheckedChanged += (this.ProduccionPage_CheckedChanged);
             // 
             // PedidosPage
             // 
@@ -1418,22 +1427,22 @@
             navBarLotes.SelectedIndex = 0;
             navBarLotes.Size = new Size(1154, 1012);
             navBarLotes.TabIndex = 1;
-            animation3.AnimateOnlyDifferences = false;
-            animation3.BlindCoeff = (PointF)resources.GetObject("animation3.BlindCoeff");
-            animation3.LeafCoeff = 0F;
-            animation3.MaxTime = 1F;
-            animation3.MinTime = 0F;
-            animation3.MosaicCoeff = (PointF)resources.GetObject("animation3.MosaicCoeff");
-            animation3.MosaicShift = (PointF)resources.GetObject("animation3.MosaicShift");
-            animation3.MosaicSize = 0;
-            animation3.Padding = new Padding(0);
-            animation3.RotateCoeff = 0F;
-            animation3.RotateLimit = 0F;
-            animation3.ScaleCoeff = (PointF)resources.GetObject("animation3.ScaleCoeff");
-            animation3.SlideCoeff = (PointF)resources.GetObject("animation3.SlideCoeff");
-            animation3.TimeCoeff = 0F;
-            animation3.TransparencyCoeff = 0F;
-            navBarLotes.Transition = animation3;
+            animation4.AnimateOnlyDifferences = false;
+            animation4.BlindCoeff = (PointF)resources.GetObject("animation4.BlindCoeff");
+            animation4.LeafCoeff = 0F;
+            animation4.MaxTime = 1F;
+            animation4.MinTime = 0F;
+            animation4.MosaicCoeff = (PointF)resources.GetObject("animation4.MosaicCoeff");
+            animation4.MosaicShift = (PointF)resources.GetObject("animation4.MosaicShift");
+            animation4.MosaicSize = 0;
+            animation4.Padding = new Padding(0);
+            animation4.RotateCoeff = 0F;
+            animation4.RotateLimit = 0F;
+            animation4.ScaleCoeff = (PointF)resources.GetObject("animation4.ScaleCoeff");
+            animation4.SlideCoeff = (PointF)resources.GetObject("animation4.SlideCoeff");
+            animation4.TimeCoeff = 0F;
+            animation4.TransparencyCoeff = 0F;
+            navBarLotes.Transition = animation4;
             navBarLotes.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
             navBarLotes.SelectedIndexChanged += (this.abrirMenuLote_Click);
             // 
@@ -3615,22 +3624,22 @@
             navBarOperarios.SelectedIndex = 0;
             navBarOperarios.Size = new Size(1154, 772);
             navBarOperarios.TabIndex = 0;
-            animation4.AnimateOnlyDifferences = false;
-            animation4.BlindCoeff = (PointF)resources.GetObject("animation4.BlindCoeff");
-            animation4.LeafCoeff = 0F;
-            animation4.MaxTime = 1F;
-            animation4.MinTime = 0F;
-            animation4.MosaicCoeff = (PointF)resources.GetObject("animation4.MosaicCoeff");
-            animation4.MosaicShift = (PointF)resources.GetObject("animation4.MosaicShift");
-            animation4.MosaicSize = 0;
-            animation4.Padding = new Padding(0);
-            animation4.RotateCoeff = 0F;
-            animation4.RotateLimit = 0F;
-            animation4.ScaleCoeff = (PointF)resources.GetObject("animation4.ScaleCoeff");
-            animation4.SlideCoeff = (PointF)resources.GetObject("animation4.SlideCoeff");
-            animation4.TimeCoeff = 0F;
-            animation4.TransparencyCoeff = 0F;
-            navBarOperarios.Transition = animation4;
+            animation5.AnimateOnlyDifferences = false;
+            animation5.BlindCoeff = (PointF)resources.GetObject("animation5.BlindCoeff");
+            animation5.LeafCoeff = 0F;
+            animation5.MaxTime = 1F;
+            animation5.MinTime = 0F;
+            animation5.MosaicCoeff = (PointF)resources.GetObject("animation5.MosaicCoeff");
+            animation5.MosaicShift = (PointF)resources.GetObject("animation5.MosaicShift");
+            animation5.MosaicSize = 0;
+            animation5.Padding = new Padding(0);
+            animation5.RotateCoeff = 0F;
+            animation5.RotateLimit = 0F;
+            animation5.ScaleCoeff = (PointF)resources.GetObject("animation5.ScaleCoeff");
+            animation5.SlideCoeff = (PointF)resources.GetObject("animation5.SlideCoeff");
+            animation5.TimeCoeff = 0F;
+            animation5.TransparencyCoeff = 0F;
+            navBarOperarios.Transition = animation5;
             navBarOperarios.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
             // 
             // altaOperarioPage
@@ -5381,22 +5390,22 @@
             navBarSucursales.SelectedIndex = 0;
             navBarSucursales.Size = new Size(1154, 772);
             navBarSucursales.TabIndex = 0;
-            animation5.AnimateOnlyDifferences = false;
-            animation5.BlindCoeff = (PointF)resources.GetObject("animation5.BlindCoeff");
-            animation5.LeafCoeff = 0F;
-            animation5.MaxTime = 1F;
-            animation5.MinTime = 0F;
-            animation5.MosaicCoeff = (PointF)resources.GetObject("animation5.MosaicCoeff");
-            animation5.MosaicShift = (PointF)resources.GetObject("animation5.MosaicShift");
-            animation5.MosaicSize = 0;
-            animation5.Padding = new Padding(0);
-            animation5.RotateCoeff = 0F;
-            animation5.RotateLimit = 0F;
-            animation5.ScaleCoeff = (PointF)resources.GetObject("animation5.ScaleCoeff");
-            animation5.SlideCoeff = (PointF)resources.GetObject("animation5.SlideCoeff");
-            animation5.TimeCoeff = 0F;
-            animation5.TransparencyCoeff = 0F;
-            navBarSucursales.Transition = animation5;
+            animation6.AnimateOnlyDifferences = false;
+            animation6.BlindCoeff = (PointF)resources.GetObject("animation6.BlindCoeff");
+            animation6.LeafCoeff = 0F;
+            animation6.MaxTime = 1F;
+            animation6.MinTime = 0F;
+            animation6.MosaicCoeff = (PointF)resources.GetObject("animation6.MosaicCoeff");
+            animation6.MosaicShift = (PointF)resources.GetObject("animation6.MosaicShift");
+            animation6.MosaicSize = 0;
+            animation6.Padding = new Padding(0);
+            animation6.RotateCoeff = 0F;
+            animation6.RotateLimit = 0F;
+            animation6.ScaleCoeff = (PointF)resources.GetObject("animation6.ScaleCoeff");
+            animation6.SlideCoeff = (PointF)resources.GetObject("animation6.SlideCoeff");
+            animation6.TimeCoeff = 0F;
+            animation6.TransparencyCoeff = 0F;
+            navBarSucursales.Transition = animation6;
             navBarSucursales.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
             // 
             // altaSucursalesPage
@@ -7876,22 +7885,22 @@
             ktPages1.SelectedIndex = 0;
             ktPages1.Size = new Size(1154, 1012);
             ktPages1.TabIndex = 1;
-            animation6.AnimateOnlyDifferences = false;
-            animation6.BlindCoeff = (PointF)resources.GetObject("animation6.BlindCoeff");
-            animation6.LeafCoeff = 0F;
-            animation6.MaxTime = 1F;
-            animation6.MinTime = 0F;
-            animation6.MosaicCoeff = (PointF)resources.GetObject("animation6.MosaicCoeff");
-            animation6.MosaicShift = (PointF)resources.GetObject("animation6.MosaicShift");
-            animation6.MosaicSize = 0;
-            animation6.Padding = new Padding(0);
-            animation6.RotateCoeff = 0F;
-            animation6.RotateLimit = 0F;
-            animation6.ScaleCoeff = (PointF)resources.GetObject("animation6.ScaleCoeff");
-            animation6.SlideCoeff = (PointF)resources.GetObject("animation6.SlideCoeff");
-            animation6.TimeCoeff = 0F;
-            animation6.TransparencyCoeff = 0F;
-            ktPages1.Transition = animation6;
+            animation7.AnimateOnlyDifferences = false;
+            animation7.BlindCoeff = (PointF)resources.GetObject("animation7.BlindCoeff");
+            animation7.LeafCoeff = 0F;
+            animation7.MaxTime = 1F;
+            animation7.MinTime = 0F;
+            animation7.MosaicCoeff = (PointF)resources.GetObject("animation7.MosaicCoeff");
+            animation7.MosaicShift = (PointF)resources.GetObject("animation7.MosaicShift");
+            animation7.MosaicSize = 0;
+            animation7.Padding = new Padding(0);
+            animation7.RotateCoeff = 0F;
+            animation7.RotateLimit = 0F;
+            animation7.ScaleCoeff = (PointF)resources.GetObject("animation7.ScaleCoeff");
+            animation7.SlideCoeff = (PointF)resources.GetObject("animation7.SlideCoeff");
+            animation7.TimeCoeff = 0F;
+            animation7.TransparencyCoeff = 0F;
+            ktPages1.Transition = animation7;
             ktPages1.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
             // 
             // tabPage1
@@ -9959,22 +9968,22 @@
             navBarProductos.SelectedIndex = 0;
             navBarProductos.Size = new Size(1154, 772);
             navBarProductos.TabIndex = 0;
-            animation2.AnimateOnlyDifferences = false;
-            animation2.BlindCoeff = (PointF)resources.GetObject("animation2.BlindCoeff");
-            animation2.LeafCoeff = 0F;
-            animation2.MaxTime = 1F;
-            animation2.MinTime = 0F;
-            animation2.MosaicCoeff = (PointF)resources.GetObject("animation2.MosaicCoeff");
-            animation2.MosaicShift = (PointF)resources.GetObject("animation2.MosaicShift");
-            animation2.MosaicSize = 0;
-            animation2.Padding = new Padding(0);
-            animation2.RotateCoeff = 0F;
-            animation2.RotateLimit = 0F;
-            animation2.ScaleCoeff = (PointF)resources.GetObject("animation2.ScaleCoeff");
-            animation2.SlideCoeff = (PointF)resources.GetObject("animation2.SlideCoeff");
-            animation2.TimeCoeff = 0F;
-            animation2.TransparencyCoeff = 0F;
-            navBarProductos.Transition = animation2;
+            animation3.AnimateOnlyDifferences = false;
+            animation3.BlindCoeff = (PointF)resources.GetObject("animation3.BlindCoeff");
+            animation3.LeafCoeff = 0F;
+            animation3.MaxTime = 1F;
+            animation3.MinTime = 0F;
+            animation3.MosaicCoeff = (PointF)resources.GetObject("animation3.MosaicCoeff");
+            animation3.MosaicShift = (PointF)resources.GetObject("animation3.MosaicShift");
+            animation3.MosaicSize = 0;
+            animation3.Padding = new Padding(0);
+            animation3.RotateCoeff = 0F;
+            animation3.RotateLimit = 0F;
+            animation3.ScaleCoeff = (PointF)resources.GetObject("animation3.ScaleCoeff");
+            animation3.SlideCoeff = (PointF)resources.GetObject("animation3.SlideCoeff");
+            animation3.TimeCoeff = 0F;
+            animation3.TransparencyCoeff = 0F;
+            navBarProductos.Transition = animation3;
             navBarProductos.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
             // 
             // altaProductoPage
@@ -10279,11 +10288,11 @@
             ktDivider49.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)0, (int)(byte)0), null, null);
             ktDivider49.LineStyle = KimTools.WinForms.KtDivider.LineStyles.RightEdgeFaded;
             ktDivider49.LineThickness = 0F;
-            ktDivider49.Location = new Point(8, 64);
+            ktDivider49.Location = new Point(9, 64);
             ktDivider49.Margin = new Padding(4, 3, 4, 3);
             ktDivider49.Name = "ktDivider49";
             ktDivider49.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider49.Size = new Size(1132, 10);
+            ktDivider49.Size = new Size(1130, 10);
             ktDivider49.TabIndex = 6;
             // 
             // selectorRAP
@@ -10318,9 +10327,9 @@
             selectorRAP.ItemHighLightColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             selectorRAP.ItemHighLightForeColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             selectorRAP.ItemTopMargin = 10;
-            selectorRAP.Location = new Point(8, 10);
+            selectorRAP.Location = new Point(9, 10);
             selectorRAP.Name = "selectorRAP";
-            selectorRAP.Size = new Size(1132, 52);
+            selectorRAP.Size = new Size(1130, 52);
             selectorRAP.TabIndex = 2;
             selectorRAP.Text = null;
             selectorRAP.TextAlignment = KimTools.WinForms.KtSelect.TextAlign.Left;
@@ -10340,7 +10349,7 @@
             ktDivider50.Margin = new Padding(4, 3, 4, 3);
             ktDivider50.Name = "ktDivider50";
             ktDivider50.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Vertical;
-            ktDivider50.Size = new Size(8, 64);
+            ktDivider50.Size = new Size(9, 64);
             ktDivider50.TabIndex = 8;
             // 
             // ktDivider51
@@ -10352,11 +10361,11 @@
             ktDivider51.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)0, (int)(byte)0), null, null);
             ktDivider51.LineStyle = KimTools.WinForms.KtDivider.LineStyles.Solid;
             ktDivider51.LineThickness = 0F;
-            ktDivider51.Location = new Point(1140, 10);
+            ktDivider51.Location = new Point(1139, 10);
             ktDivider51.Margin = new Padding(4, 3, 4, 3);
             ktDivider51.Name = "ktDivider51";
             ktDivider51.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Vertical;
-            ktDivider51.Size = new Size(8, 64);
+            ktDivider51.Size = new Size(9, 64);
             ktDivider51.TabIndex = 7;
             // 
             // ktDivider52
@@ -10473,7 +10482,7 @@
             ktPanel139.Controls.Add(ktPanel143);
             ktPanel139.Dock = DockStyle.Left;
             ktPanel139.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel139.Location = new Point(355, 55);
+            ktPanel139.Location = new Point(354, 55);
             ktPanel139.Name = "ktPanel139";
             ktPanel139.Padding = new Padding(5);
             ktPanel139.PatternColor = KimTools.WinForms.KtColor.Empty;
@@ -10553,7 +10562,7 @@
             ktDivider61.Margin = new Padding(6, 4, 6, 4);
             ktDivider61.Name = "ktDivider61";
             ktDivider61.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Vertical;
-            ktDivider61.Size = new Size(22, 80);
+            ktDivider61.Size = new Size(21, 80);
             ktDivider61.TabIndex = 5;
             // 
             // ktPanel124
@@ -10694,7 +10703,7 @@
             ktPanel135.Controls.Add(ktLabel31);
             ktPanel135.Dock = DockStyle.Left;
             ktPanel135.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel135.Location = new Point(355, 0);
+            ktPanel135.Location = new Point(354, 0);
             ktPanel135.Margin = new Padding(4);
             ktPanel135.Name = "ktPanel135";
             ktPanel135.PatternColor = KimTools.WinForms.KtColor.Empty;
@@ -10729,7 +10738,7 @@
             ktDivider53.Margin = new Padding(6, 4, 6, 4);
             ktDivider53.Name = "ktDivider53";
             ktDivider53.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Vertical;
-            ktDivider53.Size = new Size(22, 55);
+            ktDivider53.Size = new Size(21, 55);
             ktDivider53.TabIndex = 5;
             // 
             // ktPanel126
@@ -12592,22 +12601,22 @@
             navBarPedidos.SelectedIndex = 0;
             navBarPedidos.Size = new Size(1154, 838);
             navBarPedidos.TabIndex = 0;
-            animation1.AnimateOnlyDifferences = false;
-            animation1.BlindCoeff = (PointF)resources.GetObject("animation1.BlindCoeff");
-            animation1.LeafCoeff = 0F;
-            animation1.MaxTime = 1F;
-            animation1.MinTime = 0F;
-            animation1.MosaicCoeff = (PointF)resources.GetObject("animation1.MosaicCoeff");
-            animation1.MosaicShift = (PointF)resources.GetObject("animation1.MosaicShift");
-            animation1.MosaicSize = 0;
-            animation1.Padding = new Padding(0);
-            animation1.RotateCoeff = 0F;
-            animation1.RotateLimit = 0F;
-            animation1.ScaleCoeff = (PointF)resources.GetObject("animation1.ScaleCoeff");
-            animation1.SlideCoeff = (PointF)resources.GetObject("animation1.SlideCoeff");
-            animation1.TimeCoeff = 0F;
-            animation1.TransparencyCoeff = 0F;
-            navBarPedidos.Transition = animation1;
+            animation2.AnimateOnlyDifferences = false;
+            animation2.BlindCoeff = (PointF)resources.GetObject("animation2.BlindCoeff");
+            animation2.LeafCoeff = 0F;
+            animation2.MaxTime = 1F;
+            animation2.MinTime = 0F;
+            animation2.MosaicCoeff = (PointF)resources.GetObject("animation2.MosaicCoeff");
+            animation2.MosaicShift = (PointF)resources.GetObject("animation2.MosaicShift");
+            animation2.MosaicSize = 0;
+            animation2.Padding = new Padding(0);
+            animation2.RotateCoeff = 0F;
+            animation2.RotateLimit = 0F;
+            animation2.ScaleCoeff = (PointF)resources.GetObject("animation2.ScaleCoeff");
+            animation2.SlideCoeff = (PointF)resources.GetObject("animation2.SlideCoeff");
+            animation2.TimeCoeff = 0F;
+            animation2.TransparencyCoeff = 0F;
+            navBarPedidos.Transition = animation2;
             navBarPedidos.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
             // 
             // gestionPedidos
@@ -12638,6 +12647,81 @@
             tmrPedidos.Interval = 10000;
             tmrPedidos.Tick += (this.tmrPedidos_Tick);
             // 
+            // panelProduccion
+            // 
+            panelProduccion.Background = new KimTools.WinForms.KtBrushSolid(KimTools.WinForms.KtColor.BASE_2);
+            panelProduccion.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
+            panelProduccion.BorderRadius = 24F;
+            panelProduccion.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            panelProduccion.BorderWidth = 1.5F;
+            panelProduccion.Controls.Add(ktPages2);
+            panelProduccion.Dock = DockStyle.Fill;
+            panelProduccion.Foreground = KimTools.WinForms.KtColor.Empty;
+            panelProduccion.Location = new Point(340, 43);
+            panelProduccion.Name = "panelProduccion";
+            panelProduccion.PatternColor = KimTools.WinForms.KtColor.Empty;
+            panelProduccion.Size = new Size(1154, 838);
+            panelProduccion.TabIndex = 14;
+            panelProduccion.Visible = false;
+            // 
+            // ktPages2
+            // 
+            ktPages2.Alignment = TabAlignment.Bottom;
+            ktPages2.AllowTransitions = false;
+            ktPages2.Background = KimTools.WinForms.KtColor.Empty;
+            ktPages2.Controls.Add(gestionProduccion);
+            ktPages2.Controls.Add(tabPage7);
+            ktPages2.Dock = DockStyle.Fill;
+            ktPages2.Location = new Point(0, 0);
+            ktPages2.Multiline = true;
+            ktPages2.Name = "ktPages2";
+            ktPages2.SelectedIndex = 0;
+            ktPages2.Size = new Size(1154, 838);
+            ktPages2.TabIndex = 0;
+            animation1.AnimateOnlyDifferences = false;
+            animation1.BlindCoeff = (PointF)resources.GetObject("animation1.BlindCoeff");
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = (PointF)resources.GetObject("animation1.MosaicCoeff");
+            animation1.MosaicShift = (PointF)resources.GetObject("animation1.MosaicShift");
+            animation1.MosaicSize = 0;
+            animation1.Padding = new Padding(0);
+            animation1.RotateCoeff = 0F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = (PointF)resources.GetObject("animation1.ScaleCoeff");
+            animation1.SlideCoeff = (PointF)resources.GetObject("animation1.SlideCoeff");
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 0F;
+            ktPages2.Transition = animation1;
+            ktPages2.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
+            // 
+            // gestionProduccion
+            // 
+            ktPages2.Set_Background(gestionProduccion, new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));
+            gestionProduccion.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            gestionProduccion.Location = new Point(0, 0);
+            gestionProduccion.Name = "gestionProduccion";
+            gestionProduccion.Padding = new Padding(3);
+            gestionProduccion.Size = new Size(1154, 838);
+            gestionProduccion.TabIndex = 0;
+            gestionProduccion.Text = "tabPage5";
+            // 
+            // tabPage7
+            // 
+            ktPages2.Set_Background(tabPage7, KimTools.WinForms.KtColor.Empty);
+            tabPage7.BackColor = Color.Transparent;
+            tabPage7.Location = new Point(0, 0);
+            tabPage7.Name = "tabPage7";
+            tabPage7.Padding = new Padding(3);
+            tabPage7.Size = new Size(1154, 838);
+            tabPage7.TabIndex = 1;
+            tabPage7.Text = "tabPage7";
+            // 
+            // tmrProduccion
+            // 
+            tmrProduccion.Interval = 10000;
+            // 
             // MenuPPal
             // 
             this.AutoScaleDimensions = new SizeF(10F, 21F);
@@ -12645,6 +12729,7 @@
             this.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
             this.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));
             this.ClientSize = new Size(1494, 881);
+            this.Controls.Add(panelProduccion);
             this.Controls.Add(panelPedidos);
             this.Controls.Add(panelProductos);
             this.Controls.Add(panelLotes);
@@ -12931,6 +13016,8 @@
             panelPedidos.ResumeLayout(false);
             navBarPedidos.ResumeLayout(false);
             gestionPedidos.ResumeLayout(false);
+            panelProduccion.ResumeLayout(false);
+            ktPages2.ResumeLayout(false);
             this.ResumeLayout(false);
         }
 
@@ -13516,5 +13603,10 @@
         private KimTools.WinForms.KtRadioButton OperariosPage;
         private KimTools.WinForms.KtRadioButton OrdenesProduccionPage;
         private KimTools.WinForms.KtRadioButton PedidosPage;
+        private KimTools.WinForms.KtPanel panelProduccion;
+        private KimTools.WinForms.KtPages ktPages2;
+        private TabPage gestionProduccion;
+        private TabPage tabPage7;
+        private System.Windows.Forms.Timer tmrProduccion;
     }
 }

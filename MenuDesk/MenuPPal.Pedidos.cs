@@ -29,7 +29,7 @@ namespace MenuDesk
 
         private async void IniciarPedidos()
         {
-            if (_cargandoPedidos) return;      // evita cargas superpuestas
+            if (_cargandoPedidos) return;      
             _cargandoPedidos = true;
             try
             {
@@ -65,7 +65,7 @@ namespace MenuDesk
 
         private async void tmrPedidos_Tick(object sender, EventArgs e)
         {
-            tmrPedidos.Stop();   // no solapar consultas
+            tmrPedidos.Stop();   
             try
             {
                 var nuevos = await ObtenerPedidosDesdeAsync(pnlPedidos.UltimoIdCargado);
@@ -140,7 +140,8 @@ namespace MenuDesk
 
             try 
             {
-                var lista = await _apiClient.ObtenerListaAsync<PedidoResumenDTO>(endpoint);
+                var lista = await _apiClient.ObtenerListaAsync<PedidoResumenDTO>($"{endpoint}/pendientes");
+
                 if (lista == null) 
                 {
                     return null;

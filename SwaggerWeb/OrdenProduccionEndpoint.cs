@@ -29,6 +29,13 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
+            app.MapGet("/ordenproduccion/produccion", async (IOrdenProduccionServicio servicio) =>
+            Results.Ok(await servicio.ObtenerProduccionAsync()))
+            .WithName("ObtenerOrdenProduccionesPendientes")
+            .WithTags("OrdenProduccion")
+            .WithOpenApi();
+
+
             app.MapPost("/ordenproduccion", async (OrdenProduccionDTO dto, IOrdenProduccionServicio servicio) =>
             {
                 try
