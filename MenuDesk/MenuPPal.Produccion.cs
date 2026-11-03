@@ -32,7 +32,7 @@ namespace MenuDesk
                     _pnlProduccion = new ProduccionCardsPanel { Dock = DockStyle.Fill };
                     gestionProduccion.Controls.Add(_pnlProduccion);
                     _pnlProduccion.BringToFront();
-                    tmrProduccion.Tick += TmrProduccion_Tick;   // una sola vez
+                    tmrProduccion.Tick += TmrProduccion_Tick; 
                 }
 
                 await RecargarProduccionAsync(mostrarError: true);
@@ -67,7 +67,7 @@ namespace MenuDesk
         {
             try
             {
-                var lista = await _apiClient.ObtenerListaAsync<ProduccionPedidoDTO>("ordenproduccion");
+                var lista = await _apiClient.ObtenerListaAsync<ProduccionPedidoDTO>("ordenproduccion/produccion");
                 if (lista == null) return;
 
 
