@@ -92,7 +92,7 @@ namespace Alemana.Aplicaciones.Servicios
                 }).ToList() ?? new List<MateriapRecetaDTO>()
             };
         }
-        public async Task<bool> AgregarMateriaPrima(int idR, List<MateriapRecetaDTO> masmps) //no sé si es lo más óptimo que entre esto o directamente el dto de receta
+        public async Task<bool> AgregarMateriaPrima(int idR, List<MateriapRecetaDTO> masmps) 
         {
             var laR = await _recetaRepositorio.GetRecetaproducto(idR);
             if(laR is not null)
