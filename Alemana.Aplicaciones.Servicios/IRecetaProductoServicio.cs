@@ -10,7 +10,7 @@ namespace Alemana.Aplicaciones.Servicios
 {
     public interface IRecetaProductoServicio
     {
-        Task<RecetaProductoDTO> AltaReceta(RecetaProductoDTO nuevaR);
+        Task<RecetaProductoDTO> AltaReceta(RecetaProductoDTO nuevaRdto);
         Task<RecetaProductoDTO> ModificarReceta(RecetaProductoDTO recetaM);
         Task<bool> EliminarReceta(int idRecta);
 

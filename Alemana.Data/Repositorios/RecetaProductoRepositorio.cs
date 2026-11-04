@@ -18,20 +18,16 @@ namespace Alemana.Data.Repositorios
             _DbA = dbA;
         }
 
-        public async Task AltaReceta(Recetaproducto nuevaR) //sino task<Recetaproducto>
+        public async Task AltaReceta(Recetaproducto nuevaR) 
         {
-           /* if (nuevaR is null)
-            {
-                return null;
-            }*/
+
             await _DbA.Recetaproductos.AddAsync(nuevaR);
 
             await _DbA.SaveChangesAsync();
 
-           // return nuevaR;
         }
 
-        public async Task<Recetaproducto> ModificarReceta(Recetaproducto recetaM) //atributos simples
+        public async Task<Recetaproducto> ModificarReceta(Recetaproducto recetaM) 
         {
             var recetaExistente = await _DbA.Recetaproductos.FindAsync(recetaM.IdReceta);
 
@@ -80,5 +76,7 @@ namespace Alemana.Data.Repositorios
                 .ToListAsync();
         }
 
+
+        
     }
 }

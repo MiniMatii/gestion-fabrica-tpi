@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             ktPictureBox1 = new KimTools.WinForms.KtPictureBox();
             ktPanel1 = new KimTools.WinForms.KtPanel();
             ktPanel2 = new KimTools.WinForms.KtPanel();
@@ -229,7 +230,7 @@
             // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 78, 65);
             Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null));
@@ -239,6 +240,7 @@
             Controls.Add(ktPanel1);
             ForeColor = Color.FromArgb(204, 255, 246);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";

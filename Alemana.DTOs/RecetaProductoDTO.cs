@@ -12,7 +12,7 @@ namespace Alemana.DTOs
 
         public string Descripcion { get; set; } = null!;
 
-        public virtual ICollection<MateriapRecetaDTO> MateriapReceta { get; set; } = new List<MateriapRecetaDTO>(); //tengo dudas sobre esto
+        public virtual ICollection<MateriapRecetaDTO> MateriapReceta { get; set; } = new List<MateriapRecetaDTO>(); 
 
 
     }
