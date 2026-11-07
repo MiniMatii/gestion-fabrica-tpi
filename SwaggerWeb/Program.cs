@@ -2,6 +2,7 @@ using System;
 using Alemana.Aplicaciones.Servicios;
 using SwaggerWeb;
 using Alemana.Data.Repositorios;
+using Alemana.Data.Ado;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,6 +18,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DbAlemanaContext>(options =>
    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
+
+// Consultas con filtros en ADO.NET (capa de datos). Solo la API accede a la base.
+var cadenaAdo = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Falta ConnectionStrings:DefaultConnection.");
+builder.Services.AddSingleton(new AdoConexion(cadenaAdo));
+builder.Services.AddScoped<OperarioAdoRepositorio>();
+builder.Services.AddScoped<LoteAdoRepositorio>();
+builder.Services.AddScoped<ProductoAdoRepositorio>();
+builder.Services.AddScoped<SucursalAdoRepositorio>();
+builder.Services.AddScoped<PedidoAdoRepositorio>();
 
 builder.Services.AddScoped<ILoteRepositorio, LoteRepositorio>();
 builder.Services.AddScoped<ILoteServicio, LoteServicio>();
@@ -102,5 +113,6 @@ app.MapCiudadesEndpoint();
 app.MapOrdenProduccionEndpoint();
 app.MapConsumoLoteEndpoint();
 app.MapOrdAsigOpEndpoint();
+app.MapConsultasAdoEndpoints();
 
 app.Run();
