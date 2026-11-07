@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 @attribute [Authorize]
 @using System.Security.Claims
 @using ApexCharts
@@ -82,10 +82,17 @@
             <div class="chart-card">
                 <div class="chart-header">
                     <div>
-                        <h4>Pedidos de los últimos 7 días</h4>
+                        <h4>Pedidos de los últimos @diasGrafico días</h4>
                         <small>Cantidad de pedidos por día</small>
                     </div>
-                    <div class="stat-icon"><i class="bi bi-bar-chart-line"></i></div>
+                    <div class="d-flex align-items-center gap-2">
+                        <select class="form-select form-select-sm" style="width: auto;" aria-label="Período del gráfico" @onchange="CambiarPeriodo">
+                            <option value="7" selected="@(diasGrafico == 7)">7 días</option>
+                            <option value="15" selected="@(diasGrafico == 15)">15 días</option>
+                            <option value="30" selected="@(diasGrafico == 30)">30 días</option>
+                        </select>
+                        <div class="stat-icon"><i class="bi bi-bar-chart-line"></i></div>
+                    </div>
                 </div>
                 @if (cargando)
                 {
@@ -202,6 +209,10 @@
     private List<PuntoGrafico> operariosEstado = new();
     private List<PuntoGrafico> topStock = new();
 
+    // Filtro del dashboard: período del gráfico de pedidos (7, 15 o 30 días)
+    private int diasGrafico = 7;
+    private List<PedidoFila>? pedidosCache;
+
     // Pedidos por día: columnas verdes, eje Y con números enteros
     private readonly ApexChartOptions<PuntoGrafico> opcionesPedidos = new()
     {
@@ -247,10 +258,10 @@
         }
 
         // Las 4 consultas salen en paralelo
-        var tareaOperarios = ObtenerAsync<OperariosDTO>("operario/");
-        var tareaSucursales = ObtenerAsync<SucursalesDTO>("sucursales/");
-        var tareaProductos = ObtenerAsync<ProductoDTO>("producto/");
-        var tareaPedidos = ObtenerAsync<SolicitudPedidoDTO>("pedidos/");
+        var tareaOperarios = ObtenerAsync<OperarioFila>("ado/operarios");
+        var tareaSucursales = ObtenerAsync<SucursalFila>("ado/sucursales");
+        var tareaProductos = ObtenerAsync<ProductoFila>("ado/productos");
+        var tareaPedidos = ObtenerAsync<PedidoFila>("ado/pedidos");
 
         await Task.WhenAll(tareaOperarios, tareaSucursales, tareaProductos, tareaPedidos);
 
@@ -267,14 +278,8 @@
         pedidosHoy = pedidos?.Count(p => p.FechaPedido.Date == DateTime.Today);
         pedidosSinEntregar = pedidos?.Count(p => p.FechaReal is null);
 
-        // Datos para los gráficos (si una llamada falló, el gráfico muestra "Sin datos")
-        pedidosPorDia = pedidos is null
-            ? new()
-            : Enumerable.Range(0, 7)
-                .Select(i => DateTime.Today.AddDays(i - 6))
-                .Select(d => new PuntoGrafico(d.ToString("dd/MM"),
-                                              pedidos.Count(p => p.FechaPedido.Date == d)))
-                .ToList();
+        pedidosCache = pedidos;
+        RecalcularGraficoPedidos();
 
         if (operarios is null || operarios.Count == 0)
         {
@@ -299,6 +304,24 @@
                 .ToList();
 
         cargando = false;
+    }
+
+    // Cambia el período del gráfico sin volver a consultar la API
+    private void CambiarPeriodo(ChangeEventArgs e)
+    {
+        diasGrafico = int.TryParse(e.Value?.ToString(), out var dias) ? dias : 7;
+        RecalcularGraficoPedidos();
+    }
+
+    private void RecalcularGraficoPedidos()
+    {
+        var pedidos = pedidosCache;
+        pedidosPorDia = pedidos is null
+            ? new()
+            : Enumerable.Range(0, diasGrafico)
+                .Select(i => DateTime.Today.AddDays(i - (diasGrafico - 1)))
+                .Select(d => new PuntoGrafico(d.ToString("dd/MM"), pedidos.Count(p => p.FechaPedido.Date == d)))
+                .ToList();
     }
 
     // Si una llamada falla devuelve null y el resto del panel sigue funcionando

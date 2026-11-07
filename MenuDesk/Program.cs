@@ -16,7 +16,8 @@ namespace MenuDesk
 
 
 
-            var api = new ApiClient(new HttpClient { BaseAddress = new Uri("https://localhost:7150") });
+            // Usa el HttpClient compartido de ApiClient: el token del login llega a todos los formularios
+            var api = new ApiClient();
 
             using (var login = new Login(api))
             {
