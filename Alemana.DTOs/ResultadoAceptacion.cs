@@ -11,6 +11,7 @@ namespace Alemana.DTOs
         Ok,
         NoExiste,
         NoPendiente,
-        AsignacionInvalida
+        AsignacionInvalida,
+        StockInsuficiente
     }
 }

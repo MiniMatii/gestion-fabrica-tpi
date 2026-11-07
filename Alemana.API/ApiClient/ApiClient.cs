@@ -160,13 +160,20 @@ namespace Alemana.API
                     return (true, response.StatusCode, null);
 
                 var texto = await response.Content.ReadAsStringAsync();
-                return (false, response.StatusCode, texto.Trim('"'));
+
+                string mensaje = texto;
+                try { mensaje = System.Text.Json.JsonSerializer.Deserialize<string>(texto) ?? texto; }
+                catch { }
+
+                return (false, response.StatusCode, mensaje);
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error al enviar datos a '{endpoint}': {ex.Message}");
             }
         }
+
+
 
     }
 }

@@ -11,6 +11,7 @@ namespace MenuDesk.Controles
         private static readonly Color Asignado = Color.FromArgb(52, 211, 153);
         private static readonly Color SinAsignar = Color.FromArgb(251, 191, 36);
 
+
         public ProduccionCard(ProduccionPedidoDTO pedido)
         {
             DoubleBuffered = true;
@@ -34,10 +35,18 @@ namespace MenuDesk.Controles
                     $"{o.NombreProducto}  ×{o.CantidadRequerida}",
                     new Font("Segoe UI", 10f, FontStyle.Bold), Texto, 14, ref y, 22));
 
+                bool cubierto = o.EstadoPedido == "Cubierto";
                 bool asignado = !string.IsNullOrEmpty(o.NombreOperario);
-                Controls.Add(Etiqueta(
-                    asignado ? $"Operario: {o.NombreOperario}" : "Sin asignar",
-                    new Font("Segoe UI", 9f), asignado ? Asignado : SinAsignar, 26, ref y, 26));
+
+                string textoOperario = cubierto ? "Cubierto con stock"
+                                     : asignado ? $"Operario: {o.NombreOperario}"
+                                     : "Sin asignar";
+
+                Color colorOperario = cubierto ? Color.FromArgb(96, 165, 250)     
+                                    : asignado ? Color.FromArgb(52, 211, 153)     
+                                    : Color.FromArgb(251, 191, 36);
+
+
             }
 
             Height = y + 8;

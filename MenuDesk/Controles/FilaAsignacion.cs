@@ -6,6 +6,9 @@ namespace MenuDesk.Controles
     public partial class FilaAsignacion : UserControl
     {
         public ItemAsignableDTO Item { get; private set; } = null!;
+        public bool RequiereOperario => Item.CantidadAProducir > 0;
+
+
 
         public FilaAsignacion()
         {
@@ -29,9 +32,13 @@ namespace MenuDesk.Controles
             cboOperario.ValueMember = nameof(OperarioOpcionDTO.IdOperario);
             cboOperario.DataSource = opciones;
 
-            if (item.Operarios.Count == 0)
+            if (item.CantidadAProducir == 0)
             {
-                cboOperario.Enabled = false;
+                cboOperario.Enabled = false;            
+            }
+            else if (item.Operarios.Count == 0)
+            {
+                cboOperario.Enabled = false;            
                 lblCantidad.Text += "  (sin operario disponible)";
             }
         }

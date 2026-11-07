@@ -63,6 +63,8 @@ builder.Services.AddScoped<IConsumoLoteServicio, ConsumoLoteServicio>();
 builder.Services.AddScoped<IOrdAsigOpRepositorio, OrdAsigOpRepositorio>();
 builder.Services.AddScoped<IOrdAsigOpServicio, OrdAsigOpServicio>();
 
+builder.Services.AddScoped<IStockRepositorio, StockRepositorio>();
+
 //Configurando el JWT 
 /*builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(o => o.TokenValidationParameters = new TokenValidationParameters

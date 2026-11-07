@@ -43,7 +43,7 @@ namespace MenuDesk
                 IdOperario = f.IdOperarioElegido
             }).ToList();
 
-            int sinAsignar = Asignaciones.Count(a => a.IdOperario == null);
+            int sinAsignar = _filas.Count(f => f.RequiereOperario && f.IdOperarioElegido == null);
             if (sinAsignar > 0)
             {
                 var r = MessageBox.Show(

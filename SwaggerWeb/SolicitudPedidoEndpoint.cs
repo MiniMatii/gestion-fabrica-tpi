@@ -94,6 +94,7 @@ namespace SwaggerWeb
                         ResultadoAceptacion.Ok => Results.NoContent(),
                         ResultadoAceptacion.NoExiste => Results.NotFound(),
                         ResultadoAceptacion.NoPendiente => Results.Conflict(mensaje),
+                        ResultadoAceptacion.StockInsuficiente => Results.UnprocessableEntity(mensaje),   
                         _ => Results.BadRequest(mensaje)
                     };
                     return respuesta;

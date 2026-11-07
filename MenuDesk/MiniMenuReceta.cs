@@ -17,9 +17,9 @@ namespace MenuDesk
         public MiniMenuReceta()
         {
             InitializeComponent();
-
+            AplicarEstiloTabla(tablaER);
             MaximizeBox = false;
-            Deactivate += MiniMenuReceta_Deactivate;       
+            Deactivate += MiniMenuReceta_Deactivate;
             VisibleChanged += MiniMenuReceta_VisibleChanged;
 
             _tmrMensaje.Tick += (s, e) =>
@@ -51,12 +51,12 @@ namespace MenuDesk
         private void Mostrar(string texto, bool esError)
         {
             lblMensaje.ForeColor = esError
-                ? Color.FromArgb(248, 113, 113)    
-                : Color.FromArgb(52, 211, 153);    
+                ? Color.FromArgb(248, 113, 113)
+                : Color.FromArgb(52, 211, 153);
             lblMensaje.Text = texto;
 
             _tmrMensaje.Stop();
-            _tmrMensaje.Start();                   
+            _tmrMensaje.Start();
         }
 
         private void LimpiarMensaje()
@@ -83,7 +83,6 @@ namespace MenuDesk
 
                 if (listado != null)
                 {
-                    tablaMR.DataSource = listado;
                     tablaER.DataSource = listado;
                 }
             }
@@ -99,11 +98,6 @@ namespace MenuDesk
             navBarRecetas.SelectedTab = altaRecetaPage;
         }
 
-        private void ModificarReceta_Click(object sender, EventArgs e)
-        {
-            LimpiarMensaje();
-            navBarRecetas.SelectedTab = modificarRecetaPage;
-        }
 
         private void EliminarReceta_Click(object sender, EventArgs e)
         {
@@ -186,40 +180,6 @@ namespace MenuDesk
             }
         }
 
-        private void tablaMR_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            var fila = tablaMR.Rows[e.RowIndex];
-            textBoxDescMR.Text = fila.Cells["descMR"].Value?.ToString();
-
-        }
-        private async void guardarMR_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string endpoint = "Recetas";
-                var rE = tablaMR.CurrentRow;
-
-                if (rE == null)
-                {
-                    Mostrar("Seleccioná una receta de la tabla.", true);
-                    return;
-                }
-
-                var rmodif = new RecetaProductoDTO();
-                rmodif.IdReceta = Convert.ToInt32(rE.Cells["idMR"].Value);
-                rmodif.Descripcion = textBoxDescMR.Text;
-
-                await _apiClient.PutAsync(endpoint, rmodif); 
-                Mostrar("Cambios guardados con éxito.", false);
-                textBoxDescMR.Clear();
-            }
-            catch (Exception ex)
-            {
-                Mostrar("Error al guardar las modificaciones de la receta: " + ex.Message, true);
-            }
-        }
 
 
         private async void buttonGuardarER_Click(object sender, EventArgs e)
@@ -297,7 +257,7 @@ namespace MenuDesk
                          Convert.ToString(f.Cells["Cantidad"].Value) ?? "");
                 }
 
-                var materias = await _apiClient.ObtenerListaAsync<MateriapDTO>(endpointMP);   
+                var materias = await _apiClient.ObtenerListaAsync<MateriapDTO>(endpointMP);
 
                 dgvMateriasAR.SuspendLayout();
                 dgvMateriasAR.Rows.Clear();
@@ -331,5 +291,20 @@ namespace MenuDesk
                 fila.Cells["Cantidad"].Value = "";
             }
         }
+
+        private void AplicarEstiloTabla(DataGridView g)
+        {
+            var fondo = Color.FromArgb(0, 78, 65);
+            var texto = Color.White;
+
+            foreach (var estilo in new[] { g.DefaultCellStyle, g.AlternatingRowsDefaultCellStyle })
+            {
+                estilo.BackColor = fondo;
+                estilo.ForeColor = texto;
+                estilo.SelectionBackColor = Color.FromArgb(173, 151, 98);  
+                estilo.SelectionForeColor = Color.White;
+            }
+        }
+
     }
 }

@@ -11,6 +11,8 @@ namespace Alemana.DTOs
         public int IdProducto { get; set; }
         public string NombreProducto { get; set; } = string.Empty;
         public int Cantidad { get; set; }
+        public int StockDisponible { get; set; }
+        public int CantidadAProducir { get; set; }
         public List<OperarioOpcionDTO> Operarios { get; set; } = new List<OperarioOpcionDTO>();
     }
 }
