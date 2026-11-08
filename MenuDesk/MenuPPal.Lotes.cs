@@ -1,6 +1,7 @@
 ﻿using Alemana.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,29 +74,14 @@ namespace MenuDesk
             {
                 string endpoint = "lotes";
 
-                var listaDatos = await _apiClient.ObtenerListaAsync<ListadoLotesFullDTO>("lotes/full");
+                var listaDatos = await _apiClient.ObtenerListaAsync<ListadoLotesFullDTO>($"{endpoint}/full");
 
                 if (listaDatos != null)
                 {
-
+                    ktTablaLotes.AutoGenerateColumns = false;
+                    ktTablaLotesEliminar.AutoGenerateColumns = false;
                     ktTablaLotes.DataSource = listaDatos;
                     ktTablaLotesEliminar.DataSource = listaDatos;
-
-                    ktTablaLotes.Columns[0].HeaderText = "IdLote";
-                    ktTablaLotes.Columns[1].HeaderText = "NombreProveedor";
-                    ktTablaLotes.Columns[2].HeaderText = "NombreMateriaPrima";
-                    ktTablaLotes.Columns[2].HeaderText = "EstadoLote";
-                    ktTablaLotes.Columns[3].HeaderText = "FechaIngreso";
-                    ktTablaLotes.Columns[4].HeaderText = "FechaVencimiento";
-                    ktTablaLotes.Columns[5].HeaderText = "CantidadLote";
-
-                    ktTablaLotesEliminar.Columns[0].HeaderText = "IdLoteE";
-                    ktTablaLotesEliminar.Columns[1].HeaderText = "NombreProveedorE";
-                    ktTablaLotesEliminar.Columns[2].HeaderText = "NombreMateriaPrimaE";
-                    ktTablaLotesEliminar.Columns[2].HeaderText = "EstadoLoteE";
-                    ktTablaLotesEliminar.Columns[3].HeaderText = "FechaIngresoE";
-                    ktTablaLotesEliminar.Columns[4].HeaderText = "FechaVencimientoE";
-                    ktTablaLotesEliminar.Columns[5].HeaderText = "CantidadLoteE";
                 }
             }
             catch (Exception ex)
@@ -129,47 +115,67 @@ namespace MenuDesk
         {
             try
             {
-                var nuevoLote = new LoteDTO();
-                nuevoLote.FechaIngreso = fechaIngreso.Value;
-
-
-                if (DateTime.TryParse(fechaVencimiento.Text, out DateTime fechaVen))
+                var filaProveedor = ktTablaProveedoresLotes.CurrentRow;
+                if (filaProveedor == null)
                 {
-                    nuevoLote.FechaVencimiento = fechaVen;
+                    MessageBox.Show("Seleccioná un proveedor de la tabla.", "Lotes");
+                    return;
                 }
 
-                if (ktTablaProveedoresLotes.CurrentRow != null)
+                if (SelectMP.SelectedValue == null)
                 {
-                    nuevoLote.IdProveedor = Convert.ToInt32(ktTablaProveedoresLotes.CurrentRow.Cells["IdProveedor"].Value);
+                    MessageBox.Show("Seleccioná una materia prima.", "Lotes");
+                    return;
                 }
 
-
-                nuevoLote.IdMateriaP = Convert.ToInt32(SelectMP.SelectedValue);
-
-                if (int.TryParse(cantidadMateriaPrima.Text, out int numero)) 
+                if (!decimal.TryParse(cantidadMateriaPrima.Text, NumberStyles.Number, CultureInfo.CurrentCulture, out decimal cantidad)
+                    || Math.Round(cantidad, 2) <= 0)
                 {
-                    nuevoLote.CantidadLote = numero;
+                    MessageBox.Show("Ingresá una cantidad mayor a cero.", "Lotes");
+                    return;
                 }
-                
-                nuevoLote.EstadoLote = 1;
 
+                if (!DateTime.TryParse(fechaVencimiento.Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime fechaVen))
+                {
+                    MessageBox.Show("Ingresá una fecha de vencimiento válida.", "Lotes");
+                    return;
+                }
 
-                await _apiClient.PostAsync("lotes", nuevoLote);
+                if (fechaVen.Date < fechaIngreso.Value.Date)
+                {
+                    MessageBox.Show("La fecha de vencimiento no puede ser anterior a la de ingreso.", "Lotes");
+                    return;
+                }
 
-                MessageBox.Show("Lote guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var nuevoLote = new LoteDTO
+                {
+                    FechaIngreso = fechaIngreso.Value,
+                    FechaVencimiento = fechaVen,
+                    IdProveedor = Convert.ToInt32(filaProveedor.Cells["IdProveedor"].Value),
+                    IdMateriaP = Convert.ToInt32(SelectMP.SelectedValue),
+                    CantidadLote = Math.Round(cantidad, 2),
+                    EstadoLote = 1
+                };
+
+                bool ok = await _apiClient.PostAsync("lotes", nuevoLote);
+
+                if (ok)
+                    MessageBox.Show("Lote guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("No se pudo guardar el lote.", "Lotes");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al conectar con el servidor: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
-
         private void ktTablaLotes_SelectionChanged(object sender, EventArgs e)
         {
-            valorCantCambio.Text = ktTablaLotes.CurrentRow.Cells["CantidadLote"].Value.ToString();
-            valorFechaVCambiada.Text = ktTablaLotes.CurrentRow.Cells["FechaDeVencimiento"].Value.ToString();
-              
+            var fila = ktTablaLotes.CurrentRow;
+            if (fila == null) return;
+
+            valorCantCambio.Text = fila.Cells["CantidadLote"].Value?.ToString();
+            valorFechaVCambiada.Text = fila.Cells["FechaDeVencimiento"].Value?.ToString();
         }
 
         private async void guardarCambiosLote_Click(object sender, EventArgs e)
@@ -177,37 +183,55 @@ namespace MenuDesk
             try
             {
                 var modLote = ktTablaLotes.CurrentRow;
-                if (modLote != null)
+                if (modLote == null)
                 {
-                    var loteDto = new LoteDTO();
-
-                    if (valorCantCambio != null)
-                    {
-                        loteDto.CantidadLote = Convert.ToDecimal(valorCantCambio.Text);
-                    }
-
-                    if (valorFechaVCambiada != null) 
-                    {
-                        loteDto.FechaVencimiento = DateTime.Parse(valorFechaVCambiada.Text);
-                    }
-                    loteDto.IdLote = Convert.ToInt32(modLote.Cells["IdLote"].Value);
-                    loteDto.IdMateriaP = Convert.ToInt32(modLote.Cells["IdMateriaP"].Value);
-                    loteDto.IdProveedor = Convert.ToInt32(modLote.Cells["IdProv"].Value);
-                    loteDto.EstadoLote = Convert.ToSByte(modLote.Cells["estadoLote"].Value);
-                    loteDto.FechaIngreso = Convert.ToDateTime(modLote.Cells["FechaDeIngreso"].Value);
-                    await _apiClient.PatchAsync("lotes", loteDto);
-
-                    MessageBox.Show("Cambios de guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Seleccioná un lote de la tabla.", "Lotes");
+                    return;
                 }
 
+                if (!decimal.TryParse(valorCantCambio.Text, NumberStyles.Number, CultureInfo.CurrentCulture, out decimal cantidad)
+                    || cantidad < 0)
+                {
+                    MessageBox.Show("Ingresá una cantidad válida (cero o mayor).", "Lotes");
+                    return;
+                }
+
+                if (!DateTime.TryParse(valorFechaVCambiada.Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime fechaVen))
+                {
+                    MessageBox.Show("Ingresá una fecha de vencimiento válida.", "Lotes");
+                    return;
+                }
+
+                var fechaIng = Convert.ToDateTime(modLote.Cells["FechaDeIngreso"].Value);
+                if (fechaVen.Date < fechaIng.Date)
+                {
+                    MessageBox.Show("La fecha de vencimiento no puede ser anterior a la de ingreso.", "Lotes");
+                    return;
+                }
+
+                var loteDto = new LoteDTO
+                {
+                    CantidadLote = Math.Round(cantidad, 2),
+                    FechaVencimiento = fechaVen,
+                    FechaIngreso = fechaIng,
+                    IdLote = Convert.ToInt32(modLote.Cells["IdLote"].Value),
+                    IdMateriaP = Convert.ToInt32(modLote.Cells["IdMateriaP"].Value),
+                    IdProveedor = Convert.ToInt32(modLote.Cells["IdProv"].Value),
+                    EstadoLote = Convert.ToSByte(modLote.Cells["estadoLote"].Value)
+                };
+
+                bool ok = await _apiClient.PatchAsync("lotes", loteDto);
+
+                if (ok)
+                    MessageBox.Show("Cambios guardados con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("No se pudieron guardar los cambios.", "Lotes");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al ejecutar el guardado de las modificaciones en lotes: {ex.Message}", "Error de Guardado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
-
         private void deshabilitarLote_Click(object sender, EventArgs e)
         {
 
@@ -217,6 +241,13 @@ namespace MenuDesk
         {
             try
             {
+                var fila = ktTablaLotesEliminar.CurrentRow;
+                if (fila == null)
+                {
+                    MessageBox.Show("Seleccioná un lote de la tabla.", "Lotes");
+                    return;
+                }
+
                 int idEliminar = Convert.ToInt32(ktTablaLotesEliminar.CurrentRow.Cells["IdLoteE"].Value);
                 bool eliminado = await _apiClient.DeleteAsync($"lotes/{idEliminar}");
                 
@@ -269,11 +300,6 @@ namespace MenuDesk
 
         }
 
-
-        private void altaLoteSubPage_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 
 }

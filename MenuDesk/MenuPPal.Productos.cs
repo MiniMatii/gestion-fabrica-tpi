@@ -65,7 +65,6 @@ namespace MenuDesk
 
         }
 
-        //NUEVO prod guardar
         private async void GuardarProducto_Click(object sender, EventArgs e)
         {
             try
@@ -79,8 +78,6 @@ namespace MenuDesk
                 n_Prod.IdReceta = Convert.ToInt32(selectorRAP.SelectedValue);
                 await _apiClient.PostAsync("producto", n_Prod);
                 MessageBox.Show("Producto guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                //limpio los campos porque sino queda todo cargado
                 textBoxNomAP.Clear();
                 checkBoxCamAP.Checked = false;
                 checkBoxDispAP.Checked = false;
@@ -92,8 +89,6 @@ namespace MenuDesk
                 MessageBox.Show($"Error al conectar con el servidor: \n{ex.Message}\n ", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        //selectores de receta
         private async Task ListarRecetas()
         {
             string endpoint = "Recetas";
@@ -107,23 +102,15 @@ namespace MenuDesk
                 selectorRMProd.DisplayMember = "Descripcion";
                 selectorRMProd.ValueMember = "IdReceta";
 
-                selectorRAP.DataSource = listadoRecetas; //de alta
-                selectorRMProd.DataSource = listadoRecetas; //de modificar
+                selectorRAP.DataSource = listadoRecetas; 
+                selectorRMProd.DataSource = listadoRecetas; 
 
             }
         }
-        //las tablas de modificar y eliminar prod
         private async Task CargarProductosEnGrilla()
         {
             string endpoint = "producto";
             var listado = await _apiClient.ObtenerListaAsync<ProductoDTO>(endpoint);
-            //prueba porque no me trae los nombres!1!1!
-            /*MessageBox.Show(listado[0].Nombre);
-            foreach (var producto in listado)
-            {
-                Console.WriteLine($"Nombre: {producto.Nombre}");
-            }
-            */
             if (listado != null)
             {
                 tablaMProd.DataSource = listado;
@@ -131,7 +118,6 @@ namespace MenuDesk
 
             }
         }
-        //que me traiga los datos actuales del producto al seleccionarlo del datagrid 
         private void modifProductosTabla_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -145,7 +131,6 @@ namespace MenuDesk
             selectorRMProd.SelectedValue = Convert.ToInt32(fila.Cells["idRecetaPM"].Value);
             
         }
-        //MODIFICAR prod guardar
         private async void GuardarCambiosProd_Click(object sender, EventArgs e)
         {
             try
@@ -163,8 +148,6 @@ namespace MenuDesk
                     prod.Camara = checkBoxCamMP.Checked;
                     prod.Disponible = checkBoxDispMP.Checked;
                     prod.IdReceta = Convert.ToInt32(selectorRMProd.SelectedValue);
-                    //prueba porque no me cambia el estado de disponible
-                    /* MessageBox.Show($"Cámara: {camaraModifCheckBox.Checked}\n" + $"Disponible: {dispModifCheckBox.Checked}");*/
                     await _apiClient.PutAsync(endpoint, prod); 
                     MessageBox.Show("Cambios de guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     textBoxNomAP.Clear();
@@ -182,7 +165,6 @@ namespace MenuDesk
             }
 
         }
-        //ELIMINAR prod 
         private async void confirmarEPbutton_Click(object sender, EventArgs e)
         {
             try
