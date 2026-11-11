@@ -6858,8 +6858,8 @@
             // 
             // modificarSucursalPage
             // 
-            navBarSucursales.Set_Background(modificarSucursalPage, KimTools.WinForms.KtColor.Empty);
-            modificarSucursalPage.BackColor = Color.Transparent;
+            navBarSucursales.Set_Background(modificarSucursalPage, new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));
+            modificarSucursalPage.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
             modificarSucursalPage.Controls.Add(sucktPanel86);
             modificarSucursalPage.Location = new Point(4, 4);
             modificarSucursalPage.Name = "modificarSucursalPage";
@@ -6891,7 +6891,7 @@
             // sucktPanel87
             // 
             sucktPanel87.AutoScroll = true;
-            sucktPanel87.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            sucktPanel87.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));
             sucktPanel87.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
             sucktPanel87.BorderEdges.BottomLeft = false;
             sucktPanel87.BorderEdges.BottomRight = false;
@@ -6910,7 +6910,6 @@
             sucktPanel87.Location = new Point(0, 0);
             sucktPanel87.Margin = new Padding(4);
             sucktPanel87.Name = "sucktPanel87";
-            sucktPanel87.Padding = new Padding(20, 20, 40, 10);
             sucktPanel87.PatternColor = KimTools.WinForms.KtColor.Empty;
             sucktPanel87.Size = new Size(1140, 732);
             sucktPanel87.TabIndex = 2;
@@ -6925,10 +6924,10 @@
             sucktPanel88.Controls.Add(sucktPanel90);
             sucktPanel88.Dock = DockStyle.Fill;
             sucktPanel88.Foreground = KimTools.WinForms.KtColor.Empty;
-            sucktPanel88.Location = new Point(20, 321);
+            sucktPanel88.Location = new Point(0, 301);
             sucktPanel88.Name = "sucktPanel88";
             sucktPanel88.PatternColor = KimTools.WinForms.KtColor.Empty;
-            sucktPanel88.Size = new Size(1080, 401);
+            sucktPanel88.Size = new Size(1140, 431);
             sucktPanel88.TabIndex = 6;
             // 
             // sucktPanel90
@@ -6947,7 +6946,7 @@
             sucktPanel90.Margin = new Padding(4);
             sucktPanel90.Name = "sucktPanel90";
             sucktPanel90.PatternColor = KimTools.WinForms.KtColor.Empty;
-            sucktPanel90.Size = new Size(1080, 474);
+            sucktPanel90.Size = new Size(1140, 474);
             sucktPanel90.TabIndex = 11;
             // 
             // sucktPanel74
@@ -6961,7 +6960,7 @@
             sucktPanel74.Dock = DockStyle.Right;
             sucktPanel74.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
             sucktPanel74.Foreground = KimTools.WinForms.KtColor.Empty;
-            sucktPanel74.Location = new Point(815, 133);
+            sucktPanel74.Location = new Point(875, 133);
             sucktPanel74.Name = "sucktPanel74";
             sucktPanel74.PatternColor = KimTools.WinForms.KtColor.Empty;
             sucktPanel74.Size = new Size(265, 341);
@@ -7007,7 +7006,7 @@
             sucktDivider25.Margin = new Padding(0);
             sucktDivider25.Name = "sucktDivider25";
             sucktDivider25.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            sucktDivider25.Size = new Size(1080, 23);
+            sucktDivider25.Size = new Size(1140, 23);
             sucktDivider25.TabIndex = 9;
             // 
             // sucktPanel99
@@ -7025,7 +7024,7 @@
             sucktPanel99.Margin = new Padding(4);
             sucktPanel99.Name = "sucktPanel99";
             sucktPanel99.PatternColor = KimTools.WinForms.KtColor.Empty;
-            sucktPanel99.Size = new Size(1080, 110);
+            sucktPanel99.Size = new Size(1140, 110);
             sucktPanel99.TabIndex = 4;
             // 
             // sucktPanel100
@@ -7037,12 +7036,12 @@
             sucktPanel100.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             sucktPanel100.BorderWidth = 1.5F;
             sucktPanel100.Controls.Add(txtNroSucursal);
-            sucktPanel100.Dock = DockStyle.Fill;
+            sucktPanel100.Dock = DockStyle.Left;
             sucktPanel100.Foreground = KimTools.WinForms.KtColor.Empty;
             sucktPanel100.Location = new Point(0, 55);
             sucktPanel100.Name = "sucktPanel100";
             sucktPanel100.PatternColor = KimTools.WinForms.KtColor.Empty;
-            sucktPanel100.Size = new Size(1080, 55);
+            sucktPanel100.Size = new Size(452, 55);
             sucktPanel100.TabIndex = 1;
             // 
             // txtNroSucursal
@@ -7079,7 +7078,7 @@
             txtNroSucursal.SelectionLength = 0;
             txtNroSucursal.SelectionStart = 0;
             txtNroSucursal.ShortcutsEnabled = true;
-            txtNroSucursal.Size = new Size(1080, 55);
+            txtNroSucursal.Size = new Size(452, 55);
             txtNroSucursal.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
             txtNroSucursal.TabIndex = 5;
             txtNroSucursal.TextMarginBottom = 0;
@@ -7099,7 +7098,7 @@
             sucktPanel101.Margin = new Padding(4);
             sucktPanel101.Name = "sucktPanel101";
             sucktPanel101.PatternColor = KimTools.WinForms.KtColor.Empty;
-            sucktPanel101.Size = new Size(1080, 55);
+            sucktPanel101.Size = new Size(1140, 55);
             sucktPanel101.TabIndex = 0;
             // 
             // sucktPanel102
@@ -7145,11 +7144,11 @@
             sucktDivider28.Dock = DockStyle.Top;
             sucktDivider28.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             sucktDivider28.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
-            sucktDivider28.Location = new Point(20, 298);
+            sucktDivider28.Location = new Point(0, 278);
             sucktDivider28.Margin = new Padding(0);
             sucktDivider28.Name = "sucktDivider28";
             sucktDivider28.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            sucktDivider28.Size = new Size(1080, 23);
+            sucktDivider28.Size = new Size(1140, 23);
             sucktDivider28.TabIndex = 5;
             // 
             // sucktPanel103
@@ -7162,11 +7161,11 @@
             sucktPanel103.Controls.Add(sucktPanel104);
             sucktPanel103.Dock = DockStyle.Top;
             sucktPanel103.Foreground = KimTools.WinForms.KtColor.Empty;
-            sucktPanel103.Location = new Point(20, 43);
+            sucktPanel103.Location = new Point(0, 23);
             sucktPanel103.Margin = new Padding(4);
             sucktPanel103.Name = "sucktPanel103";
             sucktPanel103.PatternColor = KimTools.WinForms.KtColor.Empty;
-            sucktPanel103.Size = new Size(1080, 255);
+            sucktPanel103.Size = new Size(1140, 255);
             sucktPanel103.TabIndex = 4;
             // 
             // sucktPanel104
@@ -7183,7 +7182,7 @@
             sucktPanel104.Location = new Point(0, 0);
             sucktPanel104.Name = "sucktPanel104";
             sucktPanel104.PatternColor = KimTools.WinForms.KtColor.Empty;
-            sucktPanel104.Size = new Size(1080, 255);
+            sucktPanel104.Size = new Size(1140, 255);
             sucktPanel104.TabIndex = 1;
             // 
             // sucktTable2
@@ -7241,7 +7240,7 @@
             sucktTable2.RowHeadersWidth = 20;
             sucktTable2.RowTemplate.Height = 45;
             sucktTable2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            sucktTable2.Size = new Size(1080, 255);
+            sucktTable2.Size = new Size(1140, 255);
             sucktTable2.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             sucktTable2.Style.Border = 0F;
             sucktTable2.Style.BorderHeader = 0F;
@@ -7302,11 +7301,11 @@
             sucktDivider29.Dock = DockStyle.Top;
             sucktDivider29.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             sucktDivider29.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
-            sucktDivider29.Location = new Point(20, 20);
+            sucktDivider29.Location = new Point(0, 0);
             sucktDivider29.Margin = new Padding(0);
             sucktDivider29.Name = "sucktDivider29";
             sucktDivider29.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            sucktDivider29.Size = new Size(1080, 23);
+            sucktDivider29.Size = new Size(1140, 23);
             sucktDivider29.TabIndex = 1;
             // 
             // sucktPanel109
@@ -7716,6 +7715,7 @@
             IdEmpleado.Name = "IdEmpleado";
             IdEmpleado.ReadOnly = true;
             IdEmpleado.Resizable = DataGridViewTriState.False;
+            IdEmpleado.Width = 71;
             // 
             // dataGridViewTextBoxColumn9
             // 
@@ -7746,6 +7746,7 @@
             Dni.Name = "Dni";
             Dni.ReadOnly = true;
             Dni.Resizable = DataGridViewTriState.False;
+            Dni.Width = 85;
             // 
             // sucktDivider31
             // 
