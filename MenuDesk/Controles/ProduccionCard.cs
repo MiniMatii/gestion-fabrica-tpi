@@ -46,7 +46,7 @@ namespace MenuDesk.Controles
                                     : asignado ? Color.FromArgb(52, 211, 153)     
                                     : Color.FromArgb(251, 191, 36);
 
-
+                Controls.Add(Etiqueta(textoOperario, new Font("Segoe UI", 9f), colorOperario, 14, ref y, 20));
             }
 
             Height = y + 8;
