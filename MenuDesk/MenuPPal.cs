@@ -14,7 +14,7 @@ namespace MenuDesk
         public MenuPPal()
         {
             InitializeComponent();
-            AplicarEstiloTabla(tablaMProd, tablaEP);
+            AplicarEstiloTabla(tablaMProd, tablaEP, ktTablaOperarios, ktTablaModOp, ktTablaSucursales, empktTable4, sucktTable2);
             hudLateral.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
             hudLateral.BackColor = Color.FromArgb(0, 78, 65);
             hudLateral.BackgroundImage = Properties.Resources.backgroundAleman_340x1179;
