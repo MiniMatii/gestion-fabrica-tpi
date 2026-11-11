@@ -1,8 +1,9 @@
 ﻿
-using Alemana.DTOs;
 using Alemana.Aplicaciones.Servicios;
-using System.Runtime.CompilerServices;
+using Alemana.DTOs;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace SwaggerWeb
 {
@@ -70,19 +71,21 @@ namespace SwaggerWeb
             {
                 try
                 {
-                    await ciudadServicio.BorrarCiudad(id);
-                    return Results.Ok();
+                    var borrada = await ciudadServicio.BorrarCiudad(id);
+                    return borrada
+                        ? Results.NoContent()
+                        : Results.NotFound(new { error = "La ciudad no existe." });
                 }
-                catch (ArgumentException ex)
+                catch (DbUpdateException)
                 {
-                    return Results.BadRequest(new { error = ex.Message });
+                    return Results.Conflict(new { error = "No se puede eliminar: hay sucursales asociadas a esa ciudad." });
                 }
-            }
-            )
+            })
             .WithName("Borrar Ciudad")
             .WithTags("Ciudades")
             .Produces(StatusCodes.Status204NoContent)
-            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status404NotFound)
+            .Produces(StatusCodes.Status409Conflict)
             .WithOpenApi();
 
 

@@ -19,6 +19,7 @@ namespace MenuDesk
             panelSucursales.Visible = false;
             panelProductos.Visible = !(panelProductos.Visible);
             panelProductos.Enabled = !(panelProductos.Enabled);
+            
         }
 
         private async void cargarTablasProd_Click(object sender, EventArgs e)
@@ -188,6 +189,30 @@ namespace MenuDesk
             }
         }
 
+
+        private static void AplicarEstiloTabla(params DataGridView[] tablas)
+        {
+            var verde = Color.FromArgb(0, 78, 65);
+            var dorado = Color.FromArgb(173, 151, 98);
+
+            foreach (var g in tablas)
+            {
+
+                foreach (var estilo in new[] { g.DefaultCellStyle, g.AlternatingRowsDefaultCellStyle })
+                {
+                    estilo.BackColor = verde;
+                    estilo.ForeColor = Color.White;
+                    estilo.SelectionBackColor = dorado;
+                    estilo.SelectionForeColor = Color.White;
+                }
+
+                
+                g.ColumnHeadersDefaultCellStyle.BackColor = verde;
+                g.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                g.ColumnHeadersDefaultCellStyle.SelectionBackColor = verde;
+                g.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            }
+        }
 
 
     }

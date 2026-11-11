@@ -75,7 +75,6 @@ namespace MenuDesk
         }
 
 
-        //listado de ciudades
         private async Task CargarCiudadesEnGrilla()
         {
             string endpoint = "ciudades";
@@ -87,43 +86,49 @@ namespace MenuDesk
             }
         }
 
-        //cargar tabla
+
 
         private async void MiniMenuCiudad_Load(object sender, EventArgs e)
         {
             await CargarCiudadesEnGrilla();
         }
 
-        //actualizar tabla dsp de borrar alguna ciudad
 
 
-        private async void buttonGuardarEC_Click(object sender, EventArgs e)
+
+
+        private async void buttonActualizarEC_Click(object sender, EventArgs e)
+        {
+            await CargarCiudadesEnGrilla();
+        }
+
+        private async void buttonECiudad_Click(object sender, EventArgs e)
         {
             try
             {
-                var cE = tablaEC.CurrentRow;
-                if (cE != null)
+                var fila = tablaEC.CurrentRow;
+                if (fila == null)
                 {
-                    CiudadesDTO cElim = new CiudadesDTO();
-                    cElim.CodPostal = Convert.ToInt32(cE.Cells["codPostal"].Value);
-                    var eliminado = await _apiClient.DeleteAsync("ciudades");
-                    if (eliminado)
-                        MessageBox.Show("Ciudad eliminada", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    else
-                        MessageBox.Show("No se pudo eliminar la ciudad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Seleccioná una ciudad de la tabla.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int codPostal = Convert.ToInt32(fila.Cells["codPostal"].Value);
+
+                var eliminado = await _apiClient.DeleteAsync($"ciudades/{codPostal}");
+                if (eliminado)
+                {
+                    MessageBox.Show("Ciudad eliminada", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar la ciudad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al eliminar la ciudad: {ex.Message}", "Error de eliminación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
-
-        }
-
-        private async void buttonActualizarEC_Click(object sender, EventArgs e)
-        {
-            await CargarCiudadesEnGrilla();
         }
     }
 }

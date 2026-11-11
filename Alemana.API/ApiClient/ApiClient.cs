@@ -50,7 +50,7 @@ namespace Alemana.API
 
         public void Logout() => Token = null;
 
-        //
+        
         public async Task<List<T>?> ObtenerListaAsync<T>(string endpoint)
         {
             try

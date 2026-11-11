@@ -10,14 +10,14 @@ namespace MenuDesk
         private string _firmaProduccion = "";
 
 
-        private void ProduccionPage_CheckedChanged(object sender, EventArgs e)
+        private async void ProduccionPage_CheckedChanged(object sender, EventArgs e)
         {
             bool mostrar = !panelProduccion.Visible;
 
             panelProduccion.Visible = mostrar;
             panelProduccion.Enabled = mostrar;
 
-            if (mostrar) _ = IniciarProduccion();
+            if (mostrar) await IniciarProduccion();
             else DetenerProduccion();
         }
 
