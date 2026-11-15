@@ -28,6 +28,7 @@ namespace SwaggerWeb
             .WithTags("Lotes")
             .Produces<LoteDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
 
@@ -49,6 +50,7 @@ namespace SwaggerWeb
             .WithTags("Lotes")
             .Produces<LoteDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi(); 
 
             app.MapPut($"/lotes", async (int codLote, ILoteServicio loteServicio) => 
@@ -68,6 +70,7 @@ namespace SwaggerWeb
             .WithTags("Lotes")
             .Produces<LoteDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
 
@@ -86,6 +89,7 @@ namespace SwaggerWeb
             .WithTags("Lotes")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
 
@@ -103,6 +107,7 @@ namespace SwaggerWeb
             }).WithName("Obtener Lotes")
             .WithTags("Lotes")
             .Produces<List<LoteDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
 
@@ -120,6 +125,7 @@ namespace SwaggerWeb
             }).WithName("Obtener Lotes Full Info")
             .WithTags("Lotes")
             .Produces<List<ListadoLotesFullDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
         }

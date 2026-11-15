@@ -21,5 +21,6 @@ namespace Alemana.DTOs
 
         public int StockActual { get; set; }
 
+        public int? IdCap { get; set; }
     }
 }

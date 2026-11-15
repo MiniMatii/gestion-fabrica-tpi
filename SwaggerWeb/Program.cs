@@ -122,12 +122,14 @@ builder.Services.AddAuthorization(o =>
     o.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build());
 
 var app = builder.Build();
-
 app.UseSwagger();
 app.UseSwaggerUI();
 
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 
 app.MapAuthEndpoints();
@@ -146,5 +148,6 @@ app.MapOrdenProduccionEndpoint();
 app.MapConsumoLoteEndpoint();
 app.MapOrdAsigOpEndpoint();
 app.MapConsultasAdoEndpoints();
+
 
 app.Run();

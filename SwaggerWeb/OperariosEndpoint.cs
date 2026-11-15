@@ -24,6 +24,7 @@ namespace SwaggerWeb
             .WithTags("Operarios")
             .Produces<OperariosDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/operario/{idOperario}/capacidad", async (int idOperario, List<int> caps, IOperarioServicios operarioServicios) =>
@@ -41,6 +42,7 @@ namespace SwaggerWeb
             .WithTags("Operarios")
             .Produces<OperariosDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPatch("/operario", async (OperariosDTO dto, IOperarioServicios operarioServicios) => 
@@ -64,6 +66,7 @@ namespace SwaggerWeb
             .WithTags("Operarios")
             .Produces<OperariosDTO>(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
 
@@ -75,6 +78,7 @@ namespace SwaggerWeb
             .WithTags("Operarios")
             .Produces<IEnumerable<OperariosDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/operario/{idOperario}", async (int idOperario, IOperarioServicios operarioServicios) =>
@@ -87,6 +91,7 @@ namespace SwaggerWeb
             .WithTags("Operarios")
             .Produces<OperariosDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/operario/{idOperario}", async (int idOperario, IOperarioServicios operarioServicios) =>
@@ -108,6 +113,7 @@ namespace SwaggerWeb
             .WithTags("Operarios")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/operario/{idOperario}/capacidad/{idCapacidad}", async (int idOperario, int idCapacidad, IOperarioServicios operarioServicios) =>
@@ -130,6 +136,7 @@ namespace SwaggerWeb
             .Produces<OperariosDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
         }
 

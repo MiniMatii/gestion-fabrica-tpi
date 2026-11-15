@@ -15,6 +15,7 @@ namespace SwaggerWeb
             .WithName("ObtenerAsignaciones")
             .WithTags("OrdAsigOp")
             .Produces<List<OrdAsigOpDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/ordasigop/orden/{idProd:int}", async (int idProd, IOrdAsigOpServicio servicio) =>
@@ -27,6 +28,7 @@ namespace SwaggerWeb
             .WithTags("OrdAsigOp")
             .Produces<List<OrdAsigOpDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/ordasigop/{idProd:int}/{idOperario:int}", async (int idProd, int idOperario, IOrdAsigOpServicio servicio) =>
@@ -39,6 +41,7 @@ namespace SwaggerWeb
             .WithTags("OrdAsigOp")
             .Produces<OrdAsigOpDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPost("/ordasigop", async (OrdAsigOpDTO dto, IOrdAsigOpServicio servicio) =>
@@ -62,6 +65,7 @@ namespace SwaggerWeb
             .Produces<OrdAsigOpDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status409Conflict)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/ordasigop", async (OrdAsigOpDTO dto, IOrdAsigOpServicio servicio) =>
@@ -82,6 +86,7 @@ namespace SwaggerWeb
             .Produces<bool>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/ordasigop/{idProd:int}/{idOperario:int}", async (int idProd, int idOperario, IOrdAsigOpServicio servicio) =>
@@ -94,6 +99,7 @@ namespace SwaggerWeb
             .WithTags("OrdAsigOp")
             .Produces<bool>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
         }
     }

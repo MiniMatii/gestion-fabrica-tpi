@@ -63,11 +63,6 @@ namespace MenuDesk
                     n_Op.Apellido = apellidoOpText.Text;
                     n_Op.Disponibilidad = 1;
                     await _apiClient.PostAsync(endpoint, n_Op);
-
-                    //if () 
-                    //{
-                    //    MessageBox.Show("Operario guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //}
                 }
             }
             catch (Exception ex)
@@ -158,9 +153,10 @@ namespace MenuDesk
                 if (listaDatos != null)
                 {
                     ktTablaCapacidades.DataSource = listaDatos;
-                    ktTablaCapacidades.Columns["IdCap"].HeaderText = "IdCap";
-                    ktTablaCapacidades.Columns["DescCapacidad"].HeaderText = "Descripcion";
-                    ktTablaCapacidades.Columns["NomCapacidad"].HeaderText = "Capacidad";
+                    tableCapacidadRequeridaProducto.DataSource = listaDatos;
+                    //ktTablaCapacidades.Columns["IdCap"].HeaderText = "IdCap";
+                    //ktTablaCapacidades.Columns["DescCapacidad"].HeaderText = "Descripcion";
+                    //ktTablaCapacidades.Columns["NomCapacidad"].HeaderText = "Capacidad";
 
                 }
             }

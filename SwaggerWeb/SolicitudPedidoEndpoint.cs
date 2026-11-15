@@ -13,6 +13,7 @@ namespace SwaggerWeb
                 return Results.Ok(pedidos);
             }).WithName("Obtener Pedidos")
               .WithTags("Pedidos")
+              .AllowAnonymous()
               .WithOpenApi();
 
             app.MapGet("/pedidos/{id}", async (int id, ISolicitudPedidoServicio servicio) =>
@@ -23,6 +24,7 @@ namespace SwaggerWeb
                 return Results.Ok(pedido);
             }).WithName("Obtener Pedido Por Id")
               .WithTags("Pedidos")
+              .AllowAnonymous()
               .WithOpenApi();
 
             app.MapPost("/pedidos", async (SolicitudPedidoDTO dto, ISolicitudPedidoServicio servicio) =>
@@ -40,6 +42,7 @@ namespace SwaggerWeb
               .WithTags("Pedidos")
               .Produces<SolicitudPedidoDTO>(StatusCodes.Status201Created)
               .Produces(StatusCodes.Status400BadRequest)
+              .AllowAnonymous()
               .WithOpenApi();
 
             app.MapDelete("/pedidos/{id}", async (int id, ISolicitudPedidoServicio servicio) =>
@@ -52,6 +55,7 @@ namespace SwaggerWeb
               .WithTags("Pedidos")
               .Produces(StatusCodes.Status204NoContent)
               .Produces(StatusCodes.Status404NotFound)
+              .AllowAnonymous()
               .WithOpenApi();
 
 
@@ -63,17 +67,20 @@ namespace SwaggerWeb
             })
             .WithName("Obtener Productos De Pedido")
             .WithTags("Pedidos")
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/pedidos/pendientes", async (ISolicitudPedidoServicio servicio) =>
                Results.Ok(await servicio.ObtenerPendientesAsync()))
                 .WithTags("Pedidos")
+                .AllowAnonymous()
                 .WithOpenApi();
 
 
             app.MapGet("/pedidos/desde/{ultimoId:int}", async (int ultimoId, ISolicitudPedidoServicio servicio) =>
                 Results.Ok(await servicio.ObtenerPendientesDesdeAsync(ultimoId)))
                 .WithTags("Pedidos")
+                .AllowAnonymous()
                 .WithOpenApi();
 
             app.MapGet("/pedidos/{id:int}/asignables", async (int id, ISolicitudPedidoServicio servicio) =>
@@ -82,6 +89,7 @@ namespace SwaggerWeb
                 return items is null ? Results.NotFound() : Results.Ok(items);
             })
             .WithTags("Pedidos")
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPost("/pedidos/{id:int}/aceptar",
@@ -100,6 +108,7 @@ namespace SwaggerWeb
                     return respuesta;
                 })
                 .WithTags("Pedidos")
+                .AllowAnonymous()
             .WithOpenApi();
         }
 

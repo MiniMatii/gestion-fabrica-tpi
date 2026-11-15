@@ -24,6 +24,7 @@ namespace SwaggerWeb
             .WithTags("Sucursales")
             .Produces<SucursalesDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/sucursales", async (SucursalesDTO dto, ISucursalServicio sucursalServicio) => 
@@ -45,6 +46,7 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/sucursales", async (ISucursalServicio sucursalServicio) => 
@@ -53,6 +55,7 @@ namespace SwaggerWeb
                 return Results.Ok(Sucursales);
             }).WithTags("Sucursales")
             .Produces<List<SucursalesDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/sucursales/{id}", async (int id, ISucursalServicio sucursalServicio) =>
@@ -65,6 +68,7 @@ namespace SwaggerWeb
             .WithTags("Sucursales")
             .Produces<SucursalesDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPost("/sucursales/{id}", async(int id, List<int> idEs, ISucursalServicio sucursalServicio) =>
@@ -88,6 +92,7 @@ namespace SwaggerWeb
             .Produces<SucursalesDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPost("/sucursales/{idS}/empleados", async (int idS, List<int> idE, ISucursalServicio sucursalServicio) =>
@@ -105,6 +110,7 @@ namespace SwaggerWeb
             .Produces<SucursalesDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/sucursales/{id}", async (int id, ISucursalServicio sucursalServicio) =>
@@ -131,6 +137,7 @@ namespace SwaggerWeb
              .Produces(StatusCodes.Status200OK)
              .Produces(StatusCodes.Status400BadRequest)
              .Produces(StatusCodes.Status404NotFound)
+             .AllowAnonymous()
              .WithOpenApi();
         }
     }

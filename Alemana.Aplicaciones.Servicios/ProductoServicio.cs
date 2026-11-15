@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Alemana.Data.Repositorios;
+﻿using Alemana.Data.Repositorios;
 using Alemana.DTOs;
 using Alemana.Dominio.Models;
 
@@ -29,6 +24,7 @@ namespace Alemana.Aplicaciones.Servicios
                 Camara = p.Camara,
                 Disponible = p.Disponible,
                 IdReceta = p.IdReceta,
+                IdCap = p.IdCap,
                 StockActual = p.StockActual
             }).ToList();
         }
@@ -44,6 +40,7 @@ namespace Alemana.Aplicaciones.Servicios
                 Nombre = p.Nombre,
                 Camara = p.Camara,
                 Disponible = p.Disponible,
+                IdCap = p.IdCap,
                 IdReceta = p.IdReceta,
                 StockActual = p.StockActual
             };
@@ -56,6 +53,7 @@ namespace Alemana.Aplicaciones.Servicios
                 Nombre = dto.Nombre,
                 Camara = dto.Camara,
                 Disponible = dto.Disponible,
+                IdCap = dto.IdCap,
                 IdReceta = dto.IdReceta,
                 StockActual = dto.StockActual
             };
@@ -78,6 +76,7 @@ namespace Alemana.Aplicaciones.Servicios
                 Nombre = prod.Nombre,
                 Camara = prod.Camara,
                 Disponible = prod.Disponible,
+                IdCap = prod.IdCap,
                 IdReceta = prod.IdReceta,
                 StockActual = prod.StockActual
             };
@@ -122,6 +121,7 @@ namespace Alemana.Aplicaciones.Servicios
                     Nombre = prod.Nombre,
                     Camara = prod.Camara,
                     Disponible = prod.Disponible,
+                    IdCap = prod.IdCap,
                     IdReceta = prod.IdReceta,
                     StockActual = prod.StockActual
                 });

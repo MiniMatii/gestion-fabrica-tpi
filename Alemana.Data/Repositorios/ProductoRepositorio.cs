@@ -81,6 +81,7 @@ namespace Alemana.Data.Repositorios
             }
             prE.Camara = unProducto.Camara;
             prE.Disponible = unProducto.Disponible;
+            prE.IdCap = unProducto.IdCap;
             prE.IdReceta = unProducto.IdReceta;
             prE.StockActual = unProducto.StockActual;
             await _DbA.SaveChangesAsync();

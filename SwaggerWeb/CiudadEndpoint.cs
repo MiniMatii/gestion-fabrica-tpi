@@ -32,6 +32,7 @@ namespace SwaggerWeb
             .WithTags("Ciudades")
             .Produces<CiudadesDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/ciudades/{id}", async (int id, ICiudadServicio ciudadServicio) =>
@@ -54,6 +55,7 @@ namespace SwaggerWeb
             .Produces<CiudadesDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/ciudades", async (ICiudadServicio ciudadServicio) =>
@@ -65,6 +67,7 @@ namespace SwaggerWeb
             .WithName("Buscar todas las ciudades")
             .WithTags("Ciudades")
             .Produces<List<CiudadesDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/ciudades/{id}", async (int id, ICiudadServicio ciudadServicio) =>
@@ -86,6 +89,7 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status409Conflict)
+            .AllowAnonymous()
             .WithOpenApi();
 
 

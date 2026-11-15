@@ -22,7 +22,11 @@ namespace SwaggerWeb
                 {
                     return Results.BadRequest(new { error = ex.Message });
                 }
-            }).WithName("Alta Empleado").WithTags("Empleados").WithOpenApi();
+            })
+                .WithName("Alta Empleado")
+                .WithTags("Empleados")
+                .AllowAnonymous()
+                .WithOpenApi();
 
             app.MapGet("/empleado", async (IEmpleadoServicio empleadoServicio) =>
             {
@@ -36,7 +40,11 @@ namespace SwaggerWeb
                 if (empleado == null) return Results.NotFound(new { mensaje = "Empleado no encontrado" });
 
                 return Results.Ok(empleado);
-            }).WithName("Obtener Empleado Por Id").WithTags("Empleados").WithOpenApi();
+            })
+                .WithName("Obtener Empleado Por Id")
+                .WithTags("Empleados")
+                .AllowAnonymous()
+                .WithOpenApi();
 
             app.MapPut("/empleado/{id}", async (int id, EmpleadoDTO dto, IEmpleadoServicio empleadoServicio) =>
             {
@@ -51,7 +59,7 @@ namespace SwaggerWeb
                 {
                     return Results.NotFound(new { error = ex.Message });
                 }
-            }).WithName("Modificar Empleado").WithTags("Empleados").WithOpenApi();
+            }).WithName("Modificar Empleado").WithTags("Empleados").AllowAnonymous().WithOpenApi();
 
             app.MapPut("/empleado/baja/{id}", async (int id, EmpleadoDTO dto, IEmpleadoServicio empleadoServicio) =>
             {
@@ -62,7 +70,7 @@ namespace SwaggerWeb
                 if (!dadoDeBaja) return Results.NotFound(new { error = "Empleado no encontrado." });
 
                 return Results.Ok(new { mensaje = "Empleado dado de baja exitosamente." });
-            }).WithName("Dar de Baja Empleado").WithTags("Empleados").WithOpenApi();
+            }).WithName("Dar de Baja Empleado").WithTags("Empleados").AllowAnonymous().WithOpenApi();
 
             app.MapDelete("/empleado/{id}", async (int id, IEmpleadoServicio empleadoServicio) =>
             {
@@ -78,7 +86,7 @@ namespace SwaggerWeb
                 {
                     return Results.BadRequest(new { error = ex.Message });
                 }
-            }).WithName("Eliminar Empleado").WithTags("Empleados").WithOpenApi();
+            }).WithName("Eliminar Empleado").WithTags("Empleados").AllowAnonymous().WithOpenApi();
         }
     }
 }

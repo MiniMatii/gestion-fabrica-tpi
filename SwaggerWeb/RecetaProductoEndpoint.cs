@@ -26,6 +26,7 @@ namespace SwaggerWeb
             .WithTags("Recetas")
             .Produces<RecetaProductoDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/Recetas", async (RecetaProductoDTO rtaModifdto, IRecetaProductoServicio recetaService) =>
@@ -47,6 +48,7 @@ namespace SwaggerWeb
             .WithTags("Recetas")
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/Recetas", async (IRecetaProductoServicio recetaService) =>
@@ -56,6 +58,7 @@ namespace SwaggerWeb
             }).WithName("Obtener Recetas")
               .WithTags("Recetas")
               .Produces<List<RecetaProductoDTO>>(StatusCodes.Status200OK)
+              .AllowAnonymous()
               .WithOpenApi();
 
             app.MapGet("/Recetas/{id}", async (int id, IRecetaProductoServicio recetaService) =>
@@ -66,6 +69,7 @@ namespace SwaggerWeb
                 return Results.Ok(receta);
             }).WithName("Obtener Receta Por Id")
               .WithTags("Recetas")
+              .AllowAnonymous()
               .WithOpenApi();
 
             app.MapDelete("/Recetas/{id}", async (int id, IRecetaProductoServicio recetaService) =>
@@ -80,6 +84,7 @@ namespace SwaggerWeb
             .WithTags("Recetas")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/Recetas/{id}/materiasPrimas", async (int id, List<MateriapRecetaDTO> mps, IRecetaProductoServicio recetaService) =>
@@ -101,6 +106,7 @@ namespace SwaggerWeb
             .WithTags("Recetas")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
         }

@@ -25,6 +25,7 @@ namespace SwaggerWeb
             .WithTags("Capacidades")
             .Produces<CapacidadDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/capacidad/{id}", async (int id, ICapacidadServicio capacidadServicio) =>
@@ -44,6 +45,7 @@ namespace SwaggerWeb
             .WithTags("Capacidades")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/capacidad", async (ICapacidadServicio capacidadServicio) =>
@@ -60,6 +62,7 @@ namespace SwaggerWeb
                 }).WithName("Obtener Capacidades")
             .WithTags("Capacidades")
             .Produces<List<MateriapDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
         }

@@ -28,6 +28,7 @@ namespace MenuDesk
             {
                 await ListarRecetas();
                 await CargarProductosEnGrilla();
+                await CargarCapacidadesEnGrilla();
             }
             catch (Exception ex)
             {
@@ -70,26 +71,61 @@ namespace MenuDesk
         {
             try
             {
-                ProductoDTO n_Prod = new ProductoDTO();
-                var rta = new RecetaProductoDTO();
-                n_Prod.Nombre = textBoxNomAP.Text;
-                n_Prod.Camara = checkBoxCamAP.Checked;
-                n_Prod.Disponible = checkBoxDispAP.Checked;
-                n_Prod.StockActual = Convert.ToInt32(textBoxStockAP.Text);
-                n_Prod.IdReceta = Convert.ToInt32(selectorRAP.SelectedValue);
-                await _apiClient.PostAsync("producto", n_Prod);
-                MessageBox.Show("Producto guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                textBoxNomAP.Clear();
-                checkBoxCamAP.Checked = false;
-                checkBoxDispAP.Checked = false;
-                textBoxStockAP.Clear();
-                selectorRAP.SelectedIndex = -1;
+                if (string.IsNullOrWhiteSpace(textBoxNomAP.Text))
+                {
+                    MessageBox.Show("Ingresá el nombre del producto.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!int.TryParse(textBoxStockAP.Text, out int stock) || stock < 0)
+                {
+                    MessageBox.Show("El stock debe ser un número entero mayor o igual a 0.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (selectorRAP.SelectedValue == null)
+                {
+                    MessageBox.Show("Elegí una receta.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var filaCap = tableCapacidadRequeridaProducto.CurrentRow;
+                if (filaCap == null)
+                {
+                    MessageBox.Show("Elegí la capacidad requerida.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var nuevo = new ProductoDTO
+                {
+                    Nombre = textBoxNomAP.Text.Trim(),
+                    Camara = checkBoxCamAP.Checked,
+                    Disponible = checkBoxDispAP.Checked,
+                    StockActual = stock,
+                    IdReceta = Convert.ToInt32(selectorRAP.SelectedValue),
+                    IdCap = Convert.ToInt32(filaCap.Cells["IdCapReq"].Value)
+                };
+
+                if (await _apiClient.PostAsync("producto", nuevo))
+                {
+                    MessageBox.Show("Producto guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    textBoxNomAP.Clear();
+                    checkBoxCamAP.Checked = false;
+                    checkBoxDispAP.Checked = false;
+                    textBoxStockAP.Clear();
+                    selectorRAP.SelectedIndex = -1;
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo guardar el producto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al conectar con el servidor: \n{ex.Message}\n ", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al conectar con el servidor: \n{ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        
         private async Task ListarRecetas()
         {
             string endpoint = "Recetas";
@@ -119,6 +155,9 @@ namespace MenuDesk
 
             }
         }
+
+
+
         private void modifProductosTabla_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;

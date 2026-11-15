@@ -15,6 +15,7 @@ namespace SwaggerWeb
             .WithName("ObtenerConsumosLote")
             .WithTags("ConsumoLote")
             .Produces<List<ConsumoLoteDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/consumolote/orden/{idProd:int}", async (int idProd, IConsumoLoteServicio servicio) =>
@@ -27,6 +28,7 @@ namespace SwaggerWeb
             .WithTags("ConsumoLote")
             .Produces<List<ConsumoLoteDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/consumolote/{id:int}", async (int id, IConsumoLoteServicio servicio) =>
@@ -39,6 +41,7 @@ namespace SwaggerWeb
             .WithTags("ConsumoLote")
             .Produces<ConsumoLoteDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPost("/consumolote", async (ConsumoLoteDTO dto, IConsumoLoteServicio servicio) =>
@@ -57,6 +60,7 @@ namespace SwaggerWeb
             .WithTags("ConsumoLote")
             .Produces<ConsumoLoteDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/consumolote", async (ConsumoLoteDTO dto, IConsumoLoteServicio servicio) =>
@@ -77,6 +81,7 @@ namespace SwaggerWeb
             .Produces<bool>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/consumolote/{id:int}", async (int id, IConsumoLoteServicio servicio) =>
@@ -89,6 +94,7 @@ namespace SwaggerWeb
             .WithTags("ConsumoLote")
             .Produces<bool>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
         }
     }

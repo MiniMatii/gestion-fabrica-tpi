@@ -17,6 +17,7 @@ namespace SwaggerWeb
             .WithName("ObtenerProductos")
             .WithTags("Producto")
             .Produces<List<ProductoDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/producto/{id}", async (int id, IProductoServicio productoServicio) =>
@@ -32,7 +33,9 @@ namespace SwaggerWeb
             .WithTags("Producto")
             .Produces<ProductoDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
+
             app.MapPost("/producto", async (ProductoDTO productoDTO, IProductoServicio productoServicio) =>
             {
                 try
@@ -50,9 +53,10 @@ namespace SwaggerWeb
             .WithTags("Producto")
             .Produces<ProductoDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
-            app.MapPut("/producto/baja", async (int id, IProductoServicio productoServicio) =>
+            app.MapPatch("/producto/baja", async (int id, IProductoServicio productoServicio) =>
             {
                 try
                 {
@@ -68,6 +72,7 @@ namespace SwaggerWeb
             .WithTags("Producto")
             .Produces<ProductoDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/producto/{id}", async (int id, IProductoServicio productoServicio) =>
@@ -85,6 +90,7 @@ namespace SwaggerWeb
             .WithTags("Producto")
             .Produces<bool>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/producto/", async (ProductoDTO dto, IProductoServicio productoServicio) =>
@@ -101,7 +107,9 @@ namespace SwaggerWeb
             }).WithName("Actualizar Producto")
             .WithTags("Producto")
             .Produces<bool>(StatusCodes.Status202Accepted)
-            .Produces(StatusCodes.Status400BadRequest).WithOpenApi();
+            .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
+            .WithOpenApi();
 
             //    app.MapGet("/producto/", async (IProductoServicio productoServicio) =>
             //    {

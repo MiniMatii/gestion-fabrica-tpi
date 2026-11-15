@@ -23,6 +23,7 @@ namespace SwaggerWeb
             .WithTags("Materia Prima")
             .Produces<MateriapDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/materiap", async (IMateriapServicio materiapServicio) =>
@@ -39,6 +40,7 @@ namespace SwaggerWeb
             }).WithName("Obtener Materias Primas")
             .WithTags("Materia Prima")
             .Produces<List<MateriapDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/materiap/{id}", async (int id, IMateriapServicio materiapServicio) =>
@@ -62,6 +64,7 @@ namespace SwaggerWeb
             .WithTags("Materia Prima")
             .Produces<MateriapDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/materiap/{id}", async (int id, MateriapDTO dto, IMateriapServicio materiapServicio) =>
@@ -89,6 +92,7 @@ namespace SwaggerWeb
             .Produces<MateriapDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/materiap/{idMp}", async (int idMp, IMateriapServicio materiapServicio) =>
@@ -106,6 +110,7 @@ namespace SwaggerWeb
             .WithTags("Materia Prima")
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
         }
 

@@ -25,6 +25,7 @@ namespace SwaggerWeb
             .WithTags("Proveedores")
             .Produces<ProveedorDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/proveedores", async (IProveedorServicio proveedorServicio) =>
@@ -41,6 +42,7 @@ namespace SwaggerWeb
             }).WithName("Obtener Proveedores")
             .WithTags("Proveedores")
             .Produces<List<ProveedorDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/proveedores/{id}", async (int id, IProveedorServicio proveedorServicio) =>
@@ -64,6 +66,7 @@ namespace SwaggerWeb
             .WithTags("Proveedores")
             .Produces<ProveedorDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/proveedores/{id}", async (int id, ProveedorDTO dto, IProveedorServicio proveedorServicio) =>
@@ -91,6 +94,7 @@ namespace SwaggerWeb
             .Produces<ProveedorDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/proveedores/{id}", async (int id, IProveedorServicio proveedorServicio) =>
@@ -119,6 +123,7 @@ namespace SwaggerWeb
             .Produces<ProveedorDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
         }
 

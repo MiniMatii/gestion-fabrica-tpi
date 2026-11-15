@@ -15,6 +15,7 @@ namespace SwaggerWeb
             .WithName("ObtenerOrdenesProduccion")
             .WithTags("OrdenProduccion")
             .Produces<List<OrdenProduccionDTO>>(StatusCodes.Status200OK)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/ordenproduccion/{id}", async (int id, IOrdenProduccionServicio servicio) =>
@@ -27,12 +28,14 @@ namespace SwaggerWeb
             .WithTags("OrdenProduccion")
             .Produces<OrdenProduccionDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapGet("/ordenproduccion/produccion", async (IOrdenProduccionServicio servicio) =>
             Results.Ok(await servicio.ObtenerProduccionAsync()))
             .WithName("ObtenerOrdenProduccionesPendientes")
             .WithTags("OrdenProduccion")
+            .AllowAnonymous()
             .WithOpenApi();
 
 
@@ -52,6 +55,7 @@ namespace SwaggerWeb
             .WithTags("OrdenProduccion")
             .Produces<OrdenProduccionDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapPut("/ordenproduccion", async (OrdenProduccionDTO dto, IOrdenProduccionServicio servicio) =>
@@ -72,6 +76,7 @@ namespace SwaggerWeb
             .Produces<bool>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous()
             .WithOpenApi();
 
             app.MapDelete("/ordenproduccion/{id}", async (int id, IOrdenProduccionServicio servicio) =>
@@ -92,6 +97,7 @@ namespace SwaggerWeb
             .Produces<bool>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status409Conflict)
+            .AllowAnonymous()
             .WithOpenApi();
         }
     }
