@@ -10968,7 +10968,7 @@
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = Color.FromArgb((int)(byte)30, (int)(byte)41, (int)(byte)57);
             dataGridViewCellStyle3.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb((int)(byte)34, (int)(byte)29, (int)(byte)17);
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb((int)(byte)27, (int)(byte)45, (int)(byte)58);
             dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb((int)(byte)127, (int)(byte)166, (int)(byte)160);
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
