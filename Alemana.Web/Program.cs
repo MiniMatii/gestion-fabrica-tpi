@@ -18,7 +18,7 @@ builder.Services.AddScoped(sp =>
 
     var http = new HttpClient(handler)
     {
-        BaseAddress = new Uri("https://localhost:7150/")   // el mismo puerto que usa el escritorio
+        BaseAddress = new Uri(builder.Configuration["ApiBaseUri"] ?? "http://localhost:7150/")
     };
 
     return new ApiClient(http);
@@ -49,7 +49,7 @@ if (!app.Environment.IsDevelopment())
 
 
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();

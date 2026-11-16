@@ -13,7 +13,7 @@ namespace Alemana.API
     {
         private static readonly HttpClient _clientEscritorio = new HttpClient
         {
-            BaseAddress = new Uri("https://localhost:7150/")
+            BaseAddress = new Uri("http://localhost:7150/")
 
         };
 
