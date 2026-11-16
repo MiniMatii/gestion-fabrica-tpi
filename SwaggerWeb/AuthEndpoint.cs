@@ -39,7 +39,8 @@ namespace SwaggerWeb
                 {
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
                     Usuario = usuario.Nombre,
-                    Rol = usuario.Rol
+                    Rol = usuario.Rol,
+                    Id = usuario.IdOperario ?? usuario.IdEmpleado
                 });
             }).AllowAnonymous();
 

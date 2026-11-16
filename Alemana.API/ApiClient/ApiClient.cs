@@ -14,6 +14,7 @@ namespace Alemana.API
         private static readonly HttpClient _clientEscritorio = new HttpClient
         {
             BaseAddress = new Uri("https://localhost:7150/")
+
         };
 
         public ApiClient() : this(_clientEscritorio) { }
@@ -24,7 +25,8 @@ namespace Alemana.API
         {
             _client = client;
         }
-
+        public string? Rol { get; private set; }
+        public int? IdUsuario { get; private set; }
         public string? Token
         {
             get => _client.DefaultRequestHeaders.Authorization?.Parameter;
@@ -44,13 +46,15 @@ namespace Alemana.API
                 throw new Exception($"Login falló: {(int)response.StatusCode} - {await response.Content.ReadAsStringAsync()}");
 
             var result = await response.Content.ReadFromJsonAsync<LoginRespuestaDTO>();
-            Token = result?.Token;   
+            Token = result?.Token;
+            Rol = result?.Rol;
+            IdUsuario = result?.Id;
             return result;
         }
 
-        public void Logout() => Token = null;
+        public void Logout() { Token = null; Rol = null; }
 
-        
+
         public async Task<List<T>?> ObtenerListaAsync<T>(string endpoint)
         {
             try

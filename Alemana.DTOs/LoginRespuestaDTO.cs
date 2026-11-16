@@ -8,5 +8,6 @@ namespace Alemana.DTOs
         //public DateTime ExpiresAt { get; set; }
         public string Usuario { get; set; } = string.Empty;
         public string Rol { get; set; } = string.Empty;
+        public int? Id { get;  set; }
     }
 }

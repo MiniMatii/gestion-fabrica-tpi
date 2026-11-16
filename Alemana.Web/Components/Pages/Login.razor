@@ -64,7 +64,7 @@
                 var customAuthStateProvider = (CustomAuthStateProvider)AuthStateProvider;
                 customAuthStateProvider.MarcarUsuarioComoAutenticado(resultado.Token);
 
-                Navigation.NavigateTo("/");
+                Navigation.NavigateTo(resultado.Rol == "Empleado" ? "/pedidos" : "/");
             }
             else
             {

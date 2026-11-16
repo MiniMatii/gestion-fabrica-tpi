@@ -234,11 +234,13 @@ namespace MenuDesk
             var verde = Color.FromArgb(0, 78, 65);
             var dorado = Color.FromArgb(173, 151, 98);
 
+
             foreach (var g in tablas)
             {
-
+                if (g == null) continue;
                 foreach (var estilo in new[] { g.DefaultCellStyle, g.AlternatingRowsDefaultCellStyle })
                 {
+
                     estilo.BackColor = verde;
                     estilo.ForeColor = Color.White;
                     estilo.SelectionBackColor = dorado;
@@ -251,6 +253,7 @@ namespace MenuDesk
                 g.ColumnHeadersDefaultCellStyle.SelectionBackColor = verde;
                 g.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             }
+
         }
 
 
