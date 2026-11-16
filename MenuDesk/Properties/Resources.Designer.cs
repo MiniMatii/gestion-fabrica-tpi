@@ -93,6 +93,16 @@ namespace MenuDesk.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap backgroundAleman_1800x1200_lleno {
+            get {
+                object obj = ResourceManager.GetObject("backgroundAleman_1800x1200_lleno", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap backgroundAleman_340x1179 {
             get {
                 object obj = ResourceManager.GetObject("backgroundAleman_340x1179", resourceCulture);

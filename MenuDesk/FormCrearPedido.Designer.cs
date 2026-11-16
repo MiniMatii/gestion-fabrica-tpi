@@ -178,7 +178,7 @@
             fechaEstimada.Location = new Point(0, 0);
             fechaEstimada.MinimumSize = new Size(0, 40);
             fechaEstimada.Name = "fechaEstimada";
-            fechaEstimada.Size = new Size(320, 43);
+            fechaEstimada.Size = new Size(320, 52);
             fechaEstimada.TabIndex = 0;
             fechaEstimada.TextAlign = HorizontalAlignment.Center;
             fechaEstimada.TextColor = KimTools.WinForms.KtColor.Empty;
@@ -469,10 +469,10 @@
             CrearPedido.BackColor = Color.FromArgb(0, 78, 65);
             CrearPedido.Controls.Add(tablaGPedido);
             CrearPedido.Controls.Add(ktPanel2);
-            CrearPedido.Location = new Point(4, 4);
+            CrearPedido.Location = new Point(0, 0);
             CrearPedido.Name = "CrearPedido";
             CrearPedido.Padding = new Padding(3);
-            CrearPedido.Size = new Size(1142, 872);
+            CrearPedido.Size = new Size(1150, 900);
             CrearPedido.TabIndex = 0;
             CrearPedido.Text = "tabPage1";
             // 
@@ -530,7 +530,7 @@
             tablaGPedido.RowHeadersWidth = 20;
             tablaGPedido.RowTemplate.Height = 45;
             tablaGPedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaGPedido.Size = new Size(1136, 754);
+            tablaGPedido.Size = new Size(1144, 782);
             tablaGPedido.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb(0, 78, 65), null, null);
             tablaGPedido.Style.Border = 0F;
             tablaGPedido.Style.Color = KimTools.WinForms.KtColor.PRIMARY;
@@ -550,16 +550,18 @@
             Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             Id.DataPropertyName = "IdProducto";
             Id.HeaderText = "IdProducto";
+            Id.MinimumWidth = 6;
             Id.Name = "Id";
             Id.ReadOnly = true;
             Id.Resizable = DataGridViewTriState.False;
-            Id.Width = 116;
+            Id.Width = 140;
             // 
             // Nombre
             // 
             Nombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Nombre.DataPropertyName = "Nombre";
             Nombre.HeaderText = "Nombre";
+            Nombre.MinimumWidth = 6;
             Nombre.Name = "Nombre";
             Nombre.ReadOnly = true;
             Nombre.Resizable = DataGridViewTriState.False;
@@ -570,6 +572,7 @@
             Camara.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Camara.DataPropertyName = "Camara";
             Camara.HeaderText = "Camara";
+            Camara.MinimumWidth = 6;
             Camara.Name = "Camara";
             Camara.ReadOnly = true;
             Camara.Resizable = DataGridViewTriState.False;
@@ -580,6 +583,7 @@
             Disponible.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Disponible.DataPropertyName = "Disponible";
             Disponible.HeaderText = "Disponible";
+            Disponible.MinimumWidth = 6;
             Disponible.Name = "Disponible";
             Disponible.ReadOnly = true;
             Disponible.Resizable = DataGridViewTriState.False;
@@ -590,6 +594,7 @@
             StockActual.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             StockActual.DataPropertyName = "StockActual";
             StockActual.HeaderText = "StockEnFabrica";
+            StockActual.MinimumWidth = 6;
             StockActual.Name = "StockActual";
             StockActual.ReadOnly = true;
             StockActual.Resizable = DataGridViewTriState.False;
@@ -599,17 +604,21 @@
             // 
             IdCap.DataPropertyName = "IdCap";
             IdCap.HeaderText = "IdCap";
+            IdCap.MinimumWidth = 6;
             IdCap.Name = "IdCap";
             IdCap.ReadOnly = true;
             IdCap.Visible = false;
+            IdCap.Width = 125;
             // 
             // IdReceta
             // 
             IdReceta.DataPropertyName = "IdReceta";
             IdReceta.HeaderText = "IdReceta";
+            IdReceta.MinimumWidth = 6;
             IdReceta.Name = "IdReceta";
             IdReceta.ReadOnly = true;
             IdReceta.Visible = false;
+            IdReceta.Width = 125;
             // 
             // CantidadSolicitada
             // 
@@ -618,6 +627,7 @@
             dataGridViewCellStyle3.NullValue = "0";
             CantidadSolicitada.DefaultCellStyle = dataGridViewCellStyle3;
             CantidadSolicitada.HeaderText = "CantidadPedida";
+            CantidadSolicitada.MinimumWidth = 6;
             CantidadSolicitada.Name = "CantidadSolicitada";
             // 
             // ktPanel2
@@ -636,7 +646,7 @@
             ktPanel2.Location = new Point(3, 3);
             ktPanel2.Name = "ktPanel2";
             ktPanel2.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel2.Size = new Size(1136, 112);
+            ktPanel2.Size = new Size(1144, 112);
             ktPanel2.TabIndex = 5;
             // 
             // hudSuperiorCierre
@@ -761,7 +771,7 @@
             // 
             // FormCrearPedido
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null));
             ClientSize = new Size(1490, 900);

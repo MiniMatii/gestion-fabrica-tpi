@@ -34,9 +34,9 @@
             pnlItems = new KimTools.WinForms.KtPanel();
             flowItems = new FlowLayoutPanel();
             pnlBotones = new KimTools.WinForms.KtPanel();
-            lblAviso = new KimTools.WinForms.KtLabel();
-            btnAceptar = new KimTools.WinForms.KtButton();
             btnCancelar = new KimTools.WinForms.KtButton();
+            btnAceptar = new KimTools.WinForms.KtButton();
+            lblAviso = new KimTools.WinForms.KtLabel();
             pnlTitulo.SuspendLayout();
             pnlItems.SuspendLayout();
             pnlBotones.SuspendLayout();
@@ -67,7 +67,7 @@
             lblTitulo.Align = ContentAlignment.TopLeft;
             lblTitulo.Auto = false;
             lblTitulo.Background = KimTools.WinForms.KtColor.Empty;
-            lblTitulo.Color = KimTools.WinForms.KtColor.Empty;
+            lblTitulo.Color = new KimTools.WinForms.KtColor(Color.White, null, null);
             lblTitulo.Location = new Point(27, 25);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(209, 48);
@@ -92,7 +92,9 @@
             // 
             // flowItems
             // 
+            flowItems.AutoScroll = true;
             flowItems.BackColor = Color.FromArgb(35, 103, 92);
+            flowItems.BackgroundImage = Properties.Resources.backgroundAleman_1800x1200_lleno;
             flowItems.BorderStyle = BorderStyle.FixedSingle;
             flowItems.Dock = DockStyle.Fill;
             flowItems.FlowDirection = FlowDirection.TopDown;
@@ -124,17 +126,30 @@
             pnlBotones.Size = new Size(800, 79);
             pnlBotones.TabIndex = 2;
             // 
-            // lblAviso
+            // btnCancelar
             // 
-            lblAviso.Align = ContentAlignment.TopLeft;
-            lblAviso.Auto = false;
-            lblAviso.Background = KimTools.WinForms.KtColor.Empty;
-            lblAviso.Color = KimTools.WinForms.KtColor.Empty;
-            lblAviso.Location = new Point(27, 19);
-            lblAviso.Name = "lblAviso";
-            lblAviso.Size = new Size(209, 48);
-            lblAviso.TabIndex = 2;
-            lblAviso.Text = "ktLabel1";
+            btnCancelar.BackColor = Color.Transparent;
+            btnCancelar.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(45, 108, 99), null, null));
+            btnCancelar.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(13, 63, 59), null, null));
+            btnCancelar.BorderMargin = new Padding(0);
+            btnCancelar.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            btnCancelar.BorderWidth = 2F;
+            btnCancelar.Cursor = Cursors.Default;
+            btnCancelar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCancelar.ForeColor = Color.FromArgb(219, 240, 237);
+            btnCancelar.Foreground = KimTools.WinForms.KtColor.Empty;
+            btnCancelar.Icon = "";
+            btnCancelar.IconColor = KimTools.WinForms.KtColor.Empty;
+            btnCancelar.IconSize = 16;
+            btnCancelar.IconStroke = 2.5D;
+            btnCancelar.Location = new Point(542, 19);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Padding = new Padding(8, 0, 8, 0);
+            btnCancelar.Pattern.Style = KimTools.WinForms.KtPatternStyle.Default;
+            btnCancelar.Size = new Size(120, 48);
+            btnCancelar.TabIndex = 8;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = false;
             // 
             // btnAceptar
             // 
@@ -162,34 +177,21 @@
             btnAceptar.UseVisualStyleBackColor = false;
             btnAceptar.Click += btnAceptar_Click;
             // 
-            // btnCancelar
+            // lblAviso
             // 
-            btnCancelar.BackColor = Color.Transparent;
-            btnCancelar.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(45, 108, 99), null, null));
-            btnCancelar.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(13, 63, 59), null, null));
-            btnCancelar.BorderMargin = new Padding(0);
-            btnCancelar.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            btnCancelar.BorderWidth = 2F;
-            btnCancelar.Cursor = Cursors.Default;
-            btnCancelar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCancelar.ForeColor = Color.FromArgb(219, 240, 237);
-            btnCancelar.Foreground = KimTools.WinForms.KtColor.Empty;
-            btnCancelar.Icon = "";
-            btnCancelar.IconColor = KimTools.WinForms.KtColor.Empty;
-            btnCancelar.IconSize = 16;
-            btnCancelar.IconStroke = 2.5D;
-            btnCancelar.Location = new Point(542, 19);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Padding = new Padding(8, 0, 8, 0);
-            btnCancelar.Pattern.Style = KimTools.WinForms.KtPatternStyle.Default;
-            btnCancelar.Size = new Size(120, 48);
-            btnCancelar.TabIndex = 8;
-            btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = false;
+            lblAviso.Align = ContentAlignment.TopLeft;
+            lblAviso.Auto = false;
+            lblAviso.Background = KimTools.WinForms.KtColor.Empty;
+            lblAviso.Color = new KimTools.WinForms.KtColor(Color.White, null, null);
+            lblAviso.Location = new Point(27, 19);
+            lblAviso.Name = "lblAviso";
+            lblAviso.Size = new Size(209, 48);
+            lblAviso.TabIndex = 2;
+            lblAviso.Text = "ktLabel1";
             // 
             // FormAsignarOperario
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb(6, 72, 60), null, null));
             ClientSize = new Size(800, 450);
