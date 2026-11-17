@@ -120,7 +120,7 @@ namespace MenuDesk
 
         }
 
-        private async void actCambiosOperario_Click(object sender, EventArgs e)
+        private async void ActCambiosOperario_Click(object sender, EventArgs e)
         {
             await CargarOperariosEnGrilla();
         }

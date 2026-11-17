@@ -41,11 +41,7 @@ namespace MenuDesk
 
         }
 
-        private void actDatosOp_Click(object sender, EventArgs e)
-        {
-
-        }
-
+      
 
     }
 }
