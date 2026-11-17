@@ -18,6 +18,7 @@ namespace MenuDesk
         {
             await CargarSucursalesEnGrilla();
             await CargarTablaEmpleadosAsync();
+            navBarSucursales.SelectedTab = altaSucursalesPage;
         }
 
         private void AltaSucursales_Click(object sender, EventArgs e)
@@ -231,43 +232,61 @@ namespace MenuDesk
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(nombreEmpText.Text) ||
-                    string.IsNullOrWhiteSpace(apellidoEmpText.Text) ||
-                    string.IsNullOrWhiteSpace(dniEmpText.Text))
+                string nombre = nombreEmpText.Text.Trim();
+                string apellido = apellidoEmpText.Text.Trim();
+                string dni = dniEmpText.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(nombre) ||
+                    string.IsNullOrWhiteSpace(apellido) ||
+                    string.IsNullOrWhiteSpace(dni))
                 {
-                    MessageBox.Show("Por favor, complete Nombre, Apellido y DNI.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Por favor, complete Nombre, Apellido y DNI.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!dni.All(char.IsDigit) || dni.Length < 7 || dni.Length > 8)
+                {
+                    MessageBox.Show("El DNI debe tener 7 u 8 dígitos, sin puntos ni espacios.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 int? idJefe = null;
                 if (!string.IsNullOrWhiteSpace(idJefeEmpText.Text))
                 {
-                    if (int.TryParse(idJefeEmpText.Text, out int parsedJefe))
+                    if (!int.TryParse(idJefeEmpText.Text.Trim(), out int parsedJefe) || parsedJefe <= 0)
                     {
-                        idJefe = parsedJefe;
-                    }
-                    else
-                    {
-                        MessageBox.Show("El ID del Jefe debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("El ID del Jefe debe ser un número válido.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+                    idJefe = parsedJefe;
                 }
 
                 var nuevoEmpleado = new EmpleadoDTO
                 {
-                    Nombre = nombreEmpText.Text,
-                    Apellido = apellidoEmpText.Text,
-                    Dni = dniEmpText.Text,
+                    Nombre = nombre,
+                    Apellido = apellido,
+                    Dni = dni,
                     IdJefe = idJefe,
-                    IdSucursal = 1,
+                    IdSucursal = null,      
                     Disponibilidad = 1,
                     Motivo = null
                 };
 
-                string endpoint = "empleado";
-                await _apiClient.PostAsync(endpoint, nuevoEmpleado);
 
-                MessageBox.Show("¡Empleado guardado con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                bool ok = await _apiClient.PostAsync("empleado", nuevoEmpleado);
+
+                if (!ok)
+                {
+                    MessageBox.Show("No se pudo guardar el empleado. Verificá los datos (por ejemplo, que el jefe exista) y tu sesión.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                MessageBox.Show("¡Empleado guardado con éxito!", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 nombreEmpText.Clear();
                 apellidoEmpText.Clear();
@@ -278,7 +297,8 @@ namespace MenuDesk
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al registrar el empleado: \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al registrar el empleado: \n{ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -75,12 +75,9 @@ namespace SwaggerWeb
             {
                 try
                 {
-                    var laS = await sucursalServicio.AgregarEmpleados(id, idEs);
-                    if (laS != null)
-                    {
-                        return Results.Ok(laS);
-                    }
-                    return Results.NotFound();
+                    var resultado = await sucursalServicio.AgregarEmpleados(id, idEs);
+                    if (resultado is null) return Results.NotFound(new { error = $"La sucursal {id} no existe." });
+                    return Results.Ok(resultado);
                 }
                 catch (ArgumentException ex) 
                 {
