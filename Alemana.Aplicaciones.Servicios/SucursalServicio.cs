@@ -51,7 +51,20 @@ namespace Alemana.Aplicaciones.Servicios
         public async Task<IEnumerable<SucursalesDTO>> ObtenerTodos()
         {
             var sucursales = await sucursalRepositorio.ObtenerTodos();
-            return sucursales.Select(s => new SucursalesDTO { IdSucursal = s.IdSucursal, NombreSuc = s.NombreSuc, CodPostal = s.CodPostal }).ToList();
+            return sucursales.Select(s => new SucursalesDTO
+            {
+                IdSucursal = s.IdSucursal,
+                NombreSuc = s.NombreSuc,
+                CodPostal = s.CodPostal,
+                Empleados = s.Empleados.Select(e => new EmpleadoDTO
+                {
+                    IdEmpleado = e.IdEmpleado,
+                    Nombre = e.Nombre,
+                    Apellido = e.Apellido,
+                    Dni = e.Dni,
+                    Disponibilidad = e.Disponibilidad
+                }).ToList()
+            }).ToList();
         }
 
         public async Task<SucursalesDTO> AgregarEmpleados(int idS, List<int> idE)

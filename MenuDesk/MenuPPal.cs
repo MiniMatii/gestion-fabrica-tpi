@@ -12,7 +12,8 @@ namespace MenuDesk
         public MenuPPal()
         {
             InitializeComponent();
-            AplicarEstiloTabla(tablaMProd, tablaEP, ktTablaOperarios, ktTablaModOp, ktTablaSucursales, empktTable4, sucktTable2, tableCapacidadRequeridaProducto);
+            ktTablaSucursales.CellFormatting += ktTablaSucursales_CellFormatting;
+            AplicarEstiloTabla(tablaMProd, tablaEP, ktTablaOperarios, ktTablaModOp, ktTablaSucursales, empktTable4, sucktTable2, tableCapacidadRequeridaProducto, ktTablaLotesEliminar);
             hudLateral.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
             hudLateral.BackColor = Color.FromArgb(0, 78, 65);
             hudLateral.BackgroundImage = Properties.Resources.backgroundAleman_340x1179;
@@ -39,6 +40,12 @@ namespace MenuDesk
             Environment.Exit(0);
 
         }
+
+        private void actDatosOp_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

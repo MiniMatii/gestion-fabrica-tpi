@@ -46,7 +46,7 @@ namespace Alemana.Data.Repositorios
 
         public async Task<IEnumerable<Sucursale>> ObtenerTodos()
         {
-            return await _DbA.Sucursales.ToListAsync();
+            return await _DbA.Sucursales.Include(s => s.Empleados).ToListAsync();
         }
 
         public async Task<Sucursale> AgregarEmpleados(int ids, List<int> ides)

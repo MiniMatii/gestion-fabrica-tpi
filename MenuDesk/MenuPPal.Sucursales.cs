@@ -18,6 +18,7 @@ namespace MenuDesk
         {
             await CargarSucursalesEnGrilla();
             await CargarTablaEmpleadosAsync();
+            await CargarComboSucursalesAsync();
             navBarSucursales.SelectedTab = altaSucursalesPage;
         }
 
@@ -236,6 +237,7 @@ namespace MenuDesk
                 string apellido = apellidoEmpText.Text.Trim();
                 string dni = dniEmpText.Text.Trim();
 
+                // 1. Campos obligatorios
                 if (string.IsNullOrWhiteSpace(nombre) ||
                     string.IsNullOrWhiteSpace(apellido) ||
                     string.IsNullOrWhiteSpace(dni))
@@ -245,6 +247,7 @@ namespace MenuDesk
                     return;
                 }
 
+                // 2. DNI: solo dígitos, 7 u 8 caracteres
                 if (!dni.All(char.IsDigit) || dni.Length < 7 || dni.Length > 8)
                 {
                     MessageBox.Show("El DNI debe tener 7 u 8 dígitos, sin puntos ni espacios.", "Atención",
@@ -252,6 +255,15 @@ namespace MenuDesk
                     return;
                 }
 
+                // 3. Sucursal obligatoria (la columna es NOT NULL)
+                if (cboSucursalEmp.SelectedValue is not int idSucursal)
+                {
+                    MessageBox.Show("Seleccioná la sucursal del empleado.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 4. Jefe (opcional)
                 int? idJefe = null;
                 if (!string.IsNullOrWhiteSpace(idJefeEmpText.Text))
                 {
@@ -270,17 +282,16 @@ namespace MenuDesk
                     Apellido = apellido,
                     Dni = dni,
                     IdJefe = idJefe,
-                    IdSucursal = null,      
+                    IdSucursal = idSucursal,
                     Disponibilidad = 1,
                     Motivo = null
                 };
-
 
                 bool ok = await _apiClient.PostAsync("empleado", nuevoEmpleado);
 
                 if (!ok)
                 {
-                    MessageBox.Show("No se pudo guardar el empleado. Verificá los datos (por ejemplo, que el jefe exista) y tu sesión.",
+                    MessageBox.Show("No se pudo guardar el empleado. Puede que el DNI ya exista o que el jefe indicado no exista.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -292,6 +303,7 @@ namespace MenuDesk
                 apellidoEmpText.Clear();
                 dniEmpText.Clear();
                 idJefeEmpText.Clear();
+                cboSucursalEmp.SelectedIndex = -1;
 
                 await CargarTablaEmpleadosAsync();
             }
@@ -387,6 +399,32 @@ namespace MenuDesk
                 MessageBox.Show($"Error al intentar eliminar el empleado: \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private async Task CargarComboSucursalesAsync()
+        {
+            var sucursales = await _apiClient.ObtenerListaAsync<SucursalesDTO>("sucursales");
+            if (sucursales == null) return;
+
+            cboSucursalEmp.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboSucursalEmp.DisplayMember = "NombreSuc";
+            cboSucursalEmp.ValueMember = "IdSucursal";
+            cboSucursalEmp.DataSource = sucursales;
+            cboSucursalEmp.SelectedIndex = -1;   // que no haya una elegida por defecto
+        }
+
+        private void ktTablaSucursales_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            if (ktTablaSucursales.Columns[e.ColumnIndex].Name != "Empleados") return;
+
+            if (ktTablaSucursales.Rows[e.RowIndex].DataBoundItem is SucursalesDTO suc)
+            {
+                e.Value = suc.Empleados.Count == 0
+                    ? "—"
+                    : string.Join(", ", suc.Empleados.Select(emp => $"{emp.Nombre} {emp.Apellido}"));
+                e.FormattingApplied = true;
+            }
         }
 
         private void buttonAgregarCiudad_Click(object sender, EventArgs e)

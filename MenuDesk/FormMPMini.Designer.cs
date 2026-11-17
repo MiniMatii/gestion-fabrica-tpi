@@ -643,10 +643,10 @@
             bajaMP.BackColor = Color.FromArgb(173, 151, 98);
             bajaMP.Controls.Add(ktPanel14);
             bajaMP.Controls.Add(ktPanel13);
-            bajaMP.Location = new Point(4, 4);
+            bajaMP.Location = new Point(0, 0);
             bajaMP.Name = "bajaMP";
             bajaMP.Padding = new Padding(3);
-            bajaMP.Size = new Size(792, 422);
+            bajaMP.Size = new Size(800, 450);
             bajaMP.TabIndex = 1;
             bajaMP.Text = "bajaMP";
             // 
@@ -663,7 +663,7 @@
             ktPanel14.Location = new Point(3, 3);
             ktPanel14.Name = "ktPanel14";
             ktPanel14.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel14.Size = new Size(561, 416);
+            ktPanel14.Size = new Size(569, 444);
             ktPanel14.TabIndex = 25;
             // 
             // ktTablaMPs
@@ -726,7 +726,7 @@
             ktTablaMPs.RowTemplate.Height = 45;
             ktTablaMPs.ScrollBars = ScrollBars.None;
             ktTablaMPs.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            ktTablaMPs.Size = new Size(561, 416);
+            ktTablaMPs.Size = new Size(569, 444);
             ktTablaMPs.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
             ktTablaMPs.Style.Border = 0F;
             ktTablaMPs.Style.BorderHeader = 0F;
@@ -782,10 +782,10 @@
             ktPanel13.Controls.Add(ktPanel7);
             ktPanel13.Dock = DockStyle.Right;
             ktPanel13.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel13.Location = new Point(564, 3);
+            ktPanel13.Location = new Point(572, 3);
             ktPanel13.Name = "ktPanel13";
             ktPanel13.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel13.Size = new Size(225, 416);
+            ktPanel13.Size = new Size(225, 444);
             ktPanel13.TabIndex = 24;
             // 
             // ktPanel8
@@ -798,7 +798,7 @@
             ktPanel8.Controls.Add(eliminarMPbutton);
             ktPanel8.Dock = DockStyle.Bottom;
             ktPanel8.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel8.Location = new Point(0, 366);
+            ktPanel8.Location = new Point(0, 394);
             ktPanel8.Name = "ktPanel8";
             ktPanel8.Padding = new Padding(40, 0, 40, 0);
             ktPanel8.PatternColor = KimTools.WinForms.KtColor.Empty;
@@ -816,7 +816,7 @@
             eliminarMPbutton.Cursor = Cursors.Default;
             eliminarMPbutton.Dock = DockStyle.Fill;
             eliminarMPbutton.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            eliminarMPbutton.ForeColor = Color.FromArgb(34, 29, 17);
+            eliminarMPbutton.ForeColor = SystemColors.ControlText;
             eliminarMPbutton.Foreground = KimTools.WinForms.KtColor.Empty;
             eliminarMPbutton.Icon = "tabler.circle_x";
             eliminarMPbutton.IconColor = KimTools.WinForms.KtColor.Empty;
@@ -861,7 +861,7 @@
             pageAltaMp.Cursor = Cursors.Default;
             pageAltaMp.Dock = DockStyle.Right;
             pageAltaMp.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            pageAltaMp.ForeColor = Color.FromArgb(34, 29, 17);
+            pageAltaMp.ForeColor = SystemColors.ControlText;
             pageAltaMp.Foreground = KimTools.WinForms.KtColor.Empty;
             pageAltaMp.Icon = "tabler.arrow_narrow_left";
             pageAltaMp.IconColor = KimTools.WinForms.KtColor.Empty;
