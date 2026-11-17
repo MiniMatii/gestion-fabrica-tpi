@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Alemana.Dominio.Models;
@@ -20,6 +20,4 @@ public partial class Solicitudpedido
     public virtual ICollection<DetallePedido> DetallePedidos { get; set; } = new List<DetallePedido>();
 
     public virtual Empleado IdEmpleadoNavigation { get; set; } = null!;
-
-    public virtual ICollection<Ordenproduccion> Ordenproduccions { get; set; } = new List<Ordenproduccion>();
 }

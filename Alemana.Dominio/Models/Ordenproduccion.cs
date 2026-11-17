@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Alemana.Dominio.Models;
 
+/// <summary>Orden de producción. No está vinculada a ningún pedido.</summary>
 public partial class Ordenproduccion
 {
     public int IdProd { get; set; }
@@ -19,11 +20,7 @@ public partial class Ordenproduccion
 
     public int IdProducto { get; set; }
 
-    public int? IdPedido { get; set; }
-
     public virtual ICollection<Consumolote> Consumolotes { get; set; } = new List<Consumolote>();
-
-    public virtual Solicitudpedido? IdPedidoNavigation { get; set; }
 
     public virtual Producto IdProductoNavigation { get; set; } = null!;
 

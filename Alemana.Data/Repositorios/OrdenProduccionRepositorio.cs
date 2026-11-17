@@ -1,4 +1,4 @@
-﻿using Alemana.Dominio.Models;
+using Alemana.Dominio.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -41,7 +41,6 @@ namespace Alemana.Data.Repositorios
             existente.FechaReal = entidad.FechaReal;
             existente.CantidadRequerida = entidad.CantidadRequerida;
             existente.IdProducto = entidad.IdProducto;
-            existente.IdPedido = entidad.IdPedido;
 
             await _db.SaveChangesAsync();
             return true;
@@ -63,6 +62,8 @@ namespace Alemana.Data.Repositorios
                 || await _db.OrdAsigOps.AnyAsync(a => a.IdProd == idProd);
         }
 
+        public Task GuardarCambiosAsync() => _db.SaveChangesAsync();
+
         public void AgregarOrden(Ordenproduccion orden)
         {
             _db.Ordenproduccions.Add(orden);
@@ -76,7 +77,7 @@ namespace Alemana.Data.Repositorios
                 .Include(o => o.OrdAsigOps)
                     .ThenInclude(a => a.IdOperarioNavigation)
                 .Where(o => o.FechaReal == null)
-                .OrderByDescending(o => o.IdPedido)
+                .OrderBy(o => o.FechaPedido)
                 .ThenBy(o => o.IdProd)
                 .ToListAsync();
         }

@@ -1,4 +1,4 @@
-﻿
+
 using Alemana.Dominio.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -181,6 +181,8 @@ public partial class DbAlemanaContext : DbContext
             entity.Property(e => e.IdPedido).HasColumnName("idPedido");
             entity.Property(e => e.IdProducto).HasColumnName("idProducto");
             entity.Property(e => e.CantidadesProductos).HasColumnName("cantidadesProductos");
+            entity.Property(e => e.CantidadDespachada).HasColumnName("cantidadDespachada").HasDefaultValue(0);
+            entity.Property(e => e.CantidadAceptada).HasColumnName("cantidadAceptada").HasDefaultValue(0);
 
             entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.DetallePedidos)
                 .HasForeignKey(d => d.IdPedido)
@@ -361,8 +363,6 @@ public partial class DbAlemanaContext : DbContext
 
             entity.ToTable("ordenproduccion");
 
-            entity.HasIndex(e => e.IdPedido, "idPedido");
-
             entity.HasIndex(e => e.IdProducto, "idProducto");
 
             entity.Property(e => e.IdProd).HasColumnName("idProd");
@@ -379,12 +379,7 @@ public partial class DbAlemanaContext : DbContext
             entity.Property(e => e.FechaReal)
                 .HasColumnType("datetime")
                 .HasColumnName("fechaReal");
-            entity.Property(e => e.IdPedido).HasColumnName("idPedido");
             entity.Property(e => e.IdProducto).HasColumnName("idProducto");
-
-            entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.Ordenproduccions)
-                .HasForeignKey(d => d.IdPedido)
-                .HasConstraintName("ordenproduccion_ibfk_2");
 
             entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.Ordenproduccions)
                 .HasForeignKey(d => d.IdProducto)

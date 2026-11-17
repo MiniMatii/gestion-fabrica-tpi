@@ -1,4 +1,4 @@
-﻿using Alemana.Dominio.Models;
+using Alemana.Dominio.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +68,7 @@ namespace Alemana.Data.Repositorios
         {
             return await _DbA.Solicitudpedidos
                 .AsNoTracking()
-                .Where(p => p.EstadoPedido == "Pendiente")
+                .Where(p => (p.EstadoPedido == "Pendiente" || p.EstadoPedido == "En produccion"))
                 .OrderBy(p => p.IdPedido)
                 .ToListAsync();
         }
@@ -77,7 +77,7 @@ namespace Alemana.Data.Repositorios
         {
             return await _DbA.Solicitudpedidos
                 .AsNoTracking()
-                .Where(p => p.EstadoPedido == "Pendiente" && p.IdPedido > ultimoId)
+                .Where(p => (p.EstadoPedido == "Pendiente" || p.EstadoPedido == "En produccion") && p.IdPedido > ultimoId)
                 .OrderBy(p => p.IdPedido)
                 .ToListAsync();
         }

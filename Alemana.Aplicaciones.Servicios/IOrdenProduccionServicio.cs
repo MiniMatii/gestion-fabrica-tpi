@@ -1,4 +1,4 @@
-﻿using Alemana.DTOs;
+using Alemana.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,6 +12,8 @@ namespace Alemana.Aplicaciones.Servicios
         Task<bool> Actualizar(OrdenProduccionDTO dto);
         Task<bool> Eliminar(int id);
         Task<List<ProduccionPedidoDTO>> ObtenerProduccionAsync();
-
+        Task<CalculoProduccionDTO> CalcularAsync(CalcularProduccionDTO dto);
+        Task<List<OperarioOpcionDTO>?> ObtenerOperariosCapacesAsync(int idProd);
+        Task<(ResultadoConfirmacion Resultado, string? Mensaje)> ConfirmarAsync(int idProd, int idOperario);
     }
 }
