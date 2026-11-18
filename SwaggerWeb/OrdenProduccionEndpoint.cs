@@ -1,4 +1,4 @@
-﻿using Alemana.Aplicaciones.Servicios;
+using Alemana.Aplicaciones.Servicios;
 using Alemana.DTOs;
 
 namespace SwaggerWeb
@@ -78,6 +78,51 @@ namespace SwaggerWeb
             .Produces(StatusCodes.Status404NotFound)
             .AllowAnonymous()
             .WithOpenApi();
+
+            // Calcula la materia prima necesaria para producir una cantidad (no consume nada)
+            app.MapPost("/ordenproduccion/calcular", async (CalcularProduccionDTO dto, IOrdenProduccionServicio servicio) =>
+            {
+                try
+                {
+                    return Results.Ok(await servicio.CalcularAsync(dto));
+                }
+                catch (ArgumentException ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            })
+            .WithName("CalcularProduccion")
+            .WithTags("OrdenProduccion")
+            .WithOpenApi();
+
+            // Operarios capaces de producir la orden
+            app.MapGet("/ordenproduccion/{id:int}/operarios", async (int id, IOrdenProduccionServicio servicio) =>
+            {
+                var operarios = await servicio.ObtenerOperariosCapacesAsync(id);
+                return operarios is null ? Results.NotFound() : Results.Ok(operarios);
+            })
+            .WithName("OperariosCapacesOrden")
+            .WithTags("OrdenProduccion")
+            .WithOpenApi();
+
+            // Confirma la orden: asigna operario, consume materia prima y la pasa a En Proceso
+            app.MapPost("/ordenproduccion/{id:int}/confirmar",
+                async (int id, ConfirmarOrdenDTO dto, IOrdenProduccionServicio servicio) =>
+                {
+                    var (resultado, mensaje) = await servicio.ConfirmarAsync(id, dto.IdOperario);
+                    IResult respuesta = resultado switch
+                    {
+                        ResultadoConfirmacion.Ok => Results.NoContent(),
+                        ResultadoConfirmacion.NoExiste => Results.NotFound(),
+                        ResultadoConfirmacion.NoPendiente => Results.Conflict(mensaje),
+                        ResultadoConfirmacion.StockInsuficiente => Results.UnprocessableEntity(mensaje),
+                        _ => Results.BadRequest(mensaje)
+                    };
+                    return respuesta;
+                })
+                .WithName("ConfirmarOrdenProduccion")
+                .WithTags("OrdenProduccion")
+                .WithOpenApi();
 
             app.MapDelete("/ordenproduccion/{id}", async (int id, IOrdenProduccionServicio servicio) =>
             {

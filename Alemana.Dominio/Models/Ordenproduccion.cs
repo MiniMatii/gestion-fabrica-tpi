@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Alemana.Dominio.Models;
 
+/// <summary>Orden de producción. No está vinculada a ningún pedido.</summary>
 public partial class Ordenproduccion
 {
     public int IdProd { get; set; }

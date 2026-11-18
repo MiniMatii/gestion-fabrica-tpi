@@ -1,4 +1,4 @@
-﻿using Alemana.Dominio.Models;
+using Alemana.Dominio.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -61,6 +61,8 @@ namespace Alemana.Data.Repositorios
             return await _db.Consumolotes.AnyAsync(c => c.IdProd == idProd)
                 || await _db.OrdAsigOps.AnyAsync(a => a.IdProd == idProd);
         }
+
+        public Task GuardarCambiosAsync() => _db.SaveChangesAsync();
 
         public void AgregarOrden(Ordenproduccion orden)
         {

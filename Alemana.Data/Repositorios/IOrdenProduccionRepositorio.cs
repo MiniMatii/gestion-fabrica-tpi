@@ -1,4 +1,4 @@
-﻿using Alemana.Dominio.Models;
+using Alemana.Dominio.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,5 +14,6 @@ namespace Alemana.Data.Repositorios
         Task<bool> TieneDependencias(int idProd);
         Task<List<Ordenproduccion>> ObtenerParaProduccionAsync();
         void AgregarOrden(Ordenproduccion orden);
+        Task GuardarCambiosAsync();
     }
 }

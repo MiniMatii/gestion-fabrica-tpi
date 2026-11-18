@@ -1,4 +1,4 @@
-﻿using Alemana.DTOs;
+using Alemana.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -152,6 +152,31 @@ namespace Alemana.API
             {
                 throw new Exception($"Error al obtener datos de '{endpoint}': {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// POST que devuelve el cuerpo tipado en caso de éxito y el mensaje de error en caso contrario.
+        /// </summary>
+        public async Task<(bool Ok, HttpStatusCode Status, TRes? Datos, string? Mensaje)> PostConDatosAsync<TRes, TReq>(string endpoint, TReq objetoDto)
+        {
+            var response = await _client.PostAsJsonAsync(endpoint, objetoDto);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string? mensaje;
+                try
+                {
+                    mensaje = await response.Content.ReadFromJsonAsync<string>();
+                }
+                catch (Exception)
+                {
+                    mensaje = await response.Content.ReadAsStringAsync();
+                }
+                return (false, response.StatusCode, default, mensaje);
+            }
+
+            var datos = await response.Content.ReadFromJsonAsync<TRes>();
+            return (true, response.StatusCode, datos, null);
         }
 
         public async Task<(bool Ok, HttpStatusCode Status, string? Mensaje)> PostConRespuestaAsync<T>(string endpoint, T objetoDto)

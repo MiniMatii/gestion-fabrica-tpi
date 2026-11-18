@@ -1,5 +1,3 @@
-﻿using Alemana.Data.Repositorios;
-using Alemana.Dominio.Models;
 using Alemana.DTOs;
 
 namespace Alemana.Aplicaciones.Servicios
@@ -13,9 +11,8 @@ namespace Alemana.Aplicaciones.Servicios
         Task<List<PedidoItemDTO>> ObtenerProductosDePedidoAsync(int idPedido);
         Task<List<PedidoResumenDTO>> ObtenerPendientesAsync();
         Task<List<PedidoResumenDTO>> ObtenerPendientesDesdeAsync(int ultimoId);
-        Task<List<ItemAsignableDTO>?> ObtenerItemsAsignablesAsync(int idPedido);
-        Task<(ResultadoAceptacion Resultado, string? Mensaje)> AceptarPedidoAsync(int idPedido, AceptarPedidoDTO dto);
-
+        Task<List<ItemPedidoAceptacionDTO>?> ObtenerItemsAceptacionAsync(int idPedido);
+        Task<(ResultadoAceptarPedido Resultado, string? Mensaje, ResultadoAceptacionPedidoDTO? Datos)> AceptarPedidoAsync(int idPedido, AceptarPedidoProductosDTO dto);
+        Task<(ResultadoAceptarPedido Resultado, string? Mensaje, ResultadoAceptacionPedidoDTO? Datos)> DespacharPendientesAsync(int idPedido);
     }
-
 }
