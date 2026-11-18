@@ -1,4 +1,4 @@
-using Alemana.Data.Repositorios;
+﻿using Alemana.Data.Repositorios;
 using Alemana.Dominio.Models;
 using Alemana.DTOs;
 using System;
@@ -10,11 +10,13 @@ namespace Alemana.Aplicaciones.Servicios
 {
     /// <summary>
     /// Órdenes de producción. No están vinculadas a pedidos: el usuario decide cuánto producir.
+    /// Pendiente -> (confirmar: operario) En Proceso -> (finalizar: descuenta lotes, suma stock) Finalizada.
     /// </summary>
     public class OrdenProduccionServicio : IOrdenProduccionServicio
     {
         public const string EstadoPendiente = "Pendiente";
         public const string EstadoEnProceso = "En Proceso";
+        public const string EstadoFinalizada = "Finalizada";
         private const int LongitudMaximaEstado = 50;
 
         private readonly IOrdenProduccionRepositorio _repo;
@@ -49,24 +51,23 @@ namespace Alemana.Aplicaciones.Servicios
             return o == null ? null : ADto(o);
         }
 
-        /// <summary>Crea la orden en estado Pendiente. No consume insumos hasta confirmarla.</summary>
+        /// <summary>Crea la orden en estado Pendiente. No reserva ni consume insumos hasta confirmarla.</summary>
         public async Task<OrdenProduccionDTO> Agregar(OrdenProduccionDTO dto)
         {
             if (dto == null)
                 throw new ArgumentException("La orden de producción no puede ser nula.");
 
-            var fechaPedido = DateTime.Now;
-
+            var ahora = DateTime.Now;
+            await ValidarAsync(dto.CantidadAproducir, dto.IdProducto, ahora, dto.FechaEstimada, null);
 
             var entidad = new Ordenproduccion
             {
-                FechaCreacion = fechaPedido,
-                EstadoOrden = EstadoInicial,
+                FechaCreacion = ahora,
+                EstadoOrden = EstadoPendiente,
                 FechaEstimada = dto.FechaEstimada,
                 FechaReal = null,
                 CantidadAproducir = dto.CantidadAproducir,
-                IdProducto = dto.IdProducto,
-
+                IdProducto = dto.IdProducto
             };
 
             var nueva = await _repo.Agregar(entidad);
@@ -88,7 +89,7 @@ namespace Alemana.Aplicaciones.Servicios
             if (estado.Length > LongitudMaximaEstado)
                 throw new ArgumentException($"El estado no puede superar los {LongitudMaximaEstado} caracteres.");
 
-  
+            await ValidarAsync(dto.CantidadAproducir, dto.IdProducto, existente.FechaCreacion, dto.FechaEstimada, dto.FechaReal);
 
             var asignado = await _asignacionRepo.TotalAsignadoPorOrden(existente.IdProd);
             if (dto.CantidadAproducir < asignado)
@@ -103,8 +104,7 @@ namespace Alemana.Aplicaciones.Servicios
                 FechaEstimada = dto.FechaEstimada,
                 FechaReal = dto.FechaReal,
                 CantidadAproducir = dto.CantidadAproducir,
-                IdProducto = dto.IdProducto,
-
+                IdProducto = dto.IdProducto
             };
 
             return await _repo.Actualizar(entidad);
@@ -122,7 +122,10 @@ namespace Alemana.Aplicaciones.Servicios
             return await _repo.Eliminar(id);
         }
 
-        /// <summary>Calcula la materia prima necesaria para producir una cantidad y si alcanza el stock.</summary>
+        /// <summary>
+        /// Calcula la materia prima necesaria para producir una cantidad. El disponible descuenta lo que
+        /// ya tienen reservado las órdenes En Proceso.
+        /// </summary>
         public async Task<CalculoProduccionDTO> CalcularAsync(CalcularProduccionDTO dto)
         {
             if (dto == null || dto.Cantidad <= 0)
@@ -136,6 +139,8 @@ namespace Alemana.Aplicaciones.Servicios
             if (requerimientos.Count == 0)
                 throw new ArgumentException($"El producto {dto.IdProducto} no tiene una receta con materias primas cargadas.");
 
+            var reservado = await _stock.ObtenerReservadoPorOrdenesEnProcesoAsync();
+
             var resultado = new CalculoProduccionDTO
             {
                 IdProducto = producto.IdProducto,
@@ -148,7 +153,8 @@ namespace Alemana.Aplicaciones.Servicios
             {
                 var necesaria = necesariaPorUnidad * dto.Cantidad;
                 var lotes = await _stock.ObtenerLotesDisponiblesAsync(idMateriaP);
-                var disponible = lotes.Sum(l => l.CantidadLote);
+                var enLotes = lotes.Sum(l => l.CantidadLote);
+                var disponible = Math.Max(enLotes - (reservado.TryGetValue(idMateriaP, out var r) ? r : 0m), 0m);
                 var alcanza = disponible >= necesaria;
 
                 if (!alcanza) resultado.Suficiente = false;
@@ -183,8 +189,8 @@ namespace Alemana.Aplicaciones.Servicios
         }
 
         /// <summary>
-        /// Confirma una orden pendiente: valida el operario, consume la materia prima,
-        /// asigna el operario y pasa la orden a En Proceso.
+        /// Confirma una orden pendiente: valida operario y materia prima disponible (descontando lo reservado),
+        /// asigna el operario y pasa la orden a En Proceso. Los lotes se descuentan al finalizar.
         /// </summary>
         public async Task<(ResultadoConfirmacion Resultado, string? Mensaje)> ConfirmarAsync(int idProd, int idOperario)
         {
@@ -192,7 +198,7 @@ namespace Alemana.Aplicaciones.Servicios
             if (orden == null)
                 return (ResultadoConfirmacion.NoExiste, null);
 
-            if (orden.EstadoPedido != EstadoPendiente)
+            if (orden.EstadoOrden != EstadoPendiente)
                 return (ResultadoConfirmacion.NoPendiente, "La orden ya fue confirmada.");
 
             var capaces = await _operarios.ObtenerCapacesAsync(orden.IdProducto);
@@ -200,79 +206,124 @@ namespace Alemana.Aplicaciones.Servicios
                 return (ResultadoConfirmacion.OperarioNoCapaz,
                     $"El operario {idOperario} no puede producir el producto {orden.IdProducto}.");
 
-            var falta = await ConsumirInsumosAsync(orden);
-            if (falta != null)
-                return (ResultadoConfirmacion.StockInsuficiente, falta);
+            var calculo = await CalcularAsync(new CalcularProduccionDTO
+            {
+                IdProducto = orden.IdProducto,
+                Cantidad = orden.CantidadAproducir
+            });
+
+            var faltantes = calculo.MateriasPrimas.Where(m => !m.Suficiente).ToList();
+            if (faltantes.Count > 0)
+            {
+                var detalle = string.Join("; ", faltantes.Select(f =>
+                    $"{f.NombreMateriaP} (necesita {f.CantidadNecesaria:0.##} {f.Unidad}, disponible {f.StockDisponible:0.##})"));
+                return (ResultadoConfirmacion.StockInsuficiente, "No hay materia prima suficiente: " + detalle + ".");
+            }
 
             orden.OrdAsigOps.Add(new OrdAsigOp
             {
                 IdOperario = idOperario,
-                Cantidades = orden.CantidadRequerida,
+                Cantidades = orden.CantidadAproducir,
                 FechaIni = DateTime.Now
             });
-            orden.EstadoPedido = EstadoEnProceso;
+            orden.EstadoOrden = EstadoEnProceso;
 
             await _repo.GuardarCambiosAsync();
             return (ResultadoConfirmacion.Ok, null);
         }
 
-        /// <summary>Descuenta de los lotes la materia prima de la receta por la cantidad de la orden.</summary>
-        private async Task<string?> ConsumirInsumosAsync(Ordenproduccion orden)
+        /// <summary>
+        /// Finaliza una orden En Proceso: descuenta la materia prima de los lotes (FIFO por fecha de ingreso),
+        /// registra el consumo, suma el stock del producto y cierra la orden.
+        /// </summary>
+        public async Task<(ResultadoConfirmacion Resultado, string? Mensaje)> FinalizarAsync(int idProd)
         {
+            var orden = await _repo.ObtenerConDetalleAsync(idProd);
+            if (orden == null)
+                return (ResultadoConfirmacion.NoExiste, null);
+
+            if (orden.EstadoOrden != EstadoEnProceso)
+                return (ResultadoConfirmacion.NoPendiente, "Solo se pueden finalizar órdenes En Proceso.");
+
             var requerimientos = await _stock.ObtenerRequerimientosAsync(orden.IdProducto);
-
             if (requerimientos.Count == 0)
-                return $"El producto {orden.IdProducto} no tiene una receta con materias primas cargadas.";
+                return (ResultadoConfirmacion.StockInsuficiente,
+                    $"El producto {orden.IdProducto} no tiene una receta con materias primas cargadas.");
 
-            foreach (var (idMateriaP, nombre, unidad, necesariaPorUnidad) in requerimientos)
+            // Pasada 1: verificar que alcanza, sin tocar nada
+            var plan = new List<(Lote Lote, decimal Usar)>();
+            foreach (var (idMateriaP, nombre, unidad, porUnidad) in requerimientos)
             {
-                decimal pendiente = necesariaPorUnidad * orden.CantidadRequerida;
+                decimal pendiente = porUnidad * orden.CantidadAproducir;
                 var lotes = await _stock.ObtenerLotesDisponiblesAsync(idMateriaP);
 
                 foreach (var lote in lotes)
                 {
                     if (pendiente <= 0) break;
-                    if (lote.CantidadLote <= 0) continue;
-
                     var usar = Math.Min(lote.CantidadLote, pendiente);
-
-                    lote.CantidadLote -= usar;
-                    if (lote.CantidadLote == 0) lote.EstadoLote = 0;
-
-                    orden.Consumolotes.Add(new Consumolote
-                    {
-                        IdLote = lote.IdLote,
-                        CantConsumida = usar
-                    });
-
+                    if (usar <= 0) continue;
+                    plan.Add((lote, usar));
                     pendiente -= usar;
                 }
 
                 if (pendiente > 0)
-                    return $"Falta {pendiente:0.##} {unidad} de {nombre} para producir el producto {orden.IdProducto}.";
+                    return (ResultadoConfirmacion.StockInsuficiente,
+                        $"Falta {pendiente:0.##} {unidad} de {nombre} para finalizar la orden.");
             }
 
-            return null;
+            // Pasada 2: aplicar
+            foreach (var (lote, usar) in plan)
+            {
+                lote.CantidadLote -= usar;
+                if (lote.CantidadLote <= 0) lote.EstadoLote = 0;
+
+                orden.Consumolotes.Add(new Consumolote
+                {
+                    IdLote = lote.IdLote,
+                    CantConsumida = usar
+                });
+            }
+
+            var producto = await _stock.ObtenerProductoAsync(orden.IdProducto);
+            if (producto != null)
+                producto.StockActual += orden.CantidadAproducir;
+
+            var ahora = DateTime.Now;
+            foreach (var a in orden.OrdAsigOps.Where(a => a.FechaFin == null))
+                a.FechaFin = ahora;
+
+            orden.EstadoOrden = EstadoFinalizada;
+            orden.FechaReal = ahora;
+
+            await _repo.GuardarCambiosAsync();
+            return (ResultadoConfirmacion.Ok, null);
+        }
+
+        /// <summary>Órdenes que todavía no terminaron (Pendiente y En Proceso).</summary>
+        public async Task<List<OrdenProduccionDTO>> ObtenerProduccionAsync()
+        {
+            var ordenes = await _repo.ObtenerParaProduccionAsync();
+            return ordenes.Select(ADto).ToList();
         }
 
         private async Task ValidarAsync(
-            int cantidadRequerida,
+            int cantidadAproducir,
             int idProducto,
-            DateTime fechaPedido,
+            DateTime fechaCreacion,
             DateTime? fechaEstimada,
             DateTime? fechaReal)
         {
-            if (cantidadRequerida <= 0)
-                throw new ArgumentException("La cantidad requerida debe ser mayor a cero.");
+            if (cantidadAproducir <= 0)
+                throw new ArgumentException("La cantidad a producir debe ser mayor a cero.");
 
             var producto = await _productoRepo.ObtenerProductoPorId(idProducto);
             if (producto == null)
                 throw new ArgumentException($"El producto {idProducto} no existe.");
 
-            if (fechaEstimada.HasValue && fechaEstimada.Value.Date < fechaPedido.Date)
+            if (fechaEstimada.HasValue && fechaEstimada.Value.Date < fechaCreacion.Date)
                 throw new ArgumentException("La fecha estimada no puede ser anterior a la fecha de creación.");
 
-            if (fechaReal.HasValue && fechaReal.Value.Date < fechaPedido.Date)
+            if (fechaReal.HasValue && fechaReal.Value.Date < fechaCreacion.Date)
                 throw new ArgumentException("La fecha real no puede ser anterior a la fecha de creación.");
         }
 
@@ -290,35 +341,10 @@ namespace Alemana.Aplicaciones.Servicios
                 FechaReal = o.FechaReal,
                 CantidadAproducir = o.CantidadAproducir,
                 IdProducto = o.IdProducto,
-
-
                 NombreProducto = o.IdProductoNavigation?.Nombre,
                 IdOperario = asig?.IdOperario,
                 NombreOperario = op == null ? null : $"{op.Nombre} {op.Apellido}"
             };
         }
-
-        /// <summary>
-        /// Órdenes de producción que todavía no terminaron. Ya no se agrupan por pedido:
-        /// todas van en un único grupo.
-        /// </summary>
-        public async Task<List<ProduccionPedidoDTO>> ObtenerProduccionAsync()
-        {
-            var ordenes = await _repo.ObtenerParaProduccionAsync();
-            if (ordenes.Count == 0)
-                return new List<ProduccionPedidoDTO>();
-
-        //    return ordenes
-        //        .GroupBy(o => o.IdPedido ?? 0)
-        //        .Select(g => new ProduccionPedidoDTO
-        //        {
-        //            IdPedido = g.Key,
-        //            FechaPedido = g.Min(o => o.FechaPedido),
-        //            FechaEstimada = g.Max(o => o.FechaEstimada),
-        //            Ordenes = g.Select(ADto).ToList()
-        //        })
-        //        .OrderByDescending(p => p.IdPedido)
-        //        .ToList();
-        //}
     }
 }

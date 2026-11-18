@@ -87,7 +87,8 @@ namespace MenuDesk
                 var creada = await _api.PostAsync("ordenproduccion", new OrdenProduccionDTO
                 {
                     IdProducto = p.IdProducto,
-                    CantidadRequerida = p.CantidadAProducir
+                    CantidadAproducir = p.CantidadAProducir,
+                    EstadoOrden = "Pendiente"
                 });
 
                 if (creada)

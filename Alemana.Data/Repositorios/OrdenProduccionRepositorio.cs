@@ -69,6 +69,14 @@ namespace Alemana.Data.Repositorios
             _db.Ordenproduccions.Add(orden);
         }
 
+        public async Task<Ordenproduccion?> ObtenerConDetalleAsync(int id)
+        {
+            return await _db.Ordenproduccions
+                .Include(o => o.OrdAsigOps)
+                .Include(o => o.Consumolotes)
+                .FirstOrDefaultAsync(o => o.IdProd == id);
+        }
+
         public async Task<List<Ordenproduccion>> ObtenerParaProduccionAsync()
         {
             return await _db.Ordenproduccions
@@ -77,6 +85,8 @@ namespace Alemana.Data.Repositorios
                 .Include(o => o.OrdAsigOps)
                     .ThenInclude(a => a.IdOperarioNavigation)
                 .Where(o => o.FechaReal == null)
+                .OrderBy(o => o.FechaCreacion)
+                .ThenBy(o => o.IdProd)
                 .ToListAsync();
         }
 

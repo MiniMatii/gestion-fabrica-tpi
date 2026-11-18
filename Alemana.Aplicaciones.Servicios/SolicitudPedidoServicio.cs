@@ -1,4 +1,4 @@
-using Alemana.Data.Repositorios;
+﻿using Alemana.Data.Repositorios;
 using Alemana.Dominio.Models;
 using Alemana.DTOs;
 using System;
@@ -126,7 +126,8 @@ namespace Alemana.Aplicaciones.Servicios
             return pedidos.Select(p => new PedidoResumenDTO
             {
                 IdPedido = p.IdPedido,
-                FechaPedido = p.FechaPedido
+                FechaPedido = p.FechaPedido,
+                EstadoPedido = p.EstadoPedido
             }).ToList();
         }
 
@@ -136,7 +137,8 @@ namespace Alemana.Aplicaciones.Servicios
             return pedidos.Select(p => new PedidoResumenDTO
             {
                 IdPedido = p.IdPedido,
-                FechaPedido = p.FechaPedido
+                FechaPedido = p.FechaPedido,
+                EstadoPedido = p.EstadoPedido
             }).ToList();
         }
 

@@ -8,45 +8,57 @@ namespace MenuDesk.Controles
         private static readonly Color Borde = Color.FromArgb(51, 65, 85);
         private static readonly Color Texto = Color.White;
         private static readonly Color TextoSuave = Color.FromArgb(148, 163, 184);
-        private static readonly Color Asignado = Color.FromArgb(52, 211, 153);
-        private static readonly Color SinAsignar = Color.FromArgb(251, 191, 36);
 
+        public int IdProd { get; }
+        public event Action<int>? ConfirmarClick;
+        public event Action<int>? FinalizarClick;
 
-        public ProduccionCard(ProduccionPedidoDTO pedido)
+        public ProduccionCard(OrdenProduccionDTO o)
         {
+            IdProd = o.IdProd;
             DoubleBuffered = true;
             Width = 340;
             BackColor = Fondo;
             Margin = new Padding(8);
 
             int y = 12;
+            bool pendiente = o.EstadoOrden == "Pendiente";
+            bool enProceso = o.EstadoOrden == "En Proceso";
 
+            Controls.Add(Etiqueta($"Orden #{o.IdProd}", new Font("Segoe UI", 12f, FontStyle.Bold), Texto, 14, ref y, 26));
             Controls.Add(Etiqueta(
-                pedido.IdPedido == 0 ? "Órdenes sin pedido" : $"Pedido #{pedido.IdPedido}",
-                new Font("Segoe UI", 12f, FontStyle.Bold), Texto, 14, ref y, 26));
-
-            Controls.Add(Etiqueta(
-                $"Ingreso: {pedido.FechaPedido:dd/MM/yyyy}   Estimada: {pedido.FechaEstimada:dd/MM/yyyy}",
+                $"Creada: {o.FechaCreacion:dd/MM/yyyy}   Estimada: {(o.FechaEstimada.HasValue ? o.FechaEstimada.Value.ToString("dd/MM/yyyy") : "-")}",
                 new Font("Segoe UI", 8.5f), TextoSuave, 14, ref y, 24));
+            Controls.Add(Etiqueta($"{o.NombreProducto}  ×{o.CantidadAproducir}",
+                new Font("Segoe UI", 10f, FontStyle.Bold), Texto, 14, ref y, 22));
 
-            foreach (var o in pedido.Ordenes)
+            bool asignado = !string.IsNullOrEmpty(o.NombreOperario);
+            Controls.Add(Etiqueta(asignado ? $"Operario: {o.NombreOperario}" : "Sin operario asignado",
+                new Font("Segoe UI", 9f),
+                asignado ? Color.FromArgb(52, 211, 153) : Color.FromArgb(251, 191, 36), 14, ref y, 20));
+
+            Controls.Add(Etiqueta(o.EstadoOrden, new Font("Segoe UI", 9f, FontStyle.Bold),
+                enProceso ? Color.FromArgb(96, 165, 250) : Color.FromArgb(251, 191, 36), 14, ref y, 20));
+
+            if (pendiente || enProceso)
             {
-                Controls.Add(Etiqueta(
-                    $"{o.NombreProducto}  ×{o.CantidadAproducir}",
-                    new Font("Segoe UI", 10f, FontStyle.Bold), Texto, 14, ref y, 22));
-
-                bool cubierto = o.EstadoOrden == "Cubierto";
-                bool asignado = !string.IsNullOrEmpty(o.NombreOperario);
-
-                string textoOperario = cubierto ? "Cubierto con stock"
-                                     : asignado ? $"Operario: {o.NombreOperario}"
-                                     : "Sin asignar";
-
-                Color colorOperario = cubierto ? Color.FromArgb(96, 165, 250)     
-                                    : asignado ? Color.FromArgb(52, 211, 153)     
-                                    : Color.FromArgb(251, 191, 36);
-
-                Controls.Add(Etiqueta(textoOperario, new Font("Segoe UI", 9f), colorOperario, 14, ref y, 20));
+                var btn = new Button
+                {
+                    Text = pendiente ? "Confirmar (asignar operario)" : "Finalizar producción",
+                    Location = new Point(14, y + 4),
+                    Size = new Size(Width - 28, 32),
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = Color.FromArgb(173, 151, 98),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 9.5f, FontStyle.Bold)
+                };
+                btn.Click += (_, _) =>
+                {
+                    if (pendiente) ConfirmarClick?.Invoke(IdProd);
+                    else FinalizarClick?.Invoke(IdProd);
+                };
+                Controls.Add(btn);
+                y += 40;
             }
 
             Height = y + 8;

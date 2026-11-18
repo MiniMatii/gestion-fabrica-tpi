@@ -6,6 +6,7 @@ namespace Alemana.DTOs
     {
         public int IdPedido { get; set; }
         public DateTime FechaPedido { get; set; }
+        public string EstadoPedido { get; set; } = string.Empty;
 
     }
 

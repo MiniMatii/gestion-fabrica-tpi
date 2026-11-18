@@ -68,7 +68,7 @@ namespace Alemana.Data.Repositorios
         {
             return await _DbA.Solicitudpedidos
                 .AsNoTracking()
-                .Where(p => (p.EstadoPedido == "Pendiente" || p.EstadoPedido == "En produccion"))
+                .Where(p => p.EstadoPedido != "Completado")
                 .OrderBy(p => p.IdPedido)
                 .ToListAsync();
         }
@@ -77,7 +77,7 @@ namespace Alemana.Data.Repositorios
         {
             return await _DbA.Solicitudpedidos
                 .AsNoTracking()
-                .Where(p => (p.EstadoPedido == "Pendiente" || p.EstadoPedido == "En produccion") && p.IdPedido > ultimoId)
+                .Where(p => p.EstadoPedido != "Completado" && p.IdPedido > ultimoId)
                 .OrderBy(p => p.IdPedido)
                 .ToListAsync();
         }
