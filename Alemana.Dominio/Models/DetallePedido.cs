@@ -9,7 +9,7 @@ public partial class DetallePedido
 
     public int IdProducto { get; set; }
 
-    public int CantidadesProductos { get; set; }
+    public int CantidadSolicitada { get; set; }
 
     public virtual Solicitudpedido IdPedidoNavigation { get; set; } = null!;
 

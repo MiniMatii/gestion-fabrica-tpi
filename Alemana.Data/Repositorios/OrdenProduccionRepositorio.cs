@@ -36,12 +36,11 @@ namespace Alemana.Data.Repositorios
             var existente = await _db.Ordenproduccions.FindAsync(entidad.IdProd);
             if (existente == null) return false;
 
-            existente.EstadoPedido = entidad.EstadoPedido;
+            existente.EstadoOrden = entidad.EstadoOrden;
             existente.FechaEstimada = entidad.FechaEstimada;
             existente.FechaReal = entidad.FechaReal;
-            existente.CantidadRequerida = entidad.CantidadRequerida;
+            existente.CantidadAproducir = entidad.CantidadAproducir;
             existente.IdProducto = entidad.IdProducto;
-            existente.IdPedido = entidad.IdPedido;
 
             await _db.SaveChangesAsync();
             return true;
@@ -76,8 +75,6 @@ namespace Alemana.Data.Repositorios
                 .Include(o => o.OrdAsigOps)
                     .ThenInclude(a => a.IdOperarioNavigation)
                 .Where(o => o.FechaReal == null)
-                .OrderByDescending(o => o.IdPedido)
-                .ThenBy(o => o.IdProd)
                 .ToListAsync();
         }
 

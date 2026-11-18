@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alemana.Dominio.Models;
 
@@ -14,19 +13,23 @@ public partial class Empleado
 
     public string Dni { get; set; } = null!;
 
-    public int? IdSucursal { get; set; }
+    public int IdSucursal { get; set; }
 
     public int? IdJefe { get; set; }
-    public sbyte Disponibilidad { get; set; }
 
     public string? Motivo { get; set; }
 
+    public sbyte Disponibilidad { get; set; }
+
+    public virtual ICollection<Despacho> Despachos { get; set; } = new List<Despacho>();
+
     public virtual Empleado? IdJefeNavigation { get; set; }
 
-    [ForeignKey("IdSucursal")]
-    public virtual Sucursale? IdSucursalNavigation { get; set; } = null!;
+    public virtual Sucursale IdSucursalNavigation { get; set; } = null!;
 
     public virtual ICollection<Empleado> InverseIdJefeNavigation { get; set; } = new List<Empleado>();
 
     public virtual ICollection<Solicitudpedido> Solicitudpedidos { get; set; } = new List<Solicitudpedido>();
+
+    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

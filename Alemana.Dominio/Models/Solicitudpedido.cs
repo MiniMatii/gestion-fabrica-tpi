@@ -17,9 +17,9 @@ public partial class Solicitudpedido
 
     public int IdEmpleado { get; set; }
 
+    public virtual ICollection<Despacho> Despachos { get; set; } = new List<Despacho>();
+
     public virtual ICollection<DetallePedido> DetallePedidos { get; set; } = new List<DetallePedido>();
 
     public virtual Empleado IdEmpleadoNavigation { get; set; } = null!;
-
-    public virtual ICollection<Ordenproduccion> Ordenproduccions { get; set; } = new List<Ordenproduccion>();
 }

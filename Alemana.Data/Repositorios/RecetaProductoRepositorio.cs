@@ -1,10 +1,4 @@
 ﻿using Alemana.Dominio.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
 
 namespace Alemana.Data.Repositorios
@@ -18,10 +12,10 @@ namespace Alemana.Data.Repositorios
             _DbA = dbA;
         }
 
-        public async Task AltaReceta(Recetaproducto nuevaR) 
+        public async Task AltaReceta(Recetaproducto nuevaReceta) 
         {
 
-            await _DbA.Recetaproductos.AddAsync(nuevaR);
+            await _DbA.Recetaproductos.AddAsync(nuevaReceta);
 
             await _DbA.SaveChangesAsync();
 

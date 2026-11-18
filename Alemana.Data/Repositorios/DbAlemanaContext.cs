@@ -1,9 +1,9 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using Alemana.Data;
 using Alemana.Dominio.Models;
 using Microsoft.EntityFrameworkCore;
-
-using Microsoft.Extensions.Configuration;
-
+using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace Alemana.Data.Repositorios;
 
@@ -17,14 +17,16 @@ public partial class DbAlemanaContext : DbContext
         : base(options)
     {
     }
-    
-    public virtual DbSet<Usuario> Usuarios { get; set; }
 
     public virtual DbSet<Capacidad> Capacidads { get; set; }
 
     public virtual DbSet<Ciudade> Ciudades { get; set; }
 
     public virtual DbSet<Consumolote> Consumolotes { get; set; }
+
+    public virtual DbSet<Despacho> Despachos { get; set; }
+
+    public virtual DbSet<DetalleDespacho> DetalleDespachos { get; set; }
 
     public virtual DbSet<DetallePedido> DetallePedidos { get; set; }
 
@@ -52,20 +54,11 @@ public partial class DbAlemanaContext : DbContext
 
     public virtual DbSet<Sucursale> Sucursales { get; set; }
 
-     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
-     { if (!optionsBuilder.IsConfigured) 
+    public virtual DbSet<Usuario> Usuarios { get; set; }
 
-         { 
-             var config = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build(); 
-             var connectionString = config.GetConnectionString("DefaultConnection"); 
-             optionsBuilder.UseMySql(connectionString, ServerVersion.Parse("8.4.9-mysql")); 
-         }
-     }
-
-
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseMySql("server=localhost;database=alemanadb;uid=root;pwd=alma2005", ServerVersion.Parse("8.0.32-mysql"));
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseMySql("server=alemanadb-aws.cn6ii6em83s1.us-east-2.rds.amazonaws.com;port=3306;database=alemanadb;uid=alemana_admin;pwd=WubTD0uYDWA8AxRBud4u", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.4.9-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -110,22 +103,6 @@ public partial class DbAlemanaContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<Usuario>(e =>
-        {
-            e.ToTable("usuarios");
-            e.HasKey(x => x.IdUsuario);
-            e.Property(x => x.IdUsuario).HasColumnName("idUsuario");
-            e.Property(x => x.NombreUsuario).HasColumnName("usuario").HasMaxLength(50).IsRequired();
-            e.HasIndex(x => x.NombreUsuario).IsUnique();
-            e.Property(x => x.ClaveHash).HasColumnName("claveHash").HasMaxLength(100).IsRequired();
-            e.Property(x => x.IdEmpleado).HasColumnName("idEmpleado");
-            e.Property(x => x.IdOperario).HasColumnName("idOperario");
-
-            e.HasOne(x => x.Empleado).WithMany().HasForeignKey(x => x.IdEmpleado);
-            e.HasOne(x => x.Operario).WithMany().HasForeignKey(x => x.IdOperario);
-        });
-
-
         modelBuilder.Entity<Ciudade>(entity =>
         {
             entity.HasKey(e => e.CodPostal).HasName("PRIMARY");
@@ -168,6 +145,60 @@ public partial class DbAlemanaContext : DbContext
                 .HasConstraintName("consumolote_ibfk_1");
         });
 
+        modelBuilder.Entity<Despacho>(entity =>
+        {
+            entity.HasKey(e => e.IdDespacho).HasName("PRIMARY");
+
+            entity.ToTable("despacho");
+
+            entity.HasIndex(e => e.IdEmpleado, "idEmpleado");
+
+            entity.HasIndex(e => e.IdPedido, "idPedido");
+
+            entity.Property(e => e.IdDespacho).HasColumnName("idDespacho");
+            entity.Property(e => e.FechaDespacho)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime")
+                .HasColumnName("fechaDespacho");
+            entity.Property(e => e.IdEmpleado).HasColumnName("idEmpleado");
+            entity.Property(e => e.IdPedido).HasColumnName("idPedido");
+
+            entity.HasOne(d => d.IdEmpleadoNavigation).WithMany(p => p.Despachos)
+                .HasForeignKey(d => d.IdEmpleado)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("despacho_ibfk_2");
+
+            entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.Despachos)
+                .HasForeignKey(d => d.IdPedido)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("despacho_ibfk_1");
+        });
+
+        modelBuilder.Entity<DetalleDespacho>(entity =>
+        {
+            entity.HasKey(e => new { e.IdDespacho, e.IdProducto })
+                .HasName("PRIMARY")
+                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+
+            entity.ToTable("detalle_despacho");
+
+            entity.HasIndex(e => e.IdProducto, "idProducto");
+
+            entity.Property(e => e.IdDespacho).HasColumnName("idDespacho");
+            entity.Property(e => e.IdProducto).HasColumnName("idProducto");
+            entity.Property(e => e.Cantidad).HasColumnName("cantidad");
+
+            entity.HasOne(d => d.IdDespachoNavigation).WithMany(p => p.DetalleDespachos)
+                .HasForeignKey(d => d.IdDespacho)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("detalle_despacho_ibfk_1");
+
+            entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.DetalleDespachos)
+                .HasForeignKey(d => d.IdProducto)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("detalle_despacho_ibfk_2");
+        });
+
         modelBuilder.Entity<DetallePedido>(entity =>
         {
             entity.HasKey(e => new { e.IdPedido, e.IdProducto })
@@ -180,7 +211,7 @@ public partial class DbAlemanaContext : DbContext
 
             entity.Property(e => e.IdPedido).HasColumnName("idPedido");
             entity.Property(e => e.IdProducto).HasColumnName("idProducto");
-            entity.Property(e => e.CantidadesProductos).HasColumnName("cantidadesProductos");
+            entity.Property(e => e.CantidadSolicitada).HasColumnName("cantidadSolicitada");
 
             entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.DetallePedidos)
                 .HasForeignKey(d => d.IdPedido)
@@ -203,17 +234,21 @@ public partial class DbAlemanaContext : DbContext
 
             entity.HasIndex(e => e.IdJefe, "idJefe");
 
-            //entity.HasIndex(e => e.IdSucursal, "idSucursal");
+            entity.HasIndex(e => e.IdSucursal, "idSucursal");
 
             entity.Property(e => e.IdEmpleado).HasColumnName("idEmpleado");
             entity.Property(e => e.Apellido)
                 .HasMaxLength(100)
                 .HasColumnName("apellido");
+            entity.Property(e => e.Disponibilidad).HasColumnName("disponibilidad");
             entity.Property(e => e.Dni)
                 .HasMaxLength(20)
                 .HasColumnName("dni");
             entity.Property(e => e.IdJefe).HasColumnName("idJefe");
-            //entity.Property(e => e.IdSucursal).HasColumnName("idSucursal");
+            entity.Property(e => e.IdSucursal).HasColumnName("idSucursal");
+            entity.Property(e => e.Motivo)
+                .HasMaxLength(100)
+                .HasColumnName("motivo");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(100)
                 .HasColumnName("nombre");
@@ -222,10 +257,10 @@ public partial class DbAlemanaContext : DbContext
                 .HasForeignKey(d => d.IdJefe)
                 .HasConstraintName("empleados_ibfk_2");
 
-            //entity.HasOne(d => d.IdSucursalNavigation).WithMany(p => p.Empleados)
-            //    .HasForeignKey(d => d.IdSucursal)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("empleados_ibfk_1");
+            entity.HasOne(d => d.IdSucursalNavigation).WithMany(p => p.Empleados)
+                .HasForeignKey(d => d.IdSucursal)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("empleados_ibfk_1");
         });
 
         modelBuilder.Entity<Lote>(entity =>
@@ -361,30 +396,24 @@ public partial class DbAlemanaContext : DbContext
 
             entity.ToTable("ordenproduccion");
 
-            entity.HasIndex(e => e.IdPedido, "idPedido");
-
             entity.HasIndex(e => e.IdProducto, "idProducto");
 
             entity.Property(e => e.IdProd).HasColumnName("idProd");
-            entity.Property(e => e.CantidadRequerida).HasColumnName("cantidadRequerida");
-            entity.Property(e => e.EstadoPedido)
+            entity.Property(e => e.CantidadAproducir).HasColumnName("cantidadAProducir");
+            entity.Property(e => e.EstadoOrden)
                 .HasMaxLength(50)
-                .HasColumnName("estadoPedido");
+                .HasDefaultValueSql("'Pendiente'")
+                .HasColumnName("estadoOrden");
+            entity.Property(e => e.FechaCreacion)
+                .HasColumnType("datetime")
+                .HasColumnName("fechaCreacion");
             entity.Property(e => e.FechaEstimada)
                 .HasColumnType("datetime")
                 .HasColumnName("fechaEstimada");
-            entity.Property(e => e.FechaPedido)
-                .HasColumnType("datetime")
-                .HasColumnName("fechaPedido");
             entity.Property(e => e.FechaReal)
                 .HasColumnType("datetime")
                 .HasColumnName("fechaReal");
-            entity.Property(e => e.IdPedido).HasColumnName("idPedido");
             entity.Property(e => e.IdProducto).HasColumnName("idProducto");
-
-            entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.Ordenproduccions)
-                .HasForeignKey(d => d.IdPedido)
-                .HasConstraintName("ordenproduccion_ibfk_2");
 
             entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.Ordenproduccions)
                 .HasForeignKey(d => d.IdProducto)
@@ -398,6 +427,8 @@ public partial class DbAlemanaContext : DbContext
 
             entity.ToTable("productos");
 
+            entity.HasIndex(e => e.IdCap, "fk_productos_capacidad");
+
             entity.HasIndex(e => e.IdReceta, "idReceta").IsUnique();
 
             entity.Property(e => e.IdProducto).HasColumnName("idProducto");
@@ -406,24 +437,20 @@ public partial class DbAlemanaContext : DbContext
                 .IsRequired()
                 .HasDefaultValueSql("'1'")
                 .HasColumnName("disponible");
+            entity.Property(e => e.IdCap).HasColumnName("idCap");
             entity.Property(e => e.IdReceta).HasColumnName("idReceta");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(100)
                 .HasColumnName("nombre");
 
-            entity.HasOne(d => d.IdRecetaNavigation).WithOne(p => p.Producto)
-                .HasForeignKey<Producto>(d => d.IdReceta)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("productos_ibfk_1");
-
-            entity.HasIndex(e => e.IdCap, "fk_productos_capacidad");
-
-            entity.Property(e => e.IdCap).HasColumnName("idCap");
-
             entity.HasOne(d => d.IdCapNavigation).WithMany(p => p.Productos)
                 .HasForeignKey(d => d.IdCap)
                 .HasConstraintName("fk_productos_capacidad");
 
+            entity.HasOne(d => d.IdRecetaNavigation).WithOne(p => p.Producto)
+                .HasForeignKey<Producto>(d => d.IdReceta)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("productos_ibfk_1");
         });
 
         modelBuilder.Entity<Proveedore>(entity =>
@@ -437,7 +464,7 @@ public partial class DbAlemanaContext : DbContext
                 .HasMaxLength(11)
                 .HasColumnName("cuit");
             entity.Property(e => e.Nombre)
-                .HasMaxLength(45)
+                .HasMaxLength(100)
                 .HasColumnName("nombre");
             entity.Property(e => e.RazonSocial)
                 .HasMaxLength(150)
@@ -452,7 +479,7 @@ public partial class DbAlemanaContext : DbContext
 
             entity.Property(e => e.IdReceta).HasColumnName("idReceta");
             entity.Property(e => e.Descripcion)
-                .HasMaxLength(255)
+                .HasColumnType("text")
                 .HasColumnName("descripcion");
         });
 
@@ -503,6 +530,35 @@ public partial class DbAlemanaContext : DbContext
                 .HasForeignKey(d => d.CodPostal)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("sucursales_ibfk_1");
+        });
+
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasKey(e => e.IdUsuario).HasName("PRIMARY");
+
+            entity.ToTable("usuarios");
+
+            entity.HasIndex(e => e.IdEmpleado, "FK_Usuarios_Empleados");
+
+            entity.HasIndex(e => e.IdOperario, "FK_Usuarios_Operarios");
+
+            entity.Property(e => e.IdUsuario).HasColumnName("idUsuario");
+            entity.Property(e => e.ClaveHash)
+                .HasMaxLength(100)
+                .HasColumnName("claveHash");
+            entity.Property(e => e.IdEmpleado).HasColumnName("idEmpleado");
+            entity.Property(e => e.IdOperario).HasColumnName("idOperario");
+            entity.Property(e => e.Usuario1)
+                .HasMaxLength(50)
+                .HasColumnName("usuario");
+
+            entity.HasOne(d => d.IdEmpleadoNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.IdEmpleado)
+                .HasConstraintName("FK_Usuarios_Empleados");
+
+            entity.HasOne(d => d.IdOperarioNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.IdOperario)
+                .HasConstraintName("FK_Usuarios_Operarios");
         });
 
         OnModelCreatingPartial(modelBuilder);

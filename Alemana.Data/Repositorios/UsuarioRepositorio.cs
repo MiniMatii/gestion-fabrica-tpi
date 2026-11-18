@@ -15,13 +15,13 @@ namespace Alemana.Data.Repositorios
         public async Task<Usuario> ObtenerPorNombreUsuario(string nombreUsuario)
         {
             // Retorna la entidad pura de base de datos
-            return await _DbA.Usuarios.FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
+            return await _DbA.Usuarios.FirstOrDefaultAsync(u => u.Usuario1 == nombreUsuario);
         }
 
 
         public async Task<bool> ExisteNombreAsync(string nombreUsuario) 
         {
-            return await _DbA.Usuarios.AnyAsync(u => u.NombreUsuario == nombreUsuario);
+            return await _DbA.Usuarios.AnyAsync(u => u.Usuario1 == nombreUsuario);
 
         }
 

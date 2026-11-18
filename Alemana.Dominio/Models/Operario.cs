@@ -15,5 +15,7 @@ public partial class Operario
 
     public virtual ICollection<OrdAsigOp> OrdAsigOps { get; set; } = new List<OrdAsigOp>();
 
+    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
+
     public virtual ICollection<Capacidad> IdCaps { get; set; } = new List<Capacidad>();
 }

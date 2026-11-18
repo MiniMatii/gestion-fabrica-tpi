@@ -7,7 +7,7 @@ public partial class Recetaproducto
 {
     public int IdReceta { get; set; }
 
-    public string Descripcion { get; set; } = null!;
+    public string? Descripcion { get; set; }
 
     public virtual ICollection<MateriapRecetum> MateriapReceta { get; set; } = new List<MateriapRecetum>();
 

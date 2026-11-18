@@ -48,20 +48,17 @@ namespace Alemana.Aplicaciones.Servicios
                 throw new ArgumentException("La orden de producción no puede ser nula.");
 
             var fechaPedido = DateTime.Now;
-            var idPedido = NormalizarIdPedido(dto.IdPedido);
 
-            await ValidarAsync(dto.CantidadRequerida, dto.IdProducto, idPedido,
-                               fechaPedido, dto.FechaEstimada, null);
 
             var entidad = new Ordenproduccion
             {
-                FechaPedido = fechaPedido,
-                EstadoPedido = EstadoInicial,
+                FechaCreacion = fechaPedido,
+                EstadoOrden = EstadoInicial,
                 FechaEstimada = dto.FechaEstimada,
                 FechaReal = null,
-                CantidadRequerida = dto.CantidadRequerida,
+                CantidadAproducir = dto.CantidadAproducir,
                 IdProducto = dto.IdProducto,
-                IdPedido = idPedido
+
             };
 
             var nueva = await _repo.Agregar(entidad);
@@ -76,33 +73,30 @@ namespace Alemana.Aplicaciones.Servicios
             var existente = await _repo.ObtenerPorId(dto.IdProd);
             if (existente == null) return false;
 
-            if (string.IsNullOrWhiteSpace(dto.EstadoPedido))
+            if (string.IsNullOrWhiteSpace(dto.EstadoOrden))
                 throw new ArgumentException("El estado de la orden es obligatorio.");
 
-            var estado = dto.EstadoPedido.Trim();
+            var estado = dto.EstadoOrden.Trim();
             if (estado.Length > LongitudMaximaEstado)
                 throw new ArgumentException($"El estado no puede superar los {LongitudMaximaEstado} caracteres.");
 
-            var idPedido = NormalizarIdPedido(dto.IdPedido);
-
-            await ValidarAsync(dto.CantidadRequerida, dto.IdProducto, idPedido,
-                               existente.FechaPedido, dto.FechaEstimada, dto.FechaReal);
+  
 
             var asignado = await _asignacionRepo.TotalAsignadoPorOrden(existente.IdProd);
-            if (dto.CantidadRequerida < asignado)
+            if (dto.CantidadAproducir < asignado)
                 throw new ArgumentException(
                     $"La cantidad requerida no puede ser menor a la ya asignada a operarios ({asignado}).");
 
             var entidad = new Ordenproduccion
             {
                 IdProd = existente.IdProd,
-                FechaPedido = existente.FechaPedido,
-                EstadoPedido = estado,
+                FechaCreacion = existente.FechaCreacion,
+                EstadoOrden = estado,
                 FechaEstimada = dto.FechaEstimada,
                 FechaReal = dto.FechaReal,
-                CantidadRequerida = dto.CantidadRequerida,
+                CantidadAproducir = dto.CantidadAproducir,
                 IdProducto = dto.IdProducto,
-                IdPedido = idPedido
+
             };
 
             return await _repo.Actualizar(entidad);
@@ -162,13 +156,13 @@ namespace Alemana.Aplicaciones.Servicios
             return new OrdenProduccionDTO
             {
                 IdProd = o.IdProd,
-                FechaPedido = o.FechaPedido,
-                EstadoPedido = o.EstadoPedido,
+                FechaCreacion = o.FechaCreacion,
+                EstadoOrden = o.EstadoOrden,
                 FechaEstimada = o.FechaEstimada,
                 FechaReal = o.FechaReal,
-                CantidadRequerida = o.CantidadRequerida,
+                CantidadAproducir = o.CantidadAproducir,
                 IdProducto = o.IdProducto,
-                IdPedido = o.IdPedido,
+
 
                 NombreProducto = o.IdProductoNavigation?.Nombre,
                 IdOperario = asig?.IdOperario,
@@ -176,21 +170,21 @@ namespace Alemana.Aplicaciones.Servicios
             };
         }
 
-        public async Task<List<ProduccionPedidoDTO>> ObtenerProduccionAsync()
-        {
-            var ordenes = await _repo.ObtenerParaProduccionAsync();
+        //public async Task<List<ProduccionPedidoDTO>> ObtenerProduccionAsync()
+        //{
+        //    var ordenes = await _repo.ObtenerParaProduccionAsync();
 
-            return ordenes
-                .GroupBy(o => o.IdPedido ?? 0)
-                .Select(g => new ProduccionPedidoDTO
-                {
-                    IdPedido = g.Key,
-                    FechaPedido = g.Min(o => o.FechaPedido),
-                    FechaEstimada = g.Max(o => o.FechaEstimada),
-                    Ordenes = g.Select(ADto).ToList()
-                })
-                .OrderByDescending(p => p.IdPedido)
-                .ToList();
-        }
+        //    return ordenes
+        //        .GroupBy(o => o.IdPedido ?? 0)
+        //        .Select(g => new ProduccionPedidoDTO
+        //        {
+        //            IdPedido = g.Key,
+        //            FechaPedido = g.Min(o => o.FechaPedido),
+        //            FechaEstimada = g.Max(o => o.FechaEstimada),
+        //            Ordenes = g.Select(ADto).ToList()
+        //        })
+        //        .OrderByDescending(p => p.IdPedido)
+        //        .ToList();
+        //}
     }
 }

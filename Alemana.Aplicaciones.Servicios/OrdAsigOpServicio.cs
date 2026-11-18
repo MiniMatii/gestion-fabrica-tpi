@@ -127,9 +127,9 @@ namespace Alemana.Aplicaciones.Servicios
             var yaAsignado = await _repo.TotalAsignadoPorOrden(orden.IdProd, excluirIdOperario);
             var total = yaAsignado + cantidades;
 
-            if (total > orden.CantidadRequerida)
+            if (total > orden.CantidadAproducir)
                 throw new ArgumentException(
-                    $"La suma asignada ({total}) supera la cantidad requerida de la orden ({orden.CantidadRequerida}).");
+                    $"La suma asignada ({total}) supera la cantidad requerida de la orden ({orden.CantidadAproducir}).");
         }
 
         private static OrdAsigOpDTO ADto(OrdAsigOp a)

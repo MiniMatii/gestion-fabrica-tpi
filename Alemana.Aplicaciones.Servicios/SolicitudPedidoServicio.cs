@@ -40,7 +40,7 @@ namespace Alemana.Aplicaciones.Servicios
                 DetallePedidos = dto.DetallePedidos.Select(d => new DetallePedido
                 {
                     IdProducto = d.IdProducto,
-                    CantidadesProductos = d.CantidadPedida
+                    CantidadSolicitada = d.CantidadPedida
                 }).ToList()
             };
 
@@ -66,7 +66,7 @@ namespace Alemana.Aplicaciones.Servicios
                 DetallePedidos = p.DetallePedidos.Select(d => new PedidoItemDTO
                 {
                     IdProducto = d.IdProducto,
-                    CantidadPedida = d.CantidadesProductos
+                    CantidadPedida = d.CantidadSolicitada
                 }).ToList()
             }).ToList();
         }
@@ -87,7 +87,7 @@ namespace Alemana.Aplicaciones.Servicios
                 DetallePedidos = p.DetallePedidos.Select(d => new PedidoItemDTO
                 {
                     IdProducto = d.IdProducto,
-                    CantidadPedida = d.CantidadesProductos
+                    CantidadPedida = d.CantidadSolicitada
                 }).ToList()
             };
         }
@@ -105,7 +105,7 @@ namespace Alemana.Aplicaciones.Servicios
             {
                 IdProducto = d.IdProducto,
                 NombreProducto = d.IdProductoNavigation?.Nombre ?? "(sin nombre)",
-                CantidadPedida = d.CantidadesProductos
+                CantidadPedida = d.CantidadSolicitada
             }).ToList();
         }
 
@@ -142,7 +142,7 @@ namespace Alemana.Aplicaciones.Servicios
             foreach (var d in detalle)
             {
                 var stock = await _stock.ObtenerStockProductoAsync(d.IdProducto);
-                var aProducir = Math.Max(d.CantidadesProductos - stock, 0);
+                var aProducir = Math.Max(d.CantidadSolicitada - stock, 0);
 
                 var capaces = aProducir > 0
                     ? await _operariosRepositorio.ObtenerCapacesAsync(d.IdProducto)
@@ -152,7 +152,7 @@ namespace Alemana.Aplicaciones.Servicios
                 {
                     IdProducto = d.IdProducto,
                     NombreProducto = d.IdProductoNavigation?.Nombre ?? "",
-                    Cantidad = d.CantidadesProductos,
+                    Cantidad = d.CantidadSolicitada,
                     StockDisponible = stock,
                     CantidadAProducir = aProducir,
                     Operarios = capaces.Select(o => new OperarioOpcionDTO
@@ -185,8 +185,8 @@ namespace Alemana.Aplicaciones.Servicios
                     return (ResultadoAceptacion.AsignacionInvalida, $"El producto {det.IdProducto} no existe.");
 
                 int enStock = Math.Max((int?)producto.StockActual ?? 0, 0);
-                int deStock = Math.Min(enStock, det.CantidadesProductos);
-                int aProducir = det.CantidadesProductos - deStock;
+                int deStock = Math.Min(enStock, det.CantidadSolicitada);
+                int aProducir = det.CantidadSolicitada - deStock;
 
                 producto.StockActual = enStock - deStock;   
 
@@ -194,24 +194,24 @@ namespace Alemana.Aplicaciones.Servicios
                 {
                     _ordenesRepositorio.AgregarOrden(new Ordenproduccion
                     {
-                        IdPedido = pedido.IdPedido,
+                        IdProd = pedido.IdPedido,
                         IdProducto = det.IdProducto,
-                        CantidadRequerida = det.CantidadesProductos,
-                        FechaPedido = pedido.FechaPedido,
+                        CantidadAproducir = det.CantidadSolicitada,
+                        FechaCreacion = pedido.FechaPedido,
                         FechaEstimada = pedido.FechaEstimada,
-                        EstadoPedido = EstadoCubierto
+                        EstadoOrden = EstadoCubierto
                     });
                     continue;
                 }
 
                 var orden = new Ordenproduccion
                 {
-                    IdPedido = pedido.IdPedido,
+                    IdProd = pedido.IdPedido,
                     IdProducto = det.IdProducto,
-                    CantidadRequerida = aProducir,             
-                    FechaPedido = pedido.FechaPedido,
+                    CantidadAproducir = aProducir,             
+                    FechaCreacion = pedido.FechaPedido,
                     FechaEstimada = pedido.FechaEstimada,
-                    EstadoPedido = EstadoInicial
+                    EstadoOrden = EstadoInicial
                 };
 
                 var idOperario = asignaciones

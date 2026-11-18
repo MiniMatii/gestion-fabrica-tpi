@@ -7,23 +7,19 @@ public partial class Ordenproduccion
 {
     public int IdProd { get; set; }
 
-    public DateTime FechaPedido { get; set; }
+    public DateTime FechaCreacion { get; set; }
 
-    public string EstadoPedido { get; set; } = null!;
+    public string EstadoOrden { get; set; } = null!;
 
     public DateTime? FechaEstimada { get; set; }
 
     public DateTime? FechaReal { get; set; }
 
-    public int CantidadRequerida { get; set; }
+    public int CantidadAproducir { get; set; }
 
     public int IdProducto { get; set; }
 
-    public int? IdPedido { get; set; }
-
     public virtual ICollection<Consumolote> Consumolotes { get; set; } = new List<Consumolote>();
-
-    public virtual Solicitudpedido? IdPedidoNavigation { get; set; }
 
     public virtual Producto IdProductoNavigation { get; set; } = null!;
 

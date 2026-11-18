@@ -33,7 +33,7 @@ namespace Alemana.Aplicaciones.Servicios
             
             return new UsuarioDTO
             {
-                Nombre = usuarioDb.NombreUsuario,
+                Nombre = usuarioDb.Usuario1,
                 Rol = rolAsignado,
                 IdEmpleado = usuarioDb.IdEmpleado,
                 IdOperario = usuarioDb.IdOperario
@@ -63,7 +63,7 @@ namespace Alemana.Aplicaciones.Servicios
 
             var usuario = new Usuario
             {
-                NombreUsuario = dto.Usuario.Trim(),
+                Usuario1 = dto.Usuario.Trim(),
                 ClaveHash = BCrypt.Net.BCrypt.HashPassword(dto.Clave, 12),
                 IdEmpleado = dto.IdEmpleado,
                 IdOperario = dto.IdOperario

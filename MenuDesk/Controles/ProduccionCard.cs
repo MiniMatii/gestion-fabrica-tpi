@@ -32,10 +32,10 @@ namespace MenuDesk.Controles
             foreach (var o in pedido.Ordenes)
             {
                 Controls.Add(Etiqueta(
-                    $"{o.NombreProducto}  ×{o.CantidadRequerida}",
+                    $"{o.NombreProducto}  ×{o.CantidadAproducir}",
                     new Font("Segoe UI", 10f, FontStyle.Bold), Texto, 14, ref y, 22));
 
-                bool cubierto = o.EstadoPedido == "Cubierto";
+                bool cubierto = o.EstadoOrden == "Cubierto";
                 bool asignado = !string.IsNullOrEmpty(o.NombreOperario);
 
                 string textoOperario = cubierto ? "Cubierto con stock"

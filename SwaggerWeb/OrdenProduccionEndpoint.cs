@@ -31,12 +31,12 @@ namespace SwaggerWeb
             .AllowAnonymous()
             .WithOpenApi();
 
-            app.MapGet("/ordenproduccion/produccion", async (IOrdenProduccionServicio servicio) =>
-            Results.Ok(await servicio.ObtenerProduccionAsync()))
-            .WithName("ObtenerOrdenProduccionesPendientes")
-            .WithTags("OrdenProduccion")
-            .AllowAnonymous()
-            .WithOpenApi();
+            //app.MapGet("/ordenproduccion/produccion", async (IOrdenProduccionServicio servicio) =>
+            //Results.Ok(await servicio.ObtenerProduccionAsync()))
+            //.WithName("ObtenerOrdenProduccionesPendientes")
+            //.WithTags("OrdenProduccion")
+            //.AllowAnonymous()
+            //.WithOpenApi();
 
 
             app.MapPost("/ordenproduccion", async (OrdenProduccionDTO dto, IOrdenProduccionServicio servicio) =>

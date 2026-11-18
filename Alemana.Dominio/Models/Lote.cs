@@ -17,7 +17,7 @@ public partial class Lote
 
     public int IdMateriaP { get; set; }
 
-    public sbyte? EstadoLote { get; set; }
+    public sbyte EstadoLote { get; set; }
 
     public virtual ICollection<Consumolote> Consumolotes { get; set; } = new List<Consumolote>();
 

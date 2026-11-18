@@ -72,7 +72,7 @@ namespace MenuDesk
 
 
                 var firma = string.Join("|", lista.SelectMany(p =>
-                    p.Ordenes.Select(o => $"{p.IdPedido}:{o.IdProd}:{o.EstadoPedido}:{o.IdOperario}")));
+                    p.Ordenes.Select(o => $"{p.IdPedido}:{o.IdProd}:{o.EstadoOrden}:{o.IdOperario}")));
 
                 if (firma == _firmaProduccion) return;
                 _firmaProduccion = firma;
