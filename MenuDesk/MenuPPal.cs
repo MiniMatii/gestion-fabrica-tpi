@@ -13,7 +13,8 @@ namespace MenuDesk
         {
             InitializeComponent();
             ktTablaSucursales.CellFormatting += ktTablaSucursales_CellFormatting;
-            AplicarEstiloTabla(tablaMProd, tablaEP, ktTablaOperarios, ktTablaModOp, ktTablaSucursales, empktTable4, sucktTable2, tableCapacidadRequeridaProducto, ktTablaLotesEliminar);
+            //AplicarEstiloTabla(tablaMProd, tablaEP, ktTablaOperarios, ktTablaModOp, ktTablaSucursales, empktTable4, sucktTable2, tableCapacidadRequeridaProducto, ktTablaLotesEliminar);
+            AplicarEstiloTabla(empktTable4, sucktTable2, sucktTable3, ktTable1, ktTable2, ktTable3, tableCapacidadRequeridaProducto, tablaMProd, tablaEP, ktTablaProveedoresLotes, ktTablaLotes, ktTablaLotesEliminar, ktTablaCapacidades, ktTablaModOp, ktTablaOperarios, ktTablaSucursales);
             hudLateral.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
             hudLateral.BackColor = Color.FromArgb(0, 78, 65);
             hudLateral.BackgroundImage = Properties.Resources.backgroundAleman_340x1179;

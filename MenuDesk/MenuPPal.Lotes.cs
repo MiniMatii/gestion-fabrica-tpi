@@ -215,8 +215,6 @@ namespace MenuDesk
                     FechaVencimiento = fechaVen,
                     FechaIngreso = fechaIng,
                     IdLote = Convert.ToInt32(modLote.Cells["IdLote"].Value),
-                    IdMateriaP = Convert.ToInt32(modLote.Cells["IdMateriaP"].Value),
-                    IdProveedor = Convert.ToInt32(modLote.Cells["IdProv"].Value),
                     EstadoLote = Convert.ToSByte(modLote.Cells["estadoLote"].Value)
                 };
 
