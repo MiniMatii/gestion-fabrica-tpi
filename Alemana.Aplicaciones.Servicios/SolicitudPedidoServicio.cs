@@ -15,8 +15,9 @@ namespace Alemana.Aplicaciones.Servicios
     public class SolicitudPedidoServicio : ISolicitudPedidoServicio
     {
         public const string EstadoPendiente = "Pendiente";
-        public const string EstadoEnProduccion = "En produccion";
-        public const string EstadoDespachado = "Despachado";
+        public const string EstadoAceptado = "Aceptado";
+        public const string EstadoParcial = "Parcial";
+        public const string EstadoCompletado = "Completado";
 
         private readonly IStockRepositorio _stock;
         private readonly ISolicitudPedidoRepositorio _pedidoRepositorio;
@@ -26,6 +27,16 @@ namespace Alemana.Aplicaciones.Servicios
             _pedidoRepositorio = pedidoRepositorio;
             _stock = stock;
         }
+
+
+        private static string CalcularEstado(Solicitudpedido p)
+        {
+            if (p.DetallePedidos.All(d => d.CantidadDespachada >= d.CantidadSolicitada)) return EstadoCompletado;
+            if (p.DetallePedidos.Any(d => d.CantidadDespachada > 0)) return EstadoParcial;
+            if (p.DetallePedidos.Any(d => d.CantidadAceptada > 0)) return EstadoAceptado;
+            return EstadoPendiente;
+        }
+
 
         public async Task<SolicitudPedidoDTO> AltaPedido(SolicitudPedidoDTO dto)
         {
@@ -129,161 +140,128 @@ namespace Alemana.Aplicaciones.Servicios
             }).ToList();
         }
 
-        /// <summary>Productos del pedido con la cantidad pedida y el stock actual, para armar el menú de aceptación.</summary>
-        public async Task<List<ItemPedidoAceptacionDTO>?> ObtenerItemsAceptacionAsync(int idPedido)
+
+        private async Task<List<ItemPedidoDespachoDTO>> ArmarItemsAsync(Solicitudpedido pedido)
         {
-            var pedido = await _pedidoRepositorio.ObtenerPorId(idPedido);
-            if (pedido == null) return null;
-
-            var detalle = await _pedidoRepositorio.ObtenerDetallePedido(idPedido);
-            var items = new List<ItemPedidoAceptacionDTO>();
-
-            foreach (var d in detalle)
-            {
-                var stock = await _stock.ObtenerStockProductoAsync(d.IdProducto);
-                var aProducir = Math.Max(d.CantidadSolicitada - stock, 0);
-
-                var capaces = aProducir > 0
-                    ? await _operariosRepositorio.ObtenerCapacesAsync(d.IdProducto)
-                    : new List<Operario>();
-
-                items.Add(new ItemAsignableDTO
-                {
-                    IdProducto = d.IdProducto,
-                    NombreProducto = d.IdProductoNavigation?.Nombre ?? "",
-                    Cantidad = d.CantidadSolicitada,
-                    StockDisponible = stock,
-                    CantidadAProducir = aProducir,
-                    Operarios = capaces.Select(o => new OperarioOpcionDTO
-                    {
-                        IdOperario = o.IdOperario,
-                        NombreCompleto = $"{o.Nombre} {o.Apellido}".Trim()
-                    }).ToList()
-                });
-            }
-
-            return items;
-        }
-
-        /// <summary>
-        /// Acepta una cantidad por producto. Lo que hay en stock se despacha; lo que falta queda
-        /// pendiente de producción y se informa para que el usuario pueda generarla.
-        /// </summary>
-        public async Task<(ResultadoAceptarPedido Resultado, string? Mensaje, ResultadoAceptacionPedidoDTO? Datos)> AceptarPedidoAsync(int idPedido, AceptarPedidoProductosDTO dto)
-        {
-            var pedido = await _pedidoRepositorio.ObtenerPorId(idPedido);
-            if (pedido == null)
-                return (ResultadoAceptarPedido.NoExiste, null, null);
-
-            if (pedido.EstadoPedido != EstadoPendiente)
-                return (ResultadoAceptarPedido.NoPendiente, "El pedido ya fue aceptado.", null);
-
-            // Un mismo producto puede venir repetido: se suman sus cantidades
-            var aceptadas = (dto?.Items ?? new List<AceptacionItemDTO>())
-                .GroupBy(i => i.IdProducto)
-                .ToDictionary(g => g.Key, g => g.Sum(i => i.CantidadAceptada));
-
-            // 1) Validar todo antes de modificar nada
-            foreach (var (idProducto, cantidad) in aceptadas)
-            {
-                if (cantidad < 0)
-                    return (ResultadoAceptarPedido.CantidadInvalida,
-                        $"La cantidad aceptada del producto {idProducto} no puede ser negativa.", null);
-
-                if (!pedido.DetallePedidos.Any(d => d.IdProducto == idProducto))
-                    return (ResultadoAceptarPedido.ProductoInvalido,
-                        $"El producto {idProducto} no pertenece al pedido.", null);
-            }
-
+            var items = new List<ItemPedidoDespachoDTO>();
             foreach (var d in pedido.DetallePedidos)
-            {
-                var aceptada = aceptadas.TryGetValue(d.IdProducto, out var v) ? v : 0;
-                if (aceptada > d.CantidadesProductos)
-                    return (ResultadoAceptarPedido.CantidadInvalida,
-                        $"No se puede aceptar más de lo pedido del producto {d.IdProducto} ({d.CantidadesProductos}).", null);
-            }
-
-            // 2) Aplicar: lo que hay en stock se despacha, el resto queda pendiente de producción
-            foreach (var d in pedido.DetallePedidos)
-            {
-                var aceptada = aceptadas.TryGetValue(d.IdProducto, out var v) ? v : 0;
-                d.CantidadAceptada = aceptada;
-                d.CantidadDespachada = await DescontarStockAsync(d.IdProducto, aceptada);
-            }
-
-            pedido.EstadoPedido = pedido.DetallePedidos.Any(d => d.CantidadAceptada > d.CantidadDespachada)
-                ? EstadoEnProduccion
-                : EstadoDespachado;
-            if (pedido.EstadoPedido == EstadoDespachado)
-                pedido.FechaReal = DateTime.Now;
-
-            await _pedidoRepositorio.GuardarCambiosAsync();
-            return (ResultadoAceptarPedido.Ok, null, await ArmarResultadoAsync(pedido));
-        }
-
-        /// <summary>Despacha lo pendiente de producción que ya haya en stock (cuando la producción terminó).</summary>
-        public async Task<(ResultadoAceptarPedido Resultado, string? Mensaje, ResultadoAceptacionPedidoDTO? Datos)> DespacharPendientesAsync(int idPedido)
-        {
-            var pedido = await _pedidoRepositorio.ObtenerPorId(idPedido);
-            if (pedido == null)
-                return (ResultadoAceptarPedido.NoExiste, null, null);
-
-            if (pedido.EstadoPedido != EstadoEnProduccion)
-                return (ResultadoAceptarPedido.NoPendiente, "El pedido no tiene productos pendientes de producción.", null);
-
-            foreach (var d in pedido.DetallePedidos.Where(d => d.CantidadAceptada > d.CantidadDespachada).ToList())
-            {
-                d.CantidadDespachada += await DescontarStockAsync(d.IdProducto, d.CantidadAceptada - d.CantidadDespachada);
-            }
-
-            pedido.EstadoPedido = pedido.DetallePedidos.Any(d => d.CantidadAceptada > d.CantidadDespachada)
-                ? EstadoEnProduccion
-                : EstadoDespachado;
-            if (pedido.EstadoPedido == EstadoDespachado)
-                pedido.FechaReal = DateTime.Now;
-
-            await _pedidoRepositorio.GuardarCambiosAsync();
-            return (ResultadoAceptarPedido.Ok, null, await ArmarResultadoAsync(pedido));
-        }
-
-        /// <summary>Descuenta del stock hasta lo solicitado y devuelve cuánto se pudo despachar.</summary>
-        private async Task<int> DescontarStockAsync(int idProducto, int solicitado)
-        {
-            if (solicitado <= 0) return 0;
-
-            var producto = await _stock.ObtenerProductoAsync(idProducto);
-            if (producto == null) return 0;
-
-            int enStock = Math.Max((int?)producto.StockActual ?? 0, 0);
-            int despachado = Math.Min(enStock, solicitado);
-
-            if (despachado > 0)
-                producto.StockActual = enStock - despachado;
-
-            return despachado;
-        }
-
-        /// <summary>Lista de productos que todavía necesitan producción.</summary>
-        private async Task<ResultadoAceptacionPedidoDTO> ArmarResultadoAsync(Solicitudpedido pedido)
-        {
-            var resultado = new ResultadoAceptacionPedidoDTO
-            {
-                IdPedido = pedido.IdPedido,
-                EstadoPedido = pedido.EstadoPedido
-            };
-
-            foreach (var d in pedido.DetallePedidos.Where(d => d.CantidadAceptada > d.CantidadDespachada))
             {
                 var producto = await _stock.ObtenerProductoAsync(d.IdProducto);
-                resultado.PendientesProduccion.Add(new ProductoPendienteProduccionDTO
+                items.Add(new ItemPedidoDespachoDTO
                 {
                     IdProducto = d.IdProducto,
                     NombreProducto = producto?.Nombre ?? "",
-                    CantidadAProducir = d.CantidadAceptada - d.CantidadDespachada
+                    CantidadSolicitada = d.CantidadSolicitada,
+                    CantidadAceptada = d.CantidadAceptada,
+                    CantidadDespachada = d.CantidadDespachada,
+                    StockDisponible = producto?.StockActual ?? 0
                 });
             }
-
-            return resultado;
+            return items;
         }
+
+        public async Task<List<ItemPedidoDespachoDTO>?> ObtenerItemsAsync(int idPedido)
+        {
+            var pedido = await _pedidoRepositorio.ObtenerPorId(idPedido);
+            return pedido == null ? null : await ArmarItemsAsync(pedido);
+        }
+
+        private async Task<ResultadoPedidoDTO> ArmarResultadoAsync(Solicitudpedido p) =>
+            new() { IdPedido = p.IdPedido, EstadoPedido = p.EstadoPedido, Items = await ArmarItemsAsync(p) };
+
+        /// Fija la cantidad aceptada TOTAL por producto (se puede corregir hasta despachar).
+        public async Task<(ResultadoPedido, string?, ResultadoPedidoDTO?)> AceptarAsync(int idPedido, AceptarPedidoProductosDTO dto)
+        {
+            var pedido = await _pedidoRepositorio.ObtenerPorId(idPedido);
+            if (pedido == null) return (ResultadoPedido.NoExiste, null, null);
+            if (pedido.EstadoPedido == EstadoCompletado)
+                return (ResultadoPedido.YaCompletado, "El pedido ya fue despachado por completo.", null);
+
+            var nuevas = (dto?.Items ?? new()).GroupBy(i => i.IdProducto)
+                                              .ToDictionary(g => g.Key, g => g.Sum(i => i.CantidadAceptada));
+
+            // 1) validar
+            foreach (var (idProducto, total) in nuevas)
+            {
+                var d = pedido.DetallePedidos.FirstOrDefault(x => x.IdProducto == idProducto);
+                if (d == null)
+                    return (ResultadoPedido.ProductoInvalido, $"El producto {idProducto} no pertenece al pedido.", null);
+                if (total < d.CantidadDespachada || total > d.CantidadSolicitada)
+                    return (ResultadoPedido.CantidadInvalida,
+                        $"Producto {idProducto}: la cantidad aceptada debe estar entre {d.CantidadDespachada} (ya despachado) y {d.CantidadSolicitada} (solicitado).", null);
+
+                var stock = await _stock.ObtenerStockProductoAsync(idProducto);
+                if (total - d.CantidadDespachada > stock)
+                    return (ResultadoPedido.StockInsuficiente,
+                        $"Producto {idProducto}: solo hay {stock} en stock para despachar.", null);
+            }
+
+            // 2) aplicar
+            foreach (var (idProducto, total) in nuevas)
+                pedido.DetallePedidos.First(x => x.IdProducto == idProducto).CantidadAceptada = total;
+
+            pedido.EstadoPedido = CalcularEstado(pedido);
+            await _pedidoRepositorio.GuardarCambiosAsync();
+            return (ResultadoPedido.Ok, null, await ArmarResultadoAsync(pedido));
+        }
+
+
+        /// Envía lo aceptado: registra el Despacho, suma CantidadDespachada y descuenta stock.
+        public async Task<(ResultadoPedido, string?, ResultadoPedidoDTO?)> DespacharAsync(int idPedido, DespacharPedidoDTO dto)
+        {
+            var pedido = await _pedidoRepositorio.ObtenerPorId(idPedido);
+            if (pedido == null) return (ResultadoPedido.NoExiste, null, null);
+            if (pedido.EstadoPedido == EstadoCompletado)
+                return (ResultadoPedido.YaCompletado, "El pedido ya fue despachado por completo.", null);
+
+            var lineas = (dto?.Items ?? new()).GroupBy(i => i.IdProducto)
+                                              .ToDictionary(g => g.Key, g => g.Sum(i => i.Cantidad));
+            if (lineas.Values.Any(c => c < 0))
+                return (ResultadoPedido.CantidadInvalida, "Las cantidades no pueden ser negativas.", null);
+            lineas = lineas.Where(kv => kv.Value > 0).ToDictionary(kv => kv.Key, kv => kv.Value);
+            if (lineas.Count == 0)
+                return (ResultadoPedido.CantidadInvalida, "Indicá al menos un producto con cantidad mayor a cero.", null);
+
+            // 1) validar contra lo aceptado y el stock actual (el stock puede haber bajado desde la aceptación)
+            var productos = new Dictionary<int, Producto>();
+            foreach (var (idProducto, cantidad) in lineas)
+            {
+                var d = pedido.DetallePedidos.FirstOrDefault(x => x.IdProducto == idProducto);
+                if (d == null)
+                    return (ResultadoPedido.ProductoInvalido, $"El producto {idProducto} no pertenece al pedido.", null);
+
+                var porDespachar = d.CantidadAceptada - d.CantidadDespachada;
+                if (cantidad > porDespachar)
+                    return (ResultadoPedido.CantidadInvalida,
+                        $"Producto {idProducto}: solo hay {porDespachar} aceptados sin despachar.", null);
+
+                var producto = await _stock.ObtenerProductoAsync(idProducto);
+                if (producto == null || producto.StockActual < cantidad)
+                    return (ResultadoPedido.StockInsuficiente,
+                        $"Stock insuficiente del producto {idProducto} (hay {producto?.StockActual ?? 0}).", null);
+                productos[idProducto] = producto;
+            }
+
+            // 2) aplicar (un único SaveChanges = una transacción)
+            var despacho = new Despacho { FechaDespacho = DateTime.Now, IdEmpleado = dto!.IdEmpleado };
+            foreach (var (idProducto, cantidad) in lineas)
+            {
+                despacho.DetalleDespachos.Add(new DetalleDespacho { IdProducto = idProducto, Cantidad = cantidad });
+                pedido.DetallePedidos.First(x => x.IdProducto == idProducto).CantidadDespachada += cantidad;
+                productos[idProducto].StockActual -= cantidad;
+            }
+            pedido.Despachos.Add(despacho);
+
+            pedido.EstadoPedido = CalcularEstado(pedido);
+            if (pedido.EstadoPedido == EstadoCompletado) pedido.FechaReal = DateTime.Now;
+
+            await _pedidoRepositorio.GuardarCambiosAsync();
+            return (ResultadoPedido.Ok, null, await ArmarResultadoAsync(pedido));
+        }
+
     }
+
+
+
 }
+

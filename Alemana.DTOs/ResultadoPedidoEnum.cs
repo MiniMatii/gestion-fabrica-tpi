@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace Alemana.DTOs
 {
-    public class AceptarPedidoDTO
-    {
-        public List<AsignacionItemDTO> Asignaciones { get; set; } = new List<AsignacionItemDTO>();
-    }
+    public enum ResultadoPedido { Ok, NoExiste, YaCompletado, CantidadInvalida, ProductoInvalido, StockInsuficiente }
 }

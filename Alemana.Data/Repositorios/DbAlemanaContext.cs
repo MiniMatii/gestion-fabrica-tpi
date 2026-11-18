@@ -212,6 +212,9 @@ public partial class DbAlemanaContext : DbContext
             entity.Property(e => e.IdPedido).HasColumnName("idPedido");
             entity.Property(e => e.IdProducto).HasColumnName("idProducto");
             entity.Property(e => e.CantidadSolicitada).HasColumnName("cantidadSolicitada");
+            entity.Property(e => e.CantidadAceptada).HasColumnName("cantidadAceptada");
+            entity.Property(e => e.CantidadDespachada).HasColumnName("cantidadDespachada");
+
 
             entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.DetallePedidos)
                 .HasForeignKey(d => d.IdPedido)

@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Alemana.DTOs
 {
-    public enum ResultadoAceptacion
-    {
-        Ok,
-        NoExiste,
-        NoPendiente,
-        AsignacionInvalida,
-        StockInsuficiente
+    public class DespachoItemDTO 
+    { 
+        public int IdProducto { get; set; } 
+        public int Cantidad { get; set; } 
     }
+
 }

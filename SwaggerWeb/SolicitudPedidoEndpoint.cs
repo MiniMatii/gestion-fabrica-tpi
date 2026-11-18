@@ -5,14 +5,13 @@ namespace SwaggerWeb
 {
     public static class SolicitudPedidoEndpoint
     {
-        private static IResult RespuestaAceptacion(ResultadoAceptarPedido resultado, string? mensaje, ResultadoAceptacionPedidoDTO? datos) =>
-            resultado switch
-            {
-                ResultadoAceptarPedido.Ok => Results.Ok(datos),
-                ResultadoAceptarPedido.NoExiste => Results.NotFound(),
-                ResultadoAceptarPedido.NoPendiente => Results.Conflict(mensaje),
-                _ => Results.UnprocessableEntity(mensaje)
-            };
+        static IResult Responder(ResultadoPedido r, string? msg, ResultadoPedidoDTO? datos) => r switch
+        {
+            ResultadoPedido.Ok => Results.Ok(datos),
+            ResultadoPedido.NoExiste => Results.NotFound(),
+            ResultadoPedido.YaCompletado => Results.Conflict(msg),
+            _ => Results.UnprocessableEntity(msg)
+        };
 
         public static void MapSolicitudPedidoEndpoint(this WebApplication app)
         {
@@ -87,37 +86,24 @@ namespace SwaggerWeb
                 .AllowAnonymous()
                 .WithOpenApi();
 
-            // Productos del pedido con cantidad pedida y stock, para el menú de aceptación
-            app.MapGet("/pedidos/{id:int}/aceptacion", async (int id, ISolicitudPedidoServicio servicio) =>
+            app.MapGet("/pedidos/{id:int}/items", async (int id, ISolicitudPedidoServicio s) =>
             {
-                var items = await servicio.ObtenerItemsAceptacionAsync(id);
+                var items = await s.ObtenerItemsAsync(id);
                 return items is null ? Results.NotFound() : Results.Ok(items);
-            })
-            .WithName("Items de aceptacion")
-            .WithTags("Pedidos")
-            .WithOpenApi();
+            }).WithTags("Pedidos").WithOpenApi();
 
-            // El responsable acepta una cantidad por producto. Lo que falta queda pendiente de producción
-            app.MapPost("/pedidos/{id:int}/aceptar",
-                async (int id, AceptarPedidoProductosDTO dto, ISolicitudPedidoServicio servicio) =>
-                {
-                    var (resultado, mensaje, datos) = await servicio.AceptarPedidoAsync(id, dto);
-                    return RespuestaAceptacion(resultado, mensaje, datos);
-                })
-                .WithName("Aceptar pedido")
-                .WithTags("Pedidos")
-                .WithOpenApi();
+            app.MapPost("/pedidos/{id:int}/aceptar", async (int id, AceptarPedidoProductosDTO dto, ISolicitudPedidoServicio s) =>
+            {
+                var (r, m, d) = await s.AceptarAsync(id, dto);
+                return Responder(r, m, d);
+            }).WithTags("Pedidos").WithOpenApi();
 
-            // Despacha lo pendiente de producción que ya haya en stock
-            app.MapPost("/pedidos/{id:int}/despachar-pendientes",
-                async (int id, ISolicitudPedidoServicio servicio) =>
-                {
-                    var (resultado, mensaje, datos) = await servicio.DespacharPendientesAsync(id);
-                    return RespuestaAceptacion(resultado, mensaje, datos);
-                })
-                .WithName("Despachar pendientes")
-                .WithTags("Pedidos")
-                .WithOpenApi();
+
+            app.MapPost("/pedidos/{id:int}/despachos", async (int id, DespacharPedidoDTO dto, ISolicitudPedidoServicio s) =>
+            {
+                var (r, m, d) = await s.DespacharAsync(id, dto);
+                return Responder(r, m, d);
+            }).WithTags("Pedidos").WithOpenApi();
         }
     }
 }
