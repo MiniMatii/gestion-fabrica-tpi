@@ -11,5 +11,8 @@ namespace Alemana.Data.Repositorios
         Task<int> ObtenerStockProductoAsync(int idProducto);
 
         Task<Producto?> ObtenerProductoAsync(int idProducto);
+
+        /// <summary>Materia prima comprometida por órdenes En Proceso (todavía no descontada de los lotes).</summary>
+        Task<Dictionary<int, decimal>> ObtenerReservadoPorOrdenesEnProcesoAsync();
     }
 }

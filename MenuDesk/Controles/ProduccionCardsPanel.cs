@@ -4,6 +4,9 @@ namespace MenuDesk.Controles
 {
     public class ProduccionCardsPanel : FlowLayoutPanel
     {
+        public event Action<int>? ConfirmarOrdenClick;
+        public event Action<int>? FinalizarOrdenClick;
+
         public ProduccionCardsPanel()
         {
             DoubleBuffered = true;
@@ -12,7 +15,7 @@ namespace MenuDesk.Controles
             FlowDirection = FlowDirection.LeftToRight;
         }
 
-        public void Cargar(List<ProduccionPedidoDTO> pedidos)
+        public void Cargar(List<OrdenProduccionDTO> ordenes)
         {
             SuspendLayout();
             try
@@ -20,8 +23,13 @@ namespace MenuDesk.Controles
                 foreach (Control c in Controls) c.Dispose();
                 Controls.Clear();
 
-                foreach (var p in pedidos)
-                    Controls.Add(new ProduccionCard(p));
+                foreach (var o in ordenes)
+                {
+                    var card = new ProduccionCard(o);
+                    card.ConfirmarClick += id => ConfirmarOrdenClick?.Invoke(id);
+                    card.FinalizarClick += id => FinalizarOrdenClick?.Invoke(id);
+                    Controls.Add(card);
+                }
             }
             finally
             {

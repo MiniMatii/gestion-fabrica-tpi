@@ -61,5 +61,20 @@ namespace Alemana.Data.Repositorios
         {
             return await _db.Productos.FirstOrDefaultAsync(p => p.IdProducto == idProducto);
         }
+
+        public async Task<Dictionary<int, decimal>> ObtenerReservadoPorOrdenesEnProcesoAsync()
+        {
+            var filas = await (
+                from o in _db.Ordenproduccions.AsNoTracking()
+                where o.EstadoOrden == "En Proceso"
+                join p in _db.Productos.AsNoTracking() on o.IdProducto equals p.IdProducto
+                join mr in _db.MateriapReceta.AsNoTracking() on p.IdReceta equals mr.IdReceta
+                select new { mr.IdMateriaP, Cantidad = mr.CantidadNecesaria * o.CantidadAproducir }
+            ).ToListAsync();
+
+            return filas
+                .GroupBy(f => f.IdMateriaP)
+                .ToDictionary(g => g.Key, g => g.Sum(f => f.Cantidad));
+        }
     }
 }

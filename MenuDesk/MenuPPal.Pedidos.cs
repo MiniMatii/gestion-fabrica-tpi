@@ -1,4 +1,4 @@
-using Alemana.DTOs;
+﻿using Alemana.DTOs;
 using System.Linq;
 using System.Net;
 
@@ -99,76 +99,83 @@ namespace MenuDesk
         {
             try
             {
-                var items = await _apiClient.ObtenerListaAsync<ItemPedidoAceptacionDTO>($"{endpoint}/{idPedido}/aceptacion");
+                var items = await _apiClient.ObtenerListaAsync<ItemPedidoDespachoDTO>($"{endpoint}/{idPedido}/items");
                 if (items == null || items.Count == 0)
                 {
                     MessageBox.Show("No se encontró el pedido o no tiene productos.",
-                        "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        "Pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                using var frm = new FormAceptarPedido(idPedido, items);
+                var empleados = await _apiClient.ObtenerListaAsync<EmpleadoDTO>("empleado") ?? new List<EmpleadoDTO>();
+                int? idEmpleadoActual = _apiClient.Rol == "Empleado" ? _apiClient.IdUsuario : null;
+
+                using var frm = new FormGestionPedido(idPedido, items, empleados, idEmpleadoActual);
                 if (frm.ShowDialog(this) != DialogResult.OK) return;
 
-                var dto = new AceptarPedidoProductosDTO { Items = frm.Aceptaciones };
-                var (ok, status, datos, mensaje) = await _apiClient
-                    .PostConDatosAsync<ResultadoAceptacionPedidoDTO, AceptarPedidoProductosDTO>($"{endpoint}/{idPedido}/aceptar", dto);
+                ResultadoPedidoDTO? resultado = null;
 
-                if (!ok)
+                if (frm.Aceptaciones.Count > 0)
                 {
-                    if (status == HttpStatusCode.Conflict)
+                    var r = await _apiClient.PostConDatosAsync<ResultadoPedidoDTO, AceptarPedidoProductosDTO>(
+                        $"{endpoint}/{idPedido}/aceptar", new AceptarPedidoProductosDTO { Items = frm.Aceptaciones });
+                    if (!r.Ok)
                     {
-                        // Ya estaba aceptado: si quedó producción pendiente, ofrecer despacharla
-                        await OfrecerDespacharPendientesAsync(idPedido, mensaje);
+                        MessageBox.Show(r.Mensaje ?? "No se pudo guardar la aceptación.",
+                            "Pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-
-                    MessageBox.Show(mensaje ?? "No se pudo aceptar el pedido.",
-                        "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    resultado = r.Datos;
                 }
 
-                MostrarResultado(idPedido, datos);
+                if (frm.Despachos.Count > 0)
+                {
+                    var r = await _apiClient.PostConDatosAsync<ResultadoPedidoDTO, DespacharPedidoDTO>(
+                        $"{endpoint}/{idPedido}/despachos",
+                        new DespacharPedidoDTO { IdEmpleado = frm.IdEmpleado, Items = frm.Despachos });
+                    if (!r.Ok)
+                    {
+                        MessageBox.Show(r.Mensaje ?? "No se pudo registrar el despacho.",
+                            "Pedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    resultado = r.Datos;
+                }
+
+                MostrarResultado(idPedido, resultado);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al aceptar el pedido: " + ex.Message,
-                    "Aceptar pedido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al gestionar el pedido: " + ex.Message,
+                    "Pedido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        /// <summary>Si no quedó nada pendiente, el pedido sale de la lista; si no, se muestran los pendientes de producción.</summary>
-        private void MostrarResultado(int idPedido, ResultadoAceptacionPedidoDTO? datos)
+        /// <summary>Completado sale de la lista; si lo aceptado supera el stock, se ofrece generar la producción faltante.</summary>
+        private void MostrarResultado(int idPedido, ResultadoPedidoDTO? datos)
         {
-            if (datos is null || datos.PendientesProduccion.Count == 0)
+            if (datos == null) return;
+
+            if (datos.EstadoPedido == "Completado")
             {
                 pnlPedidos.QuitarPedido(idPedido);
                 return;
             }
 
-            using var frm = new FormPendientesProduccion(idPedido, datos.PendientesProduccion, _apiClient);
+            var faltantes = datos.Items
+                .Where(i => i.PendienteDespachar > i.StockDisponible)
+                .Select(i => new ProductoPendienteProduccionDTO
+                {
+                    IdProducto = i.IdProducto,
+                    NombreProducto = i.NombreProducto,
+                    CantidadAProducir = i.PendienteDespachar - Math.Max(i.StockDisponible, 0)
+                })
+                .ToList();
+
+            if (faltantes.Count == 0) return;
+
+            using var frm = new FormPendientesProduccion(idPedido, faltantes, _apiClient);
             frm.ShowDialog(this);
-        }
-
-        private async Task OfrecerDespacharPendientesAsync(int idPedido, string? mensaje)
-        {
-            var respuesta = MessageBox.Show(
-                (mensaje ?? "El pedido ya fue aceptado.") + "\n\n¿Despachar los productos pendientes que ya estén en stock?",
-                "Pedido #" + idPedido, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (respuesta != DialogResult.Yes) return;
-
-            var (ok, _, datos, error) = await _apiClient
-                .PostConDatosAsync<ResultadoAceptacionPedidoDTO, object?>($"{endpoint}/{idPedido}/despachar-pendientes", null);
-
-            if (!ok)
-            {
-                MessageBox.Show(error ?? "No se pudieron despachar los pendientes.",
-                    "Pedido #" + idPedido, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            MostrarResultado(idPedido, datos);
         }
 
         private async Task<List<PedidoResumenDTO>> ObtenerPedidosPendientesAsync()

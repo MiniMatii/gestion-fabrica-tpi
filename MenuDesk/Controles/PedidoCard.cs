@@ -21,7 +21,8 @@ namespace MenuDesk.Controles
         {
             PedidoId = pedido.IdPedido;
             lblNumero.Text = "Pedido #" + pedido.IdPedido;
-            lblFecha.Text = "Ingreso: " + pedido.FechaPedido.ToString("dd/MM/yyyy HH:mm");
+            lblFecha.Text = "Ingreso: " + pedido.FechaPedido.ToString("dd/MM/yyyy HH:mm")
+                          + (string.IsNullOrEmpty(pedido.EstadoPedido) || pedido.EstadoPedido == "Pendiente" ? "" : $"  ({pedido.EstadoPedido})");
         }
 
         private void btnVer_Click(object sender, EventArgs e)

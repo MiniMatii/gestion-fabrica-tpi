@@ -191,7 +191,16 @@ namespace Alemana.API
                 var texto = await response.Content.ReadAsStringAsync();
 
                 string mensaje = texto;
-                try { mensaje = System.Text.Json.JsonSerializer.Deserialize<string>(texto) ?? texto; }
+                try
+                {
+                    using var doc = System.Text.Json.JsonDocument.Parse(texto);
+                    if (doc.RootElement.ValueKind == System.Text.Json.JsonValueKind.String)
+                        mensaje = doc.RootElement.GetString() ?? texto;
+                    else if (doc.RootElement.ValueKind == System.Text.Json.JsonValueKind.Object &&
+                             doc.RootElement.TryGetProperty("error", out var err) &&
+                             err.ValueKind == System.Text.Json.JsonValueKind.String)
+                        mensaje = err.GetString() ?? texto;
+                }
                 catch { }
 
                 return (false, response.StatusCode, mensaje);

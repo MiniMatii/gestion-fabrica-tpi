@@ -15,5 +15,6 @@ namespace Alemana.Data.Repositorios
         Task<List<Ordenproduccion>> ObtenerParaProduccionAsync();
         void AgregarOrden(Ordenproduccion orden);
         Task GuardarCambiosAsync();
+        Task<Ordenproduccion?> ObtenerConDetalleAsync(int id);
     }
 }

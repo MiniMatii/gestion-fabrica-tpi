@@ -31,12 +31,13 @@ namespace SwaggerWeb
             .AllowAnonymous()
             .WithOpenApi();
 
-            //app.MapGet("/ordenproduccion/produccion", async (IOrdenProduccionServicio servicio) =>
-            //Results.Ok(await servicio.ObtenerProduccionAsync()))
-            //.WithName("ObtenerOrdenProduccionesPendientes")
-            //.WithTags("OrdenProduccion")
-            //.AllowAnonymous()
-            //.WithOpenApi();
+            // Órdenes sin terminar (Pendiente y En Proceso)
+            app.MapGet("/ordenproduccion/produccion", async (IOrdenProduccionServicio servicio) =>
+                Results.Ok(await servicio.ObtenerProduccionAsync()))
+                .WithName("ObtenerOrdenProduccionesPendientes")
+                .WithTags("OrdenProduccion")
+                .AllowAnonymous()
+                .WithOpenApi();
 
 
             app.MapPost("/ordenproduccion", async (OrdenProduccionDTO dto, IOrdenProduccionServicio servicio) =>
@@ -114,13 +115,31 @@ namespace SwaggerWeb
                     {
                         ResultadoConfirmacion.Ok => Results.NoContent(),
                         ResultadoConfirmacion.NoExiste => Results.NotFound(),
-                        ResultadoConfirmacion.NoPendiente => Results.Conflict(mensaje),
-                        ResultadoConfirmacion.StockInsuficiente => Results.UnprocessableEntity(mensaje),
-                        _ => Results.BadRequest(mensaje)
+                        ResultadoConfirmacion.NoPendiente => Results.Conflict(new { error = mensaje }),
+                        ResultadoConfirmacion.StockInsuficiente => Results.UnprocessableEntity(new { error = mensaje }),
+                        _ => Results.BadRequest(new { error = mensaje })
                     };
                     return respuesta;
                 })
                 .WithName("ConfirmarOrdenProduccion")
+                .WithTags("OrdenProduccion")
+                .WithOpenApi();
+
+            // Finaliza la orden: descuenta lotes, suma stock del producto
+            app.MapPost("/ordenproduccion/{id:int}/finalizar",
+                async (int id, IOrdenProduccionServicio servicio) =>
+                {
+                    var (resultado, mensaje) = await servicio.FinalizarAsync(id);
+                    IResult respuesta = resultado switch
+                    {
+                        ResultadoConfirmacion.Ok => Results.NoContent(),
+                        ResultadoConfirmacion.NoExiste => Results.NotFound(),
+                        ResultadoConfirmacion.NoPendiente => Results.Conflict(new { error = mensaje }),
+                        _ => Results.UnprocessableEntity(new { error = mensaje })
+                    };
+                    return respuesta;
+                })
+                .WithName("FinalizarOrdenProduccion")
                 .WithTags("OrdenProduccion")
                 .WithOpenApi();
 

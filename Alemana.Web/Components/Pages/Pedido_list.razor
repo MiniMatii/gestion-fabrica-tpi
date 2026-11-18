@@ -360,7 +360,8 @@ else
         var creada = await Api.PostAsync("ordenproduccion", new OrdenProduccionDTO
         {
             IdProducto = pendiente.IdProducto,
-            CantidadRequerida = pendiente.CantidadAProducir
+            CantidadAproducir = pendiente.CantidadAProducir,
+            EstadoOrden = "Pendiente"
         });
 
         exito = creada;
