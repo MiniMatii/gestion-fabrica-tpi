@@ -140,7 +140,8 @@ namespace MenuDesk
                 selectorRMProd.ValueMember = "IdReceta";
 
                 selectorRAP.DataSource = listadoRecetas; 
-                selectorRMProd.DataSource = listadoRecetas; 
+                selectorRMProd.DataSource = listadoRecetas;
+                MessageBox.Show($"Recetas cargadas: {listadoRecetas.Count} | En el combo: {selectorRMProd.Items.Count}");
 
             }
         }

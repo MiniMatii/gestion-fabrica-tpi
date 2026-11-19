@@ -154,6 +154,7 @@ namespace MenuDesk
                 {
                     ktTablaCapacidades.DataSource = listaDatos;
                     tableCapacidadRequeridaProducto.DataSource = listaDatos;
+
                     //ktTablaCapacidades.Columns["IdCap"].HeaderText = "IdCap";
                     //ktTablaCapacidades.Columns["DescCapacidad"].HeaderText = "Descripcion";
                     //ktTablaCapacidades.Columns["NomCapacidad"].HeaderText = "Capacidad";

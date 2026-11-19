@@ -42,19 +42,6 @@
             DataGridViewCellStyle dataGridViewCellStyle47 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle48 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle49 = new DataGridViewCellStyle();
-            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation3 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
-            DataGridViewCellStyle dataGridViewCellStyle26 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle27 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle28 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle29 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle30 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle31 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle32 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle33 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle34 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle35 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle36 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle37 = new DataGridViewCellStyle();
             KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation2 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
             DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
@@ -68,6 +55,19 @@
             DataGridViewCellStyle dataGridViewCellStyle23 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle24 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle25 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle26 = new DataGridViewCellStyle();
+            KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation animation3 = new KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.Animation();
+            DataGridViewCellStyle dataGridViewCellStyle27 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle28 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle29 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle30 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle31 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle32 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle33 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle34 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle35 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle36 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle37 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle50 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle51 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle52 = new DataGridViewCellStyle();
@@ -189,9 +189,6 @@
             ktPanel34 = new KimTools.WinForms.KtPanel();
             ktLabel8 = new KimTools.WinForms.KtLabel();
             ktDivider7 = new KimTools.WinForms.KtDivider();
-            ktPanel31 = new KimTools.WinForms.KtPanel();
-            ktPanel32 = new KimTools.WinForms.KtPanel();
-            valorCantCambio = new KimTools.WinForms.KtTextBox();
             ktPanel29 = new KimTools.WinForms.KtPanel();
             ktPanel30 = new KimTools.WinForms.KtPanel();
             ktLabel7 = new KimTools.WinForms.KtLabel();
@@ -222,6 +219,8 @@
             FechaVencimientoE = new DataGridViewTextBoxColumn();
             EstadoLoteE = new DataGridViewTextBoxColumn();
             CantidadLoteE = new DataGridViewTextBoxColumn();
+            ktPanel32 = new KimTools.WinForms.KtPanel();
+            valorCantCambio = new KimTools.WinForms.KtTextBox();
             navLotes = new KimTools.WinForms.KtPanel();
             proveedorButton = new KimTools.WinForms.KtButton();
             materiapButton = new KimTools.WinForms.KtButton();
@@ -731,8 +730,6 @@
             ktPanel36.SuspendLayout();
             ktPanel33.SuspendLayout();
             ktPanel34.SuspendLayout();
-            ktPanel31.SuspendLayout();
-            ktPanel32.SuspendLayout();
             ktPanel29.SuspendLayout();
             ktPanel30.SuspendLayout();
             ktPanel39.SuspendLayout();
@@ -744,6 +741,7 @@
             ktPanel44.SuspendLayout();
             ktPanel43.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ktTablaLotesEliminar).BeginInit();
+            ktPanel32.SuspendLayout();
             navLotes.SuspendLayout();
             panelOperarios.SuspendLayout();
             navBarOperarios.SuspendLayout();
@@ -2492,7 +2490,7 @@
             fechaIngreso.Location = new Point(0, 0);
             fechaIngreso.MinimumSize = new Size(0, 40);
             fechaIngreso.Name = "fechaIngreso";
-            fechaIngreso.Size = new Size(286, 43);
+            fechaIngreso.Size = new Size(286, 52);
             fechaIngreso.TabIndex = 0;
             fechaIngreso.TextAlign = HorizontalAlignment.Center;
             fechaIngreso.TextColor = KimTools.WinForms.KtColor.Empty;
@@ -2620,7 +2618,6 @@
             ktPanel26.Controls.Add(ktPanel35);
             ktPanel26.Controls.Add(ktPanel33);
             ktPanel26.Controls.Add(ktDivider7);
-            ktPanel26.Controls.Add(ktPanel31);
             ktPanel26.Controls.Add(ktPanel29);
             ktPanel26.Dock = DockStyle.Fill;
             ktPanel26.Foreground = KimTools.WinForms.KtColor.Empty;
@@ -2641,7 +2638,7 @@
             ktPanel37.Controls.Add(guardarCambiosLote);
             ktPanel37.Dock = DockStyle.Top;
             ktPanel37.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel37.Location = new Point(0, 276);
+            ktPanel37.Location = new Point(0, 216);
             ktPanel37.Name = "ktPanel37";
             ktPanel37.PatternColor = KimTools.WinForms.KtColor.Empty;
             ktPanel37.Size = new Size(1088, 56);
@@ -2709,7 +2706,7 @@
             ktDivider8.Dock = DockStyle.Top;
             ktDivider8.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             ktDivider8.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
-            ktDivider8.Location = new Point(0, 253);
+            ktDivider8.Location = new Point(0, 193);
             ktDivider8.Margin = new Padding(0);
             ktDivider8.Name = "ktDivider8";
             ktDivider8.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
@@ -2727,7 +2724,7 @@
             ktPanel35.Controls.Add(ktPanel36);
             ktPanel35.Dock = DockStyle.Top;
             ktPanel35.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel35.Location = new Point(0, 193);
+            ktPanel35.Location = new Point(0, 133);
             ktPanel35.Name = "ktPanel35";
             ktPanel35.PatternColor = KimTools.WinForms.KtColor.Empty;
             ktPanel35.Size = new Size(1088, 60);
@@ -2799,7 +2796,7 @@
             ktPanel33.Controls.Add(ktPanel34);
             ktPanel33.Dock = DockStyle.Top;
             ktPanel33.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
-            ktPanel33.Location = new Point(0, 138);
+            ktPanel33.Location = new Point(0, 78);
             ktPanel33.Margin = new Padding(4);
             ktPanel33.Name = "ktPanel33";
             ktPanel33.PatternColor = KimTools.WinForms.KtColor.Empty;
@@ -2848,85 +2845,12 @@
             ktDivider7.Dock = DockStyle.Top;
             ktDivider7.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             ktDivider7.LineStyle = KimTools.WinForms.KtDivider.LineStyles.DashDotDot;
-            ktDivider7.Location = new Point(0, 115);
+            ktDivider7.Location = new Point(0, 55);
             ktDivider7.Margin = new Padding(0);
             ktDivider7.Name = "ktDivider7";
             ktDivider7.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
             ktDivider7.Size = new Size(1088, 23);
             ktDivider7.TabIndex = 6;
-            // 
-            // ktPanel31
-            // 
-            ktPanel31.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)0, (int)(byte)0), null, null));
-            ktPanel31.Border = new KimTools.WinForms.KtBrushGradient(KimTools.WinForms.KtColor.BASE_1, KimTools.WinForms.KtColor.BASE_3);
-            ktPanel31.BorderEdges.TopLeft = false;
-            ktPanel31.BorderRadius = 45F;
-            ktPanel31.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            ktPanel31.BorderWidth = 1.5F;
-            ktPanel31.Controls.Add(ktPanel32);
-            ktPanel31.Dock = DockStyle.Top;
-            ktPanel31.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel31.Location = new Point(0, 55);
-            ktPanel31.Name = "ktPanel31";
-            ktPanel31.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel31.Size = new Size(1088, 60);
-            ktPanel31.TabIndex = 2;
-            // 
-            // ktPanel32
-            // 
-            ktPanel32.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null));
-            ktPanel32.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)0, (int)(byte)0), null, null));
-            ktPanel32.BorderRadius = 45F;
-            ktPanel32.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            ktPanel32.BorderWidth = 2.5F;
-            ktPanel32.Controls.Add(valorCantCambio);
-            ktPanel32.Dock = DockStyle.Top;
-            ktPanel32.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktPanel32.Location = new Point(0, 0);
-            ktPanel32.Name = "ktPanel32";
-            ktPanel32.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel32.Size = new Size(1088, 60);
-            ktPanel32.TabIndex = 0;
-            // 
-            // valorCantCambio
-            // 
-            valorCantCambio.AcceptsReturn = false;
-            valorCantCambio.AcceptsTab = false;
-            valorCantCambio.AccessibleRole = AccessibleRole.None;
-            valorCantCambio.AnimationSpeed = 200;
-            valorCantCambio.AutoCompleteMode = AutoCompleteMode.None;
-            valorCantCambio.AutoCompleteSource = AutoCompleteSource.None;
-            valorCantCambio.AutoSizeHeight = true;
-            valorCantCambio.AutoValidate = AutoValidate.EnableAllowFocusChange;
-            valorCantCambio.Bg = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
-            valorCantCambio.Border = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
-            valorCantCambio.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255), null, null);
-            valorCantCambio.BorderRadius = 45;
-            valorCantCambio.BorderThickness = 0;
-            valorCantCambio.Content = KimTools.WinForms.KtColor.CONTENT;
-            valorCantCambio.CustomIconLeft = null;
-            valorCantCambio.CustomIconRight = null;
-            valorCantCambio.DefaultFont = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            valorCantCambio.Dock = DockStyle.Fill;
-            valorCantCambio.ForeColor = Color.Empty;
-            valorCantCambio.HideSelection = true;
-            valorCantCambio.Location = new Point(0, 0);
-            valorCantCambio.MaxLength = 32767;
-            valorCantCambio.MinimumSize = new Size(1, 1);
-            valorCantCambio.Modified = false;
-            valorCantCambio.Name = "valorCantCambio";
-            valorCantCambio.Password = false;
-            valorCantCambio.PasswordChar = '\0';
-            valorCantCambio.ScrollBars = ScrollBars.None;
-            valorCantCambio.SelectedText = "";
-            valorCantCambio.SelectionLength = 0;
-            valorCantCambio.SelectionStart = 0;
-            valorCantCambio.ShortcutsEnabled = true;
-            valorCantCambio.Size = new Size(1088, 60);
-            valorCantCambio.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
-            valorCantCambio.TabIndex = 0;
-            valorCantCambio.TextMarginBottom = 0;
-            valorCantCambio.TextPlaceholder = "Ingrese Valor . . .";
             // 
             // ktPanel29
             // 
@@ -3447,6 +3371,62 @@
             CantidadLoteE.Name = "CantidadLoteE";
             CantidadLoteE.ReadOnly = true;
             // 
+            // ktPanel32
+            // 
+            ktPanel32.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null));
+            ktPanel32.Border = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)0, (int)(byte)0), null, null));
+            ktPanel32.BorderRadius = 45F;
+            ktPanel32.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ktPanel32.BorderWidth = 2.5F;
+            ktPanel32.Controls.Add(valorCantCambio);
+            ktPanel32.Dock = DockStyle.Top;
+            ktPanel32.Foreground = KimTools.WinForms.KtColor.Empty;
+            ktPanel32.Location = new Point(0, 0);
+            ktPanel32.Name = "ktPanel32";
+            ktPanel32.PatternColor = KimTools.WinForms.KtColor.Empty;
+            ktPanel32.Size = new Size(1088, 60);
+            ktPanel32.TabIndex = 0;
+            // 
+            // valorCantCambio
+            // 
+            valorCantCambio.AcceptsReturn = false;
+            valorCantCambio.AcceptsTab = false;
+            valorCantCambio.AccessibleRole = AccessibleRole.None;
+            valorCantCambio.AnimationSpeed = 200;
+            valorCantCambio.AutoCompleteMode = AutoCompleteMode.None;
+            valorCantCambio.AutoCompleteSource = AutoCompleteSource.None;
+            valorCantCambio.AutoSizeHeight = true;
+            valorCantCambio.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            valorCantCambio.Bg = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
+            valorCantCambio.Border = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
+            valorCantCambio.BorderActive = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255), null, null);
+            valorCantCambio.BorderRadius = 45;
+            valorCantCambio.BorderThickness = 0;
+            valorCantCambio.Content = KimTools.WinForms.KtColor.CONTENT;
+            valorCantCambio.CustomIconLeft = null;
+            valorCantCambio.CustomIconRight = null;
+            valorCantCambio.DefaultFont = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            valorCantCambio.Dock = DockStyle.Fill;
+            valorCantCambio.ForeColor = Color.Empty;
+            valorCantCambio.HideSelection = true;
+            valorCantCambio.Location = new Point(0, 0);
+            valorCantCambio.MaxLength = 32767;
+            valorCantCambio.MinimumSize = new Size(1, 1);
+            valorCantCambio.Modified = false;
+            valorCantCambio.Name = "valorCantCambio";
+            valorCantCambio.Password = false;
+            valorCantCambio.PasswordChar = '\0';
+            valorCantCambio.ScrollBars = ScrollBars.None;
+            valorCantCambio.SelectedText = "";
+            valorCantCambio.SelectionLength = 0;
+            valorCantCambio.SelectionStart = 0;
+            valorCantCambio.ShortcutsEnabled = true;
+            valorCantCambio.Size = new Size(1088, 60);
+            valorCantCambio.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
+            valorCantCambio.TabIndex = 0;
+            valorCantCambio.TextMarginBottom = 0;
+            valorCantCambio.TextPlaceholder = "Ingrese Valor . . .";
+            // 
             // navLotes
             // 
             navLotes.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null));
@@ -3638,22 +3618,22 @@
             navBarOperarios.SelectedIndex = 0;
             navBarOperarios.Size = new Size(1154, 772);
             navBarOperarios.TabIndex = 0;
-            animation3.AnimateOnlyDifferences = false;
-            animation3.BlindCoeff = (PointF)resources.GetObject("animation3.BlindCoeff");
-            animation3.LeafCoeff = 0F;
-            animation3.MaxTime = 1F;
-            animation3.MinTime = 0F;
-            animation3.MosaicCoeff = (PointF)resources.GetObject("animation3.MosaicCoeff");
-            animation3.MosaicShift = (PointF)resources.GetObject("animation3.MosaicShift");
-            animation3.MosaicSize = 0;
-            animation3.Padding = new Padding(0);
-            animation3.RotateCoeff = 0F;
-            animation3.RotateLimit = 0F;
-            animation3.ScaleCoeff = (PointF)resources.GetObject("animation3.ScaleCoeff");
-            animation3.SlideCoeff = (PointF)resources.GetObject("animation3.SlideCoeff");
-            animation3.TimeCoeff = 0F;
-            animation3.TransparencyCoeff = 0F;
-            navBarOperarios.Transition = animation3;
+            animation2.AnimateOnlyDifferences = false;
+            animation2.BlindCoeff = (PointF)resources.GetObject("animation2.BlindCoeff");
+            animation2.LeafCoeff = 0F;
+            animation2.MaxTime = 1F;
+            animation2.MinTime = 0F;
+            animation2.MosaicCoeff = (PointF)resources.GetObject("animation2.MosaicCoeff");
+            animation2.MosaicShift = (PointF)resources.GetObject("animation2.MosaicShift");
+            animation2.MosaicSize = 0;
+            animation2.Padding = new Padding(0);
+            animation2.RotateCoeff = 0F;
+            animation2.RotateLimit = 0F;
+            animation2.ScaleCoeff = (PointF)resources.GetObject("animation2.ScaleCoeff");
+            animation2.SlideCoeff = (PointF)resources.GetObject("animation2.SlideCoeff");
+            animation2.TimeCoeff = 0F;
+            animation2.TransparencyCoeff = 0F;
+            navBarOperarios.Transition = animation2;
             navBarOperarios.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
             // 
             // altaOperarioPage
@@ -3742,66 +3722,73 @@
             ktTablaCapacidades.AllowUserToDeleteRows = false;
             ktTablaCapacidades.AllowUserToResizeColumns = false;
             ktTablaCapacidades.AllowUserToResizeRows = false;
-            dataGridViewCellStyle26.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle26.ForeColor = Color.White;
-            dataGridViewCellStyle26.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle26.SelectionForeColor = Color.White;
-            ktTablaCapacidades.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle14.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle14.ForeColor = Color.White;
+            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle14.SelectionForeColor = Color.FromArgb((int)(byte)127, (int)(byte)166, (int)(byte)160);
+            ktTablaCapacidades.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle14;
             ktTablaCapacidades.BackgroundColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
             ktTablaCapacidades.BorderStyle = BorderStyle.None;
             ktTablaCapacidades.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
             ktTablaCapacidades.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             ktTablaCapacidades.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle27.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle27.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle27.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle27.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
-            dataGridViewCellStyle27.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle27.SelectionForeColor = Color.White;
-            dataGridViewCellStyle27.WrapMode = DataGridViewTriState.True;
-            ktTablaCapacidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle15.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle15.ForeColor = Color.FromArgb((int)(byte)204, (int)(byte)255, (int)(byte)246);
+            dataGridViewCellStyle15.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle15.SelectionForeColor = Color.FromArgb((int)(byte)204, (int)(byte)255, (int)(byte)246);
+            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
+            ktTablaCapacidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             ktTablaCapacidades.ColumnHeadersHeight = 40;
             ktTablaCapacidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ktTablaCapacidades.Columns.AddRange(new DataGridViewColumn[] { IdCap, NomCapacidad, DescCapacidad });
-            dataGridViewCellStyle28.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle28.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle28.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
-            dataGridViewCellStyle28.ForeColor = Color.FromArgb((int)(byte)34, (int)(byte)29, (int)(byte)17);
-            dataGridViewCellStyle28.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle28.SelectionForeColor = Color.White;
-            dataGridViewCellStyle28.WrapMode = DataGridViewTriState.True;
-            ktTablaCapacidades.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle16.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
+            dataGridViewCellStyle16.ForeColor = Color.FromArgb((int)(byte)34, (int)(byte)29, (int)(byte)17);
+            dataGridViewCellStyle16.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle16.SelectionForeColor = Color.FromArgb((int)(byte)127, (int)(byte)166, (int)(byte)160);
+            dataGridViewCellStyle16.WrapMode = DataGridViewTriState.True;
+            ktTablaCapacidades.DefaultCellStyle = dataGridViewCellStyle16;
             ktTablaCapacidades.Dock = DockStyle.Fill;
             ktTablaCapacidades.EnableHeadersVisualStyles = false;
-            ktTablaCapacidades.GridColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            ktTablaCapacidades.GridColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
             ktTablaCapacidades.Location = new Point(0, 0);
             ktTablaCapacidades.Name = "ktTablaCapacidades";
             ktTablaCapacidades.ReadOnly = true;
             ktTablaCapacidades.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle29.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle29.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle29.ForeColor = Color.FromArgb((int)(byte)34, (int)(byte)29, (int)(byte)17);
-            dataGridViewCellStyle29.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle29.SelectionForeColor = Color.White;
-            dataGridViewCellStyle29.WrapMode = DataGridViewTriState.False;
-            ktTablaCapacidades.RowHeadersDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle17.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle17.ForeColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle17.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle17.SelectionForeColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle17.WrapMode = DataGridViewTriState.False;
+            ktTablaCapacidades.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
             ktTablaCapacidades.RowHeadersVisible = false;
             ktTablaCapacidades.RowHeadersWidth = 20;
-            ktTablaCapacidades.RowsDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle18.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle18.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle18.ForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle18.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle18.SelectionForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle18.WrapMode = DataGridViewTriState.True;
+            ktTablaCapacidades.RowsDefaultCellStyle = dataGridViewCellStyle18;
             ktTablaCapacidades.RowTemplate.Height = 45;
             ktTablaCapacidades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ktTablaCapacidades.Size = new Size(1148, 379);
-            ktTablaCapacidades.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
+            ktTablaCapacidades.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             ktTablaCapacidades.Style.Border = 0F;
             ktTablaCapacidades.Style.BorderHeader = 0F;
             ktTablaCapacidades.Style.Color = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             ktTablaCapacidades.Style.Foreground = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             ktTablaCapacidades.Style.Header.Background = KimTools.WinForms.KtColor.Empty;
             ktTablaCapacidades.Style.Header.Foreground = KimTools.WinForms.KtColor.Empty;
-            ktTablaCapacidades.Style.Row.Background = KimTools.WinForms.KtColor.BASE_2;
+            ktTablaCapacidades.Style.Row.Background = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             ktTablaCapacidades.Style.Row.Foreground = new KimTools.WinForms.KtColor(Color.White, null, null);
-            ktTablaCapacidades.Style.RowAlt.Background = KimTools.WinForms.KtColor.BASE_1;
+            ktTablaCapacidades.Style.RowAlt.Background = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             ktTablaCapacidades.Style.RowAlt.Foreground = new KimTools.WinForms.KtColor(Color.White, null, null);
             ktTablaCapacidades.Style.ScrollBar.Background = KimTools.WinForms.KtColor.Empty;
             ktTablaCapacidades.Style.ScrollBar.Foreground = KimTools.WinForms.KtColor.Empty;
@@ -3817,7 +3804,7 @@
             IdCap.Name = "IdCap";
             IdCap.ReadOnly = true;
             IdCap.Resizable = DataGridViewTriState.False;
-            IdCap.Width = 78;
+            IdCap.Width = 95;
             // 
             // NomCapacidad
             // 
@@ -3829,7 +3816,7 @@
             NomCapacidad.Name = "NomCapacidad";
             NomCapacidad.ReadOnly = true;
             NomCapacidad.Resizable = DataGridViewTriState.False;
-            NomCapacidad.Width = 114;
+            NomCapacidad.Width = 140;
             // 
             // DescCapacidad
             // 
@@ -4817,36 +4804,36 @@
             ktTablaModOp.AllowUserToDeleteRows = false;
             ktTablaModOp.AllowUserToResizeColumns = false;
             ktTablaModOp.AllowUserToResizeRows = false;
-            dataGridViewCellStyle30.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle30.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold, GraphicsUnit.Point, (byte)0);
-            dataGridViewCellStyle30.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
-            dataGridViewCellStyle30.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle30.SelectionForeColor = Color.White;
-            ktTablaModOp.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle19.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle19.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold, GraphicsUnit.Point, (byte)0);
+            dataGridViewCellStyle19.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
+            dataGridViewCellStyle19.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle19.SelectionForeColor = Color.White;
+            ktTablaModOp.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
             ktTablaModOp.BackgroundColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
             ktTablaModOp.BorderStyle = BorderStyle.None;
             ktTablaModOp.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
             ktTablaModOp.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             ktTablaModOp.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle31.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle31.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle31.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle31.ForeColor = Color.White;
-            dataGridViewCellStyle31.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle31.SelectionForeColor = Color.White;
-            dataGridViewCellStyle31.WrapMode = DataGridViewTriState.True;
-            ktTablaModOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle20.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle20.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle20.ForeColor = Color.White;
+            dataGridViewCellStyle20.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle20.SelectionForeColor = Color.White;
+            dataGridViewCellStyle20.WrapMode = DataGridViewTriState.True;
+            ktTablaModOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
             ktTablaModOp.ColumnHeadersHeight = 40;
             ktTablaModOp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ktTablaModOp.Columns.AddRange(new DataGridViewColumn[] { IdOpM, NombreM, ApellidoM, EstadoM });
-            dataGridViewCellStyle32.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle32.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle32.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
-            dataGridViewCellStyle32.ForeColor = Color.FromArgb((int)(byte)230, (int)(byte)230, (int)(byte)230);
-            dataGridViewCellStyle32.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle32.SelectionForeColor = Color.White;
-            dataGridViewCellStyle32.WrapMode = DataGridViewTriState.False;
-            ktTablaModOp.DefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle21.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle21.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle21.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
+            dataGridViewCellStyle21.ForeColor = Color.FromArgb((int)(byte)230, (int)(byte)230, (int)(byte)230);
+            dataGridViewCellStyle21.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle21.SelectionForeColor = Color.White;
+            dataGridViewCellStyle21.WrapMode = DataGridViewTriState.False;
+            ktTablaModOp.DefaultCellStyle = dataGridViewCellStyle21;
             ktTablaModOp.Dock = DockStyle.Fill;
             ktTablaModOp.EnableHeadersVisualStyles = false;
             ktTablaModOp.GridColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
@@ -4855,14 +4842,14 @@
             ktTablaModOp.Name = "ktTablaModOp";
             ktTablaModOp.ReadOnly = true;
             ktTablaModOp.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle33.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle33.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle33.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle33.ForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle33.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle33.SelectionForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle33.WrapMode = DataGridViewTriState.True;
-            ktTablaModOp.RowHeadersDefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle22.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle22.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle22.ForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle22.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle22.SelectionForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle22.WrapMode = DataGridViewTriState.True;
+            ktTablaModOp.RowHeadersDefaultCellStyle = dataGridViewCellStyle22;
             ktTablaModOp.RowHeadersVisible = false;
             ktTablaModOp.RowHeadersWidth = 20;
             ktTablaModOp.RowTemplate.Height = 45;
@@ -5093,35 +5080,35 @@
             ktTablaOperarios.AllowUserToDeleteRows = false;
             ktTablaOperarios.AllowUserToResizeColumns = false;
             ktTablaOperarios.AllowUserToResizeRows = false;
-            dataGridViewCellStyle34.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle34.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
-            dataGridViewCellStyle34.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle34.SelectionForeColor = Color.White;
-            ktTablaOperarios.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle23.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle23.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
+            dataGridViewCellStyle23.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle23.SelectionForeColor = Color.White;
+            ktTablaOperarios.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle23;
             ktTablaOperarios.BackgroundColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
             ktTablaOperarios.BorderStyle = BorderStyle.None;
             ktTablaOperarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
             ktTablaOperarios.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             ktTablaOperarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle35.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle35.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle35.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle35.ForeColor = Color.White;
-            dataGridViewCellStyle35.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle35.SelectionForeColor = Color.White;
-            dataGridViewCellStyle35.WrapMode = DataGridViewTriState.True;
-            ktTablaOperarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle24.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle24.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle24.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle24.ForeColor = Color.White;
+            dataGridViewCellStyle24.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle24.SelectionForeColor = Color.White;
+            dataGridViewCellStyle24.WrapMode = DataGridViewTriState.True;
+            ktTablaOperarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle24;
             ktTablaOperarios.ColumnHeadersHeight = 40;
             ktTablaOperarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ktTablaOperarios.Columns.AddRange(new DataGridViewColumn[] { IdOperario, NombreOp, ApellidoOp, Disponibilidad });
-            dataGridViewCellStyle36.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle36.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle36.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
-            dataGridViewCellStyle36.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
-            dataGridViewCellStyle36.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle36.SelectionForeColor = Color.White;
-            dataGridViewCellStyle36.WrapMode = DataGridViewTriState.False;
-            ktTablaOperarios.DefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle25.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle25.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle25.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
+            dataGridViewCellStyle25.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
+            dataGridViewCellStyle25.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle25.SelectionForeColor = Color.White;
+            dataGridViewCellStyle25.WrapMode = DataGridViewTriState.False;
+            ktTablaOperarios.DefaultCellStyle = dataGridViewCellStyle25;
             ktTablaOperarios.Dock = DockStyle.Fill;
             ktTablaOperarios.EnableHeadersVisualStyles = false;
             ktTablaOperarios.GridColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
@@ -5130,14 +5117,14 @@
             ktTablaOperarios.Name = "ktTablaOperarios";
             ktTablaOperarios.ReadOnly = true;
             ktTablaOperarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle37.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle37.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle37.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle37.ForeColor = Color.White;
-            dataGridViewCellStyle37.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle37.SelectionForeColor = Color.White;
-            dataGridViewCellStyle37.WrapMode = DataGridViewTriState.True;
-            ktTablaOperarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle26.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle26.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle26.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle26.ForeColor = Color.White;
+            dataGridViewCellStyle26.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle26.SelectionForeColor = Color.White;
+            dataGridViewCellStyle26.WrapMode = DataGridViewTriState.True;
+            ktTablaOperarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle26;
             ktTablaOperarios.RowHeadersVisible = false;
             ktTablaOperarios.RowHeadersWidth = 20;
             ktTablaOperarios.RowTemplate.Height = 45;
@@ -5168,7 +5155,7 @@
             IdOperario.Name = "IdOperario";
             IdOperario.ReadOnly = true;
             IdOperario.Resizable = DataGridViewTriState.False;
-            IdOperario.Width = 71;
+            IdOperario.Width = 87;
             // 
             // NombreOp
             // 
@@ -5199,7 +5186,7 @@
             Disponibilidad.Name = "Disponibilidad";
             Disponibilidad.ReadOnly = true;
             Disponibilidad.Resizable = DataGridViewTriState.False;
-            Disponibilidad.Width = 85;
+            Disponibilidad.Width = 104;
             // 
             // ktDivider15
             // 
@@ -5394,22 +5381,22 @@
             navBarSucursales.SelectedIndex = 0;
             navBarSucursales.Size = new Size(1154, 772);
             navBarSucursales.TabIndex = 0;
-            animation2.AnimateOnlyDifferences = false;
-            animation2.BlindCoeff = (PointF)resources.GetObject("animation2.BlindCoeff");
-            animation2.LeafCoeff = 0F;
-            animation2.MaxTime = 1F;
-            animation2.MinTime = 0F;
-            animation2.MosaicCoeff = (PointF)resources.GetObject("animation2.MosaicCoeff");
-            animation2.MosaicShift = (PointF)resources.GetObject("animation2.MosaicShift");
-            animation2.MosaicSize = 0;
-            animation2.Padding = new Padding(0);
-            animation2.RotateCoeff = 0F;
-            animation2.RotateLimit = 0F;
-            animation2.ScaleCoeff = (PointF)resources.GetObject("animation2.ScaleCoeff");
-            animation2.SlideCoeff = (PointF)resources.GetObject("animation2.SlideCoeff");
-            animation2.TimeCoeff = 0F;
-            animation2.TransparencyCoeff = 0F;
-            navBarSucursales.Transition = animation2;
+            animation3.AnimateOnlyDifferences = false;
+            animation3.BlindCoeff = (PointF)resources.GetObject("animation3.BlindCoeff");
+            animation3.LeafCoeff = 0F;
+            animation3.MaxTime = 1F;
+            animation3.MinTime = 0F;
+            animation3.MosaicCoeff = (PointF)resources.GetObject("animation3.MosaicCoeff");
+            animation3.MosaicShift = (PointF)resources.GetObject("animation3.MosaicShift");
+            animation3.MosaicSize = 0;
+            animation3.Padding = new Padding(0);
+            animation3.RotateCoeff = 0F;
+            animation3.RotateLimit = 0F;
+            animation3.ScaleCoeff = (PointF)resources.GetObject("animation3.ScaleCoeff");
+            animation3.SlideCoeff = (PointF)resources.GetObject("animation3.SlideCoeff");
+            animation3.TimeCoeff = 0F;
+            animation3.TransparencyCoeff = 0F;
+            navBarSucursales.Transition = animation3;
             navBarSucursales.TransitionType = KimTools.WinForms.KtToastHelpers.KtPages.KtPgAnimatorNS.AnimationType.Custom;
             // 
             // altaSucursalesPage
@@ -5586,38 +5573,38 @@
             ktTablaSucursales.AllowUserToDeleteRows = false;
             ktTablaSucursales.AllowUserToResizeColumns = false;
             ktTablaSucursales.AllowUserToResizeRows = false;
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle14.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle14.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
-            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle14.SelectionForeColor = Color.White;
-            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
-            ktTablaSucursales.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle27.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle27.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle27.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle27.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
+            dataGridViewCellStyle27.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle27.SelectionForeColor = Color.White;
+            dataGridViewCellStyle27.WrapMode = DataGridViewTriState.True;
+            ktTablaSucursales.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle27;
             ktTablaSucursales.BackgroundColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
             ktTablaSucursales.BorderStyle = BorderStyle.None;
             ktTablaSucursales.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
             ktTablaSucursales.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             ktTablaSucursales.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle15.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle15.ForeColor = Color.White;
-            dataGridViewCellStyle15.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle15.SelectionForeColor = Color.White;
-            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
-            ktTablaSucursales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle28.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle28.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle28.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle28.ForeColor = Color.White;
+            dataGridViewCellStyle28.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle28.SelectionForeColor = Color.White;
+            dataGridViewCellStyle28.WrapMode = DataGridViewTriState.True;
+            ktTablaSucursales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle28;
             ktTablaSucursales.ColumnHeadersHeight = 40;
             ktTablaSucursales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ktTablaSucursales.Columns.AddRange(new DataGridViewColumn[] { IdSucursal, NombreSuc, CodPostal, Empleados });
-            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle16.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle16.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
-            dataGridViewCellStyle16.ForeColor = Color.FromArgb((int)(byte)34, (int)(byte)29, (int)(byte)17);
-            dataGridViewCellStyle16.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle16.SelectionForeColor = Color.White;
-            dataGridViewCellStyle16.WrapMode = DataGridViewTriState.False;
-            ktTablaSucursales.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle29.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle29.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle29.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
+            dataGridViewCellStyle29.ForeColor = Color.FromArgb((int)(byte)34, (int)(byte)29, (int)(byte)17);
+            dataGridViewCellStyle29.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle29.SelectionForeColor = Color.White;
+            dataGridViewCellStyle29.WrapMode = DataGridViewTriState.False;
+            ktTablaSucursales.DefaultCellStyle = dataGridViewCellStyle29;
             ktTablaSucursales.Dock = DockStyle.Fill;
             ktTablaSucursales.EnableHeadersVisualStyles = false;
             ktTablaSucursales.GridColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
@@ -5625,14 +5612,7 @@
             ktTablaSucursales.Name = "ktTablaSucursales";
             ktTablaSucursales.ReadOnly = true;
             ktTablaSucursales.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle17.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle17.ForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle17.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle17.SelectionForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle17.WrapMode = DataGridViewTriState.True;
-            ktTablaSucursales.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            ktTablaSucursales.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             ktTablaSucursales.RowHeadersVisible = false;
             ktTablaSucursales.RowHeadersWidth = 20;
             ktTablaSucursales.RowTemplate.Height = 45;
@@ -5663,7 +5643,7 @@
             IdSucursal.Name = "IdSucursal";
             IdSucursal.ReadOnly = true;
             IdSucursal.Resizable = DataGridViewTriState.False;
-            IdSucursal.Width = 115;
+            IdSucursal.Width = 138;
             // 
             // NombreSuc
             // 
@@ -5675,7 +5655,7 @@
             NombreSuc.Name = "NombreSuc";
             NombreSuc.ReadOnly = true;
             NombreSuc.Resizable = DataGridViewTriState.False;
-            NombreSuc.Width = 125;
+            NombreSuc.Width = 152;
             // 
             // CodPostal
             // 
@@ -5686,7 +5666,7 @@
             CodPostal.Name = "CodPostal";
             CodPostal.ReadOnly = true;
             CodPostal.Resizable = DataGridViewTriState.False;
-            CodPostal.Width = 112;
+            CodPostal.Width = 137;
             // 
             // Empleados
             // 
@@ -6197,35 +6177,35 @@
             empktTable4.AllowUserToDeleteRows = false;
             empktTable4.AllowUserToResizeColumns = false;
             empktTable4.AllowUserToResizeRows = false;
-            dataGridViewCellStyle18.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle18.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
-            dataGridViewCellStyle18.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle18.SelectionForeColor = Color.White;
-            empktTable4.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle30.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle30.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
+            dataGridViewCellStyle30.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle30.SelectionForeColor = Color.White;
+            empktTable4.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle30;
             empktTable4.BackgroundColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
             empktTable4.BorderStyle = BorderStyle.None;
             empktTable4.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
             empktTable4.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             empktTable4.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle19.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle19.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle19.ForeColor = Color.White;
-            dataGridViewCellStyle19.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle19.SelectionForeColor = Color.White;
-            dataGridViewCellStyle19.WrapMode = DataGridViewTriState.True;
-            empktTable4.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle31.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle31.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle31.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle31.ForeColor = Color.White;
+            dataGridViewCellStyle31.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle31.SelectionForeColor = Color.White;
+            dataGridViewCellStyle31.WrapMode = DataGridViewTriState.True;
+            empktTable4.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle31;
             empktTable4.ColumnHeadersHeight = 40;
             empktTable4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             empktTable4.Columns.AddRange(new DataGridViewColumn[] { IdEmpleadodataGridViewTextBoxColumn20, IdJefe, nombreEmpdataGridViewTextBoxColumn21, ApellidoEmpdataGridViewTextBoxColumn22, DniEmp, disponibilidadEmp, Motivo });
-            dataGridViewCellStyle20.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle20.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
-            dataGridViewCellStyle20.ForeColor = Color.FromArgb((int)(byte)34, (int)(byte)29, (int)(byte)17);
-            dataGridViewCellStyle20.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle20.SelectionForeColor = Color.White;
-            dataGridViewCellStyle20.WrapMode = DataGridViewTriState.False;
-            empktTable4.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle32.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle32.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle32.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
+            dataGridViewCellStyle32.ForeColor = Color.FromArgb((int)(byte)34, (int)(byte)29, (int)(byte)17);
+            dataGridViewCellStyle32.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle32.SelectionForeColor = Color.White;
+            dataGridViewCellStyle32.WrapMode = DataGridViewTriState.False;
+            empktTable4.DefaultCellStyle = dataGridViewCellStyle32;
             empktTable4.Dock = DockStyle.Fill;
             empktTable4.EnableHeadersVisualStyles = false;
             empktTable4.GridColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
@@ -6233,14 +6213,14 @@
             empktTable4.Name = "empktTable4";
             empktTable4.ReadOnly = true;
             empktTable4.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle21.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle21.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle21.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle21.ForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle21.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle21.SelectionForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle21.WrapMode = DataGridViewTriState.True;
-            empktTable4.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle33.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle33.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle33.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle33.ForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle33.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle33.SelectionForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle33.WrapMode = DataGridViewTriState.True;
+            empktTable4.RowHeadersDefaultCellStyle = dataGridViewCellStyle33;
             empktTable4.RowHeadersVisible = false;
             empktTable4.RowHeadersWidth = 20;
             empktTable4.RowTemplate.Height = 45;
@@ -6270,7 +6250,7 @@
             IdEmpleadodataGridViewTextBoxColumn20.Name = "IdEmpleadodataGridViewTextBoxColumn20";
             IdEmpleadodataGridViewTextBoxColumn20.ReadOnly = true;
             IdEmpleadodataGridViewTextBoxColumn20.Resizable = DataGridViewTriState.False;
-            IdEmpleadodataGridViewTextBoxColumn20.Width = 125;
+            IdEmpleadodataGridViewTextBoxColumn20.Width = 154;
             // 
             // IdJefe
             // 
@@ -6279,7 +6259,7 @@
             IdJefe.MinimumWidth = 6;
             IdJefe.Name = "IdJefe";
             IdJefe.ReadOnly = true;
-            IdJefe.Width = 84;
+            IdJefe.Width = 101;
             // 
             // nombreEmpdataGridViewTextBoxColumn21
             // 
@@ -6317,7 +6297,7 @@
             disponibilidadEmp.MinimumWidth = 6;
             disponibilidadEmp.Name = "disponibilidadEmp";
             disponibilidadEmp.ReadOnly = true;
-            disponibilidadEmp.Width = 147;
+            disponibilidadEmp.Width = 181;
             // 
             // Motivo
             // 
@@ -7378,35 +7358,35 @@
             sucktTable2.AllowUserToDeleteRows = false;
             sucktTable2.AllowUserToResizeColumns = false;
             sucktTable2.AllowUserToResizeRows = false;
-            dataGridViewCellStyle22.BackColor = Color.FromArgb((int)(byte)15, (int)(byte)23, (int)(byte)43);
-            dataGridViewCellStyle22.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
-            dataGridViewCellStyle22.SelectionBackColor = Color.FromArgb((int)(byte)13, (int)(byte)29, (int)(byte)45);
-            dataGridViewCellStyle22.SelectionForeColor = Color.FromArgb((int)(byte)127, (int)(byte)166, (int)(byte)160);
-            sucktTable2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle34.BackColor = Color.FromArgb((int)(byte)15, (int)(byte)23, (int)(byte)43);
+            dataGridViewCellStyle34.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
+            dataGridViewCellStyle34.SelectionBackColor = Color.FromArgb((int)(byte)13, (int)(byte)29, (int)(byte)45);
+            dataGridViewCellStyle34.SelectionForeColor = Color.FromArgb((int)(byte)127, (int)(byte)166, (int)(byte)160);
+            sucktTable2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle34;
             sucktTable2.BackgroundColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
             sucktTable2.BorderStyle = BorderStyle.None;
             sucktTable2.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
             sucktTable2.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             sucktTable2.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle23.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle23.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle23.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            dataGridViewCellStyle23.ForeColor = Color.White;
-            dataGridViewCellStyle23.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle23.SelectionForeColor = Color.White;
-            dataGridViewCellStyle23.WrapMode = DataGridViewTriState.True;
-            sucktTable2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle35.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle35.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle35.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            dataGridViewCellStyle35.ForeColor = Color.White;
+            dataGridViewCellStyle35.SelectionBackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle35.SelectionForeColor = Color.White;
+            dataGridViewCellStyle35.WrapMode = DataGridViewTriState.True;
+            sucktTable2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle35;
             sucktTable2.ColumnHeadersHeight = 40;
             sucktTable2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             sucktTable2.Columns.AddRange(new DataGridViewColumn[] { sucIdEmpleado, empNombre, empApe, empDni });
-            dataGridViewCellStyle24.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            dataGridViewCellStyle24.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
-            dataGridViewCellStyle24.ForeColor = Color.FromArgb((int)(byte)230, (int)(byte)230, (int)(byte)230);
-            dataGridViewCellStyle24.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle24.SelectionForeColor = Color.White;
-            dataGridViewCellStyle24.WrapMode = DataGridViewTriState.False;
-            sucktTable2.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle36.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle36.BackColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
+            dataGridViewCellStyle36.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
+            dataGridViewCellStyle36.ForeColor = Color.FromArgb((int)(byte)230, (int)(byte)230, (int)(byte)230);
+            dataGridViewCellStyle36.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle36.SelectionForeColor = Color.White;
+            dataGridViewCellStyle36.WrapMode = DataGridViewTriState.False;
+            sucktTable2.DefaultCellStyle = dataGridViewCellStyle36;
             sucktTable2.Dock = DockStyle.Fill;
             sucktTable2.EnableHeadersVisualStyles = false;
             sucktTable2.GridColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
@@ -7415,14 +7395,14 @@
             sucktTable2.Name = "sucktTable2";
             sucktTable2.ReadOnly = true;
             sucktTable2.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle25.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle25.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle25.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
-            dataGridViewCellStyle25.ForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle25.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle25.SelectionForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
-            dataGridViewCellStyle25.WrapMode = DataGridViewTriState.True;
-            sucktTable2.RowHeadersDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle37.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle37.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle37.Font = new Font("Segoe UI Symbol", 20F, FontStyle.Bold);
+            dataGridViewCellStyle37.ForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle37.SelectionBackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle37.SelectionForeColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
+            dataGridViewCellStyle37.WrapMode = DataGridViewTriState.True;
+            sucktTable2.RowHeadersDefaultCellStyle = dataGridViewCellStyle37;
             sucktTable2.RowHeadersVisible = false;
             sucktTable2.RowHeadersWidth = 20;
             sucktTable2.RowTemplate.Height = 45;
@@ -7451,7 +7431,7 @@
             sucIdEmpleado.MinimumWidth = 6;
             sucIdEmpleado.Name = "sucIdEmpleado";
             sucIdEmpleado.ReadOnly = true;
-            sucIdEmpleado.Width = 125;
+            sucIdEmpleado.Width = 154;
             // 
             // empNombre
             // 
@@ -7902,6 +7882,7 @@
             IdEmpleado.Name = "IdEmpleado";
             IdEmpleado.ReadOnly = true;
             IdEmpleado.Resizable = DataGridViewTriState.False;
+            IdEmpleado.Width = 125;
             // 
             // dataGridViewTextBoxColumn9
             // 
@@ -7932,6 +7913,7 @@
             Dni.Name = "Dni";
             Dni.ReadOnly = true;
             Dni.Resizable = DataGridViewTriState.False;
+            Dni.Width = 125;
             // 
             // sucktDivider31
             // 
@@ -8935,7 +8917,7 @@
             ktDate1.Location = new Point(866, -11);
             ktDate1.MinimumSize = new Size(0, 40);
             ktDate1.Name = "ktDate1";
-            ktDate1.Size = new Size(286, 43);
+            ktDate1.Size = new Size(286, 52);
             ktDate1.TabIndex = 0;
             ktDate1.TextAlign = HorizontalAlignment.Center;
             ktDate1.TextColor = KimTools.WinForms.KtColor.Empty;
@@ -10085,6 +10067,7 @@
             empIdEmpleado.MinimumWidth = 6;
             empIdEmpleado.Name = "empIdEmpleado";
             empIdEmpleado.ReadOnly = true;
+            empIdEmpleado.Width = 125;
             // 
             // SucursalEmpleado
             // 
@@ -10094,6 +10077,7 @@
             SucursalEmpleado.MinimumWidth = 6;
             SucursalEmpleado.Name = "SucursalEmpleado";
             SucursalEmpleado.ReadOnly = true;
+            SucursalEmpleado.Width = 125;
             // 
             // panelProductos
             // 
@@ -10152,10 +10136,10 @@
             navBarProductos.Set_Background(altaProductoPage, new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));
             altaProductoPage.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
             altaProductoPage.Controls.Add(altaProductoSubPage);
-            altaProductoPage.Location = new Point(0, 0);
+            altaProductoPage.Location = new Point(4, 4);
             altaProductoPage.Name = "altaProductoPage";
             altaProductoPage.Padding = new Padding(3, 20, 3, 3);
-            altaProductoPage.Size = new Size(1154, 772);
+            altaProductoPage.Size = new Size(1146, 731);
             altaProductoPage.TabIndex = 0;
             altaProductoPage.Text = "tabPage1";
             // 
@@ -10175,7 +10159,7 @@
             altaProductoSubPage.Location = new Point(3, 20);
             altaProductoSubPage.Name = "altaProductoSubPage";
             altaProductoSubPage.PatternColor = KimTools.WinForms.KtColor.Empty;
-            altaProductoSubPage.Size = new Size(1148, 749);
+            altaProductoSubPage.Size = new Size(1140, 708);
             altaProductoSubPage.TabIndex = 0;
             // 
             // ktPanel134
@@ -10200,7 +10184,7 @@
             ktPanel134.Name = "ktPanel134";
             ktPanel134.Padding = new Padding(0, 0, 19, 0);
             ktPanel134.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel134.Size = new Size(723, 749);
+            ktPanel134.Size = new Size(715, 708);
             ktPanel134.TabIndex = 19;
             // 
             // footerAP
@@ -10216,7 +10200,7 @@
             footerAP.Location = new Point(0, 535);
             footerAP.Name = "footerAP";
             footerAP.PatternColor = KimTools.WinForms.KtColor.Empty;
-            footerAP.Size = new Size(704, 110);
+            footerAP.Size = new Size(696, 110);
             footerAP.TabIndex = 12;
             // 
             // ktPanel121
@@ -10233,7 +10217,7 @@
             ktPanel121.Location = new Point(0, 0);
             ktPanel121.Name = "ktPanel121";
             ktPanel121.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel121.Size = new Size(704, 59);
+            ktPanel121.Size = new Size(696, 59);
             ktPanel121.TabIndex = 11;
             // 
             // buttonGuardarAP
@@ -10253,7 +10237,7 @@
             buttonGuardarAP.IconColor = KimTools.WinForms.KtColor.Empty;
             buttonGuardarAP.IconSize = 16;
             buttonGuardarAP.IconStroke = 2.5D;
-            buttonGuardarAP.Location = new Point(420, 0);
+            buttonGuardarAP.Location = new Point(412, 0);
             buttonGuardarAP.Name = "buttonGuardarAP";
             buttonGuardarAP.Padding = new Padding(8, 0, 8, 0);
             buttonGuardarAP.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
@@ -10275,7 +10259,7 @@
             ktDivider54.Margin = new Padding(0);
             ktDivider54.Name = "ktDivider54";
             ktDivider54.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider54.Size = new Size(704, 20);
+            ktDivider54.Size = new Size(696, 20);
             ktDivider54.TabIndex = 17;
             // 
             // panelStockAP
@@ -10293,7 +10277,7 @@
             panelStockAP.Margin = new Padding(4);
             panelStockAP.Name = "panelStockAP";
             panelStockAP.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelStockAP.Size = new Size(704, 110);
+            panelStockAP.Size = new Size(696, 110);
             panelStockAP.TabIndex = 15;
             // 
             // ktPanel120
@@ -10310,7 +10294,7 @@
             ktPanel120.Location = new Point(0, 55);
             ktPanel120.Name = "ktPanel120";
             ktPanel120.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel120.Size = new Size(704, 55);
+            ktPanel120.Size = new Size(696, 55);
             ktPanel120.TabIndex = 1;
             // 
             // textBoxStockAP
@@ -10347,7 +10331,7 @@
             textBoxStockAP.SelectionLength = 0;
             textBoxStockAP.SelectionStart = 0;
             textBoxStockAP.ShortcutsEnabled = true;
-            textBoxStockAP.Size = new Size(704, 55);
+            textBoxStockAP.Size = new Size(696, 55);
             textBoxStockAP.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
             textBoxStockAP.TabIndex = 5;
             textBoxStockAP.TextMarginBottom = 0;
@@ -10367,7 +10351,7 @@
             ktPanel123.Margin = new Padding(4);
             ktPanel123.Name = "ktPanel123";
             ktPanel123.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel123.Size = new Size(704, 55);
+            ktPanel123.Size = new Size(696, 55);
             ktPanel123.TabIndex = 0;
             // 
             // ktPanel127
@@ -10416,7 +10400,7 @@
             ktDivider36.Margin = new Padding(0);
             ktDivider36.Name = "ktDivider36";
             ktDivider36.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider36.Size = new Size(704, 20);
+            ktDivider36.Size = new Size(696, 20);
             ktDivider36.TabIndex = 11;
             // 
             // panelRecetaAP
@@ -10434,7 +10418,7 @@
             panelRecetaAP.Margin = new Padding(4);
             panelRecetaAP.Name = "panelRecetaAP";
             panelRecetaAP.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelRecetaAP.Size = new Size(704, 125);
+            panelRecetaAP.Size = new Size(696, 125);
             panelRecetaAP.TabIndex = 13;
             // 
             // ktPanel119
@@ -10455,7 +10439,7 @@
             ktPanel119.Location = new Point(0, 55);
             ktPanel119.Name = "ktPanel119";
             ktPanel119.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel119.Size = new Size(704, 74);
+            ktPanel119.Size = new Size(696, 74);
             ktPanel119.TabIndex = 1;
             // 
             // ktDivider49
@@ -10471,14 +10455,14 @@
             ktDivider49.Margin = new Padding(4, 3, 4, 3);
             ktDivider49.Name = "ktDivider49";
             ktDivider49.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider49.Size = new Size(686, 10);
+            ktDivider49.Size = new Size(678, 10);
             ktDivider49.TabIndex = 6;
             // 
             // selectorRAP
             // 
             selectorRAP.Bg = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             selectorRAP.BorderColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, 50);
-            selectorRAP.BorderRadius = 20;
+            selectorRAP.BorderRadius = 10;
             selectorRAP.Direction = KimTools.WinForms.KtSelect.Directions.Down;
             selectorRAP.DisabledBackColor = KimTools.WinForms.KtColor.Gray;
             selectorRAP.DisabledBorderColor = new KimTools.WinForms.KtColor("@Gray", null, 50);
@@ -10493,22 +10477,23 @@
             selectorRAP.FillDropDown = true;
             selectorRAP.FillIndicator = true;
             selectorRAP.FlatStyle = FlatStyle.Flat;
-            selectorRAP.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            selectorRAP.Font = new Font("Segoe UI Symbol", 9F, FontStyle.Bold);
             selectorRAP.ForeColor = Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255);
             selectorRAP.FormattingEnabled = true;
             selectorRAP.IndicatorAlignment = KimTools.WinForms.KtSelect.Indicator.Right;
             selectorRAP.IndicatorColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             selectorRAP.IndicatorLocation = KimTools.WinForms.KtSelect.Indicator.Right;
+            selectorRAP.IntegralHeight = false;
             selectorRAP.ItemBackColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             selectorRAP.ItemBorderColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             selectorRAP.ItemForeColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)255, (int)(byte)255, (int)(byte)255), null, null);
-            selectorRAP.ItemHeight = 46;
+            selectorRAP.ItemHeight = 30;
             selectorRAP.ItemHighLightColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null);
             selectorRAP.ItemHighLightForeColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             selectorRAP.ItemTopMargin = 10;
             selectorRAP.Location = new Point(9, 10);
             selectorRAP.Name = "selectorRAP";
-            selectorRAP.Size = new Size(686, 52);
+            selectorRAP.Size = new Size(678, 36);
             selectorRAP.TabIndex = 2;
             selectorRAP.Text = null;
             selectorRAP.TextAlignment = KimTools.WinForms.KtSelect.TextAlign.Left;
@@ -10540,7 +10525,7 @@
             ktDivider51.LineColor = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)0, (int)(byte)0), null, null);
             ktDivider51.LineStyle = KimTools.WinForms.KtDivider.LineStyles.Solid;
             ktDivider51.LineThickness = 0F;
-            ktDivider51.Location = new Point(695, 10);
+            ktDivider51.Location = new Point(687, 10);
             ktDivider51.Margin = new Padding(4, 3, 4, 3);
             ktDivider51.Name = "ktDivider51";
             ktDivider51.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Vertical;
@@ -10560,7 +10545,7 @@
             ktDivider52.Margin = new Padding(4, 3, 4, 3);
             ktDivider52.Name = "ktDivider52";
             ktDivider52.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider52.Size = new Size(704, 10);
+            ktDivider52.Size = new Size(696, 10);
             ktDivider52.TabIndex = 5;
             // 
             // ktPanel122
@@ -10577,7 +10562,7 @@
             ktPanel122.Margin = new Padding(4);
             ktPanel122.Name = "ktPanel122";
             ktPanel122.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel122.Size = new Size(704, 55);
+            ktPanel122.Size = new Size(696, 55);
             ktPanel122.TabIndex = 0;
             // 
             // ktPanel131
@@ -10626,7 +10611,7 @@
             ktDivider39.Margin = new Padding(0);
             ktDivider39.Name = "ktDivider39";
             ktDivider39.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider39.Size = new Size(704, 20);
+            ktDivider39.Size = new Size(696, 20);
             ktDivider39.TabIndex = 8;
             // 
             // panelCamAP
@@ -10646,7 +10631,7 @@
             panelCamAP.Margin = new Padding(4);
             panelCamAP.Name = "panelCamAP";
             panelCamAP.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelCamAP.Size = new Size(704, 110);
+            panelCamAP.Size = new Size(696, 110);
             panelCamAP.TabIndex = 7;
             // 
             // ktPanel139
@@ -10867,7 +10852,7 @@
             ktPanel125.Margin = new Padding(4);
             ktPanel125.Name = "ktPanel125";
             ktPanel125.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel125.Size = new Size(704, 55);
+            ktPanel125.Size = new Size(696, 55);
             ktPanel125.TabIndex = 0;
             // 
             // ktPanel135
@@ -10966,7 +10951,7 @@
             ktDivider40.Margin = new Padding(0);
             ktDivider40.Name = "ktDivider40";
             ktDivider40.Orientation = KimTools.WinForms.KtDivider.LineOrientation.Horizontal;
-            ktDivider40.Size = new Size(704, 20);
+            ktDivider40.Size = new Size(696, 20);
             ktDivider40.TabIndex = 6;
             // 
             // panelNomAP
@@ -10984,7 +10969,7 @@
             panelNomAP.Margin = new Padding(4);
             panelNomAP.Name = "panelNomAP";
             panelNomAP.PatternColor = KimTools.WinForms.KtColor.Empty;
-            panelNomAP.Size = new Size(704, 110);
+            panelNomAP.Size = new Size(696, 110);
             panelNomAP.TabIndex = 3;
             // 
             // ktPanel128
@@ -11001,7 +10986,7 @@
             ktPanel128.Location = new Point(0, 55);
             ktPanel128.Name = "ktPanel128";
             ktPanel128.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel128.Size = new Size(704, 55);
+            ktPanel128.Size = new Size(696, 55);
             ktPanel128.TabIndex = 1;
             // 
             // textBoxNomAP
@@ -11038,7 +11023,7 @@
             textBoxNomAP.SelectionLength = 0;
             textBoxNomAP.SelectionStart = 0;
             textBoxNomAP.ShortcutsEnabled = true;
-            textBoxNomAP.Size = new Size(704, 55);
+            textBoxNomAP.Size = new Size(696, 55);
             textBoxNomAP.Style = KimTools.WinForms.KtTextBox.KtTextBoxStyle.Tailwind;
             textBoxNomAP.TabIndex = 5;
             textBoxNomAP.TextMarginBottom = 0;
@@ -11058,7 +11043,7 @@
             ktPanel129.Margin = new Padding(4);
             ktPanel129.Name = "ktPanel129";
             ktPanel129.PatternColor = KimTools.WinForms.KtColor.Empty;
-            ktPanel129.Size = new Size(704, 55);
+            ktPanel129.Size = new Size(696, 55);
             ktPanel129.TabIndex = 0;
             // 
             // ktPanel130
@@ -11133,7 +11118,7 @@
             tableCapacidadRequeridaProducto.Dock = DockStyle.Right;
             tableCapacidadRequeridaProducto.EnableHeadersVisualStyles = false;
             tableCapacidadRequeridaProducto.GridColor = Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65);
-            tableCapacidadRequeridaProducto.Location = new Point(723, 0);
+            tableCapacidadRequeridaProducto.Location = new Point(715, 0);
             tableCapacidadRequeridaProducto.MultiSelect = false;
             tableCapacidadRequeridaProducto.Name = "tableCapacidadRequeridaProducto";
             tableCapacidadRequeridaProducto.ReadOnly = true;
@@ -11152,7 +11137,7 @@
             tableCapacidadRequeridaProducto.RowsDefaultCellStyle = dataGridViewCellStyle5;
             tableCapacidadRequeridaProducto.RowTemplate.Height = 45;
             tableCapacidadRequeridaProducto.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tableCapacidadRequeridaProducto.Size = new Size(425, 749);
+            tableCapacidadRequeridaProducto.Size = new Size(425, 708);
             tableCapacidadRequeridaProducto.Style.Background = new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)0, (int)(byte)78, (int)(byte)65), null, null);
             tableCapacidadRequeridaProducto.Style.Border = 0F;
             tableCapacidadRequeridaProducto.Style.BorderHeader = 0F;
@@ -12862,14 +12847,14 @@
             // 
             // MenuPPal
             // 
-            this.AutoScaleDimensions = new SizeF(10F, 21F);
+            this.AutoScaleDimensions = new SizeF(12F, 28F);
             this.AutoScaleMode = AutoScaleMode.Font;
             this.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
             this.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));
             this.ClientSize = new Size(1494, 881);
             this.Controls.Add(panelProductos);
-            this.Controls.Add(panelSucursales);
             this.Controls.Add(panelOperarios);
+            this.Controls.Add(panelSucursales);
             this.Controls.Add(panelLotes);
             this.Controls.Add(panelProduccion);
             this.Controls.Add(panelPedidos);
@@ -12922,8 +12907,6 @@
             ktPanel36.ResumeLayout(false);
             ktPanel33.ResumeLayout(false);
             ktPanel34.ResumeLayout(false);
-            ktPanel31.ResumeLayout(false);
-            ktPanel32.ResumeLayout(false);
             ktPanel29.ResumeLayout(false);
             ktPanel30.ResumeLayout(false);
             ktPanel39.ResumeLayout(false);
@@ -12935,6 +12918,7 @@
             ktPanel44.ResumeLayout(false);
             ktPanel43.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ktTablaLotesEliminar).EndInit();
+            ktPanel32.ResumeLayout(false);
             navLotes.ResumeLayout(false);
             panelOperarios.ResumeLayout(false);
             navBarOperarios.ResumeLayout(false);
