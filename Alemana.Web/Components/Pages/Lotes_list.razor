@@ -1,4 +1,4 @@
-@page "/lotes"
+﻿@page "/lotes"
 @attribute [Authorize]
 @inject ApiClient Api
 
@@ -21,48 +21,6 @@
         <i class="bi @(exito ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill") me-2"></i>@mensaje
     </div>
 }
-
-<div class="card mb-4">
-    <div class="card-body p-4">
-        <h5 class="form-titulo">Nuevo lote</h5>
-
-        <EditForm Model="nuevo" OnValidSubmit="Guardar">
-            <div class="row g-3 align-items-end">
-                <div class="col-md-3">
-                    <label class="form-label" for="lote-ingreso">Fecha de ingreso</label>
-                    <InputDate id="lote-ingreso" class="form-control" @bind-Value="nuevo.FechaIngreso" />
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label" for="lote-venc">Fecha de vencimiento</label>
-                    <InputDate id="lote-venc" class="form-control" @bind-Value="nuevo.FechaVencimiento" />
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label" for="lote-cant">Cantidad</label>
-                    <InputNumber id="lote-cant" class="form-control" @bind-Value="nuevo.CantidadLote" />
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label" for="lote-prov">Id proveedor</label>
-                    <InputNumber id="lote-prov" class="form-control" @bind-Value="nuevo.IdProveedor" />
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label" for="lote-mat">Id materia prima</label>
-                    <InputNumber id="lote-mat" class="form-control" @bind-Value="nuevo.IdMateriaP" />
-                </div>
-                <div class="col-md-3">
-                    <div class="form-check form-switch pb-2">
-                        <InputCheckbox id="lote-activo" class="form-check-input" @bind-Value="activo" />
-                        <label class="form-check-label" for="lote-activo">Lote activo</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-plus-lg me-1"></i> Agregar
-                    </button>
-                </div>
-            </div>
-        </EditForm>
-    </div>
-</div>
 
 <div class="card mb-4 filtros">
     <div class="card-body p-3">
@@ -161,10 +119,8 @@ else
 
 @code {
     private List<LoteFila>? lotes;
-    private LoteDTO nuevo = NuevoLote();
     private string? mensaje;
     private bool exito;
-    private bool activo = true;
 
     private string filtroTexto = "";
     private string filtroEstado = "";
@@ -174,12 +130,6 @@ else
         || !string.IsNullOrEmpty(filtroEstado) || !string.IsNullOrEmpty(filtroVencimiento);
 
     protected override async Task OnInitializedAsync() => await Cargar();
-
-    private static LoteDTO NuevoLote() => new()
-    {
-        FechaIngreso = DateTime.Today,
-        FechaVencimiento = DateTime.Today.AddMonths(1)
-    };
 
     private async Task Cargar()
     {
@@ -214,41 +164,6 @@ else
         _ => (int?)null
     };
 
-    private async Task Guardar()
-    {
-        mensaje = null;
-        nuevo.EstadoLote = (sbyte)(activo ? 1 : 0);
-
-        if (nuevo.CantidadLote <= 0 || nuevo.IdProveedor <= 0 || nuevo.IdMateriaP <= 0)
-        {
-            mensaje = "Cantidad, proveedor y materia prima son obligatorios.";
-            exito = false;
-            return;
-        }
-
-        if (nuevo.FechaVencimiento < nuevo.FechaIngreso)
-        {
-            mensaje = "El vencimiento no puede ser anterior al ingreso.";
-            exito = false;
-            return;
-        }
-
-        try
-        {
-            var ok = await Api.PostAsync("lotes/", nuevo);
-            if (!ok) throw new InvalidOperationException("La API no pudo guardar el lote.");
-            mensaje = "Lote creado.";
-            exito = true;
-            nuevo = NuevoLote();
-            activo = true;
-            await Cargar();
-        }
-        catch (Exception ex)
-        {
-            mensaje = $"No se pudo guardar el lote: {ex.Message}";
-            exito = false;
-        }
-    }
 
     // Avisa si el lote ya venció o vence en los próximos 7 días
     private static string? AvisoVencimiento(DateTime vencimiento)

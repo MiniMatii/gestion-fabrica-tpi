@@ -51,7 +51,7 @@ namespace MenuDesk
             {
                 string endpoint = "proveedores";
 
-                var listaDatos = await _apiClient.ObtenerListaAsync<ProveedorDTO>(endpoint);
+                var listaDatos = (await _apiClient.ObtenerListaAsync<ProveedorDTO>(endpoint)).OrderBy(p => p.Nombre).ToList();
 
                 if (listaDatos != null)
                 {
@@ -98,16 +98,24 @@ namespace MenuDesk
 
             if (listadoMP != null)
             {
+                // Sorted tiene que estar en false en ambos combos
+                var materias = listadoMP
+                    .DistinctBy(mp => mp.Nombre)
+                    .OrderBy(mp => mp.Nombre, StringComparer.CurrentCultureIgnoreCase)
+                    .ToList();
+
+                var unidades = listadoMP
+                    .DistinctBy(mp => mp.Unidad)
+                    .OrderBy(mp => mp.Unidad, StringComparer.CurrentCultureIgnoreCase)
+                    .ToList();
+
                 SelectMP.DisplayMember = "Nombre";
                 SelectMP.ValueMember = "IdMateriaP";
+                SelectMP.DataSource = materias;
 
                 SelectUnidad.DisplayMember = "Unidad";
                 SelectUnidad.ValueMember = "Unidad";
-                
-                SelectUnidad.DataSource = listadoMP.DistinctBy(u => u.Unidad).ToList();
-                SelectMP.DataSource = listadoMP;
-
-
+                SelectUnidad.DataSource = unidades;
             }
         }
 

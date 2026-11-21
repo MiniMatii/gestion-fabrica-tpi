@@ -148,7 +148,8 @@ namespace MenuDesk
             {
                 string endpoint = "capacidad";
 
-                var listaDatos = await _apiClient.ObtenerListaAsync<CapacidadDTO>(endpoint);
+                var listaDatos = (await _apiClient.ObtenerListaAsync<CapacidadDTO>(endpoint)).OrderBy(m => m.NomCapacidad).ToList();          // usá el campo que muestra tu DisplayMember
+
 
                 if (listaDatos != null)
                 {

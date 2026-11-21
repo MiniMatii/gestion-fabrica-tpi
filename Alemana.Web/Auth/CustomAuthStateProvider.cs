@@ -28,6 +28,13 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
 
             var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
+            // Solo operarios: el token tiene que traer operarioId (un token de empleado no sirve en la web)
+            if (!TieneOperario(jwt))
+            {
+                await _localStorage.RemoveItemAsync(TokenKey);
+                return Anonimo();
+            }
+
             // Token vencido: se limpia y queda como anónimo
             if (jwt.ValidTo <= DateTime.UtcNow)
             {
@@ -49,9 +56,17 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
         }
     }
 
+    private static bool TieneOperario(JwtSecurityToken jwt) =>
+        jwt.Claims.Any(c => c.Type == "operarioId" && int.TryParse(c.Value, out _));
+
     public void MarcarUsuarioComoAutenticado(string token)
     {
         var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
+        if (!TieneOperario(jwt))
+        {
+            NotifyAuthenticationStateChanged(Task.FromResult(Anonimo()));
+            return;
+        }
         NotifyAuthenticationStateChanged(
             Task.FromResult(new AuthenticationState(CrearPrincipal(jwt))));
     }

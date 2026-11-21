@@ -1,4 +1,4 @@
-@page "/productos"
+﻿@page "/productos"
 @attribute [Authorize]
 @inject ApiClient Api
 
@@ -7,7 +7,7 @@
 <div class="page-header">
     <div>
         <h2 class="page-title">Productos</h2>
-        <p class="page-subtitle">Cargá y consultá los productos y su stock.</p>
+        <p class="page-subtitle">Consulta de los productos y su stock.</p>
     </div>
     @if (productos is not null)
     {
@@ -21,44 +21,6 @@
         <i class="bi @(exito ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill") me-2"></i>@mensaje
     </div>
 }
-
-<div class="card mb-4">
-    <div class="card-body p-4">
-        <h5 class="form-titulo">Nuevo producto</h5>
-
-        <EditForm Model="nuevo" OnValidSubmit="Guardar">
-            <div class="row g-3 align-items-end">
-                <div class="col-md-4">
-                    <label class="form-label" for="prod-nombre">Nombre</label>
-                    <InputText id="prod-nombre" class="form-control" @bind-Value="nuevo.Nombre" />
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label" for="prod-receta">Id de receta</label>
-                    <InputNumber id="prod-receta" class="form-control" @bind-Value="nuevo.IdReceta" />
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label" for="prod-stock">Stock inicial</label>
-                    <InputNumber id="prod-stock" class="form-control" @bind-Value="nuevo.StockActual" />
-                </div>
-                <div class="col-md-2">
-                    <div class="form-check form-switch">
-                        <InputCheckbox id="prod-camara" class="form-check-input" @bind-Value="nuevo.Camara" />
-                        <label class="form-check-label" for="prod-camara">Cámara</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <InputCheckbox id="prod-disp" class="form-check-input" @bind-Value="disponible" />
-                        <label class="form-check-label" for="prod-disp">Disponible</label>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-plus-lg me-1"></i> Agregar
-                    </button>
-                </div>
-            </div>
-        </EditForm>
-    </div>
-</div>
 
 <div class="card mb-4 filtros">
     <div class="card-body p-3">
@@ -147,10 +109,8 @@ else
 
 @code {
     private List<ProductoFila>? productos;
-    private ProductoDTO nuevo = new();
     private string? mensaje;
     private bool exito;
-    private bool disponible = true;
 
     private string filtroTexto = "";
     private string filtroCamara = "";
@@ -193,39 +153,4 @@ else
         _ => (bool?)null
     };
 
-    private async Task Guardar()
-    {
-        mensaje = null;
-        nuevo.Disponible = disponible;
-
-        if (string.IsNullOrWhiteSpace(nuevo.Nombre) || nuevo.IdReceta <= 0)
-        {
-            mensaje = "Nombre e id de receta son obligatorios.";
-            exito = false;
-            return;
-        }
-
-        if (nuevo.StockActual < 0)
-        {
-            mensaje = "El stock no puede ser negativo.";
-            exito = false;
-            return;
-        }
-
-        try
-        {
-            var ok = await Api.PostAsync("producto/", nuevo);
-            if (!ok) throw new InvalidOperationException("La API no pudo guardar el producto.");
-            mensaje = "Producto creado.";
-            exito = true;
-            nuevo = new();
-            disponible = true;
-            await Cargar();
-        }
-        catch (Exception ex)
-        {
-            mensaje = $"No se pudo guardar el producto: {ex.Message}";
-            exito = false;
-        }
-    }
 }

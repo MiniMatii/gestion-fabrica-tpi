@@ -51,6 +51,8 @@ builder.Services.AddScoped<LoteAdoRepositorio>();
 builder.Services.AddScoped<ProductoAdoRepositorio>();
 builder.Services.AddScoped<SucursalAdoRepositorio>();
 builder.Services.AddScoped<PedidoAdoRepositorio>();
+builder.Services.AddScoped<TrazabilidadAdoRepositorio>();
+builder.Services.AddScoped<ReportesAdoRepositorio>();
 
 builder.Services.AddScoped<ILoteRepositorio, LoteRepositorio>();
 builder.Services.AddScoped<ILoteServicio, LoteServicio>();

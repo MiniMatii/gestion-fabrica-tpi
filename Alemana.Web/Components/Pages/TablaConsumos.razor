@@ -1,0 +1,39 @@
+﻿@* Materia prima y lotes consumidos por una orden de producción *@
+@if (Consumos.Count == 0)
+{
+    <p class="text-muted small mt-2 mb-0">Esta orden no tiene consumos de lote registrados.</p>
+}
+else
+{
+    <div class="tabla-wrap mt-2">
+        <table class="table table-sm align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Materia prima</th>
+                    <th>Lote</th>
+                    <th class="text-end">Cantidad usada</th>
+                    <th>Ingreso</th>
+                    <th>Vencimiento</th>
+                    <th>Proveedor</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Consumos)
+                {
+                    <tr>
+                        <td class="fw-semibold">@c.MateriaPrima</td>
+                        <td>#@c.IdLote</td>
+                        <td class="text-end">@c.CantConsumida.ToString("0.##") @c.Unidad</td>
+                        <td>@c.FechaIngreso.ToString("dd/MM/yyyy")</td>
+                        <td>@c.FechaVencimiento.ToString("dd/MM/yyyy")</td>
+                        <td>@(string.IsNullOrWhiteSpace(c.Proveedor) ? "—" : c.Proveedor)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    [Parameter] public List<TrazaConsumoFila> Consumos { get; set; } = new();
+}

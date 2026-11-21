@@ -171,7 +171,7 @@ namespace Alemana.Aplicaciones.Servicios
         private async Task<ResultadoPedidoDTO> ArmarResultadoAsync(Solicitudpedido p) =>
             new() { IdPedido = p.IdPedido, EstadoPedido = p.EstadoPedido, Items = await ArmarItemsAsync(p) };
 
-        /// Fija la cantidad aceptada TOTAL por producto (se puede corregir hasta despachar).
+
         public async Task<(ResultadoPedido, string?, ResultadoPedidoDTO?)> AceptarAsync(int idPedido, AceptarPedidoProductosDTO dto)
         {
             var pedido = await _pedidoRepositorio.ObtenerPorId(idPedido);

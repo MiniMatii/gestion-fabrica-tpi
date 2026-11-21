@@ -1,4 +1,4 @@
-@page "/pedidos"
+﻿@page "/pedidos"
 @attribute [Authorize]
 @inject ApiClient Api
 
@@ -7,7 +7,7 @@
 <div class="page-header">
     <div>
         <h2 class="page-title">Pedidos</h2>
-        <p class="page-subtitle">Pedidos de las sucursales. Aceptá cada producto según el stock disponible.</p>
+        <p class="page-subtitle">Consulta de los pedidos de las sucursales y su estado. Se gestionan desde la aplicación de escritorio.</p>
     </div>
     @if (pedidos is not null)
     {
@@ -19,92 +19,6 @@
 {
     <div class="alert @(exito ? "alert-success" : "alert-danger")" role="alert">
         <i class="bi @(exito ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill") me-2"></i>@mensaje
-    </div>
-}
-
-@if (pedidoEnAceptacion is not null && itemsAceptacion is not null)
-{
-    <div class="card mb-4">
-        <div class="card-body p-4">
-            <h5 class="form-titulo">Aceptar pedido #@pedidoEnAceptacion</h5>
-            <p class="text-muted small">
-                Indicá cuánto aceptás de cada producto. Lo que haya en stock se despacha;
-                lo que falte queda pendiente de producción. Lo que no aceptes se descarta.
-            </p>
-
-            <div class="tabla-wrap">
-                <table class="table align-middle">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th class="text-end">Pedido</th>
-                            <th class="text-end">Stock</th>
-                            <th style="width: 10rem;">Aceptar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var it in itemsAceptacion)
-                        {
-                            <tr>
-                                <td class="fw-semibold">@it.NombreProducto</td>
-                                <td class="text-end">@it.CantidadPedida</td>
-                                <td class="text-end">@it.StockDisponible</td>
-                                <td>
-                                    <input type="number" class="form-control form-control-sm" min="0" max="@it.CantidadPedida"
-                                           @bind="it.CantidadAceptada" />
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="d-flex gap-2 justify-content-end">
-                <button type="button" class="btn btn-outline-secondary" @onclick="CancelarAceptacion">Cancelar</button>
-                <button type="button" class="btn btn-primary" @onclick="ConfirmarAceptacion">Confirmar</button>
-            </div>
-        </div>
-    </div>
-}
-
-@if (resultadoUltimo is not null && resultadoUltimo.PendientesProduccion.Count > 0)
-{
-    <div class="card mb-4 border-warning">
-        <div class="card-body p-4">
-            <h5 class="form-titulo">Pedido #@resultadoUltimo.IdPedido: productos pendientes de producción</h5>
-            <p class="text-muted small">
-                No alcanzó el stock para estos productos. El pedido queda pendiente de ellos
-                hasta que la producción esté disponible.
-            </p>
-
-            <table class="table align-middle">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th class="text-end">A producir</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var pp in resultadoUltimo.PendientesProduccion)
-                    {
-                        <tr>
-                            <td class="fw-semibold">@pp.NombreProducto</td>
-                            <td class="text-end">@pp.CantidadAProducir</td>
-                            <td class="text-end">
-                                <button type="button" class="btn btn-sm btn-outline-primary" @onclick="() => GenerarProduccion(pp)">
-                                    Generar producción
-                                </button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-            <div class="text-end">
-                <button type="button" class="btn btn-link" @onclick="() => resultadoUltimo = null">Cerrar</button>
-            </div>
-        </div>
     </div>
 }
 
@@ -183,14 +97,9 @@ else
                         <td>@(string.IsNullOrWhiteSpace(p.Empleado) ? $"#{p.IdEmpleado}" : p.Empleado)</td>
                         <td class="text-end">@p.CantItems</td>
                         <td class="text-end text-nowrap">
-                            @if (p.EstadoPedido == EstadoPendiente)
-                            {
-                                <button type="button" class="btn btn-sm btn-primary" @onclick="() => AbrirAceptacion(p.IdPedido)">Aceptar</button>
-                            }
-                            else if (p.EstadoPedido == EstadoEnProduccion)
-                            {
-                                <button type="button" class="btn btn-sm btn-outline-primary" @onclick="() => DespacharPendientes(p.IdPedido)">Despachar pendientes</button>
-                            }
+                            <a class="btn btn-sm btn-outline-secondary" href="trazabilidad?pedido=@p.IdPedido" title="Trazabilidad">
+                                <i class="bi bi-diagram-3"></i>
+                            </a>
                         </td>
                     </tr>
                 }
@@ -202,7 +111,6 @@ else
 @code {
     // Mismos valores que usa el servicio de pedidos en la API
     private const string EstadoPendiente = "Pendiente";
-    private const string EstadoEnProduccion = "En produccion";
 
     private List<PedidoFila>? pedidos;
     private string? mensaje;
@@ -213,21 +121,8 @@ else
     private DateTime? filtroDesde;
     private DateTime? filtroHasta;
 
-    private int? pedidoEnAceptacion;
-    private List<ItemAceptable>? itemsAceptacion;
-    private ResultadoAceptacionPedidoDTO? resultadoUltimo;
-
     private bool HayFiltros => !string.IsNullOrWhiteSpace(filtroTexto) || !string.IsNullOrEmpty(filtroEstado)
         || filtroDesde is not null || filtroHasta is not null;
-
-    private class ItemAceptable
-    {
-        public int IdProducto { get; set; }
-        public string NombreProducto { get; set; } = "";
-        public int CantidadPedida { get; set; }
-        public int StockDisponible { get; set; }
-        public int CantidadAceptada { get; set; }
-    }
 
     protected override async Task OnInitializedAsync() => await Cargar();
 
@@ -258,121 +153,6 @@ else
         filtroDesde = null;
         filtroHasta = null;
         await Cargar();
-    }
-
-    /// <summary>Abre el panel de aceptación con lo pedido y el stock actual de cada producto.</summary>
-    private async Task AbrirAceptacion(int idPedido)
-    {
-        mensaje = null;
-        resultadoUltimo = null;
-        try
-        {
-            var items = await Api.ObtenerListaAsync<ItemPedidoAceptacionDTO>($"pedidos/{idPedido}/aceptacion");
-            itemsAceptacion = (items ?? new()).Select(i => new ItemAceptable
-            {
-                IdProducto = i.IdProducto,
-                NombreProducto = i.NombreProducto,
-                CantidadPedida = i.CantidadPedida,
-                StockDisponible = i.StockDisponible,
-                CantidadAceptada = i.CantidadPedida
-            }).ToList();
-            pedidoEnAceptacion = idPedido;
-        }
-        catch (Exception ex)
-        {
-            mensaje = ex.Message;
-            exito = false;
-        }
-    }
-
-    private void CancelarAceptacion()
-    {
-        pedidoEnAceptacion = null;
-        itemsAceptacion = null;
-    }
-
-    private async Task ConfirmarAceptacion()
-    {
-        if (pedidoEnAceptacion is null || itemsAceptacion is null) return;
-
-        var invalido = itemsAceptacion.FirstOrDefault(i => i.CantidadAceptada < 0 || i.CantidadAceptada > i.CantidadPedida);
-        if (invalido is not null)
-        {
-            mensaje = $"La cantidad de {invalido.NombreProducto} debe estar entre 0 y {invalido.CantidadPedida}.";
-            exito = false;
-            return;
-        }
-
-        var dto = new AceptarPedidoProductosDTO
-        {
-            Items = itemsAceptacion.Select(i => new AceptacionItemDTO
-            {
-                IdProducto = i.IdProducto,
-                CantidadAceptada = i.CantidadAceptada
-            }).ToList()
-        };
-
-        var (ok, _, datos, error) = await Api.PostConDatosAsync<ResultadoAceptacionPedidoDTO, AceptarPedidoProductosDTO>(
-            $"pedidos/{pedidoEnAceptacion}/aceptar", dto);
-
-        if (!ok)
-        {
-            mensaje = error ?? "No se pudo aceptar el pedido.";
-            exito = false;
-            return;
-        }
-
-        resultadoUltimo = datos;
-        exito = true;
-        mensaje = datos is not null && datos.PendientesProduccion.Count > 0
-            ? "Pedido aceptado. Hay productos pendientes de producción."
-            : "Pedido aceptado y despachado.";
-
-        CancelarAceptacion();
-        await Cargar();
-    }
-
-    /// <summary>Despacha lo pendiente de producción que ya esté en stock.</summary>
-    private async Task DespacharPendientes(int idPedido)
-    {
-        var (ok, _, datos, error) = await Api.PostConDatosAsync<ResultadoAceptacionPedidoDTO, object?>(
-            $"pedidos/{idPedido}/despachar-pendientes", null);
-
-        if (!ok)
-        {
-            mensaje = error ?? "No se pudieron despachar los pendientes.";
-            exito = false;
-            return;
-        }
-
-        resultadoUltimo = datos;
-        exito = true;
-        mensaje = datos is not null && datos.PendientesProduccion.Count > 0
-            ? "Todavía hay productos pendientes de producción."
-            : "Pedido despachado completamente.";
-
-        await Cargar();
-    }
-
-    /// <summary>Genera la producción de lo que falta. Usa el endpoint existente de órdenes sin modificarlo.</summary>
-    private async Task GenerarProduccion(ProductoPendienteProduccionDTO pendiente)
-    {
-        var creada = await Api.PostAsync("ordenproduccion", new OrdenProduccionDTO
-        {
-            IdProducto = pendiente.IdProducto,
-            CantidadAproducir = pendiente.CantidadAProducir,
-            EstadoOrden = "Pendiente"
-        });
-
-        exito = creada;
-        mensaje = creada
-            ? $"Producción de {pendiente.CantidadAProducir} x {pendiente.NombreProducto} generada."
-            : "No se pudo generar la producción.";
-
-        if (creada && resultadoUltimo is not null)
-        {
-            resultadoUltimo.PendientesProduccion.Remove(pendiente);
-        }
     }
 
     private static string Fecha(DateTime? fecha) => fecha?.ToString("dd/MM/yyyy") ?? "—";

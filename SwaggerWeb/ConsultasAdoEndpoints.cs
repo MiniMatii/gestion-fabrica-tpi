@@ -23,6 +23,25 @@ namespace SwaggerWeb
                 Results.Ok(await repo.ListarAsync(texto, codPostal)))
                .WithName("ADO Sucursales").WithTags("Consultas ADO").WithOpenApi();
 
+            // Reportes estadísticos
+            app.MapGet("/ado/reportes/lotes-por-producto",
+                async (int? pedido, string? producto, DateTime? desde, DateTime? hasta, int? dias, ReportesAdoRepositorio repo) =>
+                    Results.Ok(await repo.LotesPorProductoDePedidoAsync(pedido, producto, desde, hasta, Math.Clamp(dias ?? 30, 1, 365))))
+               .WithName("ADO Reporte Lotes por producto").WithTags("Consultas ADO").WithOpenApi();
+
+            // Trazabilidad: ventana en días para vincular pedidos con órdenes de producción (por producto y fecha)
+            app.MapGet("/ado/trazabilidad/pedido/{id:int}", async (int id, int? dias, TrazabilidadAdoRepositorio repo) =>
+            {
+                var traza = await repo.PorPedidoAsync(id, Math.Clamp(dias ?? 30, 1, 365));
+                return traza is null ? Results.NotFound() : Results.Ok(traza);
+            }).WithName("ADO Trazabilidad Pedido").WithTags("Consultas ADO").WithOpenApi();
+
+            app.MapGet("/ado/trazabilidad/orden/{id:int}", async (int id, int? dias, TrazabilidadAdoRepositorio repo) =>
+            {
+                var traza = await repo.PorOrdenAsync(id, Math.Clamp(dias ?? 30, 1, 365));
+                return traza is null ? Results.NotFound() : Results.Ok(traza);
+            }).WithName("ADO Trazabilidad Orden").WithTags("Consultas ADO").WithOpenApi();
+
             app.MapGet("/ado/pedidos", async (string? texto, string? estado, DateTime? desde, DateTime? hasta, PedidoAdoRepositorio repo) =>
                 Results.Ok(await repo.ListarAsync(texto, estado, desde, hasta)))
                .WithName("ADO Pedidos").WithTags("Consultas ADO").WithOpenApi();

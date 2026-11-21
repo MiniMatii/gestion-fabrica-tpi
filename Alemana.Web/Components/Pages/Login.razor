@@ -58,13 +58,20 @@
 
             if (resultado != null && !string.IsNullOrEmpty(resultado.Token))
             {
+                // La web es solo para usuarios con IdOperario (rol Operario). Los empleados usan la aplicación de escritorio.
+                if (resultado.Rol != "Operario")
+                {
+                    Api.Logout();
+                    mensajeError = "Este usuario no tiene acceso a la web. Solo pueden ingresar operarios.";
+                    return;
+                }
 
                 await LocalStorage.SetItemAsync("authToken", resultado.Token);
 
                 var customAuthStateProvider = (CustomAuthStateProvider)AuthStateProvider;
                 customAuthStateProvider.MarcarUsuarioComoAutenticado(resultado.Token);
 
-                Navigation.NavigateTo(resultado.Rol == "Empleado" ? "/pedidos" : "/");
+                Navigation.NavigateTo("/");
             }
             else
             {

@@ -1,0 +1,1017 @@
+diff --git a/Alemana.DTOs/Filas/FilasTrazabilidad.cs b/Alemana.DTOs/Filas/FilasTrazabilidad.cs
+new file mode 100644
+index 0000000..58f2897
+--- /dev/null
++++ b/Alemana.DTOs/Filas/FilasTrazabilidad.cs
+@@ -0,0 +1,40 @@
++﻿namespace Alemana.DTOs;
++
++// Trazabilidad: pedido -> despachos -> órdenes de producción -> materia prima y lotes.
++
++public record TrazaDespachoFila(
++    int IdDespacho, DateTime FechaDespacho, int IdProducto, string Producto, int Cantidad);
++
++public record TrazaOrdenFila(
++    int IdProd, int IdProducto, string Producto, string EstadoOrden, int CantidadAProducir,
++    DateTime FechaCreacion, DateTime? FechaReal, string Operario);
++
++public record TrazaConsumoFila(
++    int IdProd, int IdMateriaP, string MateriaPrima, string Unidad, int IdLote, decimal CantConsumida,
++    DateTime FechaIngreso, DateTime FechaVencimiento, string Proveedor);
++
++public record TrazaDespachoPosteriorFila(
++    int IdPedido, int IdDespacho, DateTime FechaDespacho, int Cantidad, string Sucursal);
++
++/// <summary>Qué se despachó en un pedido y de qué producciones pudo salir (con su materia prima y lotes).</summary>
++public class TrazabilidadPedidoDTO
++{
++    public int IdPedido { get; set; }
++    public DateTime FechaPedido { get; set; }
++    public string EstadoPedido { get; set; } = string.Empty;
++    public string Sucursal { get; set; } = string.Empty;
++    public string Empleado { get; set; } = string.Empty;
++    public int VentanaDias { get; set; }
++    public List<TrazaDespachoFila> Despachos { get; set; } = new();
++    public List<TrazaOrdenFila> Ordenes { get; set; } = new();
++    public List<TrazaConsumoFila> Consumos { get; set; } = new();
++}
++
++/// <summary>Una orden de producción con su materia prima y lotes, y a qué pedidos pudo ir su producto.</summary>
++public class TrazabilidadOrdenDTO
++{
++    public TrazaOrdenFila Orden { get; set; } = null!;
++    public int VentanaDias { get; set; }
++    public List<TrazaConsumoFila> Consumos { get; set; } = new();
++    public List<TrazaDespachoPosteriorFila> Despachos { get; set; } = new();
++}
+diff --git a/Alemana.Data/Ado/TrazabilidadAdoRepositorio.cs b/Alemana.Data/Ado/TrazabilidadAdoRepositorio.cs
+new file mode 100644
+index 0000000..895f194
+--- /dev/null
++++ b/Alemana.Data/Ado/TrazabilidadAdoRepositorio.cs
+@@ -0,0 +1,133 @@
++﻿using Alemana.DTOs;
++
++namespace Alemana.Data.Ado;
++
++/// <summary>
++/// Trazabilidad con ADO.NET. Las órdenes de producción son independientes de los pedidos, por lo que el vínculo
++/// pedido -> producción es por producto y fecha: son "candidatas" las órdenes finalizadas de ese producto
++/// hasta la fecha del despacho, dentro de una ventana de días.
++/// </summary>
++public class TrazabilidadAdoRepositorio(AdoConexion db)
++{
++    private const string SqlOrden =
++        "SELECT o.idProd, o.idProducto, pr.nombre AS producto, o.estadoOrden, o.cantidadAProducir, " +
++        "       o.fechaCreacion, o.fechaReal, " +
++        "       COALESCE((SELECT TRIM(CONCAT(op.nombre, ' ', op.apellido)) FROM ord_asig_op a " +
++        "                 JOIN operarios op ON op.idOperario = a.idOperario " +
++        "                 WHERE a.idProd = o.idProd ORDER BY a.fechaIni LIMIT 1), '') AS operario " +
++        "FROM ordenproduccion o JOIN productos pr ON pr.idProducto = o.idProducto ";
++
++    private static TrazaOrdenFila MapOrden(System.Data.Common.DbDataReader r) => new(
++        Lector.Int(r, "idProd"), Lector.Int(r, "idProducto"), Lector.Texto(r, "producto"),
++        Lector.Texto(r, "estadoOrden"), Lector.Int(r, "cantidadAProducir"),
++        Lector.Fecha(r, "fechaCreacion"), Lector.FechaN(r, "fechaReal"), Lector.Texto(r, "operario"));
++
++    public async Task<TrazabilidadPedidoDTO?> PorPedidoAsync(int idPedido, int ventanaDias)
++    {
++        var cabecera = await db.ConsultarAsync(
++            "SELECT sp.idPedido, sp.fechaPedido, sp.estadoPedido, " +
++            "       COALESCE(s.nombreSuc, '') AS sucursal, " +
++            "       TRIM(CONCAT(COALESCE(e.nombre, ''), ' ', COALESCE(e.apellido, ''))) AS empleado " +
++            "FROM solicitudpedido sp " +
++            "LEFT JOIN empleados e ON e.idEmpleado = sp.idEmpleado " +
++            "LEFT JOIN sucursales s ON s.idSucursal = e.idSucursal " +
++            "WHERE sp.idPedido = @id",
++            r => new TrazabilidadPedidoDTO
++            {
++                IdPedido = Lector.Int(r, "idPedido"),
++                FechaPedido = Lector.Fecha(r, "fechaPedido"),
++                EstadoPedido = Lector.Texto(r, "estadoPedido"),
++                Sucursal = Lector.Texto(r, "sucursal"),
++                Empleado = Lector.Texto(r, "empleado"),
++                VentanaDias = ventanaDias
++            },
++            ("@id", idPedido));
++
++        var traza = cabecera.FirstOrDefault();
++        if (traza is null) return null;
++
++        traza.Despachos = await db.ConsultarAsync(
++            "SELECT d.idDespacho, d.fechaDespacho, dd.idProducto, pr.nombre AS producto, dd.cantidad " +
++            "FROM despacho d " +
++            "JOIN detalle_despacho dd ON dd.idDespacho = d.idDespacho " +
++            "JOIN productos pr ON pr.idProducto = dd.idProducto " +
++            "WHERE d.idPedido = @id ORDER BY d.fechaDespacho, pr.nombre",
++            r => new TrazaDespachoFila(
++                Lector.Int(r, "idDespacho"), Lector.Fecha(r, "fechaDespacho"),
++                Lector.Int(r, "idProducto"), Lector.Texto(r, "producto"), Lector.Int(r, "cantidad")),
++            ("@id", idPedido));
++
++        // Órdenes finalizadas de los productos despachados, hasta la fecha del despacho y dentro de la ventana
++        traza.Ordenes = await db.ConsultarAsync(
++            SqlOrden +
++            "WHERE o.estadoOrden = 'Finalizada' AND o.fechaReal IS NOT NULL AND EXISTS (" +
++            "  SELECT 1 FROM despacho d JOIN detalle_despacho dd ON dd.idDespacho = d.idDespacho " +
++            "  WHERE d.idPedido = @id AND dd.idProducto = o.idProducto " +
++            "    AND o.fechaReal <= d.fechaDespacho " +
++            "    AND o.fechaReal >= DATE_SUB(d.fechaDespacho, INTERVAL @dias DAY)) " +
++            "ORDER BY pr.nombre, o.fechaReal DESC",
++            MapOrden, ("@id", idPedido), ("@dias", ventanaDias));
++
++        traza.Consumos = await ConsumosAsync(traza.Ordenes.Select(o => o.IdProd).ToList());
++        return traza;
++    }
++
++    public async Task<TrazabilidadOrdenDTO?> PorOrdenAsync(int idProd, int ventanaDias)
++    {
++        var orden = (await db.ConsultarAsync(SqlOrden + "WHERE o.idProd = @id", MapOrden, ("@id", idProd)))
++            .FirstOrDefault();
++        if (orden is null) return null;
++
++        var traza = new TrazabilidadOrdenDTO
++        {
++            Orden = orden,
++            VentanaDias = ventanaDias,
++            Consumos = await ConsumosAsync(new List<int> { idProd })
++        };
++
++        if (orden.FechaReal is not null)
++        {
++            // Despachos del mismo producto posteriores a la finalización, dentro de la ventana
++            traza.Despachos = await db.ConsultarAsync(
++                "SELECT d.idPedido, d.idDespacho, d.fechaDespacho, dd.cantidad, COALESCE(s.nombreSuc, '') AS sucursal " +
++                "FROM despacho d " +
++                "JOIN detalle_despacho dd ON dd.idDespacho = d.idDespacho " +
++                "JOIN solicitudpedido sp ON sp.idPedido = d.idPedido " +
++                "LEFT JOIN empleados e ON e.idEmpleado = sp.idEmpleado " +
++                "LEFT JOIN sucursales s ON s.idSucursal = e.idSucursal " +
++                "WHERE dd.idProducto = @prod AND d.fechaDespacho >= @desde " +
++                "  AND d.fechaDespacho <= DATE_ADD(@desde, INTERVAL @dias DAY) " +
++                "ORDER BY d.fechaDespacho",
++                r => new TrazaDespachoPosteriorFila(
++                    Lector.Int(r, "idPedido"), Lector.Int(r, "idDespacho"), Lector.Fecha(r, "fechaDespacho"),
++                    Lector.Int(r, "cantidad"), Lector.Texto(r, "sucursal")),
++                ("@prod", orden.IdProducto), ("@desde", orden.FechaReal), ("@dias", ventanaDias));
++        }
++
++        return traza;
++    }
++
++    private async Task<List<TrazaConsumoFila>> ConsumosAsync(List<int> ordenes)
++    {
++        if (ordenes.Count == 0) return new List<TrazaConsumoFila>();
++
++        // Solo se arman nombres de parámetros (@o0, @o1...); los valores viajan parametrizados
++        var nombres = ordenes.Select((_, i) => "@o" + i).ToList();
++        var parametros = ordenes.Select((id, i) => ("@o" + i, (object?)id)).ToArray();
++
++        return await db.ConsultarAsync(
++            "SELECT cl.idProd, mp.idMateriaP, mp.nombre AS materiaPrima, mp.unidad, cl.idLote, cl.cantConsumida, " +
++            "       l.fechaIngreso, l.fechaVencimiento, COALESCE(pv.razonSocial, '') AS proveedor " +
++            "FROM consumolote cl " +
++            "JOIN lote l ON l.idLote = cl.idLote " +
++            "JOIN materiap mp ON mp.idMateriaP = l.idMateriaP " +
++            "LEFT JOIN proveedores pv ON pv.idProveedor = l.idProveedor " +
++            "WHERE cl.idProd IN (" + string.Join(",", nombres) + ") " +
++            "ORDER BY cl.idProd, mp.nombre, cl.idLote",
++            r => new TrazaConsumoFila(
++                Lector.Int(r, "idProd"), Lector.Int(r, "idMateriaP"), Lector.Texto(r, "materiaPrima"),
++                Lector.Texto(r, "unidad"), Lector.Int(r, "idLote"), Lector.Decimal(r, "cantConsumida"),
++                Lector.Fecha(r, "fechaIngreso"), Lector.Fecha(r, "fechaVencimiento"), Lector.Texto(r, "proveedor")),
++            parametros);
++    }
++}
+diff --git a/Alemana.Web/Auth/CustomAuthStateProvider.cs b/Alemana.Web/Auth/CustomAuthStateProvider.cs
+index a40c430..44aea43 100644
+--- a/Alemana.Web/Auth/CustomAuthStateProvider.cs
++++ b/Alemana.Web/Auth/CustomAuthStateProvider.cs
+@@ -28,6 +28,13 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
+ 
+             var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
+ 
++            // Solo operarios: el token tiene que traer operarioId (un token de empleado no sirve en la web)
++            if (!TieneOperario(jwt))
++            {
++                await _localStorage.RemoveItemAsync(TokenKey);
++                return Anonimo();
++            }
++
+             // Token vencido: se limpia y queda como anónimo
+             if (jwt.ValidTo <= DateTime.UtcNow)
+             {
+@@ -49,9 +56,17 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
+         }
+     }
+ 
++    private static bool TieneOperario(JwtSecurityToken jwt) =>
++        jwt.Claims.Any(c => c.Type == "operarioId" && int.TryParse(c.Value, out _));
++
+     public void MarcarUsuarioComoAutenticado(string token)
+     {
+         var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
++        if (!TieneOperario(jwt))
++        {
++            NotifyAuthenticationStateChanged(Task.FromResult(Anonimo()));
++            return;
++        }
+         NotifyAuthenticationStateChanged(
+             Task.FromResult(new AuthenticationState(CrearPrincipal(jwt))));
+     }
+diff --git a/Alemana.Web/Components/Layout/NavMenu.razor b/Alemana.Web/Components/Layout/NavMenu.razor
+index d9a671d..d48df62 100644
+--- a/Alemana.Web/Components/Layout/NavMenu.razor
++++ b/Alemana.Web/Components/Layout/NavMenu.razor
+@@ -47,6 +47,12 @@
+                     </NavLink>
+                 </div>
+ 
++                <div class="nav-item">
++                    <NavLink class="nav-link" href="trazabilidad">
++                        <i class="bi bi-diagram-3-fill" aria-hidden="true"></i> Trazabilidad
++                    </NavLink>
++                </div>
++
+                 <div class="nav-spacer"></div>
+                 <div class="nav-divider"></div>
+ 
+diff --git a/Alemana.Web/Components/Pages/Login.razor b/Alemana.Web/Components/Pages/Login.razor
+index d051435..d052320 100644
+--- a/Alemana.Web/Components/Pages/Login.razor
++++ b/Alemana.Web/Components/Pages/Login.razor
+@@ -58,13 +58,20 @@
+ 
+             if (resultado != null && !string.IsNullOrEmpty(resultado.Token))
+             {
++                // La web es solo para usuarios con IdOperario (rol Operario). Los empleados usan la aplicación de escritorio.
++                if (resultado.Rol != "Operario")
++                {
++                    Api.Logout();
++                    mensajeError = "Este usuario no tiene acceso a la web. Solo pueden ingresar operarios.";
++                    return;
++                }
+ 
+                 await LocalStorage.SetItemAsync("authToken", resultado.Token);
+ 
+                 var customAuthStateProvider = (CustomAuthStateProvider)AuthStateProvider;
+                 customAuthStateProvider.MarcarUsuarioComoAutenticado(resultado.Token);
+ 
+-                Navigation.NavigateTo(resultado.Rol == "Empleado" ? "/pedidos" : "/");
++                Navigation.NavigateTo("/");
+             }
+             else
+             {
+diff --git a/Alemana.Web/Components/Pages/Pedido_list.razor b/Alemana.Web/Components/Pages/Pedido_list.razor
+index d578fe2..fbaaa05 100644
+--- a/Alemana.Web/Components/Pages/Pedido_list.razor
++++ b/Alemana.Web/Components/Pages/Pedido_list.razor
+@@ -1,4 +1,4 @@
+-@page "/pedidos"
++﻿@page "/pedidos"
+ @attribute [Authorize]
+ @inject ApiClient Api
+ 
+@@ -22,14 +22,14 @@
+     </div>
+ }
+ 
+-@if (pedidoEnAceptacion is not null && itemsAceptacion is not null)
++@if (pedidoEnGestion is not null && filas is not null)
+ {
+     <div class="card mb-4">
+         <div class="card-body p-4">
+-            <h5 class="form-titulo">Aceptar pedido #@pedidoEnAceptacion</h5>
++            <h5 class="form-titulo">Pedido #@pedidoEnGestion</h5>
+             <p class="text-muted small">
+-                Indicá cuánto aceptás de cada producto. Lo que haya en stock se despacha;
+-                lo que falte queda pendiente de producción. Lo que no aceptes se descarta.
++                Fijá cuánto aceptás en total de cada producto (no puede ser menos de lo ya despachado) y cuánto
++                despachás ahora (hasta el stock). Lo aceptado sin despachar queda pendiente.
+             </p>
+ 
+             <div class="tabla-wrap">
+@@ -38,20 +38,28 @@
+                         <tr>
+                             <th>Producto</th>
+                             <th class="text-end">Pedido</th>
++                            <th class="text-end">Despachado</th>
+                             <th class="text-end">Stock</th>
+-                            <th style="width: 10rem;">Aceptar</th>
++                            <th style="width: 9rem;">Aceptar total</th>
++                            <th style="width: 9rem;">Despachar ahora</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+-                        @foreach (var it in itemsAceptacion)
++                        @foreach (var f in filas)
+                         {
+                             <tr>
+-                                <td class="fw-semibold">@it.NombreProducto</td>
+-                                <td class="text-end">@it.CantidadPedida</td>
+-                                <td class="text-end">@it.StockDisponible</td>
++                                <td class="fw-semibold">@f.NombreProducto</td>
++                                <td class="text-end">@f.Solicitada</td>
++                                <td class="text-end">@f.Despachada</td>
++                                <td class="text-end">@f.Stock</td>
+                                 <td>
+-                                    <input type="number" class="form-control form-control-sm" min="0" max="@it.CantidadPedida"
+-                                           @bind="it.CantidadAceptada" />
++                                    <input type="number" class="form-control form-control-sm" min="@f.Despachada" max="@f.Solicitada"
++                                           @bind="f.Aceptar" @bind:after="() => f.Ajustar()" />
++                                </td>
++                                <td>
++                                    <input type="number" class="form-control form-control-sm" min="0" max="@f.MaximoAhora"
++                                           disabled="@(f.MaximoAhora <= 0)" @bind="f.Despachar" />
++                                    <div class="form-text">máx. @f.MaximoAhora</div>
+                                 </td>
+                             </tr>
+                         }
+@@ -59,22 +67,34 @@
+                 </table>
+             </div>
+ 
++            <div class="row g-2 align-items-end mb-3">
++                <div class="col-md-5">
++                    <label class="form-label small text-muted" for="ped-empleado">Empleado que despacha</label>
++                    <select id="ped-empleado" class="form-select" @bind="idEmpleadoDespacha">
++                        <option value="0">Elegí un empleado...</option>
++                        @foreach (var e in empleados)
++                        {
++                            <option value="@e.IdEmpleado">@e.Apellido, @e.Nombre</option>
++                        }
++                    </select>
++                </div>
++            </div>
++
+             <div class="d-flex gap-2 justify-content-end">
+-                <button type="button" class="btn btn-outline-secondary" @onclick="CancelarAceptacion">Cancelar</button>
+-                <button type="button" class="btn btn-primary" @onclick="ConfirmarAceptacion">Confirmar</button>
++                <button type="button" class="btn btn-outline-secondary" @onclick="CancelarGestion">Cancelar</button>
++                <button type="button" class="btn btn-primary" @onclick="ConfirmarGestion">Confirmar</button>
+             </div>
+         </div>
+     </div>
+ }
+ 
+-@if (resultadoUltimo is not null && resultadoUltimo.PendientesProduccion.Count > 0)
++@if (faltantes.Count > 0)
+ {
+     <div class="card mb-4 border-warning">
+         <div class="card-body p-4">
+-            <h5 class="form-titulo">Pedido #@resultadoUltimo.IdPedido: productos pendientes de producción</h5>
++            <h5 class="form-titulo">Pedido #@faltantesPedido: productos sin stock suficiente</h5>
+             <p class="text-muted small">
+-                No alcanzó el stock para estos productos. El pedido queda pendiente de ellos
+-                hasta que la producción esté disponible.
++                Lo aceptado supera el stock. Podés generar una orden de producción (queda Pendiente; se confirma en Producción).
+             </p>
+ 
+             <table class="table align-middle">
+@@ -86,7 +106,7 @@
+                     </tr>
+                 </thead>
+                 <tbody>
+-                    @foreach (var pp in resultadoUltimo.PendientesProduccion)
++                    @foreach (var pp in faltantes)
+                     {
+                         <tr>
+                             <td class="fw-semibold">@pp.NombreProducto</td>
+@@ -102,7 +122,7 @@
+             </table>
+ 
+             <div class="text-end">
+-                <button type="button" class="btn btn-link" @onclick="() => resultadoUltimo = null">Cerrar</button>
++                <button type="button" class="btn btn-link" @onclick="() => faltantes.Clear()">Cerrar</button>
+             </div>
+         </div>
+     </div>
+@@ -183,14 +203,13 @@ else
+                         <td>@(string.IsNullOrWhiteSpace(p.Empleado) ? $"#{p.IdEmpleado}" : p.Empleado)</td>
+                         <td class="text-end">@p.CantItems</td>
+                         <td class="text-end text-nowrap">
+-                            @if (p.EstadoPedido == EstadoPendiente)
++                            @if (p.EstadoPedido != EstadoCompletado)
+                             {
+-                                <button type="button" class="btn btn-sm btn-primary" @onclick="() => AbrirAceptacion(p.IdPedido)">Aceptar</button>
+-                            }
+-                            else if (p.EstadoPedido == EstadoEnProduccion)
+-                            {
+-                                <button type="button" class="btn btn-sm btn-outline-primary" @onclick="() => DespacharPendientes(p.IdPedido)">Despachar pendientes</button>
++                                <button type="button" class="btn btn-sm btn-primary" @onclick="() => AbrirGestion(p.IdPedido)">Gestionar</button>
+                             }
++                            <a class="btn btn-sm btn-outline-secondary" href="trazabilidad?pedido=@p.IdPedido" title="Trazabilidad">
++                                <i class="bi bi-diagram-3"></i>
++                            </a>
+                         </td>
+                     </tr>
+                 }
+@@ -202,7 +221,7 @@ else
+ @code {
+     // Mismos valores que usa el servicio de pedidos en la API
+     private const string EstadoPendiente = "Pendiente";
+-    private const string EstadoEnProduccion = "En produccion";
++    private const string EstadoCompletado = "Completado";
+ 
+     private List<PedidoFila>? pedidos;
+     private string? mensaje;
+@@ -213,20 +232,36 @@ else
+     private DateTime? filtroDesde;
+     private DateTime? filtroHasta;
+ 
+-    private int? pedidoEnAceptacion;
+-    private List<ItemAceptable>? itemsAceptacion;
+-    private ResultadoAceptacionPedidoDTO? resultadoUltimo;
++    private int? pedidoEnGestion;
++    private List<FilaGestion>? filas;
++    private List<EmpleadoDTO> empleados = new();
++    private int idEmpleadoDespacha;
++    private List<ProductoPendienteProduccionDTO> faltantes = new();
++    private int? faltantesPedido;
+ 
+     private bool HayFiltros => !string.IsNullOrWhiteSpace(filtroTexto) || !string.IsNullOrEmpty(filtroEstado)
+         || filtroDesde is not null || filtroHasta is not null;
+ 
+-    private class ItemAceptable
++    private class FilaGestion
+     {
+         public int IdProducto { get; set; }
+         public string NombreProducto { get; set; } = "";
+-        public int CantidadPedida { get; set; }
+-        public int StockDisponible { get; set; }
+-        public int CantidadAceptada { get; set; }
++        public int Solicitada { get; set; }
++        public int Aceptada { get; set; }
++        public int Despachada { get; set; }
++        public int Stock { get; set; }
++        public int Aceptar { get; set; }
++        public int Despachar { get; set; }
++
++        /// <summary>Máximo a despachar ahora = min(aceptado - despachado, stock).</summary>
++        public int MaximoAhora => Math.Max(Math.Min(Aceptar - Despachada, Math.Max(Stock, 0)), 0);
++
++        public void Ajustar()
++        {
++            if (Aceptar < Despachada) Aceptar = Despachada;
++            if (Aceptar > Solicitada) Aceptar = Solicitada;
++            Despachar = MaximoAhora;
++        }
+     }
+ 
+     protected override async Task OnInitializedAsync() => await Cargar();
+@@ -260,23 +295,35 @@ else
+         await Cargar();
+     }
+ 
+-    /// <summary>Abre el panel de aceptación con lo pedido y el stock actual de cada producto.</summary>
+-    private async Task AbrirAceptacion(int idPedido)
++    /// <summary>Abre el panel de gestión con lo pedido, lo aceptado/despachado y el stock actual.</summary>
++    private async Task AbrirGestion(int idPedido)
+     {
+         mensaje = null;
+-        resultadoUltimo = null;
++        faltantes.Clear();
+         try
+         {
+-            var items = await Api.ObtenerListaAsync<ItemPedidoAceptacionDTO>($"pedidos/{idPedido}/aceptacion");
+-            itemsAceptacion = (items ?? new()).Select(i => new ItemAceptable
++            var items = await Api.ObtenerListaAsync<ItemPedidoDespachoDTO>($"pedidos/{idPedido}/items") ?? new();
++            empleados = await Api.ObtenerListaAsync<EmpleadoDTO>("empleado") ?? new();
++
++            filas = items.Select(i =>
+             {
+-                IdProducto = i.IdProducto,
+-                NombreProducto = i.NombreProducto,
+-                CantidadPedida = i.CantidadPedida,
+-                StockDisponible = i.StockDisponible,
+-                CantidadAceptada = i.CantidadPedida
++                var f = new FilaGestion
++                {
++                    IdProducto = i.IdProducto,
++                    NombreProducto = i.NombreProducto,
++                    Solicitada = i.CantidadSolicitada,
++                    Aceptada = i.CantidadAceptada,
++                    Despachada = i.CantidadDespachada,
++                    Stock = i.StockDisponible
++                };
++                f.Aceptar = Math.Max(i.CantidadAceptada,
++                            Math.Min(i.CantidadSolicitada, i.CantidadDespachada + Math.Max(i.StockDisponible, 0)));
++                f.Despachar = f.MaximoAhora;
++                return f;
+             }).ToList();
+-            pedidoEnAceptacion = idPedido;
++
++            idEmpleadoDespacha = 0;
++            pedidoEnGestion = idPedido;
+         }
+         catch (Exception ex)
+         {
+@@ -285,76 +332,112 @@ else
+         }
+     }
+ 
+-    private void CancelarAceptacion()
++    private void CancelarGestion()
+     {
+-        pedidoEnAceptacion = null;
+-        itemsAceptacion = null;
++        pedidoEnGestion = null;
++        filas = null;
+     }
+ 
+-    private async Task ConfirmarAceptacion()
++    private async Task ConfirmarGestion()
+     {
+-        if (pedidoEnAceptacion is null || itemsAceptacion is null) return;
++        if (pedidoEnGestion is null || filas is null) return;
++        var idPedido = pedidoEnGestion.Value;
+ 
+-        var invalido = itemsAceptacion.FirstOrDefault(i => i.CantidadAceptada < 0 || i.CantidadAceptada > i.CantidadPedida);
+-        if (invalido is not null)
++        var cambiosAceptacion = filas.Where(f => f.Aceptar != f.Aceptada).ToList();
++        var despachos = filas.Where(f => f.Despachar > 0).ToList();
++
++        if (cambiosAceptacion.Count == 0 && despachos.Count == 0)
+         {
+-            mensaje = $"La cantidad de {invalido.NombreProducto} debe estar entre 0 y {invalido.CantidadPedida}.";
++            mensaje = "No hay cambios para guardar: ajustá una cantidad aceptada o despachá algo.";
+             exito = false;
+             return;
+         }
+ 
+-        var dto = new AceptarPedidoProductosDTO
++        var invalido = filas.FirstOrDefault(f => f.Aceptar < f.Despachada || f.Aceptar > f.Solicitada
++                                              || f.Despachar < 0 || f.Despachar > f.MaximoAhora);
++        if (invalido is not null)
+         {
+-            Items = itemsAceptacion.Select(i => new AceptacionItemDTO
+-            {
+-                IdProducto = i.IdProducto,
+-                CantidadAceptada = i.CantidadAceptada
+-            }).ToList()
+-        };
+-
+-        var (ok, _, datos, error) = await Api.PostConDatosAsync<ResultadoAceptacionPedidoDTO, AceptarPedidoProductosDTO>(
+-            $"pedidos/{pedidoEnAceptacion}/aceptar", dto);
++            mensaje = $"Revisá las cantidades de {invalido.NombreProducto}.";
++            exito = false;
++            return;
++        }
+ 
+-        if (!ok)
++        if (despachos.Count > 0 && idEmpleadoDespacha == 0)
+         {
+-            mensaje = error ?? "No se pudo aceptar el pedido.";
++            mensaje = "Elegí el empleado que despacha.";
+             exito = false;
+             return;
+         }
+ 
+-        resultadoUltimo = datos;
+-        exito = true;
+-        mensaje = datos is not null && datos.PendientesProduccion.Count > 0
+-            ? "Pedido aceptado. Hay productos pendientes de producción."
+-            : "Pedido aceptado y despachado.";
++        ResultadoPedidoDTO? resultado = null;
+ 
+-        CancelarAceptacion();
+-        await Cargar();
+-    }
++        if (cambiosAceptacion.Count > 0)
++        {
++            var r = await Api.PostConDatosAsync<ResultadoPedidoDTO, AceptarPedidoProductosDTO>(
++                $"pedidos/{idPedido}/aceptar",
++                new AceptarPedidoProductosDTO
++                {
++                    Items = cambiosAceptacion.Select(f => new AceptacionItemDTO
++                    {
++                        IdProducto = f.IdProducto,
++                        CantidadAceptada = f.Aceptar
++                    }).ToList()
++                });
+ 
+-    /// <summary>Despacha lo pendiente de producción que ya esté en stock.</summary>
+-    private async Task DespacharPendientes(int idPedido)
+-    {
+-        var (ok, _, datos, error) = await Api.PostConDatosAsync<ResultadoAceptacionPedidoDTO, object?>(
+-            $"pedidos/{idPedido}/despachar-pendientes", null);
++            if (!r.Ok)
++            {
++                mensaje = r.Mensaje ?? "No se pudo guardar la aceptación.";
++                exito = false;
++                return;
++            }
++            resultado = r.Datos;
++        }
+ 
+-        if (!ok)
++        if (despachos.Count > 0)
+         {
+-            mensaje = error ?? "No se pudieron despachar los pendientes.";
+-            exito = false;
+-            return;
++            var r = await Api.PostConDatosAsync<ResultadoPedidoDTO, DespacharPedidoDTO>(
++                $"pedidos/{idPedido}/despachos",
++                new DespacharPedidoDTO
++                {
++                    IdEmpleado = idEmpleadoDespacha,
++                    Items = despachos.Select(f => new DespachoItemDTO
++                    {
++                        IdProducto = f.IdProducto,
++                        Cantidad = f.Despachar
++                    }).ToList()
++                });
++
++            if (!r.Ok)
++            {
++                mensaje = r.Mensaje ?? "No se pudo registrar el despacho.";
++                exito = false;
++                return;
++            }
++            resultado = r.Datos;
+         }
+ 
+-        resultadoUltimo = datos;
+         exito = true;
+-        mensaje = datos is not null && datos.PendientesProduccion.Count > 0
+-            ? "Todavía hay productos pendientes de producción."
+-            : "Pedido despachado completamente.";
++        mensaje = resultado?.EstadoPedido == EstadoCompletado
++            ? $"Pedido #{idPedido} despachado por completo."
++            : $"Pedido #{idPedido} actualizado ({resultado?.EstadoPedido}).";
++
++        faltantes = resultado is null
++            ? new()
++            : resultado.Items
++                .Where(i => i.PendienteDespachar > i.StockDisponible)
++                .Select(i => new ProductoPendienteProduccionDTO
++                {
++                    IdProducto = i.IdProducto,
++                    NombreProducto = i.NombreProducto,
++                    CantidadAProducir = i.PendienteDespachar - Math.Max(i.StockDisponible, 0)
++                }).ToList();
++        faltantesPedido = faltantes.Count > 0 ? idPedido : null;
+ 
++        CancelarGestion();
+         await Cargar();
+     }
+ 
+-    /// <summary>Genera la producción de lo que falta. Usa el endpoint existente de órdenes sin modificarlo.</summary>
++    /// <summary>Genera una orden de producción Pendiente por lo que falta.</summary>
+     private async Task GenerarProduccion(ProductoPendienteProduccionDTO pendiente)
+     {
+         var creada = await Api.PostAsync("ordenproduccion", new OrdenProduccionDTO
+@@ -366,13 +449,10 @@ else
+ 
+         exito = creada;
+         mensaje = creada
+-            ? $"Producción de {pendiente.CantidadAProducir} x {pendiente.NombreProducto} generada."
++            ? $"Producción de {pendiente.CantidadAProducir} x {pendiente.NombreProducto} generada (Pendiente)."
+             : "No se pudo generar la producción.";
+ 
+-        if (creada && resultadoUltimo is not null)
+-        {
+-            resultadoUltimo.PendientesProduccion.Remove(pendiente);
+-        }
++        if (creada) faltantes.Remove(pendiente);
+     }
+ 
+     private static string Fecha(DateTime? fecha) => fecha?.ToString("dd/MM/yyyy") ?? "—";
+diff --git a/Alemana.Web/Components/Pages/TablaConsumos.razor b/Alemana.Web/Components/Pages/TablaConsumos.razor
+new file mode 100644
+index 0000000..f81fa12
+--- /dev/null
++++ b/Alemana.Web/Components/Pages/TablaConsumos.razor
+@@ -0,0 +1,39 @@
++﻿@* Materia prima y lotes consumidos por una orden de producción *@
++@if (Consumos.Count == 0)
++{
++    <p class="text-muted small mt-2 mb-0">Esta orden no tiene consumos de lote registrados.</p>
++}
++else
++{
++    <div class="tabla-wrap mt-2">
++        <table class="table table-sm align-middle mb-0">
++            <thead>
++                <tr>
++                    <th>Materia prima</th>
++                    <th>Lote</th>
++                    <th class="text-end">Cantidad usada</th>
++                    <th>Ingreso</th>
++                    <th>Vencimiento</th>
++                    <th>Proveedor</th>
++                </tr>
++            </thead>
++            <tbody>
++                @foreach (var c in Consumos)
++                {
++                    <tr>
++                        <td class="fw-semibold">@c.MateriaPrima</td>
++                        <td>#@c.IdLote</td>
++                        <td class="text-end">@c.CantConsumida.ToString("0.##") @c.Unidad</td>
++                        <td>@c.FechaIngreso.ToString("dd/MM/yyyy")</td>
++                        <td>@c.FechaVencimiento.ToString("dd/MM/yyyy")</td>
++                        <td>@(string.IsNullOrWhiteSpace(c.Proveedor) ? "—" : c.Proveedor)</td>
++                    </tr>
++                }
++            </tbody>
++        </table>
++    </div>
++}
++
++@code {
++    [Parameter] public List<TrazaConsumoFila> Consumos { get; set; } = new();
++}
+diff --git a/Alemana.Web/Components/Pages/Trazabilidad.razor b/Alemana.Web/Components/Pages/Trazabilidad.razor
+new file mode 100644
+index 0000000..5ee5ad7
+--- /dev/null
++++ b/Alemana.Web/Components/Pages/Trazabilidad.razor
+@@ -0,0 +1,251 @@
++﻿@page "/trazabilidad"
++@attribute [Authorize]
++@inject ApiClient Api
++
++<PageTitle>Trazabilidad - Alemana</PageTitle>
++
++<div class="page-header">
++    <div>
++        <h2 class="page-title">Control de trazabilidad</h2>
++        <p class="page-subtitle">
++            Ante un defecto: de qué producción salió lo despachado en un pedido y qué materia prima (con sus lotes) se usó,
++            o a qué pedidos pudo ir lo producido por una orden.
++        </p>
++    </div>
++</div>
++
++@if (!string.IsNullOrEmpty(mensaje))
++{
++    <div class="alert alert-danger" role="alert">
++        <i class="bi bi-exclamation-triangle-fill me-2"></i>@mensaje
++    </div>
++}
++
++<div class="card mb-4 filtros">
++    <div class="card-body p-3">
++        <form class="row g-2 align-items-end" @onsubmit="Buscar" @onsubmit:preventDefault>
++            <div class="col-md-3">
++                <label class="form-label small text-muted" for="tz-modo">Buscar por</label>
++                <select id="tz-modo" class="form-select" @bind="modo">
++                    <option value="pedido">Pedido</option>
++                    <option value="orden">Orden de producción</option>
++                </select>
++            </div>
++            <div class="col-md-3">
++                <label class="form-label small text-muted" for="tz-numero">N° de @(modo == "pedido" ? "pedido" : "orden")</label>
++                <input id="tz-numero" type="number" min="1" class="form-control" @bind="numero" />
++            </div>
++            <div class="col-md-3">
++                <label class="form-label small text-muted" for="tz-dias">Ventana de producción (días)</label>
++                <input id="tz-dias" type="number" min="1" max="365" class="form-control" @bind="dias" />
++            </div>
++            <div class="col-md-3 d-flex gap-2">
++                <button type="submit" class="btn btn-primary flex-fill"><i class="bi bi-search me-1"></i> Buscar</button>
++            </div>
++        </form>
++        <div class="form-text mt-2">
++            Las órdenes de producción no están atadas a un pedido: el vínculo se arma por producto y fecha.
++            Se listan las órdenes finalizadas del producto hasta la fecha del despacho, dentro de la ventana indicada.
++        </div>
++    </div>
++</div>
++
++@if (cargando)
++{
++    <div class="empty-state">
++        <div class="spinner-border" role="status" aria-hidden="true"></div>
++        <p>Buscando...</p>
++    </div>
++}
++
++@if (porPedido is not null)
++{
++    <div class="card mb-4">
++        <div class="card-body p-4">
++            <h5 class="form-titulo">Pedido #@porPedido.IdPedido</h5>
++            <p class="mb-1">
++                <span class="pill pill-si">@porPedido.EstadoPedido</span>
++                Realizado el @porPedido.FechaPedido.ToString("dd/MM/yyyy HH:mm")
++            </p>
++            <p class="text-muted small mb-0">
++                Sucursal: @(string.IsNullOrWhiteSpace(porPedido.Sucursal) ? "—" : porPedido.Sucursal)
++                · Empleado: @(string.IsNullOrWhiteSpace(porPedido.Empleado) ? "—" : porPedido.Empleado)
++            </p>
++        </div>
++    </div>
++
++    <h5 class="form-titulo">Despachado</h5>
++    @if (porPedido.Despachos.Count == 0)
++    {
++        <div class="notice mb-4"><i class="bi bi-info-circle"></i> <span>Este pedido todavía no tiene despachos.</span></div>
++    }
++    else
++    {
++        <div class="tabla-wrap mb-4">
++            <table class="table align-middle">
++                <thead>
++                    <tr><th>Despacho</th><th>Fecha</th><th>Producto</th><th class="text-end">Cantidad</th></tr>
++                </thead>
++                <tbody>
++                    @foreach (var d in porPedido.Despachos)
++                    {
++                        <tr>
++                            <td class="text-muted">#@d.IdDespacho</td>
++                            <td>@d.FechaDespacho.ToString("dd/MM/yyyy HH:mm")</td>
++                            <td class="fw-semibold">@d.Producto</td>
++                            <td class="text-end">@d.Cantidad</td>
++                        </tr>
++                    }
++                </tbody>
++            </table>
++        </div>
++
++        <h5 class="form-titulo">Producciones de origen posibles</h5>
++        @if (porPedido.Ordenes.Count == 0)
++        {
++            <div class="notice mb-4">
++                <i class="bi bi-info-circle"></i>
++                <span>No hay órdenes finalizadas de estos productos en la ventana de @porPedido.VentanaDias días anteriores al despacho.
++                      Probá ampliarla.</span>
++            </div>
++        }
++        else
++        {
++            @foreach (var g in porPedido.Ordenes.GroupBy(o => o.Producto))
++            {
++                <h6 class="mt-3">@g.Key</h6>
++                @foreach (var o in g)
++                {
++                    <div class="card mb-3">
++                        <div class="card-body p-3">
++                            <div class="d-flex flex-wrap gap-3 justify-content-between">
++                                <div>
++                                    <strong>Orden #@o.IdProd</strong>
++                                    <span class="text-muted ms-2">@o.CantidadAProducir unidades</span>
++                                </div>
++                                <div class="text-muted small">
++                                    Finalizada: @(o.FechaReal?.ToString("dd/MM/yyyy HH:mm") ?? "—")
++                                    · Operario: @(string.IsNullOrWhiteSpace(o.Operario) ? "—" : o.Operario)
++                                    · <a href="trazabilidad?orden=@o.IdProd">ver a qué pedidos fue</a>
++                                </div>
++                            </div>
++                            <TablaConsumos Consumos="@ConsumosDe(porPedido.Consumos, o.IdProd)" />
++                        </div>
++                    </div>
++                }
++            }
++        }
++    }
++}
++
++@if (porOrden is not null)
++{
++    <div class="card mb-4">
++        <div class="card-body p-4">
++            <h5 class="form-titulo">Orden de producción #@porOrden.Orden.IdProd</h5>
++            <p class="mb-1">
++                <strong>@porOrden.Orden.Producto</strong> · @porOrden.Orden.CantidadAProducir unidades
++                · <span class="pill @(porOrden.Orden.EstadoOrden == "Finalizada" ? "pill-si" : "pill-aviso")">@porOrden.Orden.EstadoOrden</span>
++            </p>
++            <p class="text-muted small mb-0">
++                Creada: @porOrden.Orden.FechaCreacion.ToString("dd/MM/yyyy HH:mm")
++                · Finalizada: @(porOrden.Orden.FechaReal?.ToString("dd/MM/yyyy HH:mm") ?? "—")
++                · Operario: @(string.IsNullOrWhiteSpace(porOrden.Orden.Operario) ? "—" : porOrden.Orden.Operario)
++            </p>
++        </div>
++    </div>
++
++    <h5 class="form-titulo">Materia prima y lotes usados</h5>
++    <div class="mb-4">
++        <TablaConsumos Consumos="@porOrden.Consumos" />
++    </div>
++
++    <h5 class="form-titulo">Pedidos a los que pudo ir este producto</h5>
++    @if (porOrden.Despachos.Count == 0)
++    {
++        <div class="notice mb-4">
++            <i class="bi bi-info-circle"></i>
++            <span>@(porOrden.Orden.FechaReal is null
++                    ? "La orden todavía no finalizó."
++                    : $"No hay despachos de este producto en los {porOrden.VentanaDias} días posteriores a la finalización.")</span>
++        </div>
++    }
++    else
++    {
++        <div class="tabla-wrap mb-4">
++            <table class="table align-middle">
++                <thead>
++                    <tr><th>Pedido</th><th>Despacho</th><th>Fecha</th><th>Sucursal</th><th class="text-end">Cantidad</th></tr>
++                </thead>
++                <tbody>
++                    @foreach (var d in porOrden.Despachos)
++                    {
++                        <tr>
++                            <td><a href="trazabilidad?pedido=@d.IdPedido">#@d.IdPedido</a></td>
++                            <td class="text-muted">#@d.IdDespacho</td>
++                            <td>@d.FechaDespacho.ToString("dd/MM/yyyy HH:mm")</td>
++                            <td>@(string.IsNullOrWhiteSpace(d.Sucursal) ? "—" : d.Sucursal)</td>
++                            <td class="text-end">@d.Cantidad</td>
++                        </tr>
++                    }
++                </tbody>
++            </table>
++        </div>
++    }
++}
++
++@code {
++    [SupplyParameterFromQuery(Name = "pedido")] public int? PedidoQuery { get; set; }
++    [SupplyParameterFromQuery(Name = "orden")] public int? OrdenQuery { get; set; }
++
++    private string modo = "pedido";
++    private int? numero;
++    private int dias = 30;
++    private bool cargando;
++    private string? mensaje;
++
++    private TrazabilidadPedidoDTO? porPedido;
++    private TrazabilidadOrdenDTO? porOrden;
++
++    protected override async Task OnParametersSetAsync()
++    {
++        if (PedidoQuery is int p) { modo = "pedido"; numero = p; await Buscar(); }
++        else if (OrdenQuery is int o) { modo = "orden"; numero = o; await Buscar(); }
++    }
++
++    private static List<TrazaConsumoFila> ConsumosDe(List<TrazaConsumoFila> todos, int idProd) =>
++        todos.Where(c => c.IdProd == idProd).ToList();
++
++    private async Task Buscar()
++    {
++        mensaje = null;
++        porPedido = null;
++        porOrden = null;
++
++        if (numero is null or <= 0)
++        {
++            mensaje = "Ingresá un número válido.";
++            return;
++        }
++
++        var ventana = Math.Clamp(dias, 1, 365);
++        cargando = true;
++        try
++        {
++            if (modo == "pedido")
++                porPedido = await Api.ObtenerAsync<TrazabilidadPedidoDTO>($"ado/trazabilidad/pedido/{numero}?dias={ventana}");
++            else
++                porOrden = await Api.ObtenerAsync<TrazabilidadOrdenDTO>($"ado/trazabilidad/orden/{numero}?dias={ventana}");
++        }
++        catch (Exception ex)
++        {
++            mensaje = ex.Message.Contains("NotFound")
++                ? $"No existe el {(modo == "pedido" ? "pedido" : "orden de producción")} #{numero}."
++                : "No se pudo consultar la trazabilidad: " + ex.Message;
++        }
++        finally
++        {
++            cargando = false;
++        }
++    }
++}
+diff --git a/SwaggerWeb/ConsultasAdoEndpoints.cs b/SwaggerWeb/ConsultasAdoEndpoints.cs
+index cf6e147..7bd5a86 100644
+--- a/SwaggerWeb/ConsultasAdoEndpoints.cs
++++ b/SwaggerWeb/ConsultasAdoEndpoints.cs
+@@ -23,6 +23,19 @@ namespace SwaggerWeb
+                 Results.Ok(await repo.ListarAsync(texto, codPostal)))
+                .WithName("ADO Sucursales").WithTags("Consultas ADO").WithOpenApi();
+ 
++            // Trazabilidad: ventana en días para vincular pedidos con órdenes de producción (por producto y fecha)
++            app.MapGet("/ado/trazabilidad/pedido/{id:int}", async (int id, int? dias, TrazabilidadAdoRepositorio repo) =>
++            {
++                var traza = await repo.PorPedidoAsync(id, Math.Clamp(dias ?? 30, 1, 365));
++                return traza is null ? Results.NotFound() : Results.Ok(traza);
++            }).WithName("ADO Trazabilidad Pedido").WithTags("Consultas ADO").WithOpenApi();
++
++            app.MapGet("/ado/trazabilidad/orden/{id:int}", async (int id, int? dias, TrazabilidadAdoRepositorio repo) =>
++            {
++                var traza = await repo.PorOrdenAsync(id, Math.Clamp(dias ?? 30, 1, 365));
++                return traza is null ? Results.NotFound() : Results.Ok(traza);
++            }).WithName("ADO Trazabilidad Orden").WithTags("Consultas ADO").WithOpenApi();
++
+             app.MapGet("/ado/pedidos", async (string? texto, string? estado, DateTime? desde, DateTime? hasta, PedidoAdoRepositorio repo) =>
+                 Results.Ok(await repo.ListarAsync(texto, estado, desde, hasta)))
+                .WithName("ADO Pedidos").WithTags("Consultas ADO").WithOpenApi();
+diff --git a/SwaggerWeb/Program.cs b/SwaggerWeb/Program.cs
+index 275caf5..d3ac9bb 100644
+--- a/SwaggerWeb/Program.cs
++++ b/SwaggerWeb/Program.cs
+@@ -51,6 +51,7 @@ builder.Services.AddScoped<LoteAdoRepositorio>();
+ builder.Services.AddScoped<ProductoAdoRepositorio>();
+ builder.Services.AddScoped<SucursalAdoRepositorio>();
+ builder.Services.AddScoped<PedidoAdoRepositorio>();
++builder.Services.AddScoped<TrazabilidadAdoRepositorio>();
+ 
+ builder.Services.AddScoped<ILoteRepositorio, LoteRepositorio>();
+ builder.Services.AddScoped<ILoteServicio, LoteServicio>();

@@ -1,0 +1,776 @@
+diff --git a/Alemana.Web/Components/Pages/Lotes_list.razor b/Alemana.Web/Components/Pages/Lotes_list.razor
+index e880924..02fb399 100644
+--- a/Alemana.Web/Components/Pages/Lotes_list.razor
++++ b/Alemana.Web/Components/Pages/Lotes_list.razor
+@@ -1,4 +1,4 @@
+-@page "/lotes"
++﻿@page "/lotes"
+ @attribute [Authorize]
+ @inject ApiClient Api
+ 
+@@ -22,48 +22,6 @@
+     </div>
+ }
+ 
+-<div class="card mb-4">
+-    <div class="card-body p-4">
+-        <h5 class="form-titulo">Nuevo lote</h5>
+-
+-        <EditForm Model="nuevo" OnValidSubmit="Guardar">
+-            <div class="row g-3 align-items-end">
+-                <div class="col-md-3">
+-                    <label class="form-label" for="lote-ingreso">Fecha de ingreso</label>
+-                    <InputDate id="lote-ingreso" class="form-control" @bind-Value="nuevo.FechaIngreso" />
+-                </div>
+-                <div class="col-md-3">
+-                    <label class="form-label" for="lote-venc">Fecha de vencimiento</label>
+-                    <InputDate id="lote-venc" class="form-control" @bind-Value="nuevo.FechaVencimiento" />
+-                </div>
+-                <div class="col-md-2">
+-                    <label class="form-label" for="lote-cant">Cantidad</label>
+-                    <InputNumber id="lote-cant" class="form-control" @bind-Value="nuevo.CantidadLote" />
+-                </div>
+-                <div class="col-md-2">
+-                    <label class="form-label" for="lote-prov">Id proveedor</label>
+-                    <InputNumber id="lote-prov" class="form-control" @bind-Value="nuevo.IdProveedor" />
+-                </div>
+-                <div class="col-md-2">
+-                    <label class="form-label" for="lote-mat">Id materia prima</label>
+-                    <InputNumber id="lote-mat" class="form-control" @bind-Value="nuevo.IdMateriaP" />
+-                </div>
+-                <div class="col-md-3">
+-                    <div class="form-check form-switch pb-2">
+-                        <InputCheckbox id="lote-activo" class="form-check-input" @bind-Value="activo" />
+-                        <label class="form-check-label" for="lote-activo">Lote activo</label>
+-                    </div>
+-                </div>
+-                <div class="col-md-3">
+-                    <button type="submit" class="btn btn-primary w-100">
+-                        <i class="bi bi-plus-lg me-1"></i> Agregar
+-                    </button>
+-                </div>
+-            </div>
+-        </EditForm>
+-    </div>
+-</div>
+-
+ <div class="card mb-4 filtros">
+     <div class="card-body p-3">
+         <form class="row g-2 align-items-end" @onsubmit="Buscar" @onsubmit:preventDefault>
+@@ -161,10 +119,8 @@ else
+ 
+ @code {
+     private List<LoteFila>? lotes;
+-    private LoteDTO nuevo = NuevoLote();
+     private string? mensaje;
+     private bool exito;
+-    private bool activo = true;
+ 
+     private string filtroTexto = "";
+     private string filtroEstado = "";
+@@ -175,12 +131,6 @@ else
+ 
+     protected override async Task OnInitializedAsync() => await Cargar();
+ 
+-    private static LoteDTO NuevoLote() => new()
+-    {
+-        FechaIngreso = DateTime.Today,
+-        FechaVencimiento = DateTime.Today.AddMonths(1)
+-    };
+-
+     private async Task Cargar()
+     {
+         try
+@@ -214,41 +164,6 @@ else
+         _ => (int?)null
+     };
+ 
+-    private async Task Guardar()
+-    {
+-        mensaje = null;
+-        nuevo.EstadoLote = (sbyte)(activo ? 1 : 0);
+-
+-        if (nuevo.CantidadLote <= 0 || nuevo.IdProveedor <= 0 || nuevo.IdMateriaP <= 0)
+-        {
+-            mensaje = "Cantidad, proveedor y materia prima son obligatorios.";
+-            exito = false;
+-            return;
+-        }
+-
+-        if (nuevo.FechaVencimiento < nuevo.FechaIngreso)
+-        {
+-            mensaje = "El vencimiento no puede ser anterior al ingreso.";
+-            exito = false;
+-            return;
+-        }
+-
+-        try
+-        {
+-            var ok = await Api.PostAsync("lotes/", nuevo);
+-            if (!ok) throw new InvalidOperationException("La API no pudo guardar el lote.");
+-            mensaje = "Lote creado.";
+-            exito = true;
+-            nuevo = NuevoLote();
+-            activo = true;
+-            await Cargar();
+-        }
+-        catch (Exception ex)
+-        {
+-            mensaje = $"No se pudo guardar el lote: {ex.Message}";
+-            exito = false;
+-        }
+-    }
+ 
+     // Avisa si el lote ya venció o vence en los próximos 7 días
+     private static string? AvisoVencimiento(DateTime vencimiento)
+diff --git a/Alemana.Web/Components/Pages/Operario_list.razor b/Alemana.Web/Components/Pages/Operario_list.razor
+index 950ec8e..9c766e3 100644
+--- a/Alemana.Web/Components/Pages/Operario_list.razor
++++ b/Alemana.Web/Components/Pages/Operario_list.razor
+@@ -1,4 +1,4 @@
+-@page "/operarios"
++﻿@page "/operarios"
+ @attribute [Authorize]
+ @inject ApiClient Api
+ 
+@@ -7,7 +7,7 @@
+ <div class="page-header">
+     <div>
+         <h2 class="page-title">Operarios</h2>
+-        <p class="page-subtitle">Cargá y consultá al personal de producción.</p>
++        <p class="page-subtitle">Consulta del personal de producción.</p>
+     </div>
+     @if (operarios is not null)
+     {
+@@ -22,36 +22,6 @@
+     </div>
+ }
+ 
+-<div class="card mb-4">
+-    <div class="card-body p-4">
+-        <h5 class="form-titulo">Nuevo operario</h5>
+-
+-        <EditForm Model="nuevo" OnValidSubmit="Guardar">
+-            <div class="row g-3 align-items-end">
+-                <div class="col-md-4">
+-                    <label class="form-label" for="op-nombre">Nombre</label>
+-                    <InputText id="op-nombre" class="form-control" @bind-Value="nuevo.Nombre" />
+-                </div>
+-                <div class="col-md-4">
+-                    <label class="form-label" for="op-apellido">Apellido</label>
+-                    <InputText id="op-apellido" class="form-control" @bind-Value="nuevo.Apellido" />
+-                </div>
+-                <div class="col-md-2">
+-                    <div class="form-check form-switch pb-2">
+-                        <InputCheckbox id="op-disponible" class="form-check-input" @bind-Value="disponible" />
+-                        <label class="form-check-label" for="op-disponible">Disponible</label>
+-                    </div>
+-                </div>
+-                <div class="col-md-2">
+-                    <button type="submit" class="btn btn-primary w-100">
+-                        <i class="bi bi-plus-lg me-1"></i> Agregar
+-                    </button>
+-                </div>
+-            </div>
+-        </EditForm>
+-    </div>
+-</div>
+-
+ <div class="card mb-4 filtros">
+     <div class="card-body p-3">
+         <form class="row g-2 align-items-end" @onsubmit="Buscar" @onsubmit:preventDefault>
+@@ -127,7 +97,6 @@ else
+ 
+ @code {
+     private List<OperarioFila>? operarios;
+-    private OperariosDTO nuevo = new();
+     private string? mensaje;
+     private bool exito;
+     private bool disponible = true;
+@@ -170,32 +139,4 @@ else
+         _ => (int?)null
+     };
+ 
+-    private async Task Guardar()
+-    {
+-        mensaje = null;
+-        nuevo.Disponibilidad = (sbyte)(disponible ? 1 : 0);
+-
+-        if (string.IsNullOrWhiteSpace(nuevo.Nombre) || string.IsNullOrWhiteSpace(nuevo.Apellido))
+-        {
+-            mensaje = "Nombre y apellido son obligatorios.";
+-            exito = false;
+-            return;
+-        }
+-
+-        try
+-        {
+-            var ok = await Api.PostAsync("operario/", nuevo);
+-            if (!ok) throw new InvalidOperationException("La API no pudo guardar el operario.");
+-            mensaje = "Operario creado.";
+-            exito = true;
+-            nuevo = new();
+-            disponible = true;
+-            await Cargar();
+-        }
+-        catch (Exception ex)
+-        {
+-            mensaje = $"No se pudo guardar el operario: {ex.Message}";
+-            exito = false;
+-        }
+-    }
+ }
+diff --git a/Alemana.Web/Components/Pages/Pedido_list.razor b/Alemana.Web/Components/Pages/Pedido_list.razor
+index fbaaa05..c5d6698 100644
+--- a/Alemana.Web/Components/Pages/Pedido_list.razor
++++ b/Alemana.Web/Components/Pages/Pedido_list.razor
+@@ -7,7 +7,7 @@
+ <div class="page-header">
+     <div>
+         <h2 class="page-title">Pedidos</h2>
+-        <p class="page-subtitle">Pedidos de las sucursales. Aceptá cada producto según el stock disponible.</p>
++        <p class="page-subtitle">Consulta de los pedidos de las sucursales y su estado. Se gestionan desde la aplicación de escritorio.</p>
+     </div>
+     @if (pedidos is not null)
+     {
+@@ -22,112 +22,6 @@
+     </div>
+ }
+ 
+-@if (pedidoEnGestion is not null && filas is not null)
+-{
+-    <div class="card mb-4">
+-        <div class="card-body p-4">
+-            <h5 class="form-titulo">Pedido #@pedidoEnGestion</h5>
+-            <p class="text-muted small">
+-                Fijá cuánto aceptás en total de cada producto (no puede ser menos de lo ya despachado) y cuánto
+-                despachás ahora (hasta el stock). Lo aceptado sin despachar queda pendiente.
+-            </p>
+-
+-            <div class="tabla-wrap">
+-                <table class="table align-middle">
+-                    <thead>
+-                        <tr>
+-                            <th>Producto</th>
+-                            <th class="text-end">Pedido</th>
+-                            <th class="text-end">Despachado</th>
+-                            <th class="text-end">Stock</th>
+-                            <th style="width: 9rem;">Aceptar total</th>
+-                            <th style="width: 9rem;">Despachar ahora</th>
+-                        </tr>
+-                    </thead>
+-                    <tbody>
+-                        @foreach (var f in filas)
+-                        {
+-                            <tr>
+-                                <td class="fw-semibold">@f.NombreProducto</td>
+-                                <td class="text-end">@f.Solicitada</td>
+-                                <td class="text-end">@f.Despachada</td>
+-                                <td class="text-end">@f.Stock</td>
+-                                <td>
+-                                    <input type="number" class="form-control form-control-sm" min="@f.Despachada" max="@f.Solicitada"
+-                                           @bind="f.Aceptar" @bind:after="() => f.Ajustar()" />
+-                                </td>
+-                                <td>
+-                                    <input type="number" class="form-control form-control-sm" min="0" max="@f.MaximoAhora"
+-                                           disabled="@(f.MaximoAhora <= 0)" @bind="f.Despachar" />
+-                                    <div class="form-text">máx. @f.MaximoAhora</div>
+-                                </td>
+-                            </tr>
+-                        }
+-                    </tbody>
+-                </table>
+-            </div>
+-
+-            <div class="row g-2 align-items-end mb-3">
+-                <div class="col-md-5">
+-                    <label class="form-label small text-muted" for="ped-empleado">Empleado que despacha</label>
+-                    <select id="ped-empleado" class="form-select" @bind="idEmpleadoDespacha">
+-                        <option value="0">Elegí un empleado...</option>
+-                        @foreach (var e in empleados)
+-                        {
+-                            <option value="@e.IdEmpleado">@e.Apellido, @e.Nombre</option>
+-                        }
+-                    </select>
+-                </div>
+-            </div>
+-
+-            <div class="d-flex gap-2 justify-content-end">
+-                <button type="button" class="btn btn-outline-secondary" @onclick="CancelarGestion">Cancelar</button>
+-                <button type="button" class="btn btn-primary" @onclick="ConfirmarGestion">Confirmar</button>
+-            </div>
+-        </div>
+-    </div>
+-}
+-
+-@if (faltantes.Count > 0)
+-{
+-    <div class="card mb-4 border-warning">
+-        <div class="card-body p-4">
+-            <h5 class="form-titulo">Pedido #@faltantesPedido: productos sin stock suficiente</h5>
+-            <p class="text-muted small">
+-                Lo aceptado supera el stock. Podés generar una orden de producción (queda Pendiente; se confirma en Producción).
+-            </p>
+-
+-            <table class="table align-middle">
+-                <thead>
+-                    <tr>
+-                        <th>Producto</th>
+-                        <th class="text-end">A producir</th>
+-                        <th></th>
+-                    </tr>
+-                </thead>
+-                <tbody>
+-                    @foreach (var pp in faltantes)
+-                    {
+-                        <tr>
+-                            <td class="fw-semibold">@pp.NombreProducto</td>
+-                            <td class="text-end">@pp.CantidadAProducir</td>
+-                            <td class="text-end">
+-                                <button type="button" class="btn btn-sm btn-outline-primary" @onclick="() => GenerarProduccion(pp)">
+-                                    Generar producción
+-                                </button>
+-                            </td>
+-                        </tr>
+-                    }
+-                </tbody>
+-            </table>
+-
+-            <div class="text-end">
+-                <button type="button" class="btn btn-link" @onclick="() => faltantes.Clear()">Cerrar</button>
+-            </div>
+-        </div>
+-    </div>
+-}
+-
+ <div class="card mb-4 filtros">
+     <div class="card-body p-3">
+         <form class="row g-2 align-items-end" @onsubmit="Buscar" @onsubmit:preventDefault>
+@@ -203,10 +97,6 @@ else
+                         <td>@(string.IsNullOrWhiteSpace(p.Empleado) ? $"#{p.IdEmpleado}" : p.Empleado)</td>
+                         <td class="text-end">@p.CantItems</td>
+                         <td class="text-end text-nowrap">
+-                            @if (p.EstadoPedido != EstadoCompletado)
+-                            {
+-                                <button type="button" class="btn btn-sm btn-primary" @onclick="() => AbrirGestion(p.IdPedido)">Gestionar</button>
+-                            }
+                             <a class="btn btn-sm btn-outline-secondary" href="trazabilidad?pedido=@p.IdPedido" title="Trazabilidad">
+                                 <i class="bi bi-diagram-3"></i>
+                             </a>
+@@ -221,7 +111,6 @@ else
+ @code {
+     // Mismos valores que usa el servicio de pedidos en la API
+     private const string EstadoPendiente = "Pendiente";
+-    private const string EstadoCompletado = "Completado";
+ 
+     private List<PedidoFila>? pedidos;
+     private string? mensaje;
+@@ -232,38 +121,9 @@ else
+     private DateTime? filtroDesde;
+     private DateTime? filtroHasta;
+ 
+-    private int? pedidoEnGestion;
+-    private List<FilaGestion>? filas;
+-    private List<EmpleadoDTO> empleados = new();
+-    private int idEmpleadoDespacha;
+-    private List<ProductoPendienteProduccionDTO> faltantes = new();
+-    private int? faltantesPedido;
+-
+     private bool HayFiltros => !string.IsNullOrWhiteSpace(filtroTexto) || !string.IsNullOrEmpty(filtroEstado)
+         || filtroDesde is not null || filtroHasta is not null;
+ 
+-    private class FilaGestion
+-    {
+-        public int IdProducto { get; set; }
+-        public string NombreProducto { get; set; } = "";
+-        public int Solicitada { get; set; }
+-        public int Aceptada { get; set; }
+-        public int Despachada { get; set; }
+-        public int Stock { get; set; }
+-        public int Aceptar { get; set; }
+-        public int Despachar { get; set; }
+-
+-        /// <summary>Máximo a despachar ahora = min(aceptado - despachado, stock).</summary>
+-        public int MaximoAhora => Math.Max(Math.Min(Aceptar - Despachada, Math.Max(Stock, 0)), 0);
+-
+-        public void Ajustar()
+-        {
+-            if (Aceptar < Despachada) Aceptar = Despachada;
+-            if (Aceptar > Solicitada) Aceptar = Solicitada;
+-            Despachar = MaximoAhora;
+-        }
+-    }
+-
+     protected override async Task OnInitializedAsync() => await Cargar();
+ 
+     private async Task Cargar()
+@@ -295,165 +155,5 @@ else
+         await Cargar();
+     }
+ 
+-    /// <summary>Abre el panel de gestión con lo pedido, lo aceptado/despachado y el stock actual.</summary>
+-    private async Task AbrirGestion(int idPedido)
+-    {
+-        mensaje = null;
+-        faltantes.Clear();
+-        try
+-        {
+-            var items = await Api.ObtenerListaAsync<ItemPedidoDespachoDTO>($"pedidos/{idPedido}/items") ?? new();
+-            empleados = await Api.ObtenerListaAsync<EmpleadoDTO>("empleado") ?? new();
+-
+-            filas = items.Select(i =>
+-            {
+-                var f = new FilaGestion
+-                {
+-                    IdProducto = i.IdProducto,
+-                    NombreProducto = i.NombreProducto,
+-                    Solicitada = i.CantidadSolicitada,
+-                    Aceptada = i.CantidadAceptada,
+-                    Despachada = i.CantidadDespachada,
+-                    Stock = i.StockDisponible
+-                };
+-                f.Aceptar = Math.Max(i.CantidadAceptada,
+-                            Math.Min(i.CantidadSolicitada, i.CantidadDespachada + Math.Max(i.StockDisponible, 0)));
+-                f.Despachar = f.MaximoAhora;
+-                return f;
+-            }).ToList();
+-
+-            idEmpleadoDespacha = 0;
+-            pedidoEnGestion = idPedido;
+-        }
+-        catch (Exception ex)
+-        {
+-            mensaje = ex.Message;
+-            exito = false;
+-        }
+-    }
+-
+-    private void CancelarGestion()
+-    {
+-        pedidoEnGestion = null;
+-        filas = null;
+-    }
+-
+-    private async Task ConfirmarGestion()
+-    {
+-        if (pedidoEnGestion is null || filas is null) return;
+-        var idPedido = pedidoEnGestion.Value;
+-
+-        var cambiosAceptacion = filas.Where(f => f.Aceptar != f.Aceptada).ToList();
+-        var despachos = filas.Where(f => f.Despachar > 0).ToList();
+-
+-        if (cambiosAceptacion.Count == 0 && despachos.Count == 0)
+-        {
+-            mensaje = "No hay cambios para guardar: ajustá una cantidad aceptada o despachá algo.";
+-            exito = false;
+-            return;
+-        }
+-
+-        var invalido = filas.FirstOrDefault(f => f.Aceptar < f.Despachada || f.Aceptar > f.Solicitada
+-                                              || f.Despachar < 0 || f.Despachar > f.MaximoAhora);
+-        if (invalido is not null)
+-        {
+-            mensaje = $"Revisá las cantidades de {invalido.NombreProducto}.";
+-            exito = false;
+-            return;
+-        }
+-
+-        if (despachos.Count > 0 && idEmpleadoDespacha == 0)
+-        {
+-            mensaje = "Elegí el empleado que despacha.";
+-            exito = false;
+-            return;
+-        }
+-
+-        ResultadoPedidoDTO? resultado = null;
+-
+-        if (cambiosAceptacion.Count > 0)
+-        {
+-            var r = await Api.PostConDatosAsync<ResultadoPedidoDTO, AceptarPedidoProductosDTO>(
+-                $"pedidos/{idPedido}/aceptar",
+-                new AceptarPedidoProductosDTO
+-                {
+-                    Items = cambiosAceptacion.Select(f => new AceptacionItemDTO
+-                    {
+-                        IdProducto = f.IdProducto,
+-                        CantidadAceptada = f.Aceptar
+-                    }).ToList()
+-                });
+-
+-            if (!r.Ok)
+-            {
+-                mensaje = r.Mensaje ?? "No se pudo guardar la aceptación.";
+-                exito = false;
+-                return;
+-            }
+-            resultado = r.Datos;
+-        }
+-
+-        if (despachos.Count > 0)
+-        {
+-            var r = await Api.PostConDatosAsync<ResultadoPedidoDTO, DespacharPedidoDTO>(
+-                $"pedidos/{idPedido}/despachos",
+-                new DespacharPedidoDTO
+-                {
+-                    IdEmpleado = idEmpleadoDespacha,
+-                    Items = despachos.Select(f => new DespachoItemDTO
+-                    {
+-                        IdProducto = f.IdProducto,
+-                        Cantidad = f.Despachar
+-                    }).ToList()
+-                });
+-
+-            if (!r.Ok)
+-            {
+-                mensaje = r.Mensaje ?? "No se pudo registrar el despacho.";
+-                exito = false;
+-                return;
+-            }
+-            resultado = r.Datos;
+-        }
+-
+-        exito = true;
+-        mensaje = resultado?.EstadoPedido == EstadoCompletado
+-            ? $"Pedido #{idPedido} despachado por completo."
+-            : $"Pedido #{idPedido} actualizado ({resultado?.EstadoPedido}).";
+-
+-        faltantes = resultado is null
+-            ? new()
+-            : resultado.Items
+-                .Where(i => i.PendienteDespachar > i.StockDisponible)
+-                .Select(i => new ProductoPendienteProduccionDTO
+-                {
+-                    IdProducto = i.IdProducto,
+-                    NombreProducto = i.NombreProducto,
+-                    CantidadAProducir = i.PendienteDespachar - Math.Max(i.StockDisponible, 0)
+-                }).ToList();
+-        faltantesPedido = faltantes.Count > 0 ? idPedido : null;
+-
+-        CancelarGestion();
+-        await Cargar();
+-    }
+-
+-    /// <summary>Genera una orden de producción Pendiente por lo que falta.</summary>
+-    private async Task GenerarProduccion(ProductoPendienteProduccionDTO pendiente)
+-    {
+-        var creada = await Api.PostAsync("ordenproduccion", new OrdenProduccionDTO
+-        {
+-            IdProducto = pendiente.IdProducto,
+-            CantidadAproducir = pendiente.CantidadAProducir,
+-            EstadoOrden = "Pendiente"
+-        });
+-
+-        exito = creada;
+-        mensaje = creada
+-            ? $"Producción de {pendiente.CantidadAProducir} x {pendiente.NombreProducto} generada (Pendiente)."
+-            : "No se pudo generar la producción.";
+-
+-        if (creada) faltantes.Remove(pendiente);
+-    }
+-
+     private static string Fecha(DateTime? fecha) => fecha?.ToString("dd/MM/yyyy") ?? "—";
+ }
+diff --git a/Alemana.Web/Components/Pages/Producto_list.razor b/Alemana.Web/Components/Pages/Producto_list.razor
+index 9796193..f8d10ff 100644
+--- a/Alemana.Web/Components/Pages/Producto_list.razor
++++ b/Alemana.Web/Components/Pages/Producto_list.razor
+@@ -1,4 +1,4 @@
+-@page "/productos"
++﻿@page "/productos"
+ @attribute [Authorize]
+ @inject ApiClient Api
+ 
+@@ -7,7 +7,7 @@
+ <div class="page-header">
+     <div>
+         <h2 class="page-title">Productos</h2>
+-        <p class="page-subtitle">Cargá y consultá los productos y su stock.</p>
++        <p class="page-subtitle">Consulta de los productos y su stock.</p>
+     </div>
+     @if (productos is not null)
+     {
+@@ -22,44 +22,6 @@
+     </div>
+ }
+ 
+-<div class="card mb-4">
+-    <div class="card-body p-4">
+-        <h5 class="form-titulo">Nuevo producto</h5>
+-
+-        <EditForm Model="nuevo" OnValidSubmit="Guardar">
+-            <div class="row g-3 align-items-end">
+-                <div class="col-md-4">
+-                    <label class="form-label" for="prod-nombre">Nombre</label>
+-                    <InputText id="prod-nombre" class="form-control" @bind-Value="nuevo.Nombre" />
+-                </div>
+-                <div class="col-md-2">
+-                    <label class="form-label" for="prod-receta">Id de receta</label>
+-                    <InputNumber id="prod-receta" class="form-control" @bind-Value="nuevo.IdReceta" />
+-                </div>
+-                <div class="col-md-2">
+-                    <label class="form-label" for="prod-stock">Stock inicial</label>
+-                    <InputNumber id="prod-stock" class="form-control" @bind-Value="nuevo.StockActual" />
+-                </div>
+-                <div class="col-md-2">
+-                    <div class="form-check form-switch">
+-                        <InputCheckbox id="prod-camara" class="form-check-input" @bind-Value="nuevo.Camara" />
+-                        <label class="form-check-label" for="prod-camara">Cámara</label>
+-                    </div>
+-                    <div class="form-check form-switch">
+-                        <InputCheckbox id="prod-disp" class="form-check-input" @bind-Value="disponible" />
+-                        <label class="form-check-label" for="prod-disp">Disponible</label>
+-                    </div>
+-                </div>
+-                <div class="col-md-2">
+-                    <button type="submit" class="btn btn-primary w-100">
+-                        <i class="bi bi-plus-lg me-1"></i> Agregar
+-                    </button>
+-                </div>
+-            </div>
+-        </EditForm>
+-    </div>
+-</div>
+-
+ <div class="card mb-4 filtros">
+     <div class="card-body p-3">
+         <form class="row g-2 align-items-end" @onsubmit="Buscar" @onsubmit:preventDefault>
+@@ -147,10 +109,8 @@ else
+ 
+ @code {
+     private List<ProductoFila>? productos;
+-    private ProductoDTO nuevo = new();
+     private string? mensaje;
+     private bool exito;
+-    private bool disponible = true;
+ 
+     private string filtroTexto = "";
+     private string filtroCamara = "";
+@@ -193,39 +153,4 @@ else
+         _ => (bool?)null
+     };
+ 
+-    private async Task Guardar()
+-    {
+-        mensaje = null;
+-        nuevo.Disponible = disponible;
+-
+-        if (string.IsNullOrWhiteSpace(nuevo.Nombre) || nuevo.IdReceta <= 0)
+-        {
+-            mensaje = "Nombre e id de receta son obligatorios.";
+-            exito = false;
+-            return;
+-        }
+-
+-        if (nuevo.StockActual < 0)
+-        {
+-            mensaje = "El stock no puede ser negativo.";
+-            exito = false;
+-            return;
+-        }
+-
+-        try
+-        {
+-            var ok = await Api.PostAsync("producto/", nuevo);
+-            if (!ok) throw new InvalidOperationException("La API no pudo guardar el producto.");
+-            mensaje = "Producto creado.";
+-            exito = true;
+-            nuevo = new();
+-            disponible = true;
+-            await Cargar();
+-        }
+-        catch (Exception ex)
+-        {
+-            mensaje = $"No se pudo guardar el producto: {ex.Message}";
+-            exito = false;
+-        }
+-    }
+ }
+diff --git a/Alemana.Web/Components/Pages/Sucursal_list.razor b/Alemana.Web/Components/Pages/Sucursal_list.razor
+index 3a4ec96..1269688 100644
+--- a/Alemana.Web/Components/Pages/Sucursal_list.razor
++++ b/Alemana.Web/Components/Pages/Sucursal_list.razor
+@@ -1,4 +1,4 @@
+-@page "/sucursales"
++﻿@page "/sucursales"
+ @attribute [Authorize]
+ @inject ApiClient Api
+ 
+@@ -7,7 +7,7 @@
+ <div class="page-header">
+     <div>
+         <h2 class="page-title">Sucursales</h2>
+-        <p class="page-subtitle">Cargá y consultá las sedes de la panadería.</p>
++        <p class="page-subtitle">Consulta de las sedes de la panadería.</p>
+     </div>
+     @if (sucursales is not null)
+     {
+@@ -22,30 +22,6 @@
+     </div>
+ }
+ 
+-<div class="card mb-4">
+-    <div class="card-body p-4">
+-        <h5 class="form-titulo">Nueva sucursal</h5>
+-
+-        <EditForm Model="nuevo" OnValidSubmit="Guardar">
+-            <div class="row g-3 align-items-end">
+-                <div class="col-md-6">
+-                    <label class="form-label" for="suc-nombre">Nombre</label>
+-                    <InputText id="suc-nombre" class="form-control" @bind-Value="nuevo.NombreSuc" />
+-                </div>
+-                <div class="col-md-3">
+-                    <label class="form-label" for="suc-cp">Código postal</label>
+-                    <InputNumber id="suc-cp" class="form-control" @bind-Value="nuevo.CodPostal" />
+-                </div>
+-                <div class="col-md-3">
+-                    <button type="submit" class="btn btn-primary w-100">
+-                        <i class="bi bi-plus-lg me-1"></i> Agregar
+-                    </button>
+-                </div>
+-            </div>
+-        </EditForm>
+-    </div>
+-</div>
+-
+ <div class="card mb-4 filtros">
+     <div class="card-body p-3">
+         <form class="row g-2 align-items-end" @onsubmit="Buscar" @onsubmit:preventDefault>
+@@ -108,7 +84,6 @@ else
+ 
+ @code {
+     private List<SucursalFila>? sucursales;
+-    private SucursalesDTO nuevo = new();
+     private string? mensaje;
+     private bool exito;
+ 
+@@ -143,30 +118,4 @@ else
+         await Cargar();
+     }
+ 
+-    private async Task Guardar()
+-    {
+-        mensaje = null;
+-
+-        if (string.IsNullOrWhiteSpace(nuevo.NombreSuc) || nuevo.CodPostal <= 0)
+-        {
+-            mensaje = "Nombre y código postal son obligatorios.";
+-            exito = false;
+-            return;
+-        }
+-
+-        try
+-        {
+-            var ok = await Api.PostAsync("sucursales/", nuevo);
+-            if (!ok) throw new InvalidOperationException("La API no pudo guardar la sucursal.");
+-            mensaje = "Sucursal creada.";
+-            exito = true;
+-            nuevo = new();
+-            await Cargar();
+-        }
+-        catch (Exception ex)
+-        {
+-            mensaje = $"No se pudo guardar la sucursal: {ex.Message}";
+-            exito = false;
+-        }
+-    }
+ }

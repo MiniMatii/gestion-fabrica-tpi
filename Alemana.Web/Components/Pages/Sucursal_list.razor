@@ -1,4 +1,4 @@
-@page "/sucursales"
+﻿@page "/sucursales"
 @attribute [Authorize]
 @inject ApiClient Api
 
@@ -7,7 +7,7 @@
 <div class="page-header">
     <div>
         <h2 class="page-title">Sucursales</h2>
-        <p class="page-subtitle">Cargá y consultá las sedes de la panadería.</p>
+        <p class="page-subtitle">Consulta de las sedes de la panadería.</p>
     </div>
     @if (sucursales is not null)
     {
@@ -21,30 +21,6 @@
         <i class="bi @(exito ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill") me-2"></i>@mensaje
     </div>
 }
-
-<div class="card mb-4">
-    <div class="card-body p-4">
-        <h5 class="form-titulo">Nueva sucursal</h5>
-
-        <EditForm Model="nuevo" OnValidSubmit="Guardar">
-            <div class="row g-3 align-items-end">
-                <div class="col-md-6">
-                    <label class="form-label" for="suc-nombre">Nombre</label>
-                    <InputText id="suc-nombre" class="form-control" @bind-Value="nuevo.NombreSuc" />
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label" for="suc-cp">Código postal</label>
-                    <InputNumber id="suc-cp" class="form-control" @bind-Value="nuevo.CodPostal" />
-                </div>
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-plus-lg me-1"></i> Agregar
-                    </button>
-                </div>
-            </div>
-        </EditForm>
-    </div>
-</div>
 
 <div class="card mb-4 filtros">
     <div class="card-body p-3">
@@ -108,7 +84,6 @@ else
 
 @code {
     private List<SucursalFila>? sucursales;
-    private SucursalesDTO nuevo = new();
     private string? mensaje;
     private bool exito;
 
@@ -143,30 +118,4 @@ else
         await Cargar();
     }
 
-    private async Task Guardar()
-    {
-        mensaje = null;
-
-        if (string.IsNullOrWhiteSpace(nuevo.NombreSuc) || nuevo.CodPostal <= 0)
-        {
-            mensaje = "Nombre y código postal son obligatorios.";
-            exito = false;
-            return;
-        }
-
-        try
-        {
-            var ok = await Api.PostAsync("sucursales/", nuevo);
-            if (!ok) throw new InvalidOperationException("La API no pudo guardar la sucursal.");
-            mensaje = "Sucursal creada.";
-            exito = true;
-            nuevo = new();
-            await Cargar();
-        }
-        catch (Exception ex)
-        {
-            mensaje = $"No se pudo guardar la sucursal: {ex.Message}";
-            exito = false;
-        }
-    }
 }

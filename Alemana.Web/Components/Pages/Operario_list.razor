@@ -1,4 +1,4 @@
-@page "/operarios"
+﻿@page "/operarios"
 @attribute [Authorize]
 @inject ApiClient Api
 
@@ -7,7 +7,7 @@
 <div class="page-header">
     <div>
         <h2 class="page-title">Operarios</h2>
-        <p class="page-subtitle">Cargá y consultá al personal de producción.</p>
+        <p class="page-subtitle">Consulta del personal de producción.</p>
     </div>
     @if (operarios is not null)
     {
@@ -21,36 +21,6 @@
         <i class="bi @(exito ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill") me-2"></i>@mensaje
     </div>
 }
-
-<div class="card mb-4">
-    <div class="card-body p-4">
-        <h5 class="form-titulo">Nuevo operario</h5>
-
-        <EditForm Model="nuevo" OnValidSubmit="Guardar">
-            <div class="row g-3 align-items-end">
-                <div class="col-md-4">
-                    <label class="form-label" for="op-nombre">Nombre</label>
-                    <InputText id="op-nombre" class="form-control" @bind-Value="nuevo.Nombre" />
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label" for="op-apellido">Apellido</label>
-                    <InputText id="op-apellido" class="form-control" @bind-Value="nuevo.Apellido" />
-                </div>
-                <div class="col-md-2">
-                    <div class="form-check form-switch pb-2">
-                        <InputCheckbox id="op-disponible" class="form-check-input" @bind-Value="disponible" />
-                        <label class="form-check-label" for="op-disponible">Disponible</label>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-plus-lg me-1"></i> Agregar
-                    </button>
-                </div>
-            </div>
-        </EditForm>
-    </div>
-</div>
 
 <div class="card mb-4 filtros">
     <div class="card-body p-3">
@@ -127,7 +97,6 @@ else
 
 @code {
     private List<OperarioFila>? operarios;
-    private OperariosDTO nuevo = new();
     private string? mensaje;
     private bool exito;
     private bool disponible = true;
@@ -170,32 +139,4 @@ else
         _ => (int?)null
     };
 
-    private async Task Guardar()
-    {
-        mensaje = null;
-        nuevo.Disponibilidad = (sbyte)(disponible ? 1 : 0);
-
-        if (string.IsNullOrWhiteSpace(nuevo.Nombre) || string.IsNullOrWhiteSpace(nuevo.Apellido))
-        {
-            mensaje = "Nombre y apellido son obligatorios.";
-            exito = false;
-            return;
-        }
-
-        try
-        {
-            var ok = await Api.PostAsync("operario/", nuevo);
-            if (!ok) throw new InvalidOperationException("La API no pudo guardar el operario.");
-            mensaje = "Operario creado.";
-            exito = true;
-            nuevo = new();
-            disponible = true;
-            await Cargar();
-        }
-        catch (Exception ex)
-        {
-            mensaje = $"No se pudo guardar el operario: {ex.Message}";
-            exito = false;
-        }
-    }
 }

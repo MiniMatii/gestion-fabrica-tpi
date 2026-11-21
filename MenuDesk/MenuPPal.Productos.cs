@@ -130,7 +130,7 @@ namespace MenuDesk
         {
             string endpoint = "Recetas";
 
-            var listadoRecetas = await _apiClient.ObtenerListaAsync<RecetaProductoDTO>(endpoint);
+            var listadoRecetas = (await _apiClient.ObtenerListaAsync<RecetaProductoDTO>(endpoint)).OrderBy(r => r.Descripcion).ToList();         // usá el campo que muestra tu DisplayMember.ToList();
 
             if (listadoRecetas != null)
             {
@@ -141,7 +141,7 @@ namespace MenuDesk
 
                 selectorRAP.DataSource = listadoRecetas; 
                 selectorRMProd.DataSource = listadoRecetas;
-                MessageBox.Show($"Recetas cargadas: {listadoRecetas.Count} | En el combo: {selectorRMProd.Items.Count}");
+                //MessageBox.Show($"Recetas cargadas: {listadoRecetas.Count} | En el combo: {selectorRMProd.Items.Count}");
 
             }
         }
