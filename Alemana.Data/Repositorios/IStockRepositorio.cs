@@ -12,6 +12,12 @@ namespace Alemana.Data.Repositorios
 
         Task<Producto?> ObtenerProductoAsync(int idProducto);
 
+        /// <summary>
+        /// Órdenes finalizadas del producto con unidades todavía sin despachar, de la más antigua (fechaReal) a la más nueva.
+        /// Saldo = cantidad producida - unidades ya asignadas a despachos.
+        /// </summary>
+        Task<List<(int IdProd, int Saldo)>> ObtenerOrdenesConSaldoAsync(int idProducto);
+
         /// <summary>Materia prima comprometida por órdenes En Proceso (todavía no descontada de los lotes).</summary>
         Task<Dictionary<int, decimal>> ObtenerReservadoPorOrdenesEnProcesoAsync();
     }

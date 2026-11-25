@@ -28,6 +28,7 @@ public partial class DbAlemanaContext : DbContext
 
     public virtual DbSet<DetalleDespacho> DetalleDespachos { get; set; }
 
+
     public virtual DbSet<DetallePedido> DetallePedidos { get; set; }
 
     public virtual DbSet<Empleado> Empleados { get; set; }
@@ -176,16 +177,16 @@ public partial class DbAlemanaContext : DbContext
 
         modelBuilder.Entity<DetalleDespacho>(entity =>
         {
-            entity.HasKey(e => new { e.IdDespacho, e.IdProducto })
+            entity.HasKey(e => new { e.IdDespacho, e.IdProd })
                 .HasName("PRIMARY")
                 .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
 
             entity.ToTable("detalle_despacho");
 
-            entity.HasIndex(e => e.IdProducto, "idProducto");
+            entity.HasIndex(e => e.IdProd, "idProd");
 
             entity.Property(e => e.IdDespacho).HasColumnName("idDespacho");
-            entity.Property(e => e.IdProducto).HasColumnName("idProducto");
+            entity.Property(e => e.IdProd).HasColumnName("idProd");
             entity.Property(e => e.Cantidad).HasColumnName("cantidad");
 
             entity.HasOne(d => d.IdDespachoNavigation).WithMany(p => p.DetalleDespachos)
@@ -193,8 +194,8 @@ public partial class DbAlemanaContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("detalle_despacho_ibfk_1");
 
-            entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.DetalleDespachos)
-                .HasForeignKey(d => d.IdProducto)
+            entity.HasOne(d => d.IdProdNavigation).WithMany(p => p.DetalleDespachos)
+                .HasForeignKey(d => d.IdProd)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("detalle_despacho_ibfk_2");
         });

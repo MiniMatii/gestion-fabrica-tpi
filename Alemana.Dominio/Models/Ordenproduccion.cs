@@ -20,6 +20,8 @@ public partial class Ordenproduccion
 
     public int IdProducto { get; set; }
 
+    public virtual ICollection<DetalleDespacho> DetalleDespachos { get; set; } = new List<DetalleDespacho>();
+
     public virtual ICollection<Consumolote> Consumolotes { get; set; } = new List<Consumolote>();
 
     public virtual Producto IdProductoNavigation { get; set; } = null!;

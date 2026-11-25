@@ -13,7 +13,7 @@ namespace Alemana.DTOs
 
         public string Nombre { get; set; } = null!;
 
-        public bool Camara { get; set; }
+        public bool Camara { get; set; } 
 
         public bool? Disponible { get; set; }
 

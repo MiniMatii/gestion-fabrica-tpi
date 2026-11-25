@@ -59,7 +59,8 @@ namespace Alemana.Data.Repositorios
         public async Task<bool> TieneDependencias(int idProd)
         {
             return await _db.Consumolotes.AnyAsync(c => c.IdProd == idProd)
-                || await _db.OrdAsigOps.AnyAsync(a => a.IdProd == idProd);
+                || await _db.OrdAsigOps.AnyAsync(a => a.IdProd == idProd)
+                || await _db.DetalleDespachos.AnyAsync(d => d.IdProd == idProd);
         }
 
         public Task GuardarCambiosAsync() => _db.SaveChangesAsync();

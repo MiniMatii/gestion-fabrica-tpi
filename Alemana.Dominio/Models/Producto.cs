@@ -19,8 +19,6 @@ public partial class Producto
 
     public int? IdCap { get; set; }
 
-    public virtual ICollection<DetalleDespacho> DetalleDespachos { get; set; } = new List<DetalleDespacho>();
-
     public virtual ICollection<DetallePedido> DetallePedidos { get; set; } = new List<DetallePedido>();
 
     public virtual Capacidad? IdCapNavigation { get; set; }

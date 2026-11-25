@@ -248,7 +248,21 @@ namespace Alemana.Aplicaciones.Servicios
             var despacho = new Despacho { FechaDespacho = DateTime.Now, IdEmpleado = dto!.IdEmpleado };
             foreach (var (idProducto, cantidad) in lineas)
             {
-                despacho.DetalleDespachos.Add(new DetalleDespacho { IdProducto = idProducto, Cantidad = cantidad });
+                // Cada línea del despacho apunta a la orden de producción de la que sale (FIFO por fechaReal);
+                // el producto se deduce de la orden, no se guarda de nuevo.
+                var restante = cantidad;
+                foreach (var (idProd, saldo) in await _stock.ObtenerOrdenesConSaldoAsync(idProducto))
+                {
+                    if (restante <= 0) break;
+                    var tomar = Math.Min(saldo, restante);
+                    despacho.DetalleDespachos.Add(new DetalleDespacho { IdProd = idProd, Cantidad = tomar });
+                    restante -= tomar;
+                }
+
+                if (restante > 0)
+                    return (ResultadoPedido.StockInsuficiente,
+                        $"Producto {idProducto}: faltan {restante} unidades producidas y finalizadas para despachar.", null);
+
                 pedido.DetallePedidos.First(x => x.IdProducto == idProducto).CantidadDespachada += cantidad;
                 productos[idProducto].StockActual -= cantidad;
             }

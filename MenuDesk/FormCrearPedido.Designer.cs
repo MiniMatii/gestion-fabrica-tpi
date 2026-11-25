@@ -46,7 +46,7 @@
             ktPanel3 = new KimTools.WinForms.KtPanel();
             btnSalirPedidosSucursal = new KimTools.WinForms.KtButton();
             btnEnviarPedido = new KimTools.WinForms.KtButton();
-            OrdenesProduccionPage = new KimTools.WinForms.KtRadioButton();
+            SeguimientoPedidosPage = new KimTools.WinForms.KtRadioButton();
             GenerarPedidosPage = new KimTools.WinForms.KtRadioButton();
             ktDivider1 = new KimTools.WinForms.KtDivider();
             ktPanel4 = new KimTools.WinForms.KtPanel();
@@ -96,7 +96,7 @@
             hudLateral.BorderWidth = 0F;
             hudLateral.Controls.Add(ContenedorPanel);
             hudLateral.Controls.Add(ktPanel3);
-            hudLateral.Controls.Add(OrdenesProduccionPage);
+            hudLateral.Controls.Add(SeguimientoPedidosPage);
             hudLateral.Controls.Add(GenerarPedidosPage);
             hudLateral.Controls.Add(ktDivider1);
             hudLateral.Controls.Add(ktPanel4);
@@ -310,40 +310,40 @@
             btnEnviarPedido.UseVisualStyleBackColor = false;
             btnEnviarPedido.Click += buttonGenerarPedido_Click;
             // 
-            // OrdenesProduccionPage
+            // SeguimientoPedidosPage
             // 
-            OrdenesProduccionPage.BackColor = Color.Transparent;
-            OrdenesProduccionPage.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            OrdenesProduccionPage.Background_Checked = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            OrdenesProduccionPage.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            OrdenesProduccionPage.Border_Checked = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
-            OrdenesProduccionPage.BorderEdges.BottomRight = false;
-            OrdenesProduccionPage.BorderEdges.TopRight = false;
-            OrdenesProduccionPage.BorderMargin = new Padding(0);
-            OrdenesProduccionPage.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            OrdenesProduccionPage.BorderStyle_Checked = System.Drawing.Drawing2D.DashStyle.Solid;
-            OrdenesProduccionPage.BorderWidth = 0F;
-            OrdenesProduccionPage.Cursor = Cursors.Default;
-            OrdenesProduccionPage.Dock = DockStyle.Top;
-            OrdenesProduccionPage.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
-            OrdenesProduccionPage.ForeColor = Color.White;
-            OrdenesProduccionPage.Foreground = new KimTools.WinForms.KtColor(Color.White, null, null);
-            OrdenesProduccionPage.Foreground_Checked = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
-            OrdenesProduccionPage.Icon = "tabler.building_factory_2";
-            OrdenesProduccionPage.Icon_Checked = "tabler.user";
-            OrdenesProduccionPage.IconColor = KimTools.WinForms.KtColor.Empty;
-            OrdenesProduccionPage.IconColor_Checked = KimTools.WinForms.KtColor.Empty;
-            OrdenesProduccionPage.IconSize = 32;
-            OrdenesProduccionPage.IconStroke = 1D;
-            OrdenesProduccionPage.Location = new Point(0, 368);
-            OrdenesProduccionPage.Margin = new Padding(0);
-            OrdenesProduccionPage.Name = "OrdenesProduccionPage";
-            OrdenesProduccionPage.Padding = new Padding(8, 0, 8, 0);
-            OrdenesProduccionPage.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
-            OrdenesProduccionPage.Size = new Size(340, 67);
-            OrdenesProduccionPage.TabIndex = 9;
-            OrdenesProduccionPage.Text = "PRODUCCION";
-            OrdenesProduccionPage.UseVisualStyleBackColor = false;
+            SeguimientoPedidosPage.BackColor = Color.Transparent;
+            SeguimientoPedidosPage.Background = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            SeguimientoPedidosPage.Background_Checked = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            SeguimientoPedidosPage.Border = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            SeguimientoPedidosPage.Border_Checked = (KimTools.WinForms.KtBrushNone)KimTools.WinForms.KtBrush.None;
+            SeguimientoPedidosPage.BorderEdges.BottomRight = false;
+            SeguimientoPedidosPage.BorderEdges.TopRight = false;
+            SeguimientoPedidosPage.BorderMargin = new Padding(0);
+            SeguimientoPedidosPage.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            SeguimientoPedidosPage.BorderStyle_Checked = System.Drawing.Drawing2D.DashStyle.Solid;
+            SeguimientoPedidosPage.BorderWidth = 0F;
+            SeguimientoPedidosPage.Cursor = Cursors.Default;
+            SeguimientoPedidosPage.Dock = DockStyle.Top;
+            SeguimientoPedidosPage.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Bold);
+            SeguimientoPedidosPage.ForeColor = Color.White;
+            SeguimientoPedidosPage.Foreground = new KimTools.WinForms.KtColor(Color.White, null, null);
+            SeguimientoPedidosPage.Foreground_Checked = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            SeguimientoPedidosPage.Icon = "tabler.building_factory_2";
+            SeguimientoPedidosPage.Icon_Checked = "tabler.user";
+            SeguimientoPedidosPage.IconColor = KimTools.WinForms.KtColor.Empty;
+            SeguimientoPedidosPage.IconColor_Checked = KimTools.WinForms.KtColor.Empty;
+            SeguimientoPedidosPage.IconSize = 32;
+            SeguimientoPedidosPage.IconStroke = 1D;
+            SeguimientoPedidosPage.Location = new Point(0, 368);
+            SeguimientoPedidosPage.Margin = new Padding(0);
+            SeguimientoPedidosPage.Name = "SeguimientoPedidosPage";
+            SeguimientoPedidosPage.Padding = new Padding(8, 0, 8, 0);
+            SeguimientoPedidosPage.Pattern.Color = new KimTools.WinForms.KtColor(Color.FromArgb(173, 151, 98), null, null);
+            SeguimientoPedidosPage.Size = new Size(340, 67);
+            SeguimientoPedidosPage.TabIndex = 9;
+            SeguimientoPedidosPage.Text = "SEGUIMIENTO";
+            SeguimientoPedidosPage.UseVisualStyleBackColor = false;
             // 
             // GenerarPedidosPage
             // 
@@ -547,14 +547,14 @@
             // 
             // Id
             // 
-            Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Id.DataPropertyName = "IdProducto";
             Id.HeaderText = "IdProducto";
             Id.MinimumWidth = 6;
             Id.Name = "Id";
             Id.ReadOnly = true;
             Id.Resizable = DataGridViewTriState.False;
-            Id.Width = 140;
+            Id.Visible = false;
             // 
             // Nombre
             // 
@@ -569,25 +569,23 @@
             // 
             // Camara
             // 
-            Camara.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Camara.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Camara.DataPropertyName = "Camara";
             Camara.HeaderText = "Camara";
             Camara.MinimumWidth = 6;
             Camara.Name = "Camara";
             Camara.ReadOnly = true;
             Camara.Resizable = DataGridViewTriState.False;
-            Camara.Width = 209;
             // 
             // Disponible
             // 
-            Disponible.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Disponible.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Disponible.DataPropertyName = "Disponible";
             Disponible.HeaderText = "Disponible";
             Disponible.MinimumWidth = 6;
             Disponible.Name = "Disponible";
             Disponible.ReadOnly = true;
             Disponible.Resizable = DataGridViewTriState.False;
-            Disponible.Width = 210;
             // 
             // StockActual
             // 
@@ -598,6 +596,7 @@
             StockActual.Name = "StockActual";
             StockActual.ReadOnly = true;
             StockActual.Resizable = DataGridViewTriState.False;
+            StockActual.Visible = false;
             StockActual.Width = 209;
             // 
             // IdCap
@@ -801,7 +800,7 @@
 
         #endregion
         private KimTools.WinForms.KtPanel hudLateral;
-        private KimTools.WinForms.KtRadioButton OrdenesProduccionPage;
+        private KimTools.WinForms.KtRadioButton SeguimientoPedidosPage;
         private KimTools.WinForms.KtRadioButton GenerarPedidosPage;
         private KimTools.WinForms.KtDivider ktDivider1;
         private KimTools.WinForms.KtPanel ktPanel4;
@@ -817,6 +816,13 @@
         private KimTools.WinForms.KtButton ktButton1;
         private KimTools.WinForms.KtButton ktButton2;
         private KimTools.WinForms.KtButton ktButton3;
+        private KimTools.WinForms.KtPanel ContenedorPanel;
+        private KimTools.WinForms.KtPanel ktPanel5;
+        private KimTools.WinForms.KtPanel fechaIng;
+        private KimTools.WinForms.KtDate fechaEstimada;
+        private KimTools.WinForms.KtPanel ktPanel10;
+        private KimTools.WinForms.KtPanel ktPanel11;
+        private KimTools.WinForms.KtLabel ktLabel1;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Camara;
@@ -825,12 +831,5 @@
         private DataGridViewTextBoxColumn IdCap;
         private DataGridViewTextBoxColumn IdReceta;
         private DataGridViewTextBoxColumn CantidadSolicitada;
-        private KimTools.WinForms.KtPanel ContenedorPanel;
-        private KimTools.WinForms.KtPanel ktPanel5;
-        private KimTools.WinForms.KtPanel fechaIng;
-        private KimTools.WinForms.KtDate fechaEstimada;
-        private KimTools.WinForms.KtPanel ktPanel10;
-        private KimTools.WinForms.KtPanel ktPanel11;
-        private KimTools.WinForms.KtLabel ktLabel1;
     }
 }

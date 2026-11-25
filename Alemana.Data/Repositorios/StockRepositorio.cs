@@ -62,6 +62,26 @@ namespace Alemana.Data.Repositorios
             return await _db.Productos.FirstOrDefaultAsync(p => p.IdProducto == idProducto);
         }
 
+        public async Task<List<(int IdProd, int Saldo)>> ObtenerOrdenesConSaldoAsync(int idProducto)
+        {
+            var ordenes = await _db.Ordenproduccions.AsNoTracking()
+                .Where(o => o.IdProducto == idProducto && o.EstadoOrden == "Finalizada" && o.FechaReal != null)
+                .OrderBy(o => o.FechaReal).ThenBy(o => o.IdProd)
+                .Select(o => new { o.IdProd, o.CantidadAproducir })
+                .ToListAsync();
+
+            var asignado = await _db.DetalleDespachos.AsNoTracking()
+                .Where(x => x.IdProdNavigation.IdProducto == idProducto)
+                .GroupBy(x => x.IdProd)
+                .Select(g => new { IdProd = g.Key, Cantidad = g.Sum(x => x.Cantidad) })
+                .ToDictionaryAsync(x => x.IdProd, x => x.Cantidad);
+
+            return ordenes
+                .Select(o => (o.IdProd, Saldo: o.CantidadAproducir - (asignado.TryGetValue(o.IdProd, out var a) ? a : 0)))
+                .Where(o => o.Saldo > 0)
+                .ToList();
+        }
+
         public async Task<Dictionary<int, decimal>> ObtenerReservadoPorOrdenesEnProcesoAsync()
         {
             var filas = await (

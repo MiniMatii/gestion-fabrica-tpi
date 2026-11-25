@@ -9,7 +9,7 @@
         <h2 class="page-title">Control de trazabilidad</h2>
         <p class="page-subtitle">
             Ante un defecto: de qué producción salió lo despachado en un pedido y qué materia prima (con sus lotes) se usó,
-            o a qué pedidos pudo ir lo producido por una orden.
+            o a qué pedidos fue lo producido por una orden.
         </p>
     </div>
 </div>
@@ -31,21 +31,17 @@
                     <option value="orden">Orden de producción</option>
                 </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label class="form-label small text-muted" for="tz-numero">N° de @(modo == "pedido" ? "pedido" : "orden")</label>
                 <input id="tz-numero" type="number" min="1" class="form-control" @bind="numero" />
-            </div>
-            <div class="col-md-3">
-                <label class="form-label small text-muted" for="tz-dias">Ventana de producción (días)</label>
-                <input id="tz-dias" type="number" min="1" max="365" class="form-control" @bind="dias" />
             </div>
             <div class="col-md-3 d-flex gap-2">
                 <button type="submit" class="btn btn-primary flex-fill"><i class="bi bi-search me-1"></i> Buscar</button>
             </div>
         </form>
         <div class="form-text mt-2">
-            Las órdenes de producción no están atadas a un pedido: el vínculo se arma por producto y fecha.
-            Se listan las órdenes finalizadas del producto hasta la fecha del despacho, dentro de la ventana indicada.
+            Al despachar, cada cantidad se asigna a las órdenes finalizadas de la más antigua a la más nueva (por fecha de
+            finalización). "Stock previo" son unidades que no tienen una orden de producción registrada.
         </div>
     </div>
 </div>
@@ -84,7 +80,7 @@
         <div class="tabla-wrap mb-4">
             <table class="table align-middle">
                 <thead>
-                    <tr><th>Despacho</th><th>Fecha</th><th>Producto</th><th class="text-end">Cantidad</th></tr>
+                    <tr><th>Despacho</th><th>Fecha</th><th>Producto</th><th>Orden</th><th class="text-end">Cantidad</th></tr>
                 </thead>
                 <tbody>
                     @foreach (var d in porPedido.Despachos)
@@ -93,6 +89,7 @@
                             <td class="text-muted">#@d.IdDespacho</td>
                             <td>@d.FechaDespacho.ToString("dd/MM/yyyy HH:mm")</td>
                             <td class="fw-semibold">@d.Producto</td>
+                            <td><a href="trazabilidad?orden=@d.IdProd">#@d.IdProd</a></td>
                             <td class="text-end">@d.Cantidad</td>
                         </tr>
                     }
@@ -100,39 +97,29 @@
             </table>
         </div>
 
-        <h5 class="form-titulo">Producciones de origen posibles</h5>
-        @if (porPedido.Ordenes.Count == 0)
+        <h5 class="form-titulo">Producción de origen y materia prima</h5>
+        @foreach (var g in porPedido.Despachos.GroupBy(d => d.Producto))
         {
-            <div class="notice mb-4">
-                <i class="bi bi-info-circle"></i>
-                <span>No hay órdenes finalizadas de estos productos en la ventana de @porPedido.VentanaDias días anteriores al despacho.
-                      Probá ampliarla.</span>
-            </div>
-        }
-        else
-        {
-            @foreach (var g in porPedido.Ordenes.GroupBy(o => o.Producto))
+            <h6 class="mt-3">@g.Key <span class="text-muted fw-normal">· @g.Sum(o => o.Cantidad) despachadas</span></h6>
+            @foreach (var o in g.GroupBy(x => x.IdProd).Select(x => (IdProd: x.Key, Cantidad: x.Sum(y => y.Cantidad))))
             {
-                <h6 class="mt-3">@g.Key</h6>
-                @foreach (var o in g)
-                {
-                    <div class="card mb-3">
-                        <div class="card-body p-3">
-                            <div class="d-flex flex-wrap gap-3 justify-content-between">
-                                <div>
-                                    <strong>Orden #@o.IdProd</strong>
-                                    <span class="text-muted ms-2">@o.CantidadAProducir unidades</span>
-                                </div>
-                                <div class="text-muted small">
-                                    Finalizada: @(o.FechaReal?.ToString("dd/MM/yyyy HH:mm") ?? "—")
-                                    · Operario: @(string.IsNullOrWhiteSpace(o.Operario) ? "—" : o.Operario)
-                                    · <a href="trazabilidad?orden=@o.IdProd">ver a qué pedidos fue</a>
-                                </div>
+                var orden = porPedido.Ordenes.FirstOrDefault(x => x.IdProd == o.IdProd);
+                <div class="card mb-3">
+                    <div class="card-body p-3">
+                        <div class="d-flex flex-wrap gap-3 justify-content-between">
+                            <div>
+                                <strong>Orden #@o.IdProd</strong>
+                                <span class="text-muted ms-2">@o.Cantidad de @(orden?.CantidadAProducir.ToString() ?? "?") unidades</span>
                             </div>
-                            <TablaConsumos Consumos="@ConsumosDe(porPedido.Consumos, o.IdProd)" />
+                            <div class="text-muted small">
+                                Finalizada: @(orden?.FechaReal?.ToString("dd/MM/yyyy HH:mm") ?? "—")
+                                · Operario: @(string.IsNullOrWhiteSpace(orden?.Operario) ? "—" : orden!.Operario)
+                                · <a href="trazabilidad?orden=@o.IdProd">ver todos sus despachos</a>
+                            </div>
                         </div>
+                        <TablaConsumos Consumos="@ConsumosDe(porPedido.Consumos, o.IdProd)" />
                     </div>
-                }
+                </div>
             }
         }
     }
@@ -160,18 +147,21 @@
         <TablaConsumos Consumos="@porOrden.Consumos" />
     </div>
 
-    <h5 class="form-titulo">Pedidos a los que pudo ir este producto</h5>
+    <h5 class="form-titulo">Pedidos a los que fue este producto</h5>
     @if (porOrden.Despachos.Count == 0)
     {
         <div class="notice mb-4">
             <i class="bi bi-info-circle"></i>
             <span>@(porOrden.Orden.FechaReal is null
                     ? "La orden todavía no finalizó."
-                    : $"No hay despachos de este producto en los {porOrden.VentanaDias} días posteriores a la finalización.")</span>
+                    : "Todavía no se despachó nada de lo producido por esta orden.")</span>
         </div>
     }
     else
     {
+        <p class="text-muted small">
+            Despachado: @porOrden.Despachos.Sum(d => d.Cantidad) de @porOrden.Orden.CantidadAProducir unidades.
+        </p>
         <div class="tabla-wrap mb-4">
             <table class="table align-middle">
                 <thead>
@@ -200,7 +190,6 @@
 
     private string modo = "pedido";
     private int? numero;
-    private int dias = 30;
     private bool cargando;
     private string? mensaje;
 
@@ -228,14 +217,13 @@
             return;
         }
 
-        var ventana = Math.Clamp(dias, 1, 365);
         cargando = true;
         try
         {
             if (modo == "pedido")
-                porPedido = await Api.ObtenerAsync<TrazabilidadPedidoDTO>($"ado/trazabilidad/pedido/{numero}?dias={ventana}");
+                porPedido = await Api.ObtenerAsync<TrazabilidadPedidoDTO>($"ado/trazabilidad/pedido/{numero}");
             else
-                porOrden = await Api.ObtenerAsync<TrazabilidadOrdenDTO>($"ado/trazabilidad/orden/{numero}?dias={ventana}");
+                porOrden = await Api.ObtenerAsync<TrazabilidadOrdenDTO>($"ado/trazabilidad/orden/{numero}");
         }
         catch (Exception ex)
         {

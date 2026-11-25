@@ -3,9 +3,8 @@
 namespace Alemana.Data.Ado;
 
 /// <summary>
-/// Trazabilidad con ADO.NET. Las órdenes de producción son independientes de los pedidos, por lo que el vínculo
-/// pedido -> producción es por producto y fecha: son "candidatas" las órdenes finalizadas de ese producto
-/// hasta la fecha del despacho, dentro de una ventana de días.
+/// Trazabilidad con ADO.NET. El vínculo pedido -> producción es exacto: cada línea de detalle_despacho
+/// guarda la orden de la que sale la cantidad (FIFO por fechaReal); el producto se obtiene de la orden.
 /// </summary>
 public class TrazabilidadAdoRepositorio(AdoConexion db)
 {
@@ -22,7 +21,7 @@ public class TrazabilidadAdoRepositorio(AdoConexion db)
         Lector.Texto(r, "estadoOrden"), Lector.Int(r, "cantidadAProducir"),
         Lector.Fecha(r, "fechaCreacion"), Lector.FechaN(r, "fechaReal"), Lector.Texto(r, "operario"));
 
-    public async Task<TrazabilidadPedidoDTO?> PorPedidoAsync(int idPedido, int ventanaDias)
+    public async Task<TrazabilidadPedidoDTO?> PorPedidoAsync(int idPedido)
     {
         var cabecera = await db.ConsultarAsync(
             "SELECT sp.idPedido, sp.fechaPedido, sp.estadoPedido, " +
@@ -38,8 +37,7 @@ public class TrazabilidadAdoRepositorio(AdoConexion db)
                 FechaPedido = Lector.Fecha(r, "fechaPedido"),
                 EstadoPedido = Lector.Texto(r, "estadoPedido"),
                 Sucursal = Lector.Texto(r, "sucursal"),
-                Empleado = Lector.Texto(r, "empleado"),
-                VentanaDias = ventanaDias
+                Empleado = Lector.Texto(r, "empleado")
             },
             ("@id", idPedido));
 
@@ -47,32 +45,30 @@ public class TrazabilidadAdoRepositorio(AdoConexion db)
         if (traza is null) return null;
 
         traza.Despachos = await db.ConsultarAsync(
-            "SELECT d.idDespacho, d.fechaDespacho, dd.idProducto, pr.nombre AS producto, dd.cantidad " +
+            "SELECT d.idDespacho, d.fechaDespacho, dd.idProd, o.idProducto, pr.nombre AS producto, dd.cantidad " +
             "FROM despacho d " +
             "JOIN detalle_despacho dd ON dd.idDespacho = d.idDespacho " +
-            "JOIN productos pr ON pr.idProducto = dd.idProducto " +
-            "WHERE d.idPedido = @id ORDER BY d.fechaDespacho, pr.nombre",
+            "JOIN ordenproduccion o ON o.idProd = dd.idProd " +
+            "JOIN productos pr ON pr.idProducto = o.idProducto " +
+            "WHERE d.idPedido = @id ORDER BY d.fechaDespacho, pr.nombre, o.fechaReal, dd.idProd",
             r => new TrazaDespachoFila(
-                Lector.Int(r, "idDespacho"), Lector.Fecha(r, "fechaDespacho"),
+                Lector.Int(r, "idDespacho"), Lector.Fecha(r, "fechaDespacho"), Lector.Int(r, "idProd"),
                 Lector.Int(r, "idProducto"), Lector.Texto(r, "producto"), Lector.Int(r, "cantidad")),
             ("@id", idPedido));
 
-        // Órdenes finalizadas de los productos despachados, hasta la fecha del despacho y dentro de la ventana
         traza.Ordenes = await db.ConsultarAsync(
             SqlOrden +
-            "WHERE o.estadoOrden = 'Finalizada' AND o.fechaReal IS NOT NULL AND EXISTS (" +
-            "  SELECT 1 FROM despacho d JOIN detalle_despacho dd ON dd.idDespacho = d.idDespacho " +
-            "  WHERE d.idPedido = @id AND dd.idProducto = o.idProducto " +
-            "    AND o.fechaReal <= d.fechaDespacho " +
-            "    AND o.fechaReal >= DATE_SUB(d.fechaDespacho, INTERVAL @dias DAY)) " +
-            "ORDER BY pr.nombre, o.fechaReal DESC",
-            MapOrden, ("@id", idPedido), ("@dias", ventanaDias));
+            "WHERE o.idProd IN (SELECT dd.idProd FROM despacho d " +
+            "                   JOIN detalle_despacho dd ON dd.idDespacho = d.idDespacho " +
+            "                   WHERE d.idPedido = @id) " +
+            "ORDER BY pr.nombre, o.fechaReal",
+            MapOrden, ("@id", idPedido));
 
         traza.Consumos = await ConsumosAsync(traza.Ordenes.Select(o => o.IdProd).ToList());
         return traza;
     }
 
-    public async Task<TrazabilidadOrdenDTO?> PorOrdenAsync(int idProd, int ventanaDias)
+    public async Task<TrazabilidadOrdenDTO?> PorOrdenAsync(int idProd)
     {
         var orden = (await db.ConsultarAsync(SqlOrden + "WHERE o.idProd = @id", MapOrden, ("@id", idProd)))
             .FirstOrDefault();
@@ -81,28 +77,24 @@ public class TrazabilidadAdoRepositorio(AdoConexion db)
         var traza = new TrazabilidadOrdenDTO
         {
             Orden = orden,
-            VentanaDias = ventanaDias,
             Consumos = await ConsumosAsync(new List<int> { idProd })
         };
 
-        if (orden.FechaReal is not null)
-        {
-            // Despachos del mismo producto posteriores a la finalización, dentro de la ventana
-            traza.Despachos = await db.ConsultarAsync(
-                "SELECT d.idPedido, d.idDespacho, d.fechaDespacho, dd.cantidad, COALESCE(s.nombreSuc, '') AS sucursal " +
-                "FROM despacho d " +
-                "JOIN detalle_despacho dd ON dd.idDespacho = d.idDespacho " +
-                "JOIN solicitudpedido sp ON sp.idPedido = d.idPedido " +
-                "LEFT JOIN empleados e ON e.idEmpleado = sp.idEmpleado " +
-                "LEFT JOIN sucursales s ON s.idSucursal = e.idSucursal " +
-                "WHERE dd.idProducto = @prod AND d.fechaDespacho >= @desde " +
-                "  AND d.fechaDespacho <= DATE_ADD(@desde, INTERVAL @dias DAY) " +
-                "ORDER BY d.fechaDespacho",
-                r => new TrazaDespachoPosteriorFila(
-                    Lector.Int(r, "idPedido"), Lector.Int(r, "idDespacho"), Lector.Fecha(r, "fechaDespacho"),
-                    Lector.Int(r, "cantidad"), Lector.Texto(r, "sucursal")),
-                ("@prod", orden.IdProducto), ("@desde", orden.FechaReal), ("@dias", ventanaDias));
-        }
+        traza.Despachos = await db.ConsultarAsync(
+            "SELECT d.idPedido, d.idDespacho, d.fechaDespacho, SUM(dd.cantidad) AS cantidad, " +
+            "       COALESCE(s.nombreSuc, '') AS sucursal " +
+            "FROM detalle_despacho dd " +
+            "JOIN despacho d ON d.idDespacho = dd.idDespacho " +
+            "JOIN solicitudpedido sp ON sp.idPedido = d.idPedido " +
+            "LEFT JOIN empleados e ON e.idEmpleado = sp.idEmpleado " +
+            "LEFT JOIN sucursales s ON s.idSucursal = e.idSucursal " +
+            "WHERE dd.idProd = @prod " +
+            "GROUP BY d.idPedido, d.idDespacho, d.fechaDespacho, s.nombreSuc " +
+            "ORDER BY d.fechaDespacho",
+            r => new TrazaDespachoPosteriorFila(
+                Lector.Int(r, "idPedido"), Lector.Int(r, "idDespacho"), Lector.Fecha(r, "fechaDespacho"),
+                Lector.Int(r, "cantidad"), Lector.Texto(r, "sucursal")),
+            ("@prod", idProd));
 
         return traza;
     }
