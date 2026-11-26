@@ -156,7 +156,8 @@ namespace Alemana.Aplicaciones.Servicios
                     CantidadSolicitada = d.CantidadSolicitada,
                     CantidadAceptada = d.CantidadAceptada,
                     CantidadDespachada = d.CantidadDespachada,
-                    StockDisponible = producto?.StockActual ?? 0
+                    StockDisponible = producto?.StockActual ?? 0,
+                    Rinde = await _stock.ObtenerRindeAsync(d.IdProducto)
                 });
             }
             return items;

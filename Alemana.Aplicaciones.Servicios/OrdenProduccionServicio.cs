@@ -123,17 +123,22 @@ namespace Alemana.Aplicaciones.Servicios
         }
 
         /// <summary>
-        /// Calcula la materia prima necesaria para producir una cantidad. El disponible descuenta lo que
+        /// Calcula la materia prima necesaria para hacer la receta la cantidad de veces indicada (cada vez rinde
+        /// recetaproducto.rinde unidades del producto). El disponible descuenta lo que
         /// ya tienen reservado las órdenes En Proceso.
         /// </summary>
         public async Task<CalculoProduccionDTO> CalcularAsync(CalcularProduccionDTO dto)
         {
             if (dto == null || dto.Cantidad <= 0)
-                throw new ArgumentException("La cantidad a producir debe ser mayor a cero.");
+                throw new ArgumentException("Las veces que se hará la receta deben ser mayores a cero.");
 
             var producto = await _productoRepo.ObtenerProductoPorId(dto.IdProducto);
             if (producto == null)
                 throw new ArgumentException($"El producto {dto.IdProducto} no existe.");
+
+            var rinde = await _stock.ObtenerRindeAsync(dto.IdProducto);
+            if (rinde <= 0)
+                throw new ArgumentException($"La receta del producto {dto.IdProducto} no tiene definido cuánto rinde.");
 
             var requerimientos = await _stock.ObtenerRequerimientosAsync(dto.IdProducto);
             if (requerimientos.Count == 0)
@@ -146,6 +151,7 @@ namespace Alemana.Aplicaciones.Servicios
                 IdProducto = producto.IdProducto,
                 NombreProducto = producto.Nombre,
                 Cantidad = dto.Cantidad,
+                Rinde = rinde,
                 Suficiente = true
             };
 
@@ -234,7 +240,7 @@ namespace Alemana.Aplicaciones.Servicios
 
         /// <summary>
         /// Finaliza una orden En Proceso: descuenta la materia prima de los lotes (FIFO por fecha de ingreso),
-        /// registra el consumo, suma el stock del producto y cierra la orden.
+        /// registra el consumo, suma al stock del producto (veces que se hizo la receta * lo que rinde) y cierra la orden.
         /// </summary>
         public async Task<(ResultadoConfirmacion Resultado, string? Mensaje)> FinalizarAsync(int idProd)
         {
@@ -249,6 +255,11 @@ namespace Alemana.Aplicaciones.Servicios
             if (requerimientos.Count == 0)
                 return (ResultadoConfirmacion.StockInsuficiente,
                     $"El producto {orden.IdProducto} no tiene una receta con materias primas cargadas.");
+
+            var rinde = await _stock.ObtenerRindeAsync(orden.IdProducto);
+            if (rinde <= 0)
+                return (ResultadoConfirmacion.StockInsuficiente,
+                    $"La receta del producto {orden.IdProducto} no tiene definido cuánto rinde.");
 
             // Pasada 1: verificar que alcanza, sin tocar nada
             var plan = new List<(Lote Lote, decimal Usar)>();
@@ -286,7 +297,7 @@ namespace Alemana.Aplicaciones.Servicios
 
             var producto = await _stock.ObtenerProductoAsync(orden.IdProducto);
             if (producto != null)
-                producto.StockActual += orden.CantidadAproducir;
+                producto.StockActual += orden.CantidadAproducir * rinde;
 
             var ahora = DateTime.Now;
             foreach (var a in orden.OrdAsigOps.Where(a => a.FechaFin == null))
@@ -340,6 +351,7 @@ namespace Alemana.Aplicaciones.Servicios
                 FechaEstimada = o.FechaEstimada,
                 FechaReal = o.FechaReal,
                 CantidadAproducir = o.CantidadAproducir,
+                Rinde = o.IdProductoNavigation?.IdRecetaNavigation?.Rinde ?? 0,
                 IdProducto = o.IdProducto,
                 NombreProducto = o.IdProductoNavigation?.Nombre,
                 IdOperario = asig?.IdOperario,

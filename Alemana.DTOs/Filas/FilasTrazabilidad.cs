@@ -7,7 +7,7 @@ public record TrazaDespachoFila(
 
 public record TrazaOrdenFila(
     int IdProd, int IdProducto, string Producto, string EstadoOrden, int CantidadAProducir,
-    DateTime FechaCreacion, DateTime? FechaReal, string Operario);
+    DateTime FechaCreacion, DateTime? FechaReal, string Operario, int Unidades);
 
 public record TrazaConsumoFila(
     int IdProd, int IdMateriaP, string MateriaPrima, string Unidad, int IdLote, decimal CantConsumida,

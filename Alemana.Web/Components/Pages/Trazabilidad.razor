@@ -109,7 +109,7 @@
                         <div class="d-flex flex-wrap gap-3 justify-content-between">
                             <div>
                                 <strong>Orden #@o.IdProd</strong>
-                                <span class="text-muted ms-2">@o.Cantidad de @(orden?.CantidadAProducir.ToString() ?? "?") unidades</span>
+                                <span class="text-muted ms-2">@o.Cantidad de @(orden?.Unidades.ToString() ?? "?") unidades</span>
                             </div>
                             <div class="text-muted small">
                                 Finalizada: @(orden?.FechaReal?.ToString("dd/MM/yyyy HH:mm") ?? "—")
@@ -131,7 +131,7 @@
         <div class="card-body p-4">
             <h5 class="form-titulo">Orden de producción #@porOrden.Orden.IdProd</h5>
             <p class="mb-1">
-                <strong>@porOrden.Orden.Producto</strong> · @porOrden.Orden.CantidadAProducir unidades
+                <strong>@porOrden.Orden.Producto</strong> · @porOrden.Orden.Unidades unidades (@porOrden.Orden.CantidadAProducir @(porOrden.Orden.CantidadAProducir == 1 ? "vez" : "veces") la receta)
                 · <span class="pill @(porOrden.Orden.EstadoOrden == "Finalizada" ? "pill-si" : "pill-aviso")">@porOrden.Orden.EstadoOrden</span>
             </p>
             <p class="text-muted small mb-0">
@@ -160,7 +160,7 @@
     else
     {
         <p class="text-muted small">
-            Despachado: @porOrden.Despachos.Sum(d => d.Cantidad) de @porOrden.Orden.CantidadAProducir unidades.
+            Despachado: @porOrden.Despachos.Sum(d => d.Cantidad) de @porOrden.Orden.Unidades unidades.
         </p>
         <div class="tabla-wrap mb-4">
             <table class="table align-middle">

@@ -45,7 +45,7 @@ namespace MenuDesk
 
             var negrita = new Font(Font, FontStyle.Bold);
             grilla.Controls.Add(new Label { Text = "Producto", AutoSize = true, Font = negrita }, 0, 0);
-            grilla.Controls.Add(new Label { Text = "A producir", AutoSize = true, Font = negrita }, 1, 0);
+            grilla.Controls.Add(new Label { Text = "Veces la receta", AutoSize = true, Font = negrita }, 1, 0);
 
             for (int i = 0; i < pendientes.Count; i++)
             {
@@ -56,7 +56,7 @@ namespace MenuDesk
                 btn.Click += BtnGenerar_Click;
 
                 grilla.Controls.Add(new Label { Text = p.NombreProducto, AutoSize = true, Anchor = AnchorStyles.Left }, 0, fila);
-                grilla.Controls.Add(new Label { Text = p.CantidadAProducir.ToString(), AutoSize = true, Anchor = AnchorStyles.Left }, 1, fila);
+                grilla.Controls.Add(new Label { Text = $"{p.Tandas} × {Math.Max(p.Rinde, 1)} u.", AutoSize = true, Anchor = AnchorStyles.Left }, 1, fila);
                 grilla.Controls.Add(btn, 2, fila);
             }
 
@@ -87,7 +87,7 @@ namespace MenuDesk
                 var creada = await _api.PostAsync("ordenproduccion", new OrdenProduccionDTO
                 {
                     IdProducto = p.IdProducto,
-                    CantidadAproducir = p.CantidadAProducir,
+                    CantidadAproducir = p.Tandas,
                     EstadoOrden = "Pendiente"
                 });
 

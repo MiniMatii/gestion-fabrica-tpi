@@ -10,16 +10,19 @@ public class TrazabilidadAdoRepositorio(AdoConexion db)
 {
     private const string SqlOrden =
         "SELECT o.idProd, o.idProducto, pr.nombre AS producto, o.estadoOrden, o.cantidadAProducir, " +
+        "       o.cantidadAProducir * GREATEST(COALESCE(rp.rinde, 1), 1) AS unidades, " +
         "       o.fechaCreacion, o.fechaReal, " +
         "       COALESCE((SELECT TRIM(CONCAT(op.nombre, ' ', op.apellido)) FROM ord_asig_op a " +
         "                 JOIN operarios op ON op.idOperario = a.idOperario " +
         "                 WHERE a.idProd = o.idProd ORDER BY a.fechaIni LIMIT 1), '') AS operario " +
-        "FROM ordenproduccion o JOIN productos pr ON pr.idProducto = o.idProducto ";
+        "FROM ordenproduccion o JOIN productos pr ON pr.idProducto = o.idProducto " +
+        "LEFT JOIN recetaproducto rp ON rp.idReceta = pr.idReceta ";
 
     private static TrazaOrdenFila MapOrden(System.Data.Common.DbDataReader r) => new(
         Lector.Int(r, "idProd"), Lector.Int(r, "idProducto"), Lector.Texto(r, "producto"),
         Lector.Texto(r, "estadoOrden"), Lector.Int(r, "cantidadAProducir"),
-        Lector.Fecha(r, "fechaCreacion"), Lector.FechaN(r, "fechaReal"), Lector.Texto(r, "operario"));
+        Lector.Fecha(r, "fechaCreacion"), Lector.FechaN(r, "fechaReal"), Lector.Texto(r, "operario"),
+        Lector.Int(r, "unidades"));
 
     public async Task<TrazabilidadPedidoDTO?> PorPedidoAsync(int idPedido)
     {

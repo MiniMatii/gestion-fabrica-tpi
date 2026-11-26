@@ -62,8 +62,19 @@ namespace Alemana.Data.Repositorios
             return await _db.Productos.FirstOrDefaultAsync(p => p.IdProducto == idProducto);
         }
 
+        public async Task<int> ObtenerRindeAsync(int idProducto)
+        {
+            return await _db.Productos.AsNoTracking()
+                .Where(p => p.IdProducto == idProducto)
+                .Select(p => p.IdRecetaNavigation.Rinde)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<List<(int IdProd, int Saldo)>> ObtenerOrdenesConSaldoAsync(int idProducto)
         {
+            // CantidadAproducir son las veces que se hace la receta: las unidades producidas son veces * rinde
+            var rinde = Math.Max(await ObtenerRindeAsync(idProducto), 1);
+
             var ordenes = await _db.Ordenproduccions.AsNoTracking()
                 .Where(o => o.IdProducto == idProducto && o.EstadoOrden == "Finalizada" && o.FechaReal != null)
                 .OrderBy(o => o.FechaReal).ThenBy(o => o.IdProd)
@@ -77,7 +88,7 @@ namespace Alemana.Data.Repositorios
                 .ToDictionaryAsync(x => x.IdProd, x => x.Cantidad);
 
             return ordenes
-                .Select(o => (o.IdProd, Saldo: o.CantidadAproducir - (asignado.TryGetValue(o.IdProd, out var a) ? a : 0)))
+                .Select(o => (o.IdProd, Saldo: o.CantidadAproducir * rinde - (asignado.TryGetValue(o.IdProd, out var a) ? a : 0)))
                 .Where(o => o.Saldo > 0)
                 .ToList();
         }

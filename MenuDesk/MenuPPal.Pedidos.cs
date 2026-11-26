@@ -168,6 +168,7 @@ namespace MenuDesk
                 {
                     IdProducto = i.IdProducto,
                     NombreProducto = i.NombreProducto,
+                    Rinde = i.Rinde,
                     CantidadAProducir = i.PendienteDespachar - Math.Max(i.StockDisponible, 0)
                 })
                 .ToList();

@@ -29,7 +29,11 @@ namespace MenuDesk.Controles
             Controls.Add(Etiqueta(
                 $"Creada: {o.FechaCreacion:dd/MM/yyyy}   Estimada: {(o.FechaEstimada.HasValue ? o.FechaEstimada.Value.ToString("dd/MM/yyyy") : "-")}",
                 new Font("Segoe UI", 8.5f), TextoSuave, 14, ref y, 24));
-            Controls.Add(Etiqueta($"{o.NombreProducto}  ×{o.CantidadAproducir}",
+            Controls.Add(Etiqueta(o.Rinde > 0
+                    ? $"{o.NombreProducto}  {o.CantidadAproducir} × {o.Rinde} = {o.UnidadesAProducir} u."
+                    : o.Rinde > 0
+                    ? $"{o.NombreProducto}  {o.CantidadAproducir} × {o.Rinde} = {o.UnidadesAProducir} u."
+                    : $"{o.NombreProducto}  ×{o.CantidadAproducir}",
                 new Font("Segoe UI", 10f, FontStyle.Bold), Texto, 14, ref y, 22));
 
             bool asignado = !string.IsNullOrEmpty(o.NombreOperario);

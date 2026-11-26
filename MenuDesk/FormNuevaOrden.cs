@@ -8,7 +8,7 @@ namespace MenuDesk
     {
         private readonly ApiClient _api;
         private readonly ComboBox _cmbProducto = new() { DropDownStyle = ComboBoxStyle.DropDownList, Width = 300 };
-        private readonly NumericUpDown _nudCantidad = new() { Minimum = 1, Maximum = 1000000, Value = 100, Width = 120 };
+        private readonly NumericUpDown _nudCantidad = new() { Minimum = 1, Maximum = 1000000, Value = 1, Width = 120 };
         private readonly Button _btnCalcular = new() { Text = "Calcular materia prima", Width = 180, Height = 30 };
         private readonly ListView _lv = new() { View = View.Details, FullRowSelect = true, Width = 640, Height = 190 };
         private readonly Label _lblEstado = new() { AutoSize = false, Width = 640, Height = 40 };
@@ -36,7 +36,7 @@ namespace MenuDesk
 
             Colocar(new Label { Text = "Producto", AutoSize = true }, 20, 14);
             Colocar(_cmbProducto, 20, 38);
-            Colocar(new Label { Text = "Cantidad a producir", AutoSize = true }, 340, 14);
+            Colocar(new Label { Text = "Veces que se hará la receta", AutoSize = true }, 340, 14);
             Colocar(_nudCantidad, 340, 38);
             Colocar(_btnCalcular, 475, 36);
             Colocar(_lv, 20, 84);
@@ -118,9 +118,10 @@ namespace MenuDesk
                     _lv.Items.Add(it);
                 }
 
-                _lblEstado.Text = calculo.Suficiente
+                var rinde = $"La receta rinde {calculo.Rinde} u.: {calculo.Cantidad} × {calculo.Rinde} = {calculo.UnidadesResultantes} unidades. ";
+                _lblEstado.Text = rinde + (calculo.Suficiente
                     ? "Materia prima suficiente. Al crear la orden queda Pendiente; después se confirma y se le asigna un operario."
-                    : "Materia prima insuficiente. Podés crear la orden, pero no se va a poder confirmar hasta que haya stock.";
+                    : "Materia prima insuficiente. Podés crear la orden, pero no se va a poder confirmar hasta que haya stock.");
                 _btnCrear.Enabled = true;
             }
             catch (Exception ex)

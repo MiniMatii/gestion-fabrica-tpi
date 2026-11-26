@@ -83,6 +83,7 @@ namespace Alemana.Data.Repositorios
             return await _db.Ordenproduccions
                 .AsNoTracking()
                 .Include(o => o.IdProductoNavigation)
+                    .ThenInclude(p => p.IdRecetaNavigation)
                 .Include(o => o.OrdAsigOps)
                     .ThenInclude(a => a.IdOperarioNavigation)
                 .Where(o => o.FechaReal == null)

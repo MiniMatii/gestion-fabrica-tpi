@@ -16,5 +16,7 @@ namespace Alemana.DTOs
         public int PendienteDespachar => CantidadAceptada - CantidadDespachada;
         public int PendienteAceptar => CantidadSolicitada - CantidadAceptada;
         public int StockDisponible { get; set; }
+        /// <summary>Unidades que salen cada vez que se hace la receta del producto.</summary>
+        public int Rinde { get; set; }
     }
 }
