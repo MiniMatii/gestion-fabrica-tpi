@@ -17,7 +17,7 @@ namespace MenuDesk
         public MiniMenuReceta()
         {
             InitializeComponent();
-            AplicarEstiloTabla(dgvMateriasAR,tablaER);
+            AplicarEstiloTabla(dgvMateriasAR, tablaER);
             MaximizeBox = false;
             Deactivate += MiniMenuReceta_Deactivate;
             VisibleChanged += MiniMenuReceta_VisibleChanged;
@@ -105,7 +105,11 @@ namespace MenuDesk
             navBarRecetas.SelectedTab = eliminarRecetaPage;
         }
 
-
+        private void ModificarRecetas_Click(object sender, EventArgs e)
+        {
+            LimpiarMensaje();
+            navBarRecetas.SelectedTab = modificarRecetas;
+        }
 
         private async void buttonGuardarReceta_Click(object sender, EventArgs e)
         {
