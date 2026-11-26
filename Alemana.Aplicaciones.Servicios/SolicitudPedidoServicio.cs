@@ -173,6 +173,9 @@ namespace Alemana.Aplicaciones.Servicios
             new() { IdPedido = p.IdPedido, EstadoPedido = p.EstadoPedido, Items = await ArmarItemsAsync(p) };
 
 
+        /// Fija la cantidad aceptada TOTAL por producto (se puede corregir hasta despachar).
+        /// Lo aceptado se descuenta del stock actual del producto en el momento; si no hay stock, no se acepta.
+        /// Al corregir a la baja se devuelve la diferencia al stock.
         public async Task<(ResultadoPedido, string?, ResultadoPedidoDTO?)> AceptarAsync(int idPedido, AceptarPedidoProductosDTO dto)
         {
             var pedido = await _pedidoRepositorio.ObtenerPorId(idPedido);
@@ -183,7 +186,8 @@ namespace Alemana.Aplicaciones.Servicios
             var nuevas = (dto?.Items ?? new()).GroupBy(i => i.IdProducto)
                                               .ToDictionary(g => g.Key, g => g.Sum(i => i.CantidadAceptada));
 
-            // 1) validar
+            // 1) validar (el stock se verifica sobre la diferencia contra lo ya aceptado)
+            var productos = new Dictionary<int, Producto>();
             foreach (var (idProducto, total) in nuevas)
             {
                 var d = pedido.DetallePedidos.FirstOrDefault(x => x.IdProducto == idProducto);
@@ -193,15 +197,21 @@ namespace Alemana.Aplicaciones.Servicios
                     return (ResultadoPedido.CantidadInvalida,
                         $"Producto {idProducto}: la cantidad aceptada debe estar entre {d.CantidadDespachada} (ya despachado) y {d.CantidadSolicitada} (solicitado).", null);
 
-                var stock = await _stock.ObtenerStockProductoAsync(idProducto);
-                if (total - d.CantidadDespachada > stock)
+                var producto = await _stock.ObtenerProductoAsync(idProducto);
+                var diferencia = total - d.CantidadAceptada;
+                if (producto == null || diferencia > Math.Max(producto.StockActual, 0))
                     return (ResultadoPedido.StockInsuficiente,
-                        $"Producto {idProducto}: solo hay {stock} en stock para despachar.", null);
+                        $"Producto {idProducto}: no hay stock suficiente para aceptar {diferencia} más (hay {Math.Max(producto?.StockActual ?? 0, 0)}).", null);
+                productos[idProducto] = producto;
             }
 
-            // 2) aplicar
+            // 2) aplicar (un único SaveChanges = una transacción)
             foreach (var (idProducto, total) in nuevas)
-                pedido.DetallePedidos.First(x => x.IdProducto == idProducto).CantidadAceptada = total;
+            {
+                var d = pedido.DetallePedidos.First(x => x.IdProducto == idProducto);
+                productos[idProducto].StockActual -= total - d.CantidadAceptada;
+                d.CantidadAceptada = total;
+            }
 
             pedido.EstadoPedido = CalcularEstado(pedido);
             await _pedidoRepositorio.GuardarCambiosAsync();
@@ -209,7 +219,7 @@ namespace Alemana.Aplicaciones.Servicios
         }
 
 
-        /// Envía lo aceptado: registra el Despacho, suma CantidadDespachada y descuenta stock.
+        /// Envía lo aceptado: registra el Despacho y suma CantidadDespachada. El stock ya se descontó al aceptar.
         public async Task<(ResultadoPedido, string?, ResultadoPedidoDTO?)> DespacharAsync(int idPedido, DespacharPedidoDTO dto)
         {
             var pedido = await _pedidoRepositorio.ObtenerPorId(idPedido);
@@ -225,8 +235,7 @@ namespace Alemana.Aplicaciones.Servicios
             if (lineas.Count == 0)
                 return (ResultadoPedido.CantidadInvalida, "Indicá al menos un producto con cantidad mayor a cero.", null);
 
-            // 1) validar contra lo aceptado y el stock actual (el stock puede haber bajado desde la aceptación)
-            var productos = new Dictionary<int, Producto>();
+            // 1) validar contra lo aceptado (el stock ya fue reservado al aceptar)
             foreach (var (idProducto, cantidad) in lineas)
             {
                 var d = pedido.DetallePedidos.FirstOrDefault(x => x.IdProducto == idProducto);
@@ -237,12 +246,6 @@ namespace Alemana.Aplicaciones.Servicios
                 if (cantidad > porDespachar)
                     return (ResultadoPedido.CantidadInvalida,
                         $"Producto {idProducto}: solo hay {porDespachar} aceptados sin despachar.", null);
-
-                var producto = await _stock.ObtenerProductoAsync(idProducto);
-                if (producto == null || producto.StockActual < cantidad)
-                    return (ResultadoPedido.StockInsuficiente,
-                        $"Stock insuficiente del producto {idProducto} (hay {producto?.StockActual ?? 0}).", null);
-                productos[idProducto] = producto;
             }
 
             // 2) aplicar (un único SaveChanges = una transacción)
@@ -265,7 +268,6 @@ namespace Alemana.Aplicaciones.Servicios
                         $"Producto {idProducto}: faltan {restante} unidades producidas y finalizadas para despachar.", null);
 
                 pedido.DetallePedidos.First(x => x.IdProducto == idProducto).CantidadDespachada += cantidad;
-                productos[idProducto].StockActual -= cantidad;
             }
             pedido.Despachos.Add(despacho);
 

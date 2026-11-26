@@ -151,7 +151,7 @@ namespace MenuDesk
             }
         }
 
-        /// <summary>Completado sale de la lista; si lo aceptado supera el stock, se ofrece generar la producción faltante.</summary>
+        /// <summary>Completado sale de la lista; si quedó cantidad sin aceptar por falta de stock, se ofrece generar la producción faltante.</summary>
         private void MostrarResultado(int idPedido, ResultadoPedidoDTO? datos)
         {
             if (datos == null) return;
@@ -163,13 +163,13 @@ namespace MenuDesk
             }
 
             var faltantes = datos.Items
-                .Where(i => i.PendienteDespachar > i.StockDisponible)
+                .Where(i => i.PendienteAceptar > 0)
                 .Select(i => new ProductoPendienteProduccionDTO
                 {
                     IdProducto = i.IdProducto,
                     NombreProducto = i.NombreProducto,
                     Rinde = i.Rinde,
-                    CantidadAProducir = i.PendienteDespachar - Math.Max(i.StockDisponible, 0)
+                    CantidadAProducir = i.PendienteAceptar
                 })
                 .ToList();
 

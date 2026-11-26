@@ -63,14 +63,14 @@ namespace MenuDesk
                 var f = new Fila { Item = item };
 
                 int piso = item.CantidadDespachada;
-                int aceptadaInicial = Math.Max(item.CantidadAceptada,
-                                      Math.Min(item.CantidadSolicitada, piso + Math.Max(item.StockDisponible, 0)));
+                // lo aceptado se descuenta del stock: se puede subir hasta lo ya aceptado + stock disponible
+                int tope = Math.Min(item.CantidadSolicitada, item.CantidadAceptada + Math.Max(item.StockDisponible, 0));
 
                 f.Aceptar = new NumericUpDown
                 {
                     Minimum = piso,
-                    Maximum = item.CantidadSolicitada,
-                    Value = Math.Clamp(aceptadaInicial, piso, item.CantidadSolicitada),
+                    Maximum = tope,
+                    Value = Math.Clamp(tope, piso, tope),
                     Width = 80
                 };
                 f.Despachar = new NumericUpDown { Minimum = 0, Maximum = 0, Width = 80 };
@@ -123,11 +123,11 @@ namespace MenuDesk
             Controls.Add(pie);
         }
 
-        /// <summary>Máximo despachable ahora = min(aceptado - despachado, stock).</summary>
+        /// <summary>Máximo despachable ahora = aceptado - despachado (el stock ya se descontó al aceptar).</summary>
         private static void Recalcular(Fila f, bool reiniciar)
         {
             int pendiente = (int)f.Aceptar.Value - f.Item.CantidadDespachada;
-            int max = Math.Max(Math.Min(pendiente, Math.Max(f.Item.StockDisponible, 0)), 0);
+            int max = Math.Max(pendiente, 0);
 
             f.Despachar.Maximum = max;
             f.Despachar.Enabled = max > 0;
