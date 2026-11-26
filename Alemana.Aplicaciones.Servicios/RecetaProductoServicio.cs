@@ -27,6 +27,7 @@ namespace Alemana.Aplicaciones.Servicios
             var rp = new Recetaproducto();
             rp.Descripcion = nuevaRdto.Descripcion;
             rp.MateriapReceta = nuevaRdto.MateriapReceta.Select(mp => new MateriapRecetum { IdMateriaP = mp.IdMateriaP, CantidadNecesaria= mp.CantidadNecesaria}).ToList();
+            rp.Rinde = nuevaRdto.Rinde;
             await _recetaRepositorio.AltaReceta(rp);
             nuevaRdto.IdReceta = rp.IdReceta;
             return nuevaRdto;
@@ -43,7 +44,9 @@ namespace Alemana.Aplicaciones.Servicios
             }
             var recetaM = new Recetaproducto {
                IdReceta = recetaMdto.IdReceta,
-              Descripcion = recetaMdto.Descripcion };
+              Descripcion = recetaMdto.Descripcion,
+              Rinde = recetaMdto.Rinde,
+            };
 
             if (await _recetaRepositorio.ModificarReceta(recetaM) is null)
             {

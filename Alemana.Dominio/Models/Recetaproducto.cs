@@ -12,4 +12,6 @@ public partial class Recetaproducto
     public virtual ICollection<MateriapRecetum> MateriapReceta { get; set; } = new List<MateriapRecetum>();
 
     public virtual Producto? Producto { get; set; }
+
+    public virtual int Rinde { get; set; } //
 }

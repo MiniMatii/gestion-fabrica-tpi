@@ -25,14 +25,20 @@ namespace Alemana.Data.Repositorios
         {
             var recetaExistente = await _DbA.Recetaproductos.FindAsync(recetaM.IdReceta);
 
-            if (recetaExistente != null)
+            if (recetaExistente == null)
+            {
+                return recetaM;
+
+            }
+            if (!string.IsNullOrWhiteSpace(recetaM.Descripcion) && recetaM.Descripcion != "string")
             {
                 recetaExistente.Descripcion = recetaM.Descripcion;
-
-                await _DbA.SaveChangesAsync();
             }
 
+            recetaExistente.Rinde = recetaM.Rinde;
+            await _DbA.SaveChangesAsync();
             return recetaExistente;
+
         }
 
         public async Task<bool> EliminarReceta(int idR)

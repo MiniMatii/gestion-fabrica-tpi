@@ -1468,7 +1468,7 @@
             altaLotesPage.Location = new Point(4, 4);
             altaLotesPage.Name = "altaLotesPage";
             altaLotesPage.Padding = new Padding(3);
-            altaLotesPage.Size = new Size(1146, 971);
+            altaLotesPage.Size = new Size(1146, 978);
             altaLotesPage.TabIndex = 0;
             altaLotesPage.Text = "tabPage1";
             // 
@@ -1502,7 +1502,7 @@
             altaLoteSubPage.Name = "altaLoteSubPage";
             altaLoteSubPage.Padding = new Padding(20, 20, 40, 10);
             altaLoteSubPage.PatternColor = KimTools.WinForms.KtColor.Empty;
-            altaLoteSubPage.Size = new Size(1140, 965);
+            altaLoteSubPage.Size = new Size(1140, 972);
             altaLoteSubPage.TabIndex = 0;
             // 
             // ktDivider6
@@ -2490,7 +2490,7 @@
             fechaIngreso.Location = new Point(0, 0);
             fechaIngreso.MinimumSize = new Size(0, 40);
             fechaIngreso.Name = "fechaIngreso";
-            fechaIngreso.Size = new Size(286, 52);
+            fechaIngreso.Size = new Size(286, 43);
             fechaIngreso.TabIndex = 0;
             fechaIngreso.TextAlign = HorizontalAlignment.Center;
             fechaIngreso.TextColor = KimTools.WinForms.KtColor.Empty;
@@ -3804,7 +3804,7 @@
             IdCap.Name = "IdCap";
             IdCap.ReadOnly = true;
             IdCap.Resizable = DataGridViewTriState.False;
-            IdCap.Width = 95;
+            IdCap.Width = 78;
             // 
             // NomCapacidad
             // 
@@ -3816,7 +3816,7 @@
             NomCapacidad.Name = "NomCapacidad";
             NomCapacidad.ReadOnly = true;
             NomCapacidad.Resizable = DataGridViewTriState.False;
-            NomCapacidad.Width = 140;
+            NomCapacidad.Width = 114;
             // 
             // DescCapacidad
             // 
@@ -5155,7 +5155,7 @@
             IdOperario.Name = "IdOperario";
             IdOperario.ReadOnly = true;
             IdOperario.Resizable = DataGridViewTriState.False;
-            IdOperario.Width = 87;
+            IdOperario.Width = 71;
             // 
             // NombreOp
             // 
@@ -5186,7 +5186,7 @@
             Disponibilidad.Name = "Disponibilidad";
             Disponibilidad.ReadOnly = true;
             Disponibilidad.Resizable = DataGridViewTriState.False;
-            Disponibilidad.Width = 104;
+            Disponibilidad.Width = 85;
             // 
             // ktDivider15
             // 
@@ -5643,7 +5643,7 @@
             IdSucursal.Name = "IdSucursal";
             IdSucursal.ReadOnly = true;
             IdSucursal.Resizable = DataGridViewTriState.False;
-            IdSucursal.Width = 138;
+            IdSucursal.Width = 115;
             // 
             // NombreSuc
             // 
@@ -5655,7 +5655,7 @@
             NombreSuc.Name = "NombreSuc";
             NombreSuc.ReadOnly = true;
             NombreSuc.Resizable = DataGridViewTriState.False;
-            NombreSuc.Width = 152;
+            NombreSuc.Width = 125;
             // 
             // CodPostal
             // 
@@ -5666,7 +5666,7 @@
             CodPostal.Name = "CodPostal";
             CodPostal.ReadOnly = true;
             CodPostal.Resizable = DataGridViewTriState.False;
-            CodPostal.Width = 137;
+            CodPostal.Width = 112;
             // 
             // Empleados
             // 
@@ -6250,7 +6250,7 @@
             IdEmpleadodataGridViewTextBoxColumn20.Name = "IdEmpleadodataGridViewTextBoxColumn20";
             IdEmpleadodataGridViewTextBoxColumn20.ReadOnly = true;
             IdEmpleadodataGridViewTextBoxColumn20.Resizable = DataGridViewTriState.False;
-            IdEmpleadodataGridViewTextBoxColumn20.Width = 154;
+            IdEmpleadodataGridViewTextBoxColumn20.Width = 125;
             // 
             // IdJefe
             // 
@@ -6259,7 +6259,7 @@
             IdJefe.MinimumWidth = 6;
             IdJefe.Name = "IdJefe";
             IdJefe.ReadOnly = true;
-            IdJefe.Width = 101;
+            IdJefe.Width = 84;
             // 
             // nombreEmpdataGridViewTextBoxColumn21
             // 
@@ -6297,7 +6297,7 @@
             disponibilidadEmp.MinimumWidth = 6;
             disponibilidadEmp.Name = "disponibilidadEmp";
             disponibilidadEmp.ReadOnly = true;
-            disponibilidadEmp.Width = 181;
+            disponibilidadEmp.Width = 147;
             // 
             // Motivo
             // 
@@ -7431,7 +7431,7 @@
             sucIdEmpleado.MinimumWidth = 6;
             sucIdEmpleado.Name = "sucIdEmpleado";
             sucIdEmpleado.ReadOnly = true;
-            sucIdEmpleado.Width = 154;
+            sucIdEmpleado.Width = 125;
             // 
             // empNombre
             // 
@@ -7882,7 +7882,6 @@
             IdEmpleado.Name = "IdEmpleado";
             IdEmpleado.ReadOnly = true;
             IdEmpleado.Resizable = DataGridViewTriState.False;
-            IdEmpleado.Width = 125;
             // 
             // dataGridViewTextBoxColumn9
             // 
@@ -7913,7 +7912,6 @@
             Dni.Name = "Dni";
             Dni.ReadOnly = true;
             Dni.Resizable = DataGridViewTriState.False;
-            Dni.Width = 125;
             // 
             // sucktDivider31
             // 
@@ -8917,7 +8915,7 @@
             ktDate1.Location = new Point(866, -11);
             ktDate1.MinimumSize = new Size(0, 40);
             ktDate1.Name = "ktDate1";
-            ktDate1.Size = new Size(286, 52);
+            ktDate1.Size = new Size(286, 43);
             ktDate1.TabIndex = 0;
             ktDate1.TextAlign = HorizontalAlignment.Center;
             ktDate1.TextColor = KimTools.WinForms.KtColor.Empty;
@@ -10067,7 +10065,6 @@
             empIdEmpleado.MinimumWidth = 6;
             empIdEmpleado.Name = "empIdEmpleado";
             empIdEmpleado.ReadOnly = true;
-            empIdEmpleado.Width = 125;
             // 
             // SucursalEmpleado
             // 
@@ -10077,7 +10074,6 @@
             SucursalEmpleado.MinimumWidth = 6;
             SucursalEmpleado.Name = "SucursalEmpleado";
             SucursalEmpleado.ReadOnly = true;
-            SucursalEmpleado.Width = 125;
             // 
             // panelProductos
             // 
@@ -12847,7 +12843,7 @@
             // 
             // MenuPPal
             // 
-            this.AutoScaleDimensions = new SizeF(12F, 28F);
+            this.AutoScaleDimensions = new SizeF(10F, 21F);
             this.AutoScaleMode = AutoScaleMode.Font;
             this.BackColor = Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98);
             this.Background = new KimTools.WinForms.KtBrushSolid(new KimTools.WinForms.KtColor(Color.FromArgb((int)(byte)173, (int)(byte)151, (int)(byte)98), null, null));

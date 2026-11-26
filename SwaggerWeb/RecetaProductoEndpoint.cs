@@ -29,7 +29,7 @@ namespace SwaggerWeb
             .AllowAnonymous()
             .WithOpenApi();
 
-            app.MapPut("/Recetas", async (RecetaProductoDTO rtaModifdto, IRecetaProductoServicio recetaService) =>
+            app.MapPatch("/Recetas", async (RecetaProductoDTO rtaModifdto, IRecetaProductoServicio recetaService) =>
             {
                 try
                 {

@@ -14,6 +14,7 @@ namespace Alemana.DTOs
 
         public virtual ICollection<MateriapRecetaDTO> MateriapReceta { get; set; } = new List<MateriapRecetaDTO>(); 
 
+        public int Rinde { get; set; }
 
     }
 }

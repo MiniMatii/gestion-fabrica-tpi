@@ -17,7 +17,7 @@ namespace MenuDesk
         public MiniMenuReceta()
         {
             InitializeComponent();
-            AplicarEstiloTabla(tablaER);
+            AplicarEstiloTabla(dgvMateriasAR,tablaER);
             MaximizeBox = false;
             Deactivate += MiniMenuReceta_Deactivate;
             VisibleChanged += MiniMenuReceta_VisibleChanged;
@@ -151,7 +151,8 @@ namespace MenuDesk
                 var r = new RecetaProductoDTO
                 {
                     Descripcion = textBoxDescAR.Text.Trim(),
-                    MateriapReceta = insumos
+                    MateriapReceta = insumos,
+                    Rinde = Convert.ToInt32(rindeReceta.Text)
                 };
 
                 buttonGuardarReceta.Enabled = false;     // evita el doble clic
@@ -217,10 +218,7 @@ namespace MenuDesk
 
         private void ConfigurarGrillaMaterias()
         {
-            dgvMateriasAR.AutoGenerateColumns = false;
-            dgvMateriasAR.AllowUserToAddRows = false;
-            dgvMateriasAR.AllowUserToDeleteRows = false;
-            dgvMateriasAR.RowHeadersVisible = false;
+
             dgvMateriasAR.Columns.Clear();
 
             dgvMateriasAR.Columns.Add(new DataGridViewCheckBoxColumn
@@ -292,19 +290,44 @@ namespace MenuDesk
             }
         }
 
-        private void AplicarEstiloTabla(DataGridView g)
+        //private void AplicarEstiloTabla(DataGridView g)
+        //{
+        //    var fondo = Color.FromArgb(0, 78, 65);
+        //    var texto = Color.White;
+
+        //    foreach (var estilo in new[] { g.DefaultCellStyle, g.AlternatingRowsDefaultCellStyle })
+        //    {
+        //        estilo.BackColor = fondo;
+        //        estilo.ForeColor = texto;
+        //        estilo.SelectionBackColor = Color.FromArgb(173, 151, 98);  
+        //        estilo.SelectionForeColor = Color.White;
+        //    }
+        //}
+        private static void AplicarEstiloTabla(params DataGridView[] tablas)
         {
-            var fondo = Color.FromArgb(0, 78, 65);
-            var texto = Color.White;
+            var verde = Color.FromArgb(0, 78, 65);
+            var dorado = Color.FromArgb(173, 151, 98);
 
-            foreach (var estilo in new[] { g.DefaultCellStyle, g.AlternatingRowsDefaultCellStyle })
+
+            foreach (var g in tablas)
             {
-                estilo.BackColor = fondo;
-                estilo.ForeColor = texto;
-                estilo.SelectionBackColor = Color.FromArgb(173, 151, 98);  
-                estilo.SelectionForeColor = Color.White;
-            }
-        }
+                if (g == null) continue;
+                foreach (var estilo in new[] { g.DefaultCellStyle, g.AlternatingRowsDefaultCellStyle })
+                {
 
+                    estilo.BackColor = verde;
+                    estilo.ForeColor = Color.White;
+                    estilo.SelectionBackColor = dorado;
+                    estilo.SelectionForeColor = Color.White;
+                }
+
+
+                g.ColumnHeadersDefaultCellStyle.BackColor = verde;
+                g.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                g.ColumnHeadersDefaultCellStyle.SelectionBackColor = verde;
+                g.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            }
+
+        }
     }
 }

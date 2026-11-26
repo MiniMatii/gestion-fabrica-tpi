@@ -485,8 +485,9 @@ public partial class DbAlemanaContext : DbContext
             entity.Property(e => e.Descripcion)
                 .HasColumnType("text")
                 .HasColumnName("descripcion");
+            entity.Property(e => e.Rinde).HasColumnName("rinde");
         });
-
+        //
         modelBuilder.Entity<Solicitudpedido>(entity =>
         {
             entity.HasKey(e => e.IdPedido).HasName("PRIMARY");
